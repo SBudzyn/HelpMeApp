@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31919.166
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelpMeApp.WebAPI", "HelpMeApp.WebAPI\HelpMeApp.WebAPI.csproj", "{DB89F3EE-4BA4-409D-AAAD-004D75073AF1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HelpMeApp.WebAPI", "HelpMeApp.WebAPI\HelpMeApp.WebAPI.csproj", "{DB89F3EE-4BA4-409D-AAAD-004D75073AF1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelpMeApp.Services", "HelpMeApp.Services\HelpMeApp.Services.csproj", "{78E86129-632C-4B72-A7D1-190AA8419455}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HelpMeApp.Services", "HelpMeApp.Services\HelpMeApp.Services.csproj", "{78E86129-632C-4B72-A7D1-190AA8419455}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelpMeApp.DAL", "HelpMeApp.DAL\HelpMeApp.DAL.csproj", "{DED5147D-D26B-4621-AC22-BC6EA76A2CD1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelpMeApp.Repositories", "HelpMeApp.Repositories\HelpMeApp.Repositories.csproj", "{27BC2301-6652-4FA5-B292-218A91F449AD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{78E86129-632C-4B72-A7D1-190AA8419455}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{78E86129-632C-4B72-A7D1-190AA8419455}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{78E86129-632C-4B72-A7D1-190AA8419455}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DED5147D-D26B-4621-AC22-BC6EA76A2CD1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DED5147D-D26B-4621-AC22-BC6EA76A2CD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DED5147D-D26B-4621-AC22-BC6EA76A2CD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DED5147D-D26B-4621-AC22-BC6EA76A2CD1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{27BC2301-6652-4FA5-B292-218A91F449AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27BC2301-6652-4FA5-B292-218A91F449AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27BC2301-6652-4FA5-B292-218A91F449AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27BC2301-6652-4FA5-B292-218A91F449AD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

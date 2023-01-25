@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\HelpMeApp.DAL\HelpMeApp.DAL.csproj" />
+    <ProjectReference Include="..\HelpMeApp.Repositories\HelpMeApp.Repositories.csproj" />
   </ItemGroup>
 
 </Project>
