@@ -1,19 +1,16 @@
 ﻿using HelpMeApp.DatabaseAccess.Entities.AdvertEntity;
 using HelpMeApp.DatabaseAccess.Entities.ChatEntity;
 using HelpMeApp.DatabaseAccess.Entities.ReportEntity;
+using Microsoft.AspNetCore.Identity;
 
-namespace HelpMeApp.DatabaseAccess.Entities.UserEntity
+namespace HelpMeApp.DatabaseAccess.Entities.AppUserEntity
 {
-    public class User
+    public class AppUser : IdentityUser<Guid>
     {
-        public int Id { get; set; }
         public string Name { get; set; } = null!;
         public string Surname { get; set; } = null!;
         public int? Phone { get; set; }
-        public string Email { get; set; } = null!;
-
         public byte[]? Photo { get; set; }
-
         public DateTime RegistrationDate { get; set; }
         public string? Info { get; set; }
         public bool IsBlocked { get; set; }

@@ -1,4 +1,6 @@
+using HelpMeApp.DatabaseAccess.Entities.AppUserEntity;
 using HelpMeApp.Repositories;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,12 +14,32 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<HelpMeDbContext>(opts =>
 {
-    var connString = builder.Configuration.GetConnectionString("MyConnectionString");
-    opts.UseSqlServer(connString, options =>
-    {
-        options.MigrationsAssembly(typeof(HelpMeDbContext).Assembly.FullName.Split(',')[0]);
-    });
+    var connectionString = builder.Configuration.GetConnectionString("MyConnectionString");
+    opts.UseSqlServer(connectionString);
 });
+
+builder.Services.AddAuthentication(o =>
+{
+    o.DefaultScheme = IdentityConstants.ApplicationScheme;
+    o.DefaultSignInScheme = IdentityConstants.ExternalScheme;
+})
+.AddIdentityCookies(o => { });
+
+builder.Services.AddIdentity<AppUser, IdentityRole<Guid>>
+    (options =>
+    {
+        options.SignIn.RequireConfirmedEmail= true;
+        options.SignIn.RequireConfirmedAccount= true;
+        options.Password.RequireDigit= true;
+        options.Password.RequiredLength= 10;
+        options.Password.RequireNonAlphanumeric= true;
+        options.Password.RequireLowercase= true;
+        options.Password.RequireUppercase= true;
+    }
+    )
+    .AddEntityFrameworkStores<HelpMeDbContext>();
+
+builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
@@ -28,12 +50,27 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+//if (!app.Environment.IsDevelopment())
+//{
+//    app.UseExceptionHandler("/Error");
+//    app.UseHsts();
+//}
 
 
 app.UseHttpsRedirection();
+app.UseStaticFiles();
+
+app.UseRouting();
 
 app.UseAuthorization();
 
-app.MapControllers();
+//app.MapControllers();
 
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllerRoute(
+        name: "default",
+        pattern: "{controller=Home}/{action=Index}/{id?}");
+});
 app.Run();
+

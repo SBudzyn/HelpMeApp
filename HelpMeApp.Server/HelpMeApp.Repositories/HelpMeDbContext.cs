@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using HelpMeApp.DatabaseAccess.Entities.UserEntity;
+using HelpMeApp.DatabaseAccess.Entities.AppUserEntity;
 using HelpMeApp.DatabaseAccess.Entities.ChatEntity;
 using HelpMeApp.DatabaseAccess.Entities.AdvertEntity;
 using HelpMeApp.DatabaseAccess.Entities.CategoryEntity;
@@ -9,10 +9,12 @@ using HelpMeApp.DatabaseAccess.Entities.PhotoEntity;
 using HelpMeApp.DatabaseAccess.Entities.ReportEntity;
 using HelpMeApp.DatabaseAccess.Entities.SenderRoleEntity;
 using HelpMeApp.DatabaseAccess.Entities.TermsEntity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace HelpMeApp.Repositories
 {
-    public class HelpMeDbContext : DbContext
+    public class HelpMeDbContext : IdentityDbContext<AppUser, IdentityRole<Guid>, Guid>
     {
 
         public HelpMeDbContext(DbContextOptions<HelpMeDbContext> options) : base(options)
@@ -37,7 +39,6 @@ namespace HelpMeApp.Repositories
             modelBuilder.ApplyConfiguration(new ReportConfiguration());
             modelBuilder.ApplyConfiguration(new SenderRoleConfiguration());
             modelBuilder.ApplyConfiguration(new TermsConfiguration());
-            modelBuilder.ApplyConfiguration(new UserConfiguration());
         }
 
         public DbSet<Advert> Adverts { get; set; } = null!;
@@ -49,6 +50,5 @@ namespace HelpMeApp.Repositories
         public DbSet<Report> Reports { get; set; } = null!;
         public DbSet<SenderRole> SenderRoles { get; set; } = null!;
         public DbSet<Terms> Terms { get; set; } = null!;
-        public DbSet<User> Users { get; set; } = null!;
     }
 }

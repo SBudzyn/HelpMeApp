@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace HelpMeApp.DatabaseAccess.Entities.UserEntity
+namespace HelpMeApp.DatabaseAccess.Entities.AppUserEntity
 {
-    public class UserConfiguration : IEntityTypeConfiguration<User>
+    public class AppUserConfiguration : IEntityTypeConfiguration<AppUser>
     {
-        public void Configure(EntityTypeBuilder<User> builder)
+        public void Configure(EntityTypeBuilder<AppUser> builder)
         {
             builder
                 .HasKey(x => x.Id);

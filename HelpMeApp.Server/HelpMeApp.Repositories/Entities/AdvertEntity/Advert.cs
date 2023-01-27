@@ -4,7 +4,7 @@ using HelpMeApp.DatabaseAccess.Entities.HelpTypeEntity;
 using HelpMeApp.DatabaseAccess.Entities.PhotoEntity;
 using HelpMeApp.DatabaseAccess.Entities.ReportEntity;
 using HelpMeApp.DatabaseAccess.Entities.TermsEntity;
-using HelpMeApp.DatabaseAccess.Entities.UserEntity;
+using HelpMeApp.DatabaseAccess.Entities.AppUserEntity;
 
 namespace HelpMeApp.DatabaseAccess.Entities.AdvertEntity
 {
@@ -15,8 +15,8 @@ namespace HelpMeApp.DatabaseAccess.Entities.AdvertEntity
         public string Info { get; set; } = null!;
         public string Location { get; set; } = null!;
 
-        public int CreatorId { get; set; }
-        public User Creator { get; set; } = null!;
+        public Guid CreatorId { get; set; }
+        public AppUser Creator { get; set; } = null!;
 
         public int HelpTypeId { get; set; }
         public HelpType HelpType { get; set; } = null!;
