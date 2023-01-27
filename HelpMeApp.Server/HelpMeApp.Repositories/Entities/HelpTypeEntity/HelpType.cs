@@ -1,4 +1,4 @@
-﻿namespace HelpMeApp.Repositories.Entities.HelpTypeEntity
+﻿namespace HelpMeApp.DatabaseAccess.Entities.HelpTypeEntity
 {
     public class HelpType
     {

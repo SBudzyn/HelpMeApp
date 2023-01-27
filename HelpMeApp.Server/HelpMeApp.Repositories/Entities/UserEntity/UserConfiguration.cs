@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HelpMeApp.DatabaseAccess.Entities.UserEntity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace HelpMeApp.Repositories.Entities.UserEntity
+namespace HelpMeApp.DatabaseAccess.Entities.UserEntity
 {
     public class UserConfiguration : IEntityTypeConfiguration<User>
     {
@@ -30,8 +31,8 @@ namespace HelpMeApp.Repositories.Entities.UserEntity
                 .Property(x => x.Email)
                 .IsRequired();
 
-            //builder
-              //  .Property(x => x.PhotoId);
+            builder
+                .Property(x => x.Photo);
 
             builder
                 .Property(x => x.RegistrationDate)
@@ -46,20 +47,20 @@ namespace HelpMeApp.Repositories.Entities.UserEntity
                 .IsRequired()
                 .HasDefaultValue(false);
 
-            //builder
-            //    .HasMany(x => x.Adverts)
-            //    .WithOne(x => x.Creator)
-            //    .HasForeignKey(x => x.CreatorId)
-            //    .OnDelete(DeleteBehavior.Cascade);
-
-            //builder
-            //    .HasMany(x => x.Reports)
-            //    .WithOne(x => x.User)
-            //    .HasForeignKey(x => x.UserId)
-            //    .OnDelete(DeleteBehavior.Cascade);
+            builder
+                .HasMany(x => x.Adverts)
+                .WithOne(x => x.Creator)
+                .HasForeignKey(x => x.CreatorId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder
-                .HasMany(x => x.Chatters)
+                .HasMany(x => x.Reports)
+                .WithOne(x => x.User)
+                .HasForeignKey(x => x.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder
+                .HasMany(x => x.Chats)
                 .WithOne(x => x.User)
                 .HasForeignKey(x => x.UserId)
                 .OnDelete(DeleteBehavior.Cascade);

@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using HelpMeApp.Repositories.Entities.AdvertEntity;
-using HelpMeApp.Repositories.Entities.ChatterEntity;
-using HelpMeApp.Repositories.Entities.PhotoEntity;
-using HelpMeApp.Repositories.Entities.ReportEntity;
+using HelpMeApp.DatabaseAccess.Entities.AdvertEntity;
+using HelpMeApp.DatabaseAccess.Entities.ChatEntity;
+using HelpMeApp.DatabaseAccess.Entities.PhotoEntity;
+using HelpMeApp.DatabaseAccess.Entities.ReportEntity;
 
-namespace HelpMeApp.Repositories.Entities.UserEntity
+namespace HelpMeApp.DatabaseAccess.Entities.UserEntity
 {
     public class User
     {
@@ -18,15 +18,14 @@ namespace HelpMeApp.Repositories.Entities.UserEntity
         public int? Phone { get; set; }
         public string Email { get; set; } = null!;
 
-        public int PhotoId { get; set; }
-        public Photo Photo { get; set; } = null!;
+        public byte[]? Photo { get; set; }
 
         public DateTime RegistrationDate { get; set; }
         public string? Info { get; set; }
         public bool IsBlocked { get; set; }
 
-        //public List<Advert> Adverts { get; set; } = new List<Advert>();
-        //public List<Report> Reports { get; set; } = new List<Report>();
-        public List<Chatter> Chatters { get; set; } = new List<Chatter>();
+        public List<Advert> Adverts { get; set; } = new List<Advert>();
+        public List<Report> Reports { get; set; } = new List<Report>();
+        public List<Chat> Chats { get; set; } = new List<Chat>();
     }
 }

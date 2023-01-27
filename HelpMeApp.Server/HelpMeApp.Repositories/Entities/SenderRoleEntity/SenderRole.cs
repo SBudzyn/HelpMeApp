@@ -1,4 +1,4 @@
-﻿namespace HelpMeApp.Repositories.Entities.SenderRoleEntity
+﻿namespace HelpMeApp.DatabaseAccess.Entities.SenderRoleEntity
 {
     public class SenderRole
     {

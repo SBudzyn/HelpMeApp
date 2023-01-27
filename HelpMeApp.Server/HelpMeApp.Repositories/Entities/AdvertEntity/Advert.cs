@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using HelpMeApp.Repositories.Entities.CategoryEntity;
-using HelpMeApp.Repositories.Entities.ChatterEntity;
-using HelpMeApp.Repositories.Entities.HelpTypeEntity;
-using HelpMeApp.Repositories.Entities.PhotoEntity;
-using HelpMeApp.Repositories.Entities.ReportEntity;
-using HelpMeApp.Repositories.Entities.TermsEntity;
-using HelpMeApp.Repositories.Entities.UserEntity;
+using HelpMeApp.DatabaseAccess.Entities.CategoryEntity;
+using HelpMeApp.DatabaseAccess.Entities.ChatEntity;
+using HelpMeApp.DatabaseAccess.Entities.HelpTypeEntity;
+using HelpMeApp.DatabaseAccess.Entities.PhotoEntity;
+using HelpMeApp.DatabaseAccess.Entities.ReportEntity;
+using HelpMeApp.DatabaseAccess.Entities.TermsEntity;
+using HelpMeApp.DatabaseAccess.Entities.UserEntity;
 
-namespace HelpMeApp.Repositories.Entities.AdvertEntity
+namespace HelpMeApp.DatabaseAccess.Entities.AdvertEntity
 {
     public class Advert
     {
@@ -39,6 +39,6 @@ namespace HelpMeApp.Repositories.Entities.AdvertEntity
         public bool IsActive { get; set; }
 
         public List<Report> Reports { get; set; } = new List<Report>();
-        public List<Chatter> Chatters { get; set; } = new List<Chatter>();
+        public List<Chat> Chats { get; set; } = new List<Chat>();
     }
 }

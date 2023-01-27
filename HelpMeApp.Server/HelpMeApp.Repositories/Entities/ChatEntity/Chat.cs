@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using HelpMeApp.DatabaseAccess.Entities.AdvertEntity;
+using HelpMeApp.DatabaseAccess.Entities.MessageEntity;
 using HelpMeApp.DatabaseAccess.Entities.UserEntity;
 
-namespace HelpMeApp.DatabaseAccess.Entities.ReportEntity
+namespace HelpMeApp.DatabaseAccess.Entities.ChatEntity
 {
-    public class Report
+    public class Chat
     {
         public int Id { get; set; }
 
@@ -18,6 +19,9 @@ namespace HelpMeApp.DatabaseAccess.Entities.ReportEntity
         public int AdvertId { get; set; }
         public Advert Advert { get; set; } = null!;
 
-        public string? Text { get; set; }
+        public bool IsConfirmedBySecondSide { get; set; }
+        public bool IsConfirmedByCreator { get; set; }
+
+        public List<Message> Messages { get; set; } = new List<Message>();
     }
 }

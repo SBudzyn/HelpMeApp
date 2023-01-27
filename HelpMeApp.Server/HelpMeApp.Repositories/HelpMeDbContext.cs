@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using HelpMeApp.Repositories.Entities.UserEntity;
-using HelpMeApp.Repositories.Entities.ChatterEntity;
+using HelpMeApp.DatabaseAccess.Entities.UserEntity;
+using HelpMeApp.DatabaseAccess.Entities.ChatEntity;
 
-namespace HelpMeApp.WebAPI
+namespace HelpMeApp.Repositories
 {
     public class HelpMeDbContext : DbContext
     {
@@ -13,7 +13,7 @@ namespace HelpMeApp.WebAPI
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            
+
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -21,10 +21,10 @@ namespace HelpMeApp.WebAPI
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.ApplyConfiguration(new UserConfiguration());
-            modelBuilder.ApplyConfiguration(new ChattersConfiguration());
+            modelBuilder.ApplyConfiguration(new ChatsConfiguration());
         }
 
         public DbSet<User> Users { get; set; } = null!;
-        public DbSet<Chatter> Chatters { get; set; } = null!;
+        public DbSet<Chat> Chats { get; set; } = null!;
     }
 }

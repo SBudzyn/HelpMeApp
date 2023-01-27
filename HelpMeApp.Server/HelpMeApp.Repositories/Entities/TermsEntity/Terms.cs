@@ -1,4 +1,4 @@
-﻿namespace HelpMeApp.Repositories.Entities.TermsEntity
+﻿namespace HelpMeApp.DatabaseAccess.Entities.TermsEntity
 {
     public class Terms
     {

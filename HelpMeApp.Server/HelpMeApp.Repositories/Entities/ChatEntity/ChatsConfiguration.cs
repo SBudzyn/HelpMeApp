@@ -6,17 +6,21 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace HelpMeApp.Repositories.Entities.ChatterEntity
+namespace HelpMeApp.DatabaseAccess.Entities.ChatEntity
 {
-    public class ChattersConfiguration : IEntityTypeConfiguration<Chatter>
+    public class ChatsConfiguration : IEntityTypeConfiguration<Chat>
     {
-        public void Configure(EntityTypeBuilder<Chatter> builder)
+        public void Configure(EntityTypeBuilder<Chat> builder)
         {
             builder
                 .HasKey(x => x.Id);
 
             builder
                 .Property(x => x.UserId)
+                .IsRequired();
+
+            builder
+                .Property(x => x.AdvertId)
                 .IsRequired();
 
             builder
@@ -28,6 +32,13 @@ namespace HelpMeApp.Repositories.Entities.ChatterEntity
                 .Property(x => x.IsConfirmedByCreator)
                 .IsRequired()
                 .HasDefaultValue(false);
+
+            builder
+                .HasMany(x => x.Messages)
+                .WithOne(x => x.Chat)
+                .HasForeignKey(x => x.ChatId)
+                .OnDelete(DeleteBehavior.Cascade);
+                
         }
     }
 }

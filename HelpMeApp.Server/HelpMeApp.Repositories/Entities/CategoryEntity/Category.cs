@@ -1,4 +1,4 @@
-﻿namespace HelpMeApp.Repositories.Entities.CategoryEntity
+﻿namespace HelpMeApp.DatabaseAccess.Entities.CategoryEntity
 {
     public class Category
     {

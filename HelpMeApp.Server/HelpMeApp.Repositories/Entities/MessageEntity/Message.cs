@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using HelpMeApp.Repositories.Entities.ChatterEntity;
-using HelpMeApp.Repositories.Entities.SenderRoleEntity;
+using HelpMeApp.DatabaseAccess.Entities.ChatEntity;
+using HelpMeApp.DatabaseAccess.Entities.SenderRoleEntity;
 
-namespace HelpMeApp.Repositories.Entities.MessageEntity
+namespace HelpMeApp.DatabaseAccess.Entities.MessageEntity
 {
     public class Message
     {
@@ -15,10 +15,10 @@ namespace HelpMeApp.Repositories.Entities.MessageEntity
         public int SenderRoleId { get; set; }
         public SenderRole SenderRole { get; set; } = null!;
 
-        public int ChatterId { get; set; }
-        public Chatter Chatter { get; set; } = null!;
+        public int ChatId { get; set; }
+        public Chat Chat { get; set; } = null!;
 
-        public string? Text { get; set; }
+        public string Text { get; set; } = null!;
         public DateTime CreationDate { get; set; }
     }
 }
