@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using HelpMeApp.DatabaseAccess.Entities.AdvertEntity;
+﻿using HelpMeApp.DatabaseAccess.Entities.AdvertEntity;
 using HelpMeApp.DatabaseAccess.Entities.MessageEntity;
 using HelpMeApp.DatabaseAccess.Entities.UserEntity;
 

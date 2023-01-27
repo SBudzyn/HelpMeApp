@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using HelpMeApp.DatabaseAccess.Entities.AdvertEntity;
+﻿using HelpMeApp.DatabaseAccess.Entities.AdvertEntity;
 using HelpMeApp.DatabaseAccess.Entities.ChatEntity;
-using HelpMeApp.DatabaseAccess.Entities.PhotoEntity;
 using HelpMeApp.DatabaseAccess.Entities.ReportEntity;
 
 namespace HelpMeApp.DatabaseAccess.Entities.UserEntity

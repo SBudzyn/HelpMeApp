@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using HelpMeApp.DatabaseAccess.Entities.CategoryEntity;
+﻿using HelpMeApp.DatabaseAccess.Entities.CategoryEntity;
 using HelpMeApp.DatabaseAccess.Entities.ChatEntity;
 using HelpMeApp.DatabaseAccess.Entities.HelpTypeEntity;
 using HelpMeApp.DatabaseAccess.Entities.PhotoEntity;
@@ -36,7 +31,7 @@ namespace HelpMeApp.DatabaseAccess.Entities.AdvertEntity
 
         public DateTime CreationDate { get; set; }
         public DateTime ClosureDate { get; set; }
-        public bool IsActive { get; set; }
+        public bool? IsActive { get; set; }
 
         public List<Report> Reports { get; set; } = new List<Report>();
         public List<Chat> Chats { get; set; } = new List<Chat>();

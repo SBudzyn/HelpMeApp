@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace HelpMeApp.DatabaseAccess.Entities.AdvertEntity
@@ -43,7 +38,7 @@ namespace HelpMeApp.DatabaseAccess.Entities.AdvertEntity
                 .HasMany(x => x.Photos)
                 .WithOne(x => x.Advert)
                 .HasForeignKey(x => x.AdvertId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.NoAction);
 
             builder
                 .Property(x => x.CreationDate)
@@ -62,13 +57,13 @@ namespace HelpMeApp.DatabaseAccess.Entities.AdvertEntity
                 .HasMany(x => x.Reports)
                 .WithOne(x => x.Advert)
                 .HasForeignKey(x => x.AdvertId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.NoAction);
 
             builder
                 .HasMany(x => x.Chats)
                 .WithOne(x => x.Advert)
                 .HasForeignKey(x => x.AdvertId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

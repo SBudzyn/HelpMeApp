@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace HelpMeApp.DatabaseAccess.Entities.ChatEntity
 {
-    public class ChatsConfiguration : IEntityTypeConfiguration<Chat>
+    public class ChatConfiguration : IEntityTypeConfiguration<Chat>
     {
         public void Configure(EntityTypeBuilder<Chat> builder)
         {
@@ -37,7 +32,7 @@ namespace HelpMeApp.DatabaseAccess.Entities.ChatEntity
                 .HasMany(x => x.Messages)
                 .WithOne(x => x.Chat)
                 .HasForeignKey(x => x.ChatId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.NoAction);
                 
         }
     }
