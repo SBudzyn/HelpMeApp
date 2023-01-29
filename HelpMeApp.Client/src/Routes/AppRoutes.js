@@ -1,9 +1,10 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 
-import { routes } from '../configs/index';
+import { routes } from '../Constants/index';
 
-import AuthForm from '../components/registration form/index';
+import LoginForm from '../Components/AuthorizationForms/LoginForm';
+import RegistrationForm from '../Components/AuthorizationForms/RegistrationForm';
 
 const {
     pathToHomePage,
@@ -17,8 +18,8 @@ const AppRoutes = () => {
     return (
             <Routes>
                 <Route path={pathToHomePage} exact element={<h1>Home page</h1>} />
-                <Route path={pathToLoginPage} element={<AuthForm formType='login'/>}/>
-                <Route path={pathToSignUpPage} element={<AuthForm formType='register'/>} />
+                <Route path={pathToLoginPage} element={<LoginForm />}/>
+                <Route path={pathToSignUpPage} element={<RegistrationForm />} />
             </Routes> 
     );
 }

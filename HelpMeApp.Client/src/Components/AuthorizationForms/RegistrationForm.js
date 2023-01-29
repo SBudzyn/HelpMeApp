@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { Formik, Field, Form } from 'formik';
 import { Link } from 'react-router-dom';
-import { routes } from '../../configs/index';
+import { routes } from '../../Constants/Constants';
 import Modal from 'react-bootstrap/Modal'
 import 'bootstrap/dist/css/bootstrap.css';
-import './index.css';
+import './AuthorizationForms.css';
 
 const {
     pathToLoginPage,
@@ -13,7 +13,7 @@ const {
 
 
 
-const AuthForm = (props) => {
+const RegistrationForm = () => {
     const [registrationData, setRegistrationData] = useState({
         email: '',
         password: ''
@@ -28,8 +28,8 @@ const AuthForm = (props) => {
     return (
         <div className='auth-form'>
             <div className="header-button-wrapper">
-                <Link to={pathToLoginPage}><button className={(props.formType === 'login' ? "current-form-type " : "other-form-type ") + "normal-button header-button left-button"}>login</button></Link>
-                <Link to={pathToSignUpPage}><button className={(props.formType === 'register' ? "current-form-type " : "other-form-type ") + "normal-button header-button right-button"}>registration</button></Link>
+                <Link to={pathToLoginPage}><button className="other-form-type normal-button header-button left-button">login</button></Link>
+                <Link to={pathToSignUpPage}><button className="current-form-type normal-button header-button right-button">registration</button></Link>
             </div>
             <Formik
                 initialValues={{
@@ -37,13 +37,11 @@ const AuthForm = (props) => {
                     password: ''
                 }}
                 onSubmit={async (values) => {
-                    if (props.formType === 'register') {
-                        setRegistrationData(values);
-                        handleShow();
-                    }
-                    else if (props.formType === 'login') {
-                        alert(JSON.stringify(values, null, 2));
-                    }
+
+                    setRegistrationData(values);
+                    handleShow();
+
+
                 }}
             >
                 <Form className='form'>
@@ -73,7 +71,7 @@ const AuthForm = (props) => {
                         />
                     </div>
                     <br />
-                    <button className='submit-button horizontal-center btn btn-primary mb-3 up' type="submit">{props.formType === 'login' ? 'Submit' : 'Next'}</button>
+                    <button className='submit-button horizontal-center btn btn-primary mb-3 up' type="submit">Next</button>
 
                 </Form>
             </Formik>
@@ -106,9 +104,9 @@ const AuthForm = (props) => {
 
                                     // const formData = new FormData();
                                     // formData.append("file", photo);
-                                    
+
                                     // const response = await fetch('https://localhost:7048/api/Photo', {method: 'POST', body: formData});
-                                    
+
 
                                     //add redirection
                                     handleClose();
@@ -177,7 +175,7 @@ const AuthForm = (props) => {
                                         ></input>
                                     </div>
                                 </div>
-                                <br /> 
+                                <br />
                                 <button type='submit' className='horizontal-center btn btn-primary mb-1 modal-btn'>Register</button>
                             </Form>
                         </Formik>
@@ -190,4 +188,4 @@ const AuthForm = (props) => {
     );
 }
 
-export default AuthForm;
+export default RegistrationForm;
