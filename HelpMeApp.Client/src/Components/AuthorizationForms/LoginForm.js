@@ -1,13 +1,8 @@
 import { Formik, Field, Form } from 'formik';
 import { Link } from 'react-router-dom';
-import { routes } from '../../Constants/routes';
+import routingUrl from '../../constants/routingUrl';
 import 'bootstrap/dist/css/bootstrap.css';
 import './AuthorizationForms.css';
-
-const {
-    pathToLoginPage,
-    pathToSignUpPage
-} = routes;
 
 
 
@@ -16,8 +11,8 @@ const LoginForm = () => {
     return (
         <div className='auth-form'>
             <div className="header-button-wrapper">
-                <Link to={pathToLoginPage}><button className="current-form-type normal-button header-button left-button">login</button></Link>
-                <Link to={pathToSignUpPage}><button className="other-form-type normal-button header-button right-button">registration</button></Link>
+                <Link to={routingUrl.pathToLoginPage}><button className="current-form-type normal-button header-button left-button">login</button></Link>
+                <Link to={routingUrl.pathToSignUpPage}><button className="other-form-type normal-button header-button right-button">registration</button></Link>
             </div>
             <Formik
                 initialValues={{

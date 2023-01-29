@@ -1,25 +1,19 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
+import routingUrl from '../constants/routingUrl';
+import LoginForm from '../components/AuthorizationForms/LoginForm';
+import RegistrationForm from '../components/AuthorizationForms/RegistrationForm';
 
-import { routes } from '../Constants/index';
 
-import LoginForm from '../Components/AuthorizationForms/LoginForm';
-import RegistrationForm from '../Components/AuthorizationForms/RegistrationForm';
-
-const {
-    pathToHomePage,
-    pathToLoginPage,
-    pathToSignUpPage
-} = routes;
 
 
 
 const AppRoutes = () => {
     return (
             <Routes>
-                <Route path={pathToHomePage} exact element={<h1>Home page</h1>} />
-                <Route path={pathToLoginPage} element={<LoginForm />}/>
-                <Route path={pathToSignUpPage} element={<RegistrationForm />} />
+                <Route path={routingUrl.pathToHomePage} exact element={<h1>Home page</h1>} />
+                <Route path={routingUrl.pathToLoginPage} element={<LoginForm />}/>
+                <Route path={routingUrl.pathToSignUpPage} element={<RegistrationForm />} />
             </Routes> 
     );
 }
