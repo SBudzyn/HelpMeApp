@@ -9,10 +9,10 @@ namespace HelpMeApp.DatabaseAccess.Entities.AppUserEntity
     {
         public string Name { get; set; } = null!;
         public string Surname { get; set; } = null!;
-        public string? Phone { get; set; }
-        public byte[]? Photo { get; set; }
+        public string Phone { get; set; }
+        public byte[] Photo { get; set; }
         public DateTime RegistrationDate { get; set; }
-        public string? Info { get; set; }
+        public string Info { get; set; }
         public bool IsBlocked { get; set; }
 
         public List<Advert> Adverts { get; set; } = new List<Advert>();

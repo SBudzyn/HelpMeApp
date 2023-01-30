@@ -41,14 +41,14 @@ namespace HelpMeApp.Repositories
             modelBuilder.ApplyConfiguration(new TermsConfiguration());
         }
 
-        public DbSet<Advert> Adverts { get; set; } = null!;
-        public DbSet<Category> Categories { get; set; } = null!;
-        public DbSet<Chat> Chats { get; set; } = null!;
-        public DbSet<HelpType> HelpTypes { get; set; } = null!;
-        public DbSet<Message> Messages { get; set; } = null!;
-        public DbSet<Photo> Photos { get; set; } = null!;
-        public DbSet<Report> Reports { get; set; } = null!;
-        public DbSet<SenderRole> SenderRoles { get; set; } = null!;
-        public DbSet<Terms> Terms { get; set; } = null!;
+        public DbSet<Advert> Adverts { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Chat> Chats { get; set; }
+        public DbSet<HelpType> HelpTypes { get; set; }
+        public DbSet<Message> Messages { get; set; }
+        public DbSet<Photo> Photos { get; set; }
+        public DbSet<Report> Reports { get; set; }
+        public DbSet<SenderRole> SenderRoles { get; set; }
+        public DbSet<Terms> Terms { get; set; }
     }
 }
