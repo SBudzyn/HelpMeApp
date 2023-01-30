@@ -19,22 +19,13 @@ namespace HelpMeApp.DatabaseAccess.Entities.AppUserEntity
                 .IsRequired();
 
             builder
-                .Property(x => x.Phone);
-
-            builder
                 .Property(x => x.Email)
                 .IsRequired();
-
-            builder
-                .Property(x => x.Photo);
 
             builder
                 .Property(x => x.RegistrationDate)
                 .IsRequired()
                 .HasDefaultValue(DateTime.Now);
-
-            builder
-                .Property(x => x.Info);
 
             builder
                 .Property(x => x.IsBlocked)

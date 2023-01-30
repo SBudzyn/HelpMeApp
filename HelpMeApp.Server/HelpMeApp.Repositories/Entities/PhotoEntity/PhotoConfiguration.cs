@@ -15,7 +15,8 @@ namespace HelpMeApp.DatabaseAccess.Entities.PhotoEntity
                 .IsRequired();
 
             builder
-                .Property(x => x.Data);
+                .Property(x => x.Data)
+                .IsRequired();
         }
     }
 }

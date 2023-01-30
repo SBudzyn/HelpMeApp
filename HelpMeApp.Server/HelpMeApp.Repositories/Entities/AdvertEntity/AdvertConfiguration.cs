@@ -23,18 +23,6 @@ namespace HelpMeApp.DatabaseAccess.Entities.AdvertEntity
                 .IsRequired();
 
             builder
-                .Property(x => x.CreatorId);
-
-            builder
-                .Property(x => x.HelpTypeId);
-
-            builder
-                .Property(x => x.CategoryId);
-
-            builder
-                .Property(x => x.TermsId);
-
-            builder
                 .HasMany(x => x.Photos)
                 .WithOne(x => x.Advert)
                 .HasForeignKey(x => x.AdvertId)
@@ -44,9 +32,6 @@ namespace HelpMeApp.DatabaseAccess.Entities.AdvertEntity
                 .Property(x => x.CreationDate)
                 .IsRequired()
                 .HasDefaultValue(DateTime.Now);
-
-            builder
-                .Property(x => x.ClosureDate);
 
             builder
                 .Property(x => x.IsActive)

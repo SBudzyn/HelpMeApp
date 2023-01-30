@@ -8,7 +8,7 @@ namespace HelpMeApp.DatabaseAccess.Entities.ChatEntity
         public void Configure(EntityTypeBuilder<Chat> builder)
         {
             builder
-                .HasKey(x => x.Id);
+                .HasKey(x => new { x.Id, x.UserId, x.AdvertId });
 
             builder
                 .Property(x => x.UserId)

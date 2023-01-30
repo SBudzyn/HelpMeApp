@@ -17,9 +17,6 @@ namespace HelpMeApp.DatabaseAccess.Entities.ReportEntity
             builder
                 .Property(x => x.AdvertId) 
                 .IsRequired();
-
-            builder
-                .Property(x => x.Text);
         }
     }
 }

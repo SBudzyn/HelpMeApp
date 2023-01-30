@@ -18,28 +18,16 @@ builder.Services.AddDbContext<HelpMeDbContext>(opts =>
     opts.UseSqlServer(connectionString);
 });
 
-builder.Services.AddAuthentication(o =>
-{
-    o.DefaultScheme = IdentityConstants.ApplicationScheme;
-    o.DefaultSignInScheme = IdentityConstants.ExternalScheme;
-})
-.AddIdentityCookies(o => { });
-
 builder.Services.AddIdentity<AppUser, IdentityRole<Guid>>
     (options =>
     {
-        options.SignIn.RequireConfirmedEmail= true;
-        options.SignIn.RequireConfirmedAccount= true;
         options.Password.RequireDigit= true;
-        options.Password.RequiredLength= 10;
-        options.Password.RequireNonAlphanumeric= true;
+        options.Password.RequiredLength= 8;
         options.Password.RequireLowercase= true;
         options.Password.RequireUppercase= true;
     }
     )
     .AddEntityFrameworkStores<HelpMeDbContext>();
-
-builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
@@ -56,21 +44,15 @@ if (app.Environment.IsDevelopment())
 //    app.UseHsts();
 //}
 
-
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
-//app.MapControllers();
+app.MapControllers();
 
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapControllerRoute(
-        name: "default",
-        pattern: "{controller=Home}/{action=Index}/{id?}");
-});
 app.Run();
 

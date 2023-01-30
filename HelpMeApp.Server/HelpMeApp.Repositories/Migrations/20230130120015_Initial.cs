@@ -32,7 +32,7 @@ namespace HelpMeApp.DatabaseAccess.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Surname = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Phone = table.Column<int>(type: "int", nullable: true),
+                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Photo = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
                     RegistrationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Info = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -228,7 +228,7 @@ namespace HelpMeApp.DatabaseAccess.Migrations
                     HelpTypeId = table.Column<int>(type: "int", nullable: false),
                     CategoryId = table.Column<int>(type: "int", nullable: false),
                     TermsId = table.Column<int>(type: "int", nullable: false),
-                    CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 1, 28, 0, 41, 35, 263, DateTimeKind.Local).AddTicks(6695)),
+                    CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 1, 30, 14, 0, 14, 995, DateTimeKind.Local).AddTicks(4776)),
                     ClosureDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false, defaultValue: true)
                 },
@@ -342,7 +342,7 @@ namespace HelpMeApp.DatabaseAccess.Migrations
                     SenderRoleId = table.Column<int>(type: "int", nullable: false),
                     ChatId = table.Column<int>(type: "int", nullable: false),
                     Text = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 1, 28, 0, 41, 35, 264, DateTimeKind.Local).AddTicks(1031))
+                    CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 1, 30, 14, 0, 14, 995, DateTimeKind.Local).AddTicks(9235))
                 },
                 constraints: table =>
                 {

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HelpMeApp.DatabaseAccess.Migrations
 {
     [DbContext(typeof(HelpMeDbContext))]
-    [Migration("20230127224135_Initial")]
+    [Migration("20230130120015_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -42,7 +42,7 @@ namespace HelpMeApp.DatabaseAccess.Migrations
                     b.Property<DateTime>("CreationDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 1, 28, 0, 41, 35, 263, DateTimeKind.Local).AddTicks(6695));
+                        .HasDefaultValue(new DateTime(2023, 1, 30, 14, 0, 14, 995, DateTimeKind.Local).AddTicks(4776));
 
                     b.Property<Guid>("CreatorId")
                         .HasColumnType("uniqueidentifier");
@@ -131,8 +131,8 @@ namespace HelpMeApp.DatabaseAccess.Migrations
                     b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("Phone")
-                        .HasColumnType("int");
+                    b.Property<string>("Phone")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
@@ -254,7 +254,7 @@ namespace HelpMeApp.DatabaseAccess.Migrations
                     b.Property<DateTime>("CreationDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 1, 28, 0, 41, 35, 264, DateTimeKind.Local).AddTicks(1031));
+                        .HasDefaultValue(new DateTime(2023, 1, 30, 14, 0, 14, 995, DateTimeKind.Local).AddTicks(9235));
 
                     b.Property<int>("SenderRoleId")
                         .HasColumnType("int");
