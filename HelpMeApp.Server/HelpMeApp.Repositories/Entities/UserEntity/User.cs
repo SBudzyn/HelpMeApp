@@ -9,7 +9,7 @@ namespace HelpMeApp.DatabaseAccess.Entities.UserEntity
         public int Id { get; set; }
         public string Name { get; set; } = null!;
         public string Surname { get; set; } = null!;
-        public int? Phone { get; set; }
+        public string? Phone { get; set; }
         public string Email { get; set; } = null!;
 
         public byte[]? Photo { get; set; }
