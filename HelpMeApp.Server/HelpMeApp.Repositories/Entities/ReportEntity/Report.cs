@@ -13,6 +13,6 @@ namespace HelpMeApp.DatabaseAccess.Entities.ReportEntity
         public int AdvertId { get; set; }
         public Advert Advert { get; set; } = null!;
 
-        public string? Text { get; set; }
+        public string Text { get; set; }
     }
 }
