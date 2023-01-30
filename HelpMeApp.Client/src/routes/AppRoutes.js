@@ -5,9 +5,6 @@ import LoginForm from '../components/AuthorizationForms/LoginForm';
 import RegistrationForm from '../components/AuthorizationForms/RegistrationForm';
 
 
-
-
-
 const AppRoutes = () => {
     return (
             <Routes>

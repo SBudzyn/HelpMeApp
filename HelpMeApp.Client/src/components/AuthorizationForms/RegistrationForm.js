@@ -23,8 +23,8 @@ const RegistrationForm = () => {
     return (
         <div className='auth-form'>
             <div className="header-button-wrapper">
-                <Link to={routingUrl.pathToLoginPage}><button className="other-form-type normal-button header-button left-button">login</button></Link>
-                <Link to={routingUrl.pathToSignUpPage}><button className="current-form-type normal-button header-button right-button">registration</button></Link>
+                <Link to={routingUrl.pathToLoginPage}><button className="other-form-type header-button left-button">login</button></Link>
+                <Link to={routingUrl.pathToSignUpPage}><button className="current-form-type header-button right-button">registration</button></Link>
             </div>
             <Formik
                 initialValues={{

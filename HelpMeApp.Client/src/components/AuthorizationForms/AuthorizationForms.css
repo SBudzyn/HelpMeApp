@@ -1,6 +1,6 @@
 .auth-form {
     min-width: 350px;
-    border: 0.2vh solid black;
+    border: 0.2px solid black;
     border-radius: 10px;
     height: 75vh;
     background-color: rgb(240, 240, 240);
@@ -8,16 +8,7 @@
     font-size: 3.5vh;
 }
 
-.normal-button {
-	background: inherit;
-	color: inherit;
-	border: none;
-	padding: inherit;
-	font: inherit;
-	cursor: pointer;
-	outline: inherit;
-    
-}
+
 
 .left-button {
     border-radius: 10px 0 0 0;
@@ -31,6 +22,7 @@
     background-color: rgb(255, 255, 255);
     justify-content: center;
     color: rgb(14, 14, 14);
+    border: none;
     height: 100%;
     width: 50%;
     float: left;
