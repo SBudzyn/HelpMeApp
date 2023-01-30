@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\HelpMeApp.Repositories\HelpMeApp.DatabaseAccess.csproj" />
+    <ProjectReference Include="..\HelpMeApp.DatabaseAccess\HelpMeApp.DatabaseAccess.csproj" />
     <ProjectReference Include="..\HelpMeApp.Services\HelpMeApp.Services.csproj" />
   </ItemGroup>
 
