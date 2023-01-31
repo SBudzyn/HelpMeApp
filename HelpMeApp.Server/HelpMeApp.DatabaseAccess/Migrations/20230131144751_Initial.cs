@@ -227,9 +227,9 @@ namespace HelpMeApp.DatabaseAccess.Migrations
                     HelpTypeId = table.Column<int>(type: "int", nullable: false),
                     CategoryId = table.Column<int>(type: "int", nullable: false),
                     TermsId = table.Column<int>(type: "int", nullable: false),
-                    CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 1, 31, 1, 55, 49, 773, DateTimeKind.Local).AddTicks(135)),
+                    CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 1, 31, 16, 47, 50, 891, DateTimeKind.Local).AddTicks(6217)),
                     ClosureDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false, defaultValue: true)
+                    IsClosed = table.Column<bool>(type: "bit", nullable: false, defaultValue: false)
                 },
                 constraints: table =>
                 {
@@ -341,7 +341,7 @@ namespace HelpMeApp.DatabaseAccess.Migrations
                     SenderRoleId = table.Column<int>(type: "int", nullable: false),
                     ChatId = table.Column<int>(type: "int", nullable: false),
                     Text = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 1, 31, 1, 55, 49, 774, DateTimeKind.Local).AddTicks(7409))
+                    CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 1, 31, 16, 47, 50, 893, DateTimeKind.Local).AddTicks(2665))
                 },
                 constraints: table =>
                 {

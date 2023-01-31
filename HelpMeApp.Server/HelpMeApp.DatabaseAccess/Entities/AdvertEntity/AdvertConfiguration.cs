@@ -22,8 +22,8 @@ namespace HelpMeApp.DatabaseAccess.Entities.AdvertEntity
                 .HasDefaultValue(DateTime.Now);
 
             builder
-                .Property(x => x.IsActive)
-                .HasDefaultValue(true);
+                .Property(x => x.IsClosed)
+                .HasDefaultValue(false);
 
             builder
                 .HasMany(x => x.Reports)

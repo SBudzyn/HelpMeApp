@@ -39,7 +39,7 @@ namespace HelpMeApp.DatabaseAccess.Migrations
                     b.Property<DateTime>("CreationDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 1, 31, 1, 55, 49, 773, DateTimeKind.Local).AddTicks(135));
+                        .HasDefaultValue(new DateTime(2023, 1, 31, 16, 47, 50, 891, DateTimeKind.Local).AddTicks(6217));
 
                     b.Property<Guid>("CreatorId")
                         .HasColumnType("uniqueidentifier");
@@ -55,11 +55,10 @@ namespace HelpMeApp.DatabaseAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool?>("IsActive")
-                        .IsRequired()
+                    b.Property<bool>("IsClosed")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
-                        .HasDefaultValue(true);
+                        .HasDefaultValue(false);
 
                     b.Property<string>("Location")
                         .IsRequired()
@@ -245,7 +244,7 @@ namespace HelpMeApp.DatabaseAccess.Migrations
                     b.Property<DateTime>("CreationDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 1, 31, 1, 55, 49, 774, DateTimeKind.Local).AddTicks(7409));
+                        .HasDefaultValue(new DateTime(2023, 1, 31, 16, 47, 50, 893, DateTimeKind.Local).AddTicks(2665));
 
                     b.Property<int>("SenderRoleId")
                         .HasColumnType("int");

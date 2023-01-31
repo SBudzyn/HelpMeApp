@@ -35,7 +35,7 @@ namespace HelpMeApp.DatabaseAccess.Entities.AdvertEntity
         public DateTime CreationDate { get; set; }
         public DateTime? ClosureDate { get; set; }
         [Required]
-        public bool? IsActive { get; set; }
+        public bool IsClosed { get; set; }
 
         public List<Report> Reports { get; set; } = new List<Report>();
         public List<Chat> Chats { get; set; } = new List<Chat>();
