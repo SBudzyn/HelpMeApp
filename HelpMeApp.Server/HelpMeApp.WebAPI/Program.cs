@@ -2,6 +2,7 @@ using HelpMeApp.DatabaseAccess.Entities.AppUserEntity;
 using HelpMeApp.Repositories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using HelpMeApp.WebAPI.ServiceCollectionConfiguration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.ConfigureJWT(builder.Configuration);
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<HelpMeDbContext>(opts =>
