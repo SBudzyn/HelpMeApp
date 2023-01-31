@@ -1,5 +1,12 @@
+using System;
+using HelpMeApp.DatabaseAccess.Entities.AppUserEntity;
 using HelpMeApp.Repositories;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,12 +19,20 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<HelpMeDbContext>(opts =>
 {
-    var connString = builder.Configuration.GetConnectionString("MyConnectionString");
-    opts.UseSqlServer(connString, options =>
-    {
-        options.MigrationsAssembly(typeof(HelpMeDbContext).Assembly.FullName.Split(',')[0]);
-    });
+    var connectionString = builder.Configuration.GetConnectionString("MyConnectionString");
+    opts.UseSqlServer(connectionString);
 });
+
+builder.Services.AddIdentity<AppUser, IdentityRole<Guid>>
+    (options =>
+    {
+        options.Password.RequireDigit= true;
+        options.Password.RequiredLength= 8;
+        options.Password.RequireLowercase= true;
+        options.Password.RequireUppercase= true;
+    }
+    )
+    .AddEntityFrameworkStores<HelpMeDbContext>();
 
 var app = builder.Build();
 
@@ -29,7 +44,11 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseStaticFiles();
 
+app.UseRouting();
+
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

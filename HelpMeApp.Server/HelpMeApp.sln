@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HelpMeApp.WebAPI", "HelpMeA
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HelpMeApp.Services", "HelpMeApp.Services\HelpMeApp.Services.csproj", "{78E86129-632C-4B72-A7D1-190AA8419455}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HelpMeApp.DatabaseAccess", "HelpMeApp.Repositories\HelpMeApp.DatabaseAccess.csproj", "{27BC2301-6652-4FA5-B292-218A91F449AD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HelpMeApp.DatabaseAccess", "HelpMeApp.DatabaseAccess\HelpMeApp.DatabaseAccess.csproj", "{27BC2301-6652-4FA5-B292-218A91F449AD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

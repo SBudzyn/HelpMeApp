@@ -2,11 +2,10 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-	<ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\HelpMeApp.Repositories\HelpMeApp.DatabaseAccess.csproj" />
+    <ProjectReference Include="..\HelpMeApp.DatabaseAccess\HelpMeApp.DatabaseAccess.csproj" />
   </ItemGroup>
 
 </Project>
