@@ -1,0 +1,34 @@
+.text-dec-none {
+    text-decoration: none;
+    color: black;
+}
+
+.card-size {
+    min-width: 18rem;
+}
+
+.border-up {
+    border-bottom: 0.3px solid rgba(0, 0, 0, 0.759);
+}
+
+.title {
+    height: 73px;
+    overflow: hidden;
+}
+
+.text-dec-none:hover {
+    color: black;
+}
+
+.space-beetwen {
+    justify-content: space-around;
+    display: flex;
+}
+
+.margin-bottom {
+    margin-bottom: 20px;
+}
+
+.card-c:hover {
+    color: black;
+}
