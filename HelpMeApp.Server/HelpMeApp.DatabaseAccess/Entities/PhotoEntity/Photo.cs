@@ -1,4 +1,5 @@
-﻿using HelpMeApp.DatabaseAccess.Entities.AdvertEntity;
+﻿using System.ComponentModel.DataAnnotations;
+using HelpMeApp.DatabaseAccess.Entities.AdvertEntity;
 
 namespace HelpMeApp.DatabaseAccess.Entities.PhotoEntity
 {
@@ -6,9 +7,11 @@ namespace HelpMeApp.DatabaseAccess.Entities.PhotoEntity
     {
         public int Id { get; set; }
 
+        [Required]
         public int AdvertId { get; set; }
-        public Advert Advert { get; set; } = null!;
+        public Advert Advert { get; set; }
 
-        public byte[] Data { get; set; } = null!;
+        [Required]
+        public byte[] Data { get; set; }
     }
 }

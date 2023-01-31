@@ -1,8 +1,11 @@
-﻿namespace HelpMeApp.DatabaseAccess.Entities.SenderRoleEntity
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace HelpMeApp.DatabaseAccess.Entities.SenderRoleEntity
 {
     public class SenderRole
     {
         public int Id { get; set; }
-        public string Name { get; set; } = null!;
+        [Required]
+        public string Name { get; set; }
     }
 }

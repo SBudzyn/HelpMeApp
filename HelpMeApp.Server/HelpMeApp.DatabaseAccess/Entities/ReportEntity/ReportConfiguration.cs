@@ -9,14 +9,6 @@ namespace HelpMeApp.DatabaseAccess.Entities.ReportEntity
         {
             builder
                 .HasKey(x => x.Id);
-
-            builder
-                .Property(x => x.UserId)
-                .IsRequired();
-
-            builder
-                .Property(x => x.AdvertId) 
-                .IsRequired();
         }
     }
 }

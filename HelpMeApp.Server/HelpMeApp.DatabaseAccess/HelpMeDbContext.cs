@@ -11,6 +11,7 @@ using HelpMeApp.DatabaseAccess.Entities.SenderRoleEntity;
 using HelpMeApp.DatabaseAccess.Entities.TermsEntity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using System;
 
 namespace HelpMeApp.Repositories
 {

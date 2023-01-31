@@ -33,13 +33,13 @@ namespace HelpMeApp.DatabaseAccess.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("ClosureDate")
+                    b.Property<DateTime?>("ClosureDate")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("CreationDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 1, 30, 14, 0, 14, 995, DateTimeKind.Local).AddTicks(4776));
+                        .HasDefaultValue(new DateTime(2023, 1, 31, 1, 55, 49, 773, DateTimeKind.Local).AddTicks(135));
 
                     b.Property<Guid>("CreatorId")
                         .HasColumnType("uniqueidentifier");
@@ -128,9 +128,6 @@ namespace HelpMeApp.DatabaseAccess.Migrations
                     b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Phone")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
 
@@ -190,10 +187,10 @@ namespace HelpMeApp.DatabaseAccess.Migrations
             modelBuilder.Entity("HelpMeApp.DatabaseAccess.Entities.ChatEntity.Chat", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("AdvertId")
                         .HasColumnType("int");
@@ -208,10 +205,7 @@ namespace HelpMeApp.DatabaseAccess.Migrations
                         .HasColumnType("bit")
                         .HasDefaultValue(false);
 
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
+                    b.HasKey("Id", "UserId", "AdvertId");
 
                     b.HasIndex("AdvertId");
 
@@ -251,7 +245,7 @@ namespace HelpMeApp.DatabaseAccess.Migrations
                     b.Property<DateTime>("CreationDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 1, 30, 14, 0, 14, 995, DateTimeKind.Local).AddTicks(9235));
+                        .HasDefaultValue(new DateTime(2023, 1, 31, 1, 55, 49, 774, DateTimeKind.Local).AddTicks(7409));
 
                     b.Property<int>("SenderRoleId")
                         .HasColumnType("int");
@@ -540,6 +534,7 @@ namespace HelpMeApp.DatabaseAccess.Migrations
                     b.HasOne("HelpMeApp.DatabaseAccess.Entities.ChatEntity.Chat", "Chat")
                         .WithMany("Messages")
                         .HasForeignKey("ChatId")
+                        .HasPrincipalKey("Id")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 

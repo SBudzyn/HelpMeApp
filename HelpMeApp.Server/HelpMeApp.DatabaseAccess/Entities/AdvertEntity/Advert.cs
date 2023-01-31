@@ -5,32 +5,36 @@ using HelpMeApp.DatabaseAccess.Entities.PhotoEntity;
 using HelpMeApp.DatabaseAccess.Entities.ReportEntity;
 using HelpMeApp.DatabaseAccess.Entities.TermsEntity;
 using HelpMeApp.DatabaseAccess.Entities.AppUserEntity;
+using System.Collections.Generic;
+using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace HelpMeApp.DatabaseAccess.Entities.AdvertEntity
 {
     public class Advert
     {
         public int Id { get; set; }
-        public string Header { get; set; } = null!;
-        public string Info { get; set; } = null!;
-        public string Location { get; set; } = null!;
-
+        [Required]
+        public string Header { get; set; }
+        [Required]
+        public string Info { get; set; }
+        [Required]
+        public string Location { get; set; }
         public Guid CreatorId { get; set; }
-        public AppUser Creator { get; set; } = null!;
-
+        public AppUser Creator { get; set; }
         public int HelpTypeId { get; set; }
-        public HelpType HelpType { get; set; } = null!;
-
+        public HelpType HelpType { get; set; }
         public int CategoryId { get; set; }
-        public Category Category { get; set; } = null!;
-
+        public Category Category { get; set; }
         public int TermsId { get; set; }
-        public Terms Terms { get; set; } = null!;
+        public Terms Terms { get; set; }
 
         public List<Photo> Photos { get; set; } = new List<Photo>();
 
+        [Required]
         public DateTime CreationDate { get; set; }
-        public DateTime ClosureDate { get; set; }
+        public DateTime? ClosureDate { get; set; }
+        [Required]
         public bool? IsActive { get; set; }
 
         public List<Report> Reports { get; set; } = new List<Report>();

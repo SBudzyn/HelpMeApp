@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace HelpMeApp.DatabaseAccess.Entities.AdvertEntity
@@ -11,18 +12,6 @@ namespace HelpMeApp.DatabaseAccess.Entities.AdvertEntity
                 .HasKey(x => x.Id);
 
             builder
-                .Property(x => x.Header)
-                .IsRequired();
-
-            builder
-                .Property(x => x.Info)
-                .IsRequired();
-
-            builder
-                .Property(x => x.Location)
-                .IsRequired();
-
-            builder
                 .HasMany(x => x.Photos)
                 .WithOne(x => x.Advert)
                 .HasForeignKey(x => x.AdvertId)
@@ -30,12 +19,10 @@ namespace HelpMeApp.DatabaseAccess.Entities.AdvertEntity
 
             builder
                 .Property(x => x.CreationDate)
-                .IsRequired()
                 .HasDefaultValue(DateTime.Now);
 
             builder
                 .Property(x => x.IsActive)
-                .IsRequired()
                 .HasDefaultValue(true);
 
             builder

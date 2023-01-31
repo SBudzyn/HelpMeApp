@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace HelpMeApp.DatabaseAccess.Entities.MessageEntity
@@ -11,20 +12,7 @@ namespace HelpMeApp.DatabaseAccess.Entities.MessageEntity
                 .HasKey(x => x.Id);
 
             builder
-                .Property(x => x.SenderRoleId)
-                .IsRequired();
-
-            builder
-                .Property(x => x.ChatId)
-                .IsRequired();
-
-            builder
-                .Property(x => x.Text)
-                .IsRequired();
-
-            builder
                 .Property(x => x.CreationDate) 
-                .IsRequired()
                 .HasDefaultValue(DateTime.Now);
         }
     }

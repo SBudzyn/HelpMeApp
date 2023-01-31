@@ -9,14 +9,6 @@ namespace HelpMeApp.DatabaseAccess.Entities.PhotoEntity
         {
             builder
                 .HasKey(x => x.Id);
-
-            builder
-                .Property(x => x.AdvertId)
-                .IsRequired();
-
-            builder
-                .Property(x => x.Data)
-                .IsRequired();
         }
     }
 }

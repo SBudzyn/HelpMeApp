@@ -9,10 +9,6 @@ namespace HelpMeApp.DatabaseAccess.Entities.TermsEntity
         {
             builder
                 .HasKey(x => x.Id);
-
-            builder
-                .Property(x => x.Days)
-                .IsRequired();
         }
     }
 }

@@ -11,29 +11,19 @@ namespace HelpMeApp.DatabaseAccess.Entities.ChatEntity
                 .HasKey(x => new { x.Id, x.UserId, x.AdvertId });
 
             builder
-                .Property(x => x.UserId)
-                .IsRequired();
-
-            builder
-                .Property(x => x.AdvertId)
-                .IsRequired();
-
-            builder
                 .Property(x => x.IsConfirmedBySecondSide)
-                .IsRequired()
                 .HasDefaultValue(false);
 
             builder
                 .Property(x => x.IsConfirmedByCreator)
-                .IsRequired()
                 .HasDefaultValue(false);
 
             builder
                 .HasMany(x => x.Messages)
                 .WithOne(x => x.Chat)
+                .HasPrincipalKey(x => x.Id)
                 .HasForeignKey(x => x.ChatId)
                 .OnDelete(DeleteBehavior.NoAction);
-                
         }
     }
 }

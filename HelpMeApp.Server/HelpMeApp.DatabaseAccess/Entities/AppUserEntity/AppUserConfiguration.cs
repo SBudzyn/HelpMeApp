@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace HelpMeApp.DatabaseAccess.Entities.AppUserEntity
@@ -11,25 +12,11 @@ namespace HelpMeApp.DatabaseAccess.Entities.AppUserEntity
                 .HasKey(x => x.Id);
 
             builder
-                .Property(x => x.Name)
-                .IsRequired();
-
-            builder
-                .Property(x => x.Surname)
-                .IsRequired();
-
-            builder
-                .Property(x => x.Email)
-                .IsRequired();
-
-            builder
                 .Property(x => x.RegistrationDate)
-                .IsRequired()
                 .HasDefaultValue(DateTime.Now);
 
             builder
                 .Property(x => x.IsBlocked)
-                .IsRequired()
                 .HasDefaultValue(false);
 
             builder
