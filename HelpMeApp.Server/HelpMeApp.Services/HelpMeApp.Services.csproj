@@ -8,9 +8,4 @@
     <ProjectReference Include="..\HelpMeApp.DatabaseAccess\HelpMeApp.DatabaseAccess.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Interfaces\" />
-    <Folder Include="Services\" />
-  </ItemGroup>
-
 </Project>
