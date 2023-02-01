@@ -1,4 +1,8 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using AutoMapper;
+using HelpMeApp.Services.Interfaces;
+using HelpMeApp.Services.MappingProfiles;
+using HelpMeApp.Services.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
@@ -31,6 +35,21 @@ namespace HelpMeApp.WebAPI.ServiceCollectionConfiguration
                 };
             });
             
+        }
+
+        public static void ConfigureMapping(this IServiceCollection services)
+        {
+            var mapperConfig = new MapperConfiguration(map =>
+            {
+                map.AddProfile<AppUserMappingProfile>();
+            });
+            services.AddSingleton(mapperConfig.CreateMapper());
+        }
+
+        public static void BindServices(this IServiceCollection services)
+        {
+            services.AddTransient<ITokenService, TokenService>();
+            services.AddTransient<IAuthenticationService, AuthenticationService>();
         }
     }
 }
