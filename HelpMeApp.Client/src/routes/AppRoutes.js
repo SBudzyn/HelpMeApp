@@ -3,7 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import routingUrl from "../constants/routingUrl";
 import LoginForm from "../components/AuthorizationForms/LoginForm";
 import RegistrationForm from "../components/AuthorizationForms/RegistrationForm";
-import AdvertShortInfoLayout from "../components/AdvertShortInfo/AdvertShortInfoLayout/AdvertShortInfoLayout";
+import BoardPage from "../pages/BoardPage/BoardPage";
 
 const AppRoutes = () => {
     return (
@@ -18,7 +18,22 @@ const AppRoutes = () => {
                 path={routingUrl.pathToSignUpPage}
                 element={<RegistrationForm />}
             />
-            <Route path="/advert" element={<AdvertShortInfoLayout />} />
+            <Route
+                path={routingUrl.pathToGetHelpBoard}
+                element={<BoardPage />}
+            />
+            <Route
+                path={routingUrl.pathToGiveHelpBoard}
+                element={<BoardPage />}
+            />
+            <Route
+                path={routingUrl.pathToChat}
+                element={<h1>Chat</h1>}
+            />
+            <Route
+                path={routingUrl.pathToProfile}
+                element={<h1>Profile</h1>}
+            />
         </Routes>
     );
 };
