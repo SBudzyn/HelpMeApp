@@ -5,12 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\HelpMeApp.DatabaseAccess\HelpMeApp.DatabaseAccess.csproj" />
+    <PackageReference Include="AutoMapper" Version="12.0.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Interfaces\" />
-    <Folder Include="Services\" />
+    <ProjectReference Include="..\HelpMeApp.DatabaseAccess\HelpMeApp.DatabaseAccess.csproj" />
   </ItemGroup>
 
 </Project>
