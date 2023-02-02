@@ -23,7 +23,7 @@ const AppRoutes = () => {
                 element={<BoardPage />}
             />
             <Route
-                path={routingUrl.pathToProvideHelpBoard}
+                path={routingUrl.pathToGiveHelpBoard}
                 element={<BoardPage />}
             />
             <Route
