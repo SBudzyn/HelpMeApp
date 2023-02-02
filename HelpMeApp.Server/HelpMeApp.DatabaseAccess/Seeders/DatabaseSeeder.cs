@@ -16,7 +16,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace HelpMeApp.DatabaseAccess.Seeders
 {
-    public static class FakeData
+    public static class DatabaseSeeder
     {
         public static List<Advert> Adverts = new List<Advert>();
         public static List<AppUser> AppUsers = new List<AppUser>();
@@ -57,11 +57,11 @@ namespace HelpMeApp.DatabaseAccess.Seeders
 
         public static List<Terms> Terms = new List<Terms>()
         {
-            new Terms(){ Id = 1, Days = 1 },
-            new Terms(){ Id = 2, Days = 5 },
-            new Terms(){ Id = 3, Days = 10 },
-            new Terms(){ Id = 4, Days = 14 },
-            new Terms(){ Id = 5, Days = 21 },
+            new Terms(){ Id = 1, Days = "1" },
+            new Terms(){ Id = 2, Days = "2-3" },
+            new Terms(){ Id = 3, Days = "5-7" },
+            new Terms(){ Id = 4, Days = "10-20" },
+            new Terms(){ Id = 5, Days = "21-30" },
         };
 
         public static void Init()

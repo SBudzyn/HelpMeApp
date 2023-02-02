@@ -6,6 +6,6 @@ namespace HelpMeApp.DatabaseAccess.Entities.TermsEntity
     {
         public int Id { get; set; }
         [Required]
-        public int Days { get; set; }
+        public string Days { get; set; }
     }
 }

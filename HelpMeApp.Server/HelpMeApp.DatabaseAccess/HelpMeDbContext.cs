@@ -40,19 +40,22 @@ namespace HelpMeApp.Repositories
         {
             base.OnModelCreating(modelBuilder);
 
-            if(!FakeData.IsCalled) FakeData.Init();
+            if (!DatabaseSeeder.IsCalled)
+            {
+                DatabaseSeeder.Init();
+            }
 
-            modelBuilder.Entity<Advert>().HasData(FakeData.Adverts);
-            modelBuilder.Entity<Category>().HasData(FakeData.Categories);
-            modelBuilder.Entity<Chat>().HasData(FakeData.Chats);
-            modelBuilder.Entity<HelpType>().HasData(FakeData.HelpTypes);
-            modelBuilder.Entity<Message>().HasData(FakeData.Messages);
-            modelBuilder.Entity<Report>().HasData(FakeData.Reports);
-            modelBuilder.Entity<SenderRole>().HasData(FakeData.SenderRoles);
-            modelBuilder.Entity<Terms>().HasData(FakeData.Terms);
-            modelBuilder.Entity<AppUser>().HasData(FakeData.AppUsers);
-            modelBuilder.Entity<IdentityRole<Guid>>().HasData(FakeData.IdentityRoles);
-            modelBuilder.Entity<IdentityUserRole<Guid>>().HasData(FakeData.IdentityUserRoles);
+            modelBuilder.Entity<Advert>().HasData(DatabaseSeeder.Adverts);
+            modelBuilder.Entity<Category>().HasData(DatabaseSeeder.Categories);
+            modelBuilder.Entity<Chat>().HasData(DatabaseSeeder.Chats);
+            modelBuilder.Entity<HelpType>().HasData(DatabaseSeeder.HelpTypes);
+            modelBuilder.Entity<Message>().HasData(DatabaseSeeder.Messages);
+            modelBuilder.Entity<Report>().HasData(DatabaseSeeder.Reports);
+            modelBuilder.Entity<SenderRole>().HasData(DatabaseSeeder.SenderRoles);
+            modelBuilder.Entity<Terms>().HasData(DatabaseSeeder.Terms);
+            modelBuilder.Entity<AppUser>().HasData(DatabaseSeeder.AppUsers);
+            modelBuilder.Entity<IdentityRole<Guid>>().HasData(DatabaseSeeder.IdentityRoles);
+            modelBuilder.Entity<IdentityUserRole<Guid>>().HasData(DatabaseSeeder.IdentityUserRoles);
 
             modelBuilder.ApplyConfiguration(new AdvertConfiguration());
             modelBuilder.ApplyConfiguration(new CategoryConfiguration());
