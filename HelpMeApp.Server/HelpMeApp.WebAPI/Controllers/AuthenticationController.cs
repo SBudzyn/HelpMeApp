@@ -7,15 +7,17 @@ using System.Threading.Tasks;
 
 namespace HelpMeApp.WebAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/authentication")]
     [ApiController]
     public class AuthenticationController : ControllerBase
     {
         private IAuthenticationService _authenticationService;
+
         public AuthenticationController(IAuthenticationService authenticationService)
         {
             _authenticationService = authenticationService;
         }
+
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromForm] RegistrationRequestModel registrationData)
         {
@@ -24,6 +26,7 @@ namespace HelpMeApp.WebAPI.Controllers
             return result.IsSuccessful ? CreatedAtAction(nameof(Register), result) : BadRequest(result);
              
         }
+
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginRequestModel loginData)
         {

@@ -18,6 +18,7 @@ namespace HelpMeApp.Services.Services
         private SignInManager<AppUser> _signInManager;
         private ITokenService _tokenService;
         private IMapper _mapper;
+
         public AuthenticationService(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, ITokenService tokenService, IMapper mapper)
         {
             _userManager = userManager;
@@ -30,6 +31,7 @@ namespace HelpMeApp.Services.Services
         {
             var user = _mapper.Map<AppUser>(registrationData);
             var result = await _userManager.CreateAsync(user, registrationData.Password);
+
             var response = new RegistrationResponseModel() { IsSuccessful = false, Message = String.Empty };
 
             if (result.Succeeded)

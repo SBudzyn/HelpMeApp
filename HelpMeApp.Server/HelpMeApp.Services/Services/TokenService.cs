@@ -13,31 +13,39 @@ namespace HelpMeApp.Services.Services
     public class TokenService : ITokenService
     {
         private IConfiguration _configuration;
+
         public TokenService(IConfiguration configuration)
         {
             _configuration = configuration;
         }
+
         public string GenerateToken(AppUser user)
         {
             var signingCredentials = GetSigningCredentials();
             var claims = GetClaims(user);
             var tokenOptions = GenerateTokenOptions(signingCredentials, claims);
+
             return new JwtSecurityTokenHandler().WriteToken(tokenOptions);
         }
+
         private List<Claim> GetClaims(AppUser user)
         {
             return new List<Claim> { new Claim(ClaimTypes.Email, user.Email) };
         }
+
         private SigningCredentials GetSigningCredentials()
         {
             var jwtConfig = _configuration.GetSection("jwtConfig");
             var key = Encoding.UTF8.GetBytes(jwtConfig["Key"]);
             var secret = new SymmetricSecurityKey(key);
+
             return new SigningCredentials(secret, SecurityAlgorithms.HmacSha256Signature);
         }
+
         private JwtSecurityToken GenerateTokenOptions(SigningCredentials signingCredentialss, List<Claim> claims)
         {
             var jwtConfig = _configuration.GetSection("jwtConfig");
+
             var tokenOptions = new JwtSecurityToken
             (
             issuer: jwtConfig["Issuer"],
@@ -46,6 +54,7 @@ namespace HelpMeApp.Services.Services
             expires: DateTime.Now.AddMinutes(Convert.ToDouble(jwtConfig["expiresIn"])),
             signingCredentials: signingCredentialss
             );
+
             return tokenOptions;
         }
     }
