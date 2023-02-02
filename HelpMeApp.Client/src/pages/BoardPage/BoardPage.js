@@ -1,6 +1,6 @@
 import React from "react";
 import { Formik, Field, Form } from "formik";
-import AdvertShortInfoLayout from "../../components/AdvertShortInfo/AdvertShortInfoLayout/AdvertShortInfoLayout";
+import AdvertShortInfoLayout from "../../components/AdvertContainer/AdvertContainer";
 import "bootstrap/dist/css/bootstrap.css";
 import "./BoardPage.css";
 import { Link } from "react-router-dom";

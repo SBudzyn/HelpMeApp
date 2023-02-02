@@ -4,7 +4,7 @@ import { Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import defaultAdvertPhoto from "../../media/defaultAdvertPhoto.jpg";
 import routingUrl from "../../constants/routingUrl";
-import "./AdvertShortInfo.css";
+import "./AdvertCard.css";
 
 const months = [
     "Jan",
@@ -31,14 +31,14 @@ const AdvertShortInfo = (props) => {
     } ${props.date.getDate()}`;
     return (
         <Card className="card-size">
-            <Link to={linkToAdvert}><Card.Img variant="top" src={photoSrc} className="border-bottom" /></Link>
+            <Link to={linkToAdvert}><Card.Img variant="top" src={photoSrc} className="image-border-bottom" /></Link>
             <Card.Body>
                 <Link to={linkToAdvert} className="text-dec-none">
                     <Card.Title className="title">{props.title}</Card.Title>
                 </Link>
             </Card.Body>
             <Card.Footer>
-                <div className="space-beetwen">
+                <div className="footer-content">
                     <small>{props.location} </small>
                     <small>{date}</small>
                 </div>

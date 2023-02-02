@@ -3,7 +3,7 @@ const routingUrl = {
     pathToLoginPage: "/login",
     pathToSignUpPage: "/signup",
     pathToAdvert: "/advert",
-    pathToGiveHelpBoard: "/give-help-board",
+    pathToGiveHelpBoard: "/provide-help-board",
     pathToGetHelpBoard: "/get-help-board",
     pathToChat: "/chat",
     pathToProfile: "/my-profile"
