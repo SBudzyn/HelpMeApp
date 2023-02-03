@@ -1,6 +1,6 @@
 using System;
 using HelpMeApp.DatabaseAccess.Entities.AppUserEntity;
-using HelpMeApp.Repositories;
+using HelpMeApp.DatabaseAccess;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;

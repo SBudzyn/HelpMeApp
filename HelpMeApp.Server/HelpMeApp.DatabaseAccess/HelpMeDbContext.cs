@@ -14,7 +14,7 @@ using Microsoft.AspNetCore.Identity;
 using System;
 using HelpMeApp.DatabaseAccess.Seeders;
 
-namespace HelpMeApp.Repositories
+namespace HelpMeApp.DatabaseAccess
 {
     public class HelpMeDbContext : IdentityDbContext<AppUser, IdentityRole<Guid>, Guid>
     {
