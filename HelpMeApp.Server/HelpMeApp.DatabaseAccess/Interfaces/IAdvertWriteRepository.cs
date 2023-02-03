@@ -7,9 +7,10 @@ using System.Threading.Tasks;
 
 namespace HelpMeApp.DatabaseAccess.Interfaces
 {
-    public interface IAdvertRepository
+    public interface IAdvertWriteRepository
     {
-        Task<IEnumerable<Advert>> GetAdvertsByPage(int page, int pageSize);
-        Task<Advert> GetAdvertById(int id);
+        Task<bool> AddAdvertAsync(Advert advert);
+        Task<bool> UpdateAdvertAsync(Advert advert);
+        Task<bool> DeactivateAdvert(int id);
     }
 }

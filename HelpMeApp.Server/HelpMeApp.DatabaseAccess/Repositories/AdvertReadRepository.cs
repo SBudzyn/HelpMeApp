@@ -10,28 +10,29 @@ using System.Threading.Tasks;
 
 namespace HelpMeApp.DatabaseAccess.Repositories
 {
-    public class AdvertRepository : IAdvertRepository
+    public class AdvertReadRepository : IAdvertReadRepository
     {
         private HelpMeDbContext _context;
-        public AdvertRepository(HelpMeDbContext context)
+
+        public AdvertReadRepository(HelpMeDbContext context)
         {
             _context = context;
         }
 
-        public async Task<IEnumerable<Advert>> GetAdvertsByPage(int page, int pageSize)
+        public async Task<IEnumerable<Advert>> GetAdvertsByPageAsync(int page, int pageSize)
         {
             return await _context.Adverts
                 .Where(a => a.IsClosed == false)
+                .Include(a => a.Photos)
                 .OrderBy(a => a.Id)
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize)
                 .ToListAsync();
         }
 
-        public async Task<Advert> GetAdvertById(int id)
+        public async Task<Advert> GetAdvertByIdAsync(int id)
         {
             return await _context.Adverts.FirstOrDefaultAsync(a => a.Id == id);
         }
-
     }
 }
