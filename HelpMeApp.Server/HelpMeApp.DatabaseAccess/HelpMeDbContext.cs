@@ -33,29 +33,29 @@ namespace HelpMeApp.Repositories
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.EnableSensitiveDataLogging();
+            //optionsBuilder.EnableSensitiveDataLogging();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
-            if (!DatabaseSeeder.IsCalled)
-            {
-                DatabaseSeeder.Init();
-            }
+            //if (!DatabaseSeeder.IsCalled)
+            //{
+            //    DatabaseSeeder.Init();
+            //}
 
-            modelBuilder.Entity<Advert>().HasData(DatabaseSeeder.Adverts);
-            modelBuilder.Entity<Category>().HasData(DatabaseSeeder.Categories);
-            modelBuilder.Entity<Chat>().HasData(DatabaseSeeder.Chats);
-            modelBuilder.Entity<HelpType>().HasData(DatabaseSeeder.HelpTypes);
-            modelBuilder.Entity<Message>().HasData(DatabaseSeeder.Messages);
-            modelBuilder.Entity<Report>().HasData(DatabaseSeeder.Reports);
-            modelBuilder.Entity<SenderRole>().HasData(DatabaseSeeder.SenderRoles);
-            modelBuilder.Entity<Terms>().HasData(DatabaseSeeder.Terms);
-            modelBuilder.Entity<AppUser>().HasData(DatabaseSeeder.AppUsers);
-            modelBuilder.Entity<IdentityRole<Guid>>().HasData(DatabaseSeeder.IdentityRoles);
-            modelBuilder.Entity<IdentityUserRole<Guid>>().HasData(DatabaseSeeder.IdentityUserRoles);
+            //modelBuilder.Entity<Advert>().HasData(DatabaseSeeder.Adverts);
+            //modelBuilder.Entity<Category>().HasData(DatabaseSeeder.Categories);
+            //modelBuilder.Entity<Chat>().HasData(DatabaseSeeder.Chats);
+            //modelBuilder.Entity<HelpType>().HasData(DatabaseSeeder.HelpTypes);
+            //modelBuilder.Entity<Message>().HasData(DatabaseSeeder.Messages);
+            //modelBuilder.Entity<Report>().HasData(DatabaseSeeder.Reports);
+            //modelBuilder.Entity<SenderRole>().HasData(DatabaseSeeder.SenderRoles);
+            //modelBuilder.Entity<Terms>().HasData(DatabaseSeeder.Terms);
+            //modelBuilder.Entity<AppUser>().HasData(DatabaseSeeder.AppUsers);
+            //modelBuilder.Entity<IdentityRole<Guid>>().HasData(DatabaseSeeder.IdentityRoles);
+            //modelBuilder.Entity<IdentityUserRole<Guid>>().HasData(DatabaseSeeder.IdentityUserRoles);
 
             modelBuilder.ApplyConfiguration(new AdvertConfiguration());
             modelBuilder.ApplyConfiguration(new CategoryConfiguration());
