@@ -51,7 +51,22 @@ namespace HelpMeApp.WebAPI.Controllers
             {
                 var advertData = await _advertService.AddAdvertAsync(advert);
 
-                return Ok(advertData);
+                return CreatedAtAction(nameof(AddAdvert), advertData);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning(ex.Message);
+
+                return BadRequest();
+            }
+        }
+
+        [HttpDelete("id")]
+        public async Task<IActionResult> DeactivateAdvert(int id)
+        {
+            try
+            {
+                return await _advertService.DeactivateAdvertAsync(id) == true ? NoContent() : BadRequest();
             }
             catch (Exception ex)
             {

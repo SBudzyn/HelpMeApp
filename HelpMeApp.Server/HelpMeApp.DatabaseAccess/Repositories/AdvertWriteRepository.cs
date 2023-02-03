@@ -28,7 +28,7 @@ namespace HelpMeApp.DatabaseAccess.Repositories
             return _context.Adverts.FirstOrDefault(a => a.Id == domainAdvert.Entity.Id);
         }
 
-        public async Task<bool> DeactivateAdvert(int id)
+        public async Task<bool> DeactivateAdvertAsync(int id)
         {
             var advert = await _context.Adverts.FirstOrDefaultAsync(a => a.Id == id);
 

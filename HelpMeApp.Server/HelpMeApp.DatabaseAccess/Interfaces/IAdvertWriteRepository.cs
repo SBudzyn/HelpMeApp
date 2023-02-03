@@ -10,6 +10,6 @@ namespace HelpMeApp.DatabaseAccess.Interfaces
     public interface IAdvertWriteRepository
     {
         Task<Advert> AddAdvertAsync(Advert advert);
-        Task<bool> DeactivateAdvert(int id);
+        Task<bool> DeactivateAdvertAsync(int id);
     }
 }

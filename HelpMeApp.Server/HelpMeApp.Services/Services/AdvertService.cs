@@ -51,9 +51,9 @@ namespace HelpMeApp.Services.Services
             return _mapper.Map<AdvertResponseData>(domainAdvert);
         }
 
-        public async Task<bool> DeactivateAdvert(int id)
+        public async Task<bool> DeactivateAdvertAsync(int id)
         {
-            return await _advertWriteRepository.DeactivateAdvert(id);
+            return await _advertWriteRepository.DeactivateAdvertAsync(id);
         }
     }
 }

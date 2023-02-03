@@ -12,6 +12,6 @@ namespace HelpMeApp.Services.Interfaces
         Task<IEnumerable<AdvertResponseData>> GetAdvertsByPage(int page, int pageSize);
         Task<AdvertResponseData> GetAdvertById(int id);
         Task<AdvertResponseData> AddAdvertAsync(AdvertPostData advert);
-        Task<bool> DeactivateAdvert(int id);
+        Task<bool> DeactivateAdvertAsync(int id);
     }
 }
