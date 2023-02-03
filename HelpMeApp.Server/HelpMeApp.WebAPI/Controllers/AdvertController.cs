@@ -2,6 +2,9 @@
 using HelpMeApp.Services.Models.DTO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using System;
 using System.Threading.Tasks;
 
 namespace HelpMeApp.WebAPI.Controllers
@@ -11,10 +14,12 @@ namespace HelpMeApp.WebAPI.Controllers
     public class AdvertController : ControllerBase
     {
         private IAdvertService _advertService;
+        private ILogger<AdvertController> _logger;
 
-        public AdvertController(IAdvertService advertService)
+        public AdvertController(IAdvertService advertService, ILogger<AdvertController> logger)
         {
             _advertService = advertService;
+            _logger = logger;
         }
 
         [HttpGet("page")]
@@ -42,13 +47,18 @@ namespace HelpMeApp.WebAPI.Controllers
         [HttpPost]
         public async Task<IActionResult> AddAdvert(AdvertPostData advert)
         {
-            return await _advertService.AddAdvertAsync(advert) == true ? Ok() : BadRequest();
-        }
+            try
+            {
+                var advertData = await _advertService.AddAdvertAsync(advert);
 
-        [HttpPut]
-        public async Task<IActionResult> UpdateAdvert(AdvertPostData advert)
-        {
-            return await _advertService.UpdateAdvertAsync(advert) == true ? Ok() : BadRequest();
+                return Ok(advertData);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning(ex.Message);
+
+                return BadRequest();
+            }
         }
     }
 }

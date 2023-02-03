@@ -9,8 +9,7 @@ namespace HelpMeApp.DatabaseAccess.Interfaces
 {
     public interface IAdvertWriteRepository
     {
-        Task<bool> AddAdvertAsync(Advert advert);
-        Task<bool> UpdateAdvertAsync(Advert advert);
+        Task<Advert> AddAdvertAsync(Advert advert);
         Task<bool> DeactivateAdvert(int id);
     }
 }

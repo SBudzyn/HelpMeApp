@@ -59,6 +59,7 @@ namespace HelpMeApp.WebAPI.ServiceCollectionConfiguration
         public static void BindRepositories(this IServiceCollection services)
         {
             services.AddTransient<IAdvertReadRepository, AdvertReadRepository>();
+            services.AddTransient<IAdvertWriteRepository, AdvertWriteRepository>();
         }
     }
 }

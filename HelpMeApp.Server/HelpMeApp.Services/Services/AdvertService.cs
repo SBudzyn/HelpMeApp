@@ -42,18 +42,13 @@ namespace HelpMeApp.Services.Services
             return advertData;
         }
 
-        public async Task<bool> AddAdvertAsync(AdvertPostData advert)
+        public async Task<AdvertResponseData> AddAdvertAsync(AdvertPostData advert)
         {
-            var domainAdvert = _mapper.Map<Advert>(advert);
+            var mappedAdvert = _mapper.Map<Advert>(advert);
 
-            return await _advertWriteRepository.AddAdvertAsync(domainAdvert);
-        }
+            var domainAdvert = await _advertWriteRepository.AddAdvertAsync(mappedAdvert);
 
-        public async Task<bool> UpdateAdvertAsync(AdvertPostData advert)
-        {
-            var domainAdvert = _mapper.Map<Advert>(advert);
-
-            return await _advertWriteRepository.UpdateAdvertAsync(domainAdvert);
+            return _mapper.Map<AdvertResponseData>(domainAdvert);
         }
 
         public async Task<bool> DeactivateAdvert(int id)

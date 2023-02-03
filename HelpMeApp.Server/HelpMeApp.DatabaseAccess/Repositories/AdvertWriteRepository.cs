@@ -19,18 +19,13 @@ namespace HelpMeApp.DatabaseAccess.Repositories
             _context = context;
         }
 
-        public async Task<bool> AddAdvertAsync(Advert advert)
+        public async Task<Advert> AddAdvertAsync(Advert advert)
         {
-            await _context.Adverts.AddAsync(advert);
+            var domainAdvert = await _context.Adverts.AddAsync(advert);
 
-            return await _context.SaveChangesAsync() > 0 ? true : false;
-        }
+            await _context.SaveChangesAsync();
 
-        public async Task<bool> UpdateAdvertAsync(Advert advert)
-        {
-            _context.Entry(advert).State = EntityState.Modified;
-
-            return await _context.SaveChangesAsync() > 0 ? true : false;
+            return _context.Adverts.FirstOrDefault(a => a.Id == domainAdvert.Entity.Id);
         }
 
         public async Task<bool> DeactivateAdvert(int id)
