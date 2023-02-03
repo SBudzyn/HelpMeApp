@@ -6,19 +6,19 @@ YupPassword(yupRegistration);
 const RegValidationSchema = yupRegistration.object().shape({
     name: yupRegistration
         .string("Name")
-        .min(2, "This name is too short!")
+        .min(2, "This name is too short")
         .matches(/^[aA-zZ\s]+$/, "Name can contain only letters")
         .required("Please provide your name"),
     Surname: yupRegistration
-        .string("Surname must be string")
-        .min(2, "This Surname is too short!")
+        .string("Surname can contain only letters")
+        .min(2, "This surname is too short")
         .matches(/^[aA-zZ\s]+$/, "Surname can contain only letters")
-        .required("Please provide your Surname"),
+        .required("Please provide your surname"),
     phoneNumber: yupRegistration
         .string()
         .phone("", true, "Provide correct phone number")
         .typeError("Provide your phone number")
-        .required("Provide your phone number please"),
+        .required("Provide your phone number"),
     info: yupRegistration.string().notRequired(),
 
     photo: yupRegistration.mixed().nullable().notRequired()
