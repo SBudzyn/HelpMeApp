@@ -1,0 +1,20 @@
+.bg {
+    height: 90vh;
+    width: 100%;
+    position: relative;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+}
+
+.page {
+    position: absolute;
+    top: 10vh;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    height: 90vh;
+    width: 100%;
+}

@@ -1,7 +1,8 @@
 import React from "react";
-import { Formik, Field, Form } from "formik";
+import { Formik, Field, Form, ErrorMessage } from "formik";
 import { Link } from "react-router-dom";
 import routingUrl from "../../constants/routingUrl";
+import AuthorizationValidationSchema from "./validation/AuthorizationValidationSchema";
 import "bootstrap/dist/css/bootstrap.css";
 import "./AuthorizationForms.css";
 
@@ -25,53 +26,66 @@ const LoginForm = () => {
                     email: "",
                     password: ""
                 }}
+                validationSchema={AuthorizationValidationSchema}
                 onSubmit={async (values) => {
                     alert(JSON.stringify(values, null, 2));
                 }}
             >
-                <Form className="form">
-                    <div className="mb-3 row">
-                        <label
-                            htmlFor="email"
-                            className="col-sm-2 col-form-label up"
-                        >
-                            Email
-                        </label>
-                        <br />
+                {(formik) => {
+                    const { isValid, dirty } = formik;
+                    return (
+                        <Form className="form">
+                            <div className="mb-3 row">
+                                <label
+                                    htmlFor="email"
+                                    className="col-sm-2 col-form-label up label"
+                                >
+                                    Email
+                                </label>
 
-                        <Field
-                            id="email"
-                            name="email"
-                            placeholder="name@gmail.com"
-                            type="email"
-                            className="form-control up"
-                            required
-                        />
-                    </div>
+                                <Field
+                                    id="email"
+                                    name="email"
+                                    placeholder="name@gmail.com"
+                                    type="email"
+                                    className="form-control up"
+                                    required
+                                />
 
-                    <div className="mb-3 row">
-                        <label
-                            htmlFor="password"
-                            className="col-sm-2 col-form-label up"
-                        >
-                            Password
-                        </label>
-                        <Field
-                            id="password"
-                            name="password"
-                            type="password"
-                            className="form-control up"
-                            required
-                        />
-                    </div>
-                    <br />
-                    <button
-                        className="submit-button horizontal-center btn btn-primary mb-3 up"
-                        type="submit"
-                    >
-                        Submit
-                    </button>
-                </Form>
+                                <div className="error-message">
+                                    <ErrorMessage name="email" />
+                                </div>
+                            </div>
+
+                            <div className="mb-3 row">
+                                <label
+                                    htmlFor="password"
+                                    className="col-sm-2 col-form-label up"
+                                >
+                                    Password
+                                </label>
+                                <Field
+                                    id="password"
+                                    name="password"
+                                    type="password"
+                                    className="form-control up"
+                                    required
+                                />
+                                <div className="error-message">
+                                    <ErrorMessage name="password" />
+                                </div>
+                            </div>
+                            <br />
+                            <button
+                                className="submit-button horizontal-center btn btn-primary up"
+                                type="submit"
+                                disabled={!(dirty && isValid)}
+                            >
+                                Submit
+                            </button>
+                        </Form>
+                    );
+                }}
             </Formik>
         </div>
     );
