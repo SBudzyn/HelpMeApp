@@ -1,5 +1,5 @@
 import { React } from "react";
-import AdvertShortInfo from "../AdvertCard/AdvertCard";
+import AdvertCard from "../AdvertCard/AdvertCard";
 
 const AdvertShortInfoLayout = () => {
     const data = [
@@ -48,7 +48,7 @@ const AdvertShortInfoLayout = () => {
                         className="col-xs-12 col-sm-8 col-md-6 col-lg-4 col-xl-3 col-xxl-3 mb-3"
                         key={a.id}
                     >
-                        <AdvertShortInfo
+                        <AdvertCard
                             key={a.id}
                             id={a.id}
                             title={a.title}

@@ -1,6 +1,6 @@
 import React from "react";
 import { Formik, Field, Form } from "formik";
-import AdvertShortInfoLayout from "../../components/AdvertContainer/AdvertContainer";
+import AdvertContainer from "../../components/AdvertContainer/AdvertContainer";
 import "bootstrap/dist/css/bootstrap.css";
 import "./BoardPage.css";
 import { Link } from "react-router-dom";
@@ -131,7 +131,7 @@ const BoardPage = () => {
                 </div>
             </Formik>
             <hr />
-            <AdvertShortInfoLayout />
+            <AdvertContainer />
         </div>
     );
 };
