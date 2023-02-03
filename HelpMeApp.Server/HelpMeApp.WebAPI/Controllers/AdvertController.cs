@@ -9,17 +9,15 @@ using System.Threading.Tasks;
 
 namespace HelpMeApp.WebAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/advert")]
     [ApiController]
     public class AdvertController : ControllerBase
     {
         private IAdvertService _advertService;
-        private ILogger<AdvertController> _logger;
 
-        public AdvertController(IAdvertService advertService, ILogger<AdvertController> logger)
+        public AdvertController(IAdvertService advertService)
         {
             _advertService = advertService;
-            _logger = logger;
         }
 
         [HttpGet("page")]
@@ -49,33 +47,15 @@ namespace HelpMeApp.WebAPI.Controllers
         [HttpPost]
         public async Task<IActionResult> AddAdvert(AdvertPostData advert)
         {
-            try
-            {
-                var advertData = await _advertService.AddAdvertAsync(advert);
+            var advertData = await _advertService.AddAdvertAsync(advert);
 
-                return CreatedAtAction(nameof(AddAdvert), advertData);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogWarning(ex.Message);
-
-                return BadRequest();
-            }
+            return CreatedAtAction(nameof(AddAdvert), advertData);
         }
 
         [HttpDelete("id")]
         public async Task<IActionResult> DeactivateAdvert(int id)
         {
-            try
-            {
-                return await _advertService.DeactivateAdvertAsync(id) == true ? NoContent() : BadRequest();
-            }
-            catch (Exception ex)
-            {
-                _logger.LogWarning(ex.Message);
-
-                return BadRequest();
-            }
+            return await _advertService.DeactivateAdvertAsync(id) == true ? NoContent() : BadRequest();
         }
     }
 }
