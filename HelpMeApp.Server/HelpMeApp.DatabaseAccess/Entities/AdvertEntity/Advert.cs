@@ -20,12 +20,20 @@ namespace HelpMeApp.DatabaseAccess.Entities.AdvertEntity
         public string Info { get; set; }
         [Required]
         public string Location { get; set; }
+
+        [Required]
         public Guid CreatorId { get; set; }
         public AppUser Creator { get; set; }
+
+        [Required]
         public int HelpTypeId { get; set; }
         public HelpType HelpType { get; set; }
+
+        [Required]
         public int CategoryId { get; set; }
         public Category Category { get; set; }
+
+        [Required]
         public int TermsId { get; set; }
         public Terms Terms { get; set; }
 

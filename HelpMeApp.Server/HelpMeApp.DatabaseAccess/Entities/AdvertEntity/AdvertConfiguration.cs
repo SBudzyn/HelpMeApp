@@ -12,6 +12,21 @@ namespace HelpMeApp.DatabaseAccess.Entities.AdvertEntity
                 .HasKey(x => x.Id);
 
             builder
+                .HasOne(x => x.HelpType)
+                .WithMany(x => x.Adverts)
+                .HasForeignKey(x => x.HelpTypeId);
+
+            builder
+                .HasOne(x => x.Category)
+                .WithMany(x => x.Adverts)
+                .HasForeignKey(x => x.CategoryId);
+
+            builder
+                .HasOne(x => x.Terms)
+                .WithMany(x => x.Adverts)
+                .HasForeignKey(x => x.TermsId);
+
+            builder
                 .HasMany(x => x.Photos)
                 .WithOne(x => x.Advert)
                 .HasForeignKey(x => x.AdvertId)

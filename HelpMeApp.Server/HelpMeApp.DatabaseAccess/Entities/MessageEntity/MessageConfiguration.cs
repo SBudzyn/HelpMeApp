@@ -12,6 +12,11 @@ namespace HelpMeApp.DatabaseAccess.Entities.MessageEntity
                 .HasKey(x => x.Id);
 
             builder
+                .HasOne(x => x.SenderRole)
+                .WithMany(x => x.Messages)
+                .HasForeignKey(x => x.SenderRoleId);
+
+            builder
                 .Property(x => x.CreationDate) 
                 .HasDefaultValue(DateTime.Now);
         }
