@@ -41,7 +41,9 @@ namespace HelpMeApp.WebAPI.Controllers
                 return BadRequest();
             }
 
-            return Ok(await _advertService.GetAdvertById(id));
+            var result = await _advertService.GetAdvertById(id);
+
+            return result != null ? Ok(result) : NotFound();
         }
 
         [HttpPost]
