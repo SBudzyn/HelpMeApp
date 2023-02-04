@@ -5,6 +5,7 @@ using HelpMeApp.Services.Interfaces;
 using HelpMeApp.Services.MappingProfiles;
 using HelpMeApp.Services.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
@@ -36,7 +37,13 @@ namespace HelpMeApp.WebAPI.ServiceCollectionConfiguration
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key))
                 };
             });
-            
+
+            services.AddAuthorization(options =>
+            {
+                options.DefaultPolicy = new AuthorizationPolicyBuilder(JwtBearerDefaults.AuthenticationScheme)
+                .RequireAuthenticatedUser()
+                .Build();
+            });
         }
 
         public static void ConfigureMapping(this IServiceCollection services)
