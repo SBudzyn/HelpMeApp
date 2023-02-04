@@ -1,5 +1,5 @@
 ﻿using HelpMeApp.Services.Interfaces;
-using HelpMeApp.Services.Models.DTO;
+using HelpMeApp.Services.Models.Advert;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;

@@ -1,4 +1,4 @@
-﻿using HelpMeApp.Services.Models.DTO;
+﻿using HelpMeApp.Services.Models.Advert;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +9,9 @@ namespace HelpMeApp.Services.Interfaces
 {
     public interface IAdvertService
     {
-        Task<IEnumerable<AdvertResponseData>> GetAdvertsByPage(int page, int pageSize);
-        Task<AdvertResponseData> GetAdvertById(int id);
-        Task<AdvertResponseData> AddAdvertAsync(AdvertPostData advert);
+        Task<IEnumerable<AdvertBoardResponseData>> GetAdvertsByPage(int page, int pageSize);
+        Task<AdvertFullResponseData> GetAdvertById(int id);
+        Task<AdvertFullResponseData> AddAdvertAsync(AdvertPostData advert);
         Task<bool> DeactivateAdvertAsync(int id);
     }
 }

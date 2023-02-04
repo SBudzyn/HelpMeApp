@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using HelpMeApp.DatabaseAccess.Entities.AdvertEntity;
-using HelpMeApp.Services.Models.DTO;
+using HelpMeApp.Services.Models.Advert;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +13,7 @@ namespace HelpMeApp.Services.MappingProfiles
     {
         public AdvertMappingProfile()
         {
-            CreateMap<Advert, AdvertResponseData>()
+            CreateMap<Advert, AdvertFullResponseData>()
                 .ForMember(src => src.Category, opt =>
                 {
                     opt.MapFrom(src => src.Category.Name);
@@ -21,6 +21,12 @@ namespace HelpMeApp.Services.MappingProfiles
                 .ForMember(src => src.Terms, opt =>
                 {
                     opt.MapFrom(src => src.Terms.Days);
+                });
+
+            CreateMap<Advert, AdvertBoardResponseData>()
+                .ForMember(src => src.Photo, opt =>
+                {
+                    opt.MapFrom(src => src.Photos[0]);
                 });
 
             CreateMap<AdvertPostData, Advert>();
