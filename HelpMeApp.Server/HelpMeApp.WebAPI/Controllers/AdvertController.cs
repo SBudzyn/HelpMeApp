@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -63,7 +64,18 @@ namespace HelpMeApp.WebAPI.Controllers
         {
             var userId = Guid.Parse(User.Claims.First(c => c.Type == "UserId").Value);
 
-            return await _advertService.DeactivateAdvertAsync(advertId, userId) == true ? NoContent() : BadRequest();
+            try
+            {
+                return Ok(await _advertService.DeactivateAdvertAsync(advertId, userId));
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                return Unauthorized(ex.Message);
+            }
         }
     }
 }

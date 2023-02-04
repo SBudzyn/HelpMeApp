@@ -52,16 +52,23 @@ namespace HelpMeApp.Services.Services
             return _mapper.Map<AdvertFullResponseData>(domainAdvert);
         }
 
-        public async Task<bool> DeactivateAdvertAsync(int advertId, Guid userId)
+        public async Task<AdvertFullResponseData> DeactivateAdvertAsync(int advertId, Guid userId)
         {
             var domainAdvert = await _advertReadRepository.GetAdvertByIdAsync(advertId);
 
-            if (domainAdvert == null || domainAdvert.CreatorId != userId)
+            if (domainAdvert == null)
             {
-                return false;
+                throw new KeyNotFoundException("The requested advert doesn`t exist");
             }
 
-            return await _advertWriteRepository.DeactivateAdvertAsync(advertId);
+            if (domainAdvert.CreatorId != userId)
+            {
+                throw new UnauthorizedAccessException("You don`t have permission to delete this advert");
+            }
+
+            var deactivatedAdvert = await _advertWriteRepository.DeactivateAdvertAsync(advertId);
+
+            return _mapper.Map<AdvertFullResponseData>(deactivatedAdvert);
         }
     }
 }

@@ -28,18 +28,15 @@ namespace HelpMeApp.DatabaseAccess.Repositories
             return _context.Adverts.FirstOrDefault(a => a.Id == domainAdvert.Entity.Id);
         }
 
-        public async Task<bool> DeactivateAdvertAsync(int id)
+        public async Task<Advert> DeactivateAdvertAsync(int id)
         {
-            var advert = await _context.Adverts.FirstOrDefaultAsync(a => a.Id == id);
-
-            if (advert == null)
-            {
-                return false;
-            }
+            var advert = await _context.Adverts.FirstAsync(a => a.Id == id);
 
             advert.IsClosed = true;
 
-            return await _context.SaveChangesAsync() > 0 ? true : false;
+            await _context.SaveChangesAsync();
+
+            return advert;
         }
     }
 }
