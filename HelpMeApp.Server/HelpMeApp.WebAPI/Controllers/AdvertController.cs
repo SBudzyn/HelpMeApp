@@ -52,7 +52,7 @@ namespace HelpMeApp.WebAPI.Controllers
             return CreatedAtAction(nameof(AddAdvert), advertData);
         }
 
-        [HttpDelete("id")]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> DeactivateAdvert(int id)
         {
             return await _advertService.DeactivateAdvertAsync(id) == true ? NoContent() : BadRequest();
