@@ -11,7 +11,6 @@ namespace HelpMeApp.Services.Models.Advert
         public string Header { get; set; }
         public string Info { get; set; }
         public string Location { get; set; }
-        public Guid CreatorId { get; set; }
         public int CategoryId { get; set; }
         public int TermsId { get; set; }
         public int HelpTypeId { get; set; }

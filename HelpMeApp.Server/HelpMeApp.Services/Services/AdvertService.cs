@@ -42,18 +42,26 @@ namespace HelpMeApp.Services.Services
             return advertData;
         }
 
-        public async Task<AdvertFullResponseData> AddAdvertAsync(AdvertPostData advert)
+        public async Task<AdvertFullResponseData> AddAdvertAsync(AdvertPostData advert, Guid userId)
         {
             var mappedAdvert = _mapper.Map<Advert>(advert);
+            mappedAdvert.CreatorId = userId;
 
             var domainAdvert = await _advertWriteRepository.AddAdvertAsync(mappedAdvert);
 
             return _mapper.Map<AdvertFullResponseData>(domainAdvert);
         }
 
-        public async Task<bool> DeactivateAdvertAsync(int id)
+        public async Task<bool> DeactivateAdvertAsync(int advertId, Guid userId)
         {
-            return await _advertWriteRepository.DeactivateAdvertAsync(id);
+            var domainAdvert = await _advertReadRepository.GetAdvertByIdAsync(advertId);
+
+            if (domainAdvert == null || domainAdvert.CreatorId != userId)
+            {
+                return false;
+            }
+
+            return await _advertWriteRepository.DeactivateAdvertAsync(advertId);
         }
     }
 }

@@ -1,10 +1,12 @@
 ﻿using HelpMeApp.Services.Interfaces;
 using HelpMeApp.Services.Models.Advert;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace HelpMeApp.WebAPI.Controllers
@@ -31,31 +33,37 @@ namespace HelpMeApp.WebAPI.Controllers
             return Ok(await _advertService.GetAdvertsByPage(page, pageSize));
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(int id)
+        [HttpGet("{advertId}")]
+        public async Task<IActionResult> GetById(int advertId)
         {
-            if (id < 1)
+            if (advertId < 1)
             {
                 return BadRequest();
             }
 
-            var result = await _advertService.GetAdvertById(id);
+            var result = await _advertService.GetAdvertById(advertId);
 
             return result != null ? Ok(result) : NotFound();
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> AddAdvert(AdvertPostData advert)
         {
-            var advertData = await _advertService.AddAdvertAsync(advert);
+            var userId = Guid.Parse(User.Claims.First(c => c.Type == "UserId").Value);
+
+            var advertData = await _advertService.AddAdvertAsync(advert, userId);
 
             return CreatedAtAction(nameof(AddAdvert), advertData);
         }
 
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeactivateAdvert(int id)
+        [Authorize]
+        [HttpDelete("{advertId}")]
+        public async Task<IActionResult> DeactivateAdvert(int advertId)
         {
-            return await _advertService.DeactivateAdvertAsync(id) == true ? NoContent() : BadRequest();
+            var userId = Guid.Parse(User.Claims.First(c => c.Type == "UserId").Value);
+
+            return await _advertService.DeactivateAdvertAsync(advertId, userId) == true ? NoContent() : BadRequest();
         }
     }
 }
