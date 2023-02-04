@@ -23,11 +23,7 @@ namespace HelpMeApp.Services.MappingProfiles
                     opt.MapFrom(src => src.Terms.Days);
                 });
 
-            CreateMap<Advert, AdvertBoardResponseData>()
-                .ForMember(src => src.Photo, opt =>
-                {
-                    opt.MapFrom(src => src.Photos[0]);
-                });
+            CreateMap<Advert, AdvertBoardResponseData>();
 
             CreateMap<AdvertPostData, Advert>();
         }
