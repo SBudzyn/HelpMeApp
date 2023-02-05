@@ -7,7 +7,7 @@
   background-color: rgb(240, 240, 240);
   width: 25%;
   font-size: 3.5vh;
-  z-index: 4;
+  z-index: 1;
 }
 
 .left-button {
