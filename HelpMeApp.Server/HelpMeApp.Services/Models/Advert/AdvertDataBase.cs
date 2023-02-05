@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HelpMeApp.Services.Models.Advert
 {
-    public abstract class AdvertBaseData
+    public abstract class AdvertDataBase
     {
         public string Header { get; set; }
         public string Location { get; set; }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HelpMeApp.Services.Models.Advert
 {
-    public class AdvertPreviewResponseData : AdvertBaseData
+    public class AdvertPreviewResponseData : AdvertDataBase
     {
         public int Id { get; set; }
         public byte[] Photo { get; set; }
