@@ -59,6 +59,22 @@ namespace HelpMeApp.WebAPI.Controllers
         }
 
         [Authorize]
+        [HttpPut("{advertId}")]
+        public async Task<IActionResult> UpdateAdvert(int advertId, AdvertPostData advert)
+        {
+            var userId = Guid.Parse(User.Claims.First(c => c.Type == "UserId").Value);
+
+            try
+            {
+                return Ok(await _advertService.UpdateAdvertAsync(advert, advertId, userId));
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                return Unauthorized(ex.Message);
+            }
+        }
+
+        [Authorize]
         [HttpDelete("{advertId}")]
         public async Task<IActionResult> DeactivateAdvert(int advertId)
         {

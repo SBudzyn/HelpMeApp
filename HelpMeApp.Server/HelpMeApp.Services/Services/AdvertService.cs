@@ -52,6 +52,22 @@ namespace HelpMeApp.Services.Services
             return _mapper.Map<AdvertDetailedResponseData>(domainAdvert);
         }
 
+        public async Task<AdvertDetailedResponseData> UpdateAdvertAsync(AdvertPostData advertUpdate, int advertId, Guid userId)
+        {
+            var domainAdvert = await _advertReadRepository.GetAdvertByIdAsync(advertId);
+
+            if (domainAdvert.CreatorId != userId)
+            {
+                throw new UnauthorizedAccessException("You don`t have permission to update this advert");
+            }
+
+            var mappedAdvertUpdate = _mapper.Map(advertUpdate, domainAdvert);
+
+            var updatedDomainAdvert = await _advertWriteRepository.UpdateAdvertAsync(mappedAdvertUpdate);
+
+            return _mapper.Map<AdvertDetailedResponseData>(updatedDomainAdvert);
+        }
+
         public async Task<AdvertDetailedResponseData> DeactivateAdvertAsync(int advertId, Guid userId)
         {
             var domainAdvert = await _advertReadRepository.GetAdvertByIdAsync(advertId);

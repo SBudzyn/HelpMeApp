@@ -28,6 +28,15 @@ namespace HelpMeApp.DatabaseAccess.Repositories
             return domainAdvert.Entity;
         }
 
+        public async Task<Advert> UpdateAdvertAsync(Advert advert)
+        {
+            _context.Entry(advert).State = EntityState.Modified;
+
+            await _context.SaveChangesAsync();
+
+            return advert;
+        }
+
         public async Task<Advert> DeactivateAdvertAsync(int id)
         {
             var advert = await _context.Adverts.FirstAsync(a => a.Id == id);
