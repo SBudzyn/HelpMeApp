@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 namespace HelpMeApp.Services.Models.Advert
 {
-    public class AdvertBoardResponseData
+    public class AdvertPreviewResponseData : AdvertBaseData
     {
         public int Id { get; set; }
-        public string Header { get; set; }
-        public string Location { get; set; }
         public byte[] Photo { get; set; }
         public DateTime CreationDate { get; set; }
     }

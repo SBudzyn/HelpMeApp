@@ -13,7 +13,7 @@ namespace HelpMeApp.Services.MappingProfiles
     {
         public AdvertMappingProfile()
         {
-            CreateMap<Advert, AdvertFullResponseData>()
+            CreateMap<Advert, AdvertDetailedResponseData>()
                 .ForMember(src => src.Category, opt =>
                 {
                     opt.MapFrom(src => src.Category.Name);
@@ -23,7 +23,7 @@ namespace HelpMeApp.Services.MappingProfiles
                     opt.MapFrom(src => src.Terms.Days);
                 });
 
-            CreateMap<Advert, AdvertBoardResponseData>();
+            CreateMap<Advert, AdvertPreviewResponseData>();
 
             CreateMap<AdvertPostData, Advert>();
         }

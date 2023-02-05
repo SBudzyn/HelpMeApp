@@ -24,35 +24,35 @@ namespace HelpMeApp.Services.Services
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<AdvertBoardResponseData>> GetAdvertsByPage(int page, int pageSize)
+        public async Task<IEnumerable<AdvertPreviewResponseData>> GetAdvertsByPage(int page, int pageSize)
         {
             var domainAdverts = await _advertReadRepository.GetAdvertsByPageAsync(page, pageSize);
 
-            var advertsData = _mapper.Map<IEnumerable<AdvertBoardResponseData>>(domainAdverts);
+            var advertsData = _mapper.Map<IEnumerable<AdvertPreviewResponseData>>(domainAdverts);
 
             return advertsData;
         }
 
-        public async Task<AdvertFullResponseData> GetAdvertById(int id)
+        public async Task<AdvertDetailedResponseData> GetAdvertById(int id)
         {
             var domainAdvert = await _advertReadRepository.GetAdvertByIdAsync(id);
 
-            var advertData = _mapper.Map<AdvertFullResponseData>(domainAdvert);
+            var advertData = _mapper.Map<AdvertDetailedResponseData>(domainAdvert);
 
             return advertData;
         }
 
-        public async Task<AdvertFullResponseData> AddAdvertAsync(AdvertPostData advert, Guid userId)
+        public async Task<AdvertDetailedResponseData> AddAdvertAsync(AdvertPostData advert, Guid userId)
         {
             var mappedAdvert = _mapper.Map<Advert>(advert);
             mappedAdvert.CreatorId = userId;
 
             var domainAdvert = await _advertWriteRepository.AddAdvertAsync(mappedAdvert);
 
-            return _mapper.Map<AdvertFullResponseData>(domainAdvert);
+            return _mapper.Map<AdvertDetailedResponseData>(domainAdvert);
         }
 
-        public async Task<AdvertFullResponseData> DeactivateAdvertAsync(int advertId, Guid userId)
+        public async Task<AdvertDetailedResponseData> DeactivateAdvertAsync(int advertId, Guid userId)
         {
             var domainAdvert = await _advertReadRepository.GetAdvertByIdAsync(advertId);
 
@@ -68,7 +68,7 @@ namespace HelpMeApp.Services.Services
 
             var deactivatedAdvert = await _advertWriteRepository.DeactivateAdvertAsync(advertId);
 
-            return _mapper.Map<AdvertFullResponseData>(deactivatedAdvert);
+            return _mapper.Map<AdvertDetailedResponseData>(deactivatedAdvert);
         }
     }
 }

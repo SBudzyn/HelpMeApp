@@ -9,9 +9,9 @@ namespace HelpMeApp.Services.Interfaces
 {
     public interface IAdvertService
     {
-        Task<IEnumerable<AdvertBoardResponseData>> GetAdvertsByPage(int page, int pageSize);
-        Task<AdvertFullResponseData> GetAdvertById(int id);
-        Task<AdvertFullResponseData> AddAdvertAsync(AdvertPostData advert, Guid userId);
-        Task<AdvertFullResponseData> DeactivateAdvertAsync(int advertId, Guid userId);
+        Task<IEnumerable<AdvertPreviewResponseData>> GetAdvertsByPage(int page, int pageSize);
+        Task<AdvertDetailedResponseData> GetAdvertById(int id);
+        Task<AdvertDetailedResponseData> AddAdvertAsync(AdvertPostData advert, Guid userId);
+        Task<AdvertDetailedResponseData> DeactivateAdvertAsync(int advertId, Guid userId);
     }
 }
