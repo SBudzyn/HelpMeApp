@@ -101,7 +101,7 @@ namespace HelpMeApp.DatabaseAccess.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Days = table.Column<int>(type: "int", nullable: false)
+                    Days = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -227,7 +227,7 @@ namespace HelpMeApp.DatabaseAccess.Migrations
                     HelpTypeId = table.Column<int>(type: "int", nullable: false),
                     CategoryId = table.Column<int>(type: "int", nullable: false),
                     TermsId = table.Column<int>(type: "int", nullable: false),
-                    CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 1, 31, 16, 47, 50, 891, DateTimeKind.Local).AddTicks(6217)),
+                    CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 2, 3, 15, 4, 11, 756, DateTimeKind.Local).AddTicks(1963)),
                     ClosureDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     IsClosed = table.Column<bool>(type: "bit", nullable: false, defaultValue: false)
                 },
@@ -341,7 +341,7 @@ namespace HelpMeApp.DatabaseAccess.Migrations
                     SenderRoleId = table.Column<int>(type: "int", nullable: false),
                     ChatId = table.Column<int>(type: "int", nullable: false),
                     Text = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 1, 31, 16, 47, 50, 893, DateTimeKind.Local).AddTicks(2665))
+                    CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2023, 2, 3, 15, 4, 11, 758, DateTimeKind.Local).AddTicks(3415))
                 },
                 constraints: table =>
                 {

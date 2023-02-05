@@ -13,18 +13,16 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using System;
 
-namespace HelpMeApp.Repositories
+namespace HelpMeApp.DatabaseAccess
 {
     public class HelpMeDbContext : IdentityDbContext<AppUser, IdentityRole<Guid>, Guid>
     {
-
         public HelpMeDbContext(DbContextOptions<HelpMeDbContext> options) : base(options)
         {
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -41,7 +39,6 @@ namespace HelpMeApp.Repositories
             modelBuilder.ApplyConfiguration(new SenderRoleConfiguration());
             modelBuilder.ApplyConfiguration(new TermsConfiguration());
         }
-
         public DbSet<Advert> Adverts { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Chat> Chats { get; set; }
