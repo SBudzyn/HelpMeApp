@@ -1,9 +1,10 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
+import BoardPage from "../pages/BoardPage/BoardPage";
+import AuthorizationPage from "../pages/AuthorizationPage/AuthorizationPage";
 import routingUrl from "../constants/routingUrl";
 import LoginForm from "../components/AuthorizationForms/LoginForm";
 import RegistrationForm from "../components/AuthorizationForms/RegistrationForm";
-import BoardPage from "../pages/BoardPage/BoardPage";
 
 const AppRoutes = () => {
     return (
@@ -13,10 +14,13 @@ const AppRoutes = () => {
                 exact
                 element={<h1>Home page</h1>}
             />
-            <Route path={routingUrl.pathToLoginPage} element={<LoginForm />} />
+            <Route
+                path={routingUrl.pathToLoginPage}
+                element={<AuthorizationPage component={ LoginForm } />}
+            />
             <Route
                 path={routingUrl.pathToSignUpPage}
-                element={<RegistrationForm />}
+                element={<AuthorizationPage component={ RegistrationForm } />}
             />
             <Route
                 path={routingUrl.pathToGetHelpBoard}
@@ -26,14 +30,8 @@ const AppRoutes = () => {
                 path={routingUrl.pathToGiveHelpBoard}
                 element={<BoardPage />}
             />
-            <Route
-                path={routingUrl.pathToChat}
-                element={<h1>Chat</h1>}
-            />
-            <Route
-                path={routingUrl.pathToProfile}
-                element={<h1>Profile</h1>}
-            />
+            <Route path={routingUrl.pathToChat} element={<h1>Chat</h1>} />
+            <Route path={routingUrl.pathToProfile} element={<h1>Profile</h1>} />
         </Routes>
     );
 };
