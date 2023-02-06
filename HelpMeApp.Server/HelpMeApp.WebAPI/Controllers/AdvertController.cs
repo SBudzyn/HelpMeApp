@@ -1,5 +1,6 @@
 ﻿using HelpMeApp.Services.Interfaces;
 using HelpMeApp.Services.Models.Advert;
+using HelpMeApp.WebAPI.Authorization;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -17,10 +18,12 @@ namespace HelpMeApp.WebAPI.Controllers
     public class AdvertController : ControllerBase
     {
         private IAdvertService _advertService;
+        private IAuthorizationService _authorizationService;
 
-        public AdvertController(IAdvertService advertService)
+        public AdvertController(IAdvertService advertService, IAuthorizationService authorizationService)
         {
             _advertService = advertService;
+            _authorizationService = authorizationService;
         }
 
         [HttpGet("page")]
@@ -62,36 +65,42 @@ namespace HelpMeApp.WebAPI.Controllers
         [HttpPut("{advertId}")]
         public async Task<IActionResult> UpdateAdvert(int advertId, AdvertPostData advert)
         {
-            var userId = Guid.Parse(User.Claims.First(c => c.Type == "UserId").Value);
+            if (await _advertService.GetAdvertById(advertId) == null)
+            {
+                return NotFound();
+            }
 
-            try
+            var authorizationResult = await _authorizationService.AuthorizeAsync(User, advertId, "EditPolicy");
+
+            if (!authorizationResult.Succeeded)
             {
-                return Ok(await _advertService.UpdateAdvertAsync(advert, advertId, userId));
+                return Unauthorized("You don`t have permission to modify the resource");
             }
-            catch (UnauthorizedAccessException ex)
-            {
-                return Unauthorized(ex.Message);
-            }
+
+            var result = await _advertService.UpdateAdvertAsync(advert, advertId);
+
+            return Ok(result);
         }
 
         [Authorize]
         [HttpDelete("{advertId}")]
         public async Task<IActionResult> DeactivateAdvert(int advertId)
         {
-            var userId = Guid.Parse(User.Claims.First(c => c.Type == "UserId").Value);
+            if (await _advertService.GetAdvertById(advertId) == null)
+            {
+                return NotFound();
+            }
 
-            try
+            var authorizationResult = await _authorizationService.AuthorizeAsync(User, advertId, "EditPolicy");
+
+            if (!authorizationResult.Succeeded)
             {
-                return Ok(await _advertService.DeactivateAdvertAsync(advertId, userId));
+                return Unauthorized("You don`t have permission to modify the resource");
             }
-            catch (KeyNotFoundException ex)
-            {
-                return NotFound(ex.Message);
-            }
-            catch (UnauthorizedAccessException ex)
-            {
-                return Unauthorized(ex.Message);
-            }
+
+            var result = await _advertService.DeactivateAdvertAsync(advertId);
+
+            return Ok(result);
         }
     }
 }

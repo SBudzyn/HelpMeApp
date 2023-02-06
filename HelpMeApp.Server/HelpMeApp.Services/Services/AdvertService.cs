@@ -52,14 +52,9 @@ namespace HelpMeApp.Services.Services
             return _mapper.Map<AdvertDetailedResponseData>(domainAdvert);
         }
 
-        public async Task<AdvertDetailedResponseData> UpdateAdvertAsync(AdvertPostData advertUpdate, int advertId, Guid userId)
+        public async Task<AdvertDetailedResponseData> UpdateAdvertAsync(AdvertPostData advertUpdate, int advertId)
         {
             var domainAdvert = await _advertReadRepository.GetAdvertByIdAsync(advertId);
-
-            if (domainAdvert.CreatorId != userId)
-            {
-                throw new UnauthorizedAccessException("You don`t have permission to update this advert");
-            }
 
             var mappedAdvertUpdate = _mapper.Map(advertUpdate, domainAdvert);
 
@@ -68,20 +63,8 @@ namespace HelpMeApp.Services.Services
             return _mapper.Map<AdvertDetailedResponseData>(updatedDomainAdvert);
         }
 
-        public async Task<AdvertDetailedResponseData> DeactivateAdvertAsync(int advertId, Guid userId)
+        public async Task<AdvertDetailedResponseData> DeactivateAdvertAsync(int advertId)
         {
-            var domainAdvert = await _advertReadRepository.GetAdvertByIdAsync(advertId);
-
-            if (domainAdvert == null)
-            {
-                throw new KeyNotFoundException("The requested advert doesn`t exist");
-            }
-
-            if (domainAdvert.CreatorId != userId)
-            {
-                throw new UnauthorizedAccessException("You don`t have permission to delete this advert");
-            }
-
             var deactivatedAdvert = await _advertWriteRepository.DeactivateAdvertAsync(advertId);
 
             return _mapper.Map<AdvertDetailedResponseData>(deactivatedAdvert);
