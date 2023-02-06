@@ -21,6 +21,7 @@ builder.Services.BindServices();
 builder.Services.BindRepositories();
 builder.Services.ConfigureMapping();
 builder.Services.ConfigureAuthorization();
+builder.Services.ConfigureValidation();
 builder.Services.ConfigureJWT(builder.Configuration);
 builder.Services.AddSwaggerGen();
 
