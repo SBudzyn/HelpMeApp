@@ -17,14 +17,12 @@ namespace HelpMeApp.Repositories
 {
     public class HelpMeDbContext : IdentityDbContext<AppUser, IdentityRole<Guid>, Guid>
     {
-
         public HelpMeDbContext(DbContextOptions<HelpMeDbContext> options) : base(options)
         {
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -43,13 +41,21 @@ namespace HelpMeApp.Repositories
         }
 
         public DbSet<Advert> Adverts { get; set; }
+
         public DbSet<Category> Categories { get; set; }
+
         public DbSet<Chat> Chats { get; set; }
+
         public DbSet<HelpType> HelpTypes { get; set; }
+
         public DbSet<Message> Messages { get; set; }
+
         public DbSet<Photo> Photos { get; set; }
+
         public DbSet<Report> Reports { get; set; }
+
         public DbSet<SenderRole> SenderRoles { get; set; }
+
         public DbSet<Terms> Terms { get; set; }
     }
 }

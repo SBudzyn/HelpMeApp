@@ -1,7 +1,10 @@
 ﻿using AutoMapper;
 using HelpMeApp.Services.Interfaces;
+using HelpMeApp.Services.Interfaces.Profile;
+
 using HelpMeApp.Services.MappingProfiles;
 using HelpMeApp.Services.Services;
+using HelpMeApp.Services.Services.Profile;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -50,6 +53,7 @@ namespace HelpMeApp.WebAPI.ServiceCollectionConfiguration
         {
             services.AddTransient<ITokenService, TokenService>();
             services.AddTransient<IAuthenticationService, AuthenticationService>();
+            services.AddTransient<IProfileService, ProfileService>();
         }
     }
 }

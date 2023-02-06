@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using HelpMeApp.DatabaseAccess.Entities.AppUserEntity;
+using HelpMeApp.Services.Models.Profile;
 using HelpMeApp.Services.Models.Registration;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,7 @@ namespace HelpMeApp.Services.MappingProfiles
                 {
                     opt.MapFrom(src => src.Email);
                 });
+            CreateMap<AppUser, ProfileRequestModel>();
         }
     }
 }

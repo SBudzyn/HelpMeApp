@@ -19,6 +19,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.ConfigureJWT(builder.Configuration);
 builder.Services.ConfigureMapping();
 builder.Services.BindServices();
+
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<HelpMeDbContext>(opts =>
@@ -27,15 +28,14 @@ builder.Services.AddDbContext<HelpMeDbContext>(opts =>
     opts.UseSqlServer(connectionString);
 });
 
-builder.Services.AddIdentity<AppUser, IdentityRole<Guid>>
-    (options =>
+builder.Services.AddIdentity<AppUser, IdentityRole<Guid>>(
+    options =>
     {
         options.Password.RequireDigit= true;
         options.Password.RequiredLength= 8;
         options.Password.RequireLowercase= true;
         options.Password.RequireUppercase= true;
-    }
-    )
+    })
     .AddEntityFrameworkStores<HelpMeDbContext>();
 
 var app = builder.Build();
