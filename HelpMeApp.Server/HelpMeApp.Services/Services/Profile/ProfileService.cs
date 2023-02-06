@@ -34,13 +34,10 @@ namespace HelpMeApp.Services.Services.Profile
         }
         public async Task<ProfileResponseModel<ProfileRequestModel>> GetUserById(string userId)
         {
-            var response = new ProfileResponseModel<ProfileRequestModel>();
-          
-            var foundedUser = await _userManager.FindByIdAsync(userId);
-            
-             var user = new ProfileRequestModel();
+            var response = new ProfileResponseModel<ProfileRequestModel>();         
+            var foundedUser = await _userManager.FindByIdAsync(userId);            
+            var user = new ProfileRequestModel();
             // var user = _mapper.Map<ProfileRequestModel>(foundedUser);
-
             if (foundedUser == null)
             {
                 response.Success = false;
@@ -68,6 +65,9 @@ namespace HelpMeApp.Services.Services.Profile
             }
             return response;
 
+        }
+        public async Task<ProfileResponseModel<ProfileRequestModel>> GetUserById(string userId) { 
+            
         }
 
     }
