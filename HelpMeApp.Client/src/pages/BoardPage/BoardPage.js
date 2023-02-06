@@ -4,6 +4,7 @@ import AdvertContainer from "../../components/AdvertContainer/AdvertContainer";
 import "bootstrap/dist/css/bootstrap.css";
 import "./BoardPage.css";
 import { Link } from "react-router-dom";
+import routingUrl from "../../constants/routingUrl";
 
 const categories = ["clothes", "food", "healthcare"];
 
@@ -101,7 +102,7 @@ const BoardPage = () => {
                         </div>
                         <div className="row justify-content-between">
                             <div className="mb-3 col-lg-3">
-                                <Link to="/new-advert">
+                                <Link to={routingUrl.pathToAdvertCreation}>
                                     <button
                                         style={{
                                             height: "100%",
