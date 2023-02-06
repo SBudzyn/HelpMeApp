@@ -9,7 +9,7 @@ namespace HelpMeApp.DatabaseAccess.Interfaces
 {
     public interface IAdvertReadRepository
     {
-        Task<IEnumerable<Advert>> GetAdvertsByPageAsync(int page, int pageSize);
+        Task<IEnumerable<Advert>> GetAdvertsByPageAsync(int helpTypeId, int categoryId, string location, int termsId, string sortBy, int page, int pageSize);
         Task<Advert> GetAdvertByIdAsync(int id);
     }
 }

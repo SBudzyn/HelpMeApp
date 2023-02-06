@@ -24,9 +24,9 @@ namespace HelpMeApp.Services.Services
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<AdvertPreviewResponseData>> GetAdvertsByPage(int page, int pageSize)
+        public async Task<IEnumerable<AdvertPreviewResponseData>> GetAdvertsByPage(int helpTypeId, int categoryId, string location, int termsId, string sortBy, int page, int pageSize)
         {
-            var domainAdverts = await _advertReadRepository.GetAdvertsByPageAsync(page, pageSize);
+            var domainAdverts = await _advertReadRepository.GetAdvertsByPageAsync(helpTypeId, categoryId, location, termsId, sortBy, page, pageSize);
 
             var advertsData = _mapper.Map<IEnumerable<AdvertPreviewResponseData>>(domainAdverts);
 

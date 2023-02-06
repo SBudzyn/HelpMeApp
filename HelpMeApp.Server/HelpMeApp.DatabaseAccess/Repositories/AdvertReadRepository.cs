@@ -1,6 +1,6 @@
 ﻿using HelpMeApp.DatabaseAccess.Entities.AdvertEntity;
+using HelpMeApp.DatabaseAccess.FiltersExtensionMethods;
 using HelpMeApp.DatabaseAccess.Interfaces;
-using HelpMeApp.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -19,12 +19,16 @@ namespace HelpMeApp.DatabaseAccess.Repositories
             _context = context;
         }
 
-        public async Task<IEnumerable<Advert>> GetAdvertsByPageAsync(int page, int pageSize)
+        public async Task<IEnumerable<Advert>> GetAdvertsByPageAsync(int helpTypeId, int categoryId, string location, int termsId, string sortBy, int page, int pageSize)
         {
             return await _context.Adverts
                 .Where(a => a.IsClosed == false)
+                .FilterByHelpType(helpTypeId)
+                .FilterByCategory(categoryId)
+                .FilterByLocation(location)
+                .FilterByTerms(termsId)
                 .Include(a => a.Photos)
-                .OrderBy(a => a.Id)
+                .Sort(sortBy)
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize)
                 .ToListAsync();

@@ -27,14 +27,14 @@ namespace HelpMeApp.WebAPI.Controllers
         }
 
         [HttpGet("page")]
-        public async Task<IActionResult> GetByPage(int page = 1, int pageSize = 20)
+        public async Task<IActionResult> GetByPage(int helpTypeId, int categoryId, string location, int termsId, string sortBy, int page = 1, int pageSize = 20)
         {
             if (page < 1 || pageSize < 1)
             {
                 return BadRequest();
             }
 
-            return Ok(await _advertService.GetAdvertsByPage(page, pageSize));
+            return Ok(await _advertService.GetAdvertsByPage(helpTypeId, categoryId, location, termsId, sortBy, page, pageSize));
         }
 
         [HttpGet("{advertId}")]
