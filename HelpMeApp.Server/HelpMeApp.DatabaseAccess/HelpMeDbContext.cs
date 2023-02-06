@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using System;
 
-namespace HelpMeApp.Repositories
+namespace HelpMeApp.DatabaseAccess
 {
     public class HelpMeDbContext : IdentityDbContext<AppUser, IdentityRole<Guid>, Guid>
     {
@@ -39,7 +39,6 @@ namespace HelpMeApp.Repositories
             modelBuilder.ApplyConfiguration(new SenderRoleConfiguration());
             modelBuilder.ApplyConfiguration(new TermsConfiguration());
         }
-
         public DbSet<Advert> Adverts { get; set; }
 
         public DbSet<Category> Categories { get; set; }

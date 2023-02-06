@@ -1,6 +1,6 @@
 using System;
 using HelpMeApp.DatabaseAccess.Entities.AppUserEntity;
-using HelpMeApp.Repositories;
+using HelpMeApp.DatabaseAccess;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using HelpMeApp.WebAPI.ServiceCollectionConfiguration;
+using HelpMeApp.DatabaseAccess.Initializers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,6 +28,7 @@ builder.Services.AddDbContext<HelpMeDbContext>(opts =>
     var connectionString = builder.Configuration.GetConnectionString("MyConnectionString");
     opts.UseSqlServer(connectionString);
 });
+builder.Services.AddScoped<DbInitializer>();
 
 builder.Services.AddIdentity<AppUser, IdentityRole<Guid>>(
     options =>
@@ -43,6 +45,7 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    app.UseItToSeedSqlServer();
     app.UseSwagger();
     app.UseSwaggerUI();
 }
