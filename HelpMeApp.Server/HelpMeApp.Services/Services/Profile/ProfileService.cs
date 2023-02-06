@@ -25,7 +25,6 @@ namespace HelpMeApp.Services.Services.Profile
         private UserManager<AppUser> _userManager;
         private SignInManager<AppUser> _signInManager;       
         private IMapper _mapper;
-        
         public ProfileService(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, IMapper mapper)
         {            
             _userManager = userManager;
@@ -37,19 +36,12 @@ namespace HelpMeApp.Services.Services.Profile
         {
             var response = new ProfileResponseModel<ProfileRequestModel>();
           
-            /*
-            bool tryParse = Guid.TryParse(userId, out Guid userIdGuid);
-            if (tryParse == false) {
-                response.Success= false;
-                response.Message = "Id was not parsed to Guid";
-                return response;
-            } */
             var foundedUser = await _userManager.FindByIdAsync(userId);
             
-            // var user = new ProfileRequestModel();
-            var user = _mapper.Map<ProfileRequestModel>(foundedUser);
+             var user = new ProfileRequestModel();
+            // var user = _mapper.Map<ProfileRequestModel>(foundedUser);
 
-            if (foundedUser != null)
+            if (foundedUser == null)
             {
                 response.Success = false;
                 response.Message = "Sorry, your account was not founded";
@@ -59,7 +51,7 @@ namespace HelpMeApp.Services.Services.Profile
             {
                 response.Success = true;
                 response.Message = "Your account was founded";
-                /*
+                user.Id = foundedUser.Id;
                 user.Username= foundedUser.Name;
                 user.Name = foundedUser.Name;
                 user.Email = foundedUser.Email;
@@ -71,7 +63,8 @@ namespace HelpMeApp.Services.Services.Profile
                 user.Chats = foundedUser.Chats;
                 user.PasswordHash = foundedUser.PasswordHash;
                 user.RegistrationDate = foundedUser.RegistrationDate;
-                user.Reports = foundedUser.Reports; */
+                user.Reports = foundedUser.Reports;
+                response.Data = user;
             }
             return response;
 

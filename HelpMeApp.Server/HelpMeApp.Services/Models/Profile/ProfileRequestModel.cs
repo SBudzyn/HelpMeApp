@@ -12,7 +12,7 @@ namespace HelpMeApp.Services.Models.Profile
 {
     public class ProfileRequestModel
     {
-        public string ProfileId { get; set; }
+        public Guid Id { get; set; }
         public string Username { get; set; }
         public string Email { get; set; }
 

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using HelpMeApp.DatabaseAccess.Entities.AppUserEntity;
-using HelpMeApp.Repositories;
+
 using Microsoft.AspNetCore.Identity;
 namespace HelpMeApp.DatabaseAccess.Repositories.Profile
 {
