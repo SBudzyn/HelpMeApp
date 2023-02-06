@@ -26,6 +26,8 @@ namespace HelpMeApp.Services.MappingProfiles
             CreateMap<Advert, AdvertPreviewResponseData>();
 
             CreateMap<AdvertPostData, Advert>();
+
+            CreateMap<AdvertPostData, Advert>();
         }
     }
 }
