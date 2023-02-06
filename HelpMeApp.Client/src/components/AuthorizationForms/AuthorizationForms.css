@@ -2,10 +2,12 @@
   min-width: 350px;
   border: 0.2px solid black;
   border-radius: 10px;
+  margin-top: 6vh;
   height: 75vh;
   background-color: rgb(240, 240, 240);
-  width: 32%;
+  width: 25%;
   font-size: 3.5vh;
+  z-index: 1;
 }
 
 .left-button {
@@ -51,7 +53,7 @@
 }
 
 .submit-button {
-  min-width: 60%;
+  width: 100%;
 }
 
 .horizontal-center {
@@ -62,7 +64,7 @@
 
 .up {
   position: relative;
-  bottom: 5vh;
+  bottom: 4vh;
 }
 
 .modal-group {
@@ -74,3 +76,19 @@
 .modal-btn {
   width: 50%;
 }
+
+.error-message {
+  font-size: 17px;
+  position: relative;
+  bottom: 3vh;
+  color: rgba(228, 48, 48, 0.773);
+}
+
+@media only screen and (max-width: 600px) {
+  .header-button {
+    font-size: 20px;
+    font-weight: 400;
+    
+  }
+}
+

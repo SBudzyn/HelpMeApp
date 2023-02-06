@@ -1,8 +1,10 @@
 import { useState, React } from "react";
-import { Formik, Field, Form } from "formik";
+import { Formik, Field, Form, ErrorMessage } from "formik";
 import { Link } from "react-router-dom";
 import routingUrl from "../../constants/routingUrl";
 import Modal from "react-bootstrap/Modal";
+import AuthorizationValidationSchema from "./validation/AuthorizationValidationSchema";
+import RegistrationValidationSchema from "./validation/RegistrationValidationSchema";
 import "bootstrap/dist/css/bootstrap.css";
 import "./AuthorizationForms.css";
 
@@ -41,50 +43,63 @@ const RegistrationForm = () => {
                     setRegistrationData(values);
                     handleShow();
                 }}
+                validationSchema={AuthorizationValidationSchema}
             >
-                <Form className="form">
-                    <div className="mb-3 row">
-                        <label
-                            htmlFor="email"
-                            className="col-sm-2 col-form-label up"
-                        >
-                            Email
-                        </label>
-                        <br />
+                {(formik) => {
+                    const { isValid, dirty } = formik;
+                    return (
+                        <Form className="form">
+                            <div className="mb-3 row">
+                                <label
+                                    htmlFor="email"
+                                    className="col-sm-2 col-form-label up"
+                                >
+                                    Email
+                                </label>
+                                <br />
 
-                        <Field
-                            id="email"
-                            name="email"
-                            placeholder="name@gmail.com"
-                            type="email"
-                            className="form-control up"
-                            required
-                        />
-                    </div>
+                                <Field
+                                    id="email"
+                                    name="email"
+                                    placeholder="name@gmail.com"
+                                    type="email"
+                                    className="form-control up"
+                                    required
+                                />
+                                <div className="error-message">
+                                    <ErrorMessage name="email" />
+                                </div>
+                            </div>
 
-                    <div className="mb-3 row">
-                        <label
-                            htmlFor="password"
-                            className="col-sm-2 col-form-label up"
-                        >
-                            Password
-                        </label>
-                        <Field
-                            id="password"
-                            name="password"
-                            type="password"
-                            className="form-control up"
-                            required
-                        />
-                    </div>
-                    <br />
-                    <button
-                        className="submit-button horizontal-center btn btn-primary mb-3 up"
-                        type="submit"
-                    >
-                        Next
-                    </button>
-                </Form>
+                            <div className="mb-3 row">
+                                <label
+                                    htmlFor="password"
+                                    className="col-sm-2 col-form-label up"
+                                >
+                                    Password
+                                </label>
+                                <Field
+                                    id="password"
+                                    name="password"
+                                    type="password"
+                                    className="form-control up"
+                                    required
+                                />
+                                <div className="error-message">
+                                    <ErrorMessage name="password" />
+                                </div>
+                            </div>
+                            <br />
+                            <button
+                                className="submit-button horizontal-center btn btn-primary mb-3 up"
+                                type="submit"
+                                disabled={!(dirty && isValid)}
+                            >
+                                Next
+                            </button>
+                        </Form>
+                    );
+                }}
             </Formik>
 
             <Modal show={show} onHide={handleClose}>
@@ -100,6 +115,7 @@ const RegistrationForm = () => {
                                 phoneNumber: "",
                                 info: ""
                             }}
+                            validationSchema={RegistrationValidationSchema}
                             onSubmit={async (values) => {
                                 const allData = {
                                     email: registrationData.email,
@@ -140,6 +156,9 @@ const RegistrationForm = () => {
                                         required
                                     />
                                 </div>
+                                <div className="error-message">
+                                    <ErrorMessage name="name" />
+                                </div>
                                 <div className="mb-3 row modal-group">
                                     <label
                                         htmlFor="surname"
@@ -158,6 +177,9 @@ const RegistrationForm = () => {
                                         required
                                     />
                                 </div>
+                                <div className="error-message">
+                                    <ErrorMessage name="Surname" />
+                                </div>
                                 <div className="mb-3 row modal-group">
                                     <label
                                         htmlFor="phoneNumber"
@@ -175,6 +197,9 @@ const RegistrationForm = () => {
                                         className="form-control"
                                         required
                                     />
+                                </div>
+                                <div className="error-message">
+                                    <ErrorMessage name="phoneNumber" />
                                 </div>
                                 <div className="mb-3 row modal-group">
                                     <label
@@ -205,6 +230,7 @@ const RegistrationForm = () => {
                                             className="form-control"
                                             type="file"
                                             id="photo"
+                                            accept="image/*"
                                             onChange={(event) => {
                                                 setPhoto(
                                                     event.currentTarget.files[0]
