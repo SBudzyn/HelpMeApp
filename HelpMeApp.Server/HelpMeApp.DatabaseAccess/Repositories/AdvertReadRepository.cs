@@ -19,10 +19,14 @@ namespace HelpMeApp.DatabaseAccess.Repositories
             _context = context;
         }
 
-        public async Task<IEnumerable<Advert>> GetAdvertsByPageAsync(int page, int pageSize)
+        public async Task<IEnumerable<Advert>> GetAdvertsByPageAsync(string category, string location, string terms, string helpType, int page, int pageSize)
         {
             return await _context.Adverts
                 .Where(a => a.IsClosed == false)
+                .Where(a => helpType == null || a.HelpType.Name.ToLower() == helpType.ToLower())
+                .Where(a => category == null || a.Category.Name.ToLower() == category.ToLower())
+                .Where(a => location == null || a.Location.ToLower() == location.ToLower())
+                //.Where(a => a.Terms.Days.ToString() == terms.ToLower() || terms == null)
                 .Include(a => a.Photos)
                 .OrderBy(a => a.Id)
                 .Skip((page - 1) * pageSize)
