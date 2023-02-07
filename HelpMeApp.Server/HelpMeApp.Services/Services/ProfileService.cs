@@ -43,7 +43,6 @@ namespace HelpMeApp.Services.Services.Profile
 
             }
             return response;
-
         }
     }
 }
