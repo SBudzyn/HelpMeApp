@@ -48,9 +48,9 @@ namespace HelpMeApp.DatabaseAccess.FiltersExtensionMethods
 
             return query;
         }
+
         public static IQueryable<Advert> Sort(this IQueryable<Advert> query, string orderBy)
         {
-            
             if (orderBy == "date")
             {
                 return query.OrderByDescending(a => a.CreationDate);
