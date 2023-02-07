@@ -8,13 +8,14 @@ using System.Text;
 using System.Threading.Tasks;
 using HelpMeApp.Services.Models.Profile;
 using HelpMeApp.Services.DTO;
-namespace HelpMeApp.Services.Interfaces.Profile
+
+namespace HelpMeApp.Services.Interfaces
 {
     public interface IProfileService
     {
         Task<ProfileResponseModel<ProfileRequestModel>> GetUserById(string userId);
-      /*  Task<ProfileResponseModel<ProfileEditionModel>> UpdateUser(string userId, ProfileEditionModel profileEditionModel);
-        Task<ProfileResponseModel<ProfileEditionModel>> DeleteUser(string userId); */
+        Task<ProfileResponseModel<ProfileEditionModel>> UpdateUser(string userId, ProfileEditionModel profileEditionModel);
+        Task<ProfileResponseModel<ProfileEditionModel>> DeleteUser(string userId); 
 
     }
 }

@@ -2,11 +2,9 @@
 using HelpMeApp.DatabaseAccess.Interfaces;
 using HelpMeApp.DatabaseAccess.Repositories;
 using HelpMeApp.Services.Interfaces;
-using HelpMeApp.Services.Interfaces.Profile;
 
 using HelpMeApp.Services.MappingProfiles;
 using HelpMeApp.Services.Services;
-using HelpMeApp.Services.Services.Profile;
 using HelpMeApp.WebAPI.Authorization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;

@@ -12,27 +12,16 @@ namespace HelpMeApp.Services.Models.Registration
     public class RegistrationRequestModel
     {
         public string Email { get; set; }
-
         public string Password { get; set; }
-
         public string Name { get; set; }
-
         public string Surname { get; set; }
-
         public string PhoneNumber { get; set; }
-  
         public byte[] Photo { get; set; }
-
-        public DateTime RegistrationDate { get; set; } = DateTime.MinValue;
-
-        public string Info { get; set; } = string.Empty;
-
-        public bool IsBlocked { get; set; } = false;
-
-        public List<HelpMeApp.DatabaseAccess.Entities.AdvertEntity.Advert> Adverts { get; set; } = null;
-
-        public List<Report> Reports { get; set; } = null;
-
-        public List<Chat> Chats { get; set; } = null;
+        public DateTime RegistrationDate { get; set; } 
+        public string Info { get; set; } 
+        public bool IsBlocked { get; set; }
+        public List<HelpMeApp.DatabaseAccess.Entities.AdvertEntity.Advert> Adverts { get; set; }
+        public List<Report> Reports { get; set; } 
+        public List<Chat> Chats { get; set; } 
     }
 }

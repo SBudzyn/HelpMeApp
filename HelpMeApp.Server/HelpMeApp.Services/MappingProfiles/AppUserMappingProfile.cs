@@ -26,7 +26,7 @@ namespace HelpMeApp.Services.MappingProfiles
             .ForMember(dest => dest.PhoneNumber, opt => opt.Condition(src => (src.PhoneNumber != null)))
             .ForMember(dest => dest.Email, opt => opt.Condition(src => (src.Email != null)))
             .ForMember(dest => dest.Info, opt => opt.Condition(src => (src.Info != null)))
-            .ForMember(dest => dest.PasswordHash, opt => opt.Condition(src => (src.PasswordHash != null)))
+            .ForMember(dest => dest.PasswordHash, opt => opt.Condition(src => (src.PasswordHash != null && src.PasswordWasHashed == false)))
             .ForMember(dest => dest.Photo, opt => opt.Condition(src => (src.Photo != null)))
             .ForMember(dest => dest.UserName, opt => opt.Condition(src => (src.Username != null))); 
 
