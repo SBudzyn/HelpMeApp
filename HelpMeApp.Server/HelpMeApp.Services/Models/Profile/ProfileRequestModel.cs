@@ -7,7 +7,6 @@ using System.Text;
 using System.Threading.Tasks;
 using HelpMeApp.DatabaseAccess.Entities.AdvertEntity;
 
-
 namespace HelpMeApp.Services.Models.Profile
 {
     public class ProfileRequestModel

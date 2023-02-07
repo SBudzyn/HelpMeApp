@@ -12,6 +12,5 @@ namespace HelpMeApp.Services.Interfaces
         Task<ProfileResponseModel<ProfileRequestModel>> GetUserById(string userId);
         Task<ProfileResponseModel<ProfileEditionModel>> UpdateUser(string userId, ProfileEditionModel profileEditionModel);
         Task<ProfileResponseModel<ProfileEditionModel>> DeleteUser(string userId);
-
     }
 }
