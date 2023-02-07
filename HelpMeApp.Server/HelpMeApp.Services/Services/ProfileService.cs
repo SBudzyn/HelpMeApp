@@ -88,7 +88,6 @@ namespace HelpMeApp.Services.Services
             {
                 foundedUser.IsBlocked = true;
                 var updateUserData = await _userManager.UpdateAsync(foundedUser);
-
                 if (updateUserData.Succeeded)
                 {
                     response.Success = true;
