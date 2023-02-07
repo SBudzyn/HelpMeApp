@@ -41,7 +41,6 @@ namespace HelpMeApp.Services.Services
             {
                 var user = _mapper.Map<ProfileRequestModel>(foundedUser);
                 response.Data = user;
-
                 response.Success = true;
                 response.Message = "Your account was founded";
 
@@ -87,7 +86,6 @@ namespace HelpMeApp.Services.Services
             }
             else
             {
-
                 foundedUser.IsBlocked = true;
                 var updateUserData = await _userManager.UpdateAsync(foundedUser);
 
