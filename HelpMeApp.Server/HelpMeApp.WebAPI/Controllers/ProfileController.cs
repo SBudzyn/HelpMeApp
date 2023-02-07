@@ -30,7 +30,6 @@ namespace HelpMeApp.WebAPI.Controllers.Profile
         {
             var result = await _profileService.GetUserById(id);
             return result;
-
         }
     }
 }
