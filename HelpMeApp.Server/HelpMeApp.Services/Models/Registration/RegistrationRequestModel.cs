@@ -29,7 +29,7 @@ namespace HelpMeApp.Services.Models.Registration
 
         public bool IsBlocked { get; set; } = false;
 
-        public List<Advert> Adverts { get; set; } = null;
+        public List<HelpMeApp.DatabaseAccess.Entities.AdvertEntity.Advert> Adverts { get; set; } = null;
 
         public List<Report> Reports { get; set; } = null;
 

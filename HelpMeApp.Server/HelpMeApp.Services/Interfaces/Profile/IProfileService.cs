@@ -13,7 +13,8 @@ namespace HelpMeApp.Services.Interfaces.Profile
     public interface IProfileService
     {
         Task<ProfileResponseModel<ProfileRequestModel>> GetUserById(string userId);
-       // void Update(AppUser user);
-       // void Delete(AppUser user);
+      /*  Task<ProfileResponseModel<ProfileEditionModel>> UpdateUser(string userId, ProfileEditionModel profileEditionModel);
+        Task<ProfileResponseModel<ProfileEditionModel>> DeleteUser(string userId); */
+
     }
 }
