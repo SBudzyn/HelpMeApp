@@ -2,6 +2,7 @@
 using FluentValidation.Results;
 using HelpMeApp.Services.Interfaces;
 using HelpMeApp.Services.Models.Advert;
+using HelpMeApp.Services.Models.Filters;
 using HelpMeApp.WebAPI.Authorization;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -32,14 +33,14 @@ namespace HelpMeApp.WebAPI.Controllers
         }
 
         [HttpGet("page")]
-        public async Task<IActionResult> GetByPage(int helpTypeId, int categoryId, string location, int termsId, string sortBy, int page = 1, int pageSize = 20)
+        public async Task<IActionResult> GetByPage([FromQuery] AdvertFiltersData filters, int page = 1, int pageSize = 20)
         {
             if (page < 1 || pageSize < 1)
             {
                 return BadRequest();
             }
 
-            return Ok(await _advertService.GetAdvertsByPage(helpTypeId, categoryId, location, termsId, sortBy, page, pageSize));
+            return Ok(await _advertService.GetAdvertsByPage(filters, page, pageSize));
         }
 
         [HttpGet("{advertId}")]

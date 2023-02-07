@@ -1,8 +1,11 @@
 ﻿using AutoMapper;
 using HelpMeApp.DatabaseAccess.Entities.AdvertEntity;
+using HelpMeApp.DatabaseAccess.Filters;
 using HelpMeApp.DatabaseAccess.Interfaces;
 using HelpMeApp.Services.Interfaces;
 using HelpMeApp.Services.Models.Advert;
+using HelpMeApp.Services.Models.Filters;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,9 +27,11 @@ namespace HelpMeApp.Services.Services
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<AdvertPreviewResponseData>> GetAdvertsByPage(int helpTypeId, int categoryId, string location, int termsId, string sortBy, int page, int pageSize)
+        public async Task<IEnumerable<AdvertPreviewResponseData>> GetAdvertsByPage([FromQuery] AdvertFiltersData filters, int page, int pageSize)
         {
-            var domainAdverts = await _advertReadRepository.GetAdvertsByPageAsync(helpTypeId, categoryId, location, termsId, sortBy, page, pageSize);
+            var filtersDomain = _mapper.Map<AdvertFilters>(filters);
+
+            var domainAdverts = await _advertReadRepository.GetAdvertsByPageAsync(filtersDomain, page, pageSize);
 
             var advertsData = _mapper.Map<IEnumerable<AdvertPreviewResponseData>>(domainAdverts);
 

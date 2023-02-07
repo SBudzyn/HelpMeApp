@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using HelpMeApp.DatabaseAccess.Entities.AdvertEntity;
+using HelpMeApp.DatabaseAccess.Filters;
 using HelpMeApp.Services.Models.Advert;
+using HelpMeApp.Services.Models.Filters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +28,8 @@ namespace HelpMeApp.Services.MappingProfiles
             CreateMap<Advert, AdvertPreviewResponseData>();
 
             CreateMap<AdvertPostData, Advert>();
+
+            CreateMap<AdvertFiltersData, AdvertFilters>();
         }
     }
 }
