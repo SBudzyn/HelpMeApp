@@ -40,7 +40,6 @@ namespace HelpMeApp.Services.Services.Profile
                 response.Data = user;
                 response.Success = true;
                 response.Message = "Your account was found";
-
             }
             return response;
         }
