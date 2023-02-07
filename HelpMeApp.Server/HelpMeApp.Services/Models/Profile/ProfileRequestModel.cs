@@ -1,9 +1,7 @@
-﻿
-using HelpMeApp.DatabaseAccess.Entities.ChatEntity;
+﻿using HelpMeApp.DatabaseAccess.Entities.ChatEntity;
 using HelpMeApp.DatabaseAccess.Entities.ReportEntity;
 using System;
 using System.Collections.Generic;
-
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,8 +9,7 @@ using System.Threading.Tasks;
 namespace HelpMeApp.Services.Models.Profile
 {
     public class ProfileRequestModel
-    {
-        
+    {       
         public string Username { get; set; }
         public string Email { get; set; }
         public string PasswordHash { get; set; }
