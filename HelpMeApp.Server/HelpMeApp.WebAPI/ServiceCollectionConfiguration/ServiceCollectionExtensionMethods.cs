@@ -4,6 +4,7 @@ using HelpMeApp.DatabaseAccess.Repositories;
 using HelpMeApp.Services.Interfaces;
 using HelpMeApp.Services.MappingProfiles;
 using HelpMeApp.Services.Services;
+using HelpMeApp.Services.Services.Profile;
 using HelpMeApp.WebAPI.Authorization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -70,6 +71,7 @@ namespace HelpMeApp.WebAPI.ServiceCollectionConfiguration
             services.AddTransient<ITokenService, TokenService>();
             services.AddTransient<IAuthenticationService, AuthenticationService>();
             services.AddTransient<IAdvertService, AdvertService>();
+            services.AddTransient<IProfileService, ProfileService>();
         }
 
         public static void BindRepositories(this IServiceCollection services)
