@@ -5,12 +5,7 @@
     color: rgba(228, 48, 48, 0.773);
   }
 
-  .form {
-    margin: 8vh;
-    display: flex;
-  }
-
-  .creat-form {
+  .creation-form {
     width: 35rem;
     border: 0.2px solid black;
     border-radius: 10px;
@@ -26,8 +21,7 @@
   @media only screen and (max-width: 600px) {
     .header-button {
       font-size: 20px;
-      font-weight: 400;
-      
+      font-weight: 400;  
     }
   }
   

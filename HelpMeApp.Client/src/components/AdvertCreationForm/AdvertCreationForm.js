@@ -1,7 +1,8 @@
 import { useState, React } from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
-import * as Yup from "yup";
 import "./AdvertCreationForm.css";
+import advertCreationConsts from "../../constants/advertCreationConsts";
+import AdvertCreationValidationSchema from "./AdvertCreationValidationSchema.js";
 
 const AdvertCreationForm = () => {
     const [setShow] = useState(false);
@@ -46,32 +47,6 @@ const AdvertCreationForm = () => {
         });
     };
 
-    const helpTypes = ["Need help", "Can help"];
-    const categories = ["Food", "Clothes", "Evacuation", "Repairs"];
-    const terms = ["1", "2-3", "5-7", "10-20", "21-30"];
-
-    const AdvertCreationSchema = Yup.object().shape({
-        helpType: Yup.string()
-            .oneOf(helpTypes, "Invalid help type")
-            .required("Required!"),
-        header: Yup.string()
-            .min(5, "Must be 5 at least characters")
-            .max(45, "Must be 45 characters or less")
-            .required("Required!"),
-        info: Yup.string()
-            .min(20, "Must be 20 at least characters")
-            .max(200, "Must be 200 characters or less")
-            .required("Required!"),
-        location: Yup.string()
-            .min(4, "Must be 4 at least characters")
-            .max(20, "Must be 20 characters or less")
-            .required("Required!"),
-        category: Yup.string()
-            .oneOf(categories, "Invalid category")
-            .required("Required!"),
-        terms: Yup.string().oneOf(terms, "Invalid terms").required("Required!")
-    });
-
     return (
         <>
             <Formik
@@ -96,12 +71,12 @@ const AdvertCreationForm = () => {
                     alert(JSON.stringify(allData));
                     handleClose();
                 }}
-                validationSchema={AdvertCreationSchema}
+                validationSchema={AdvertCreationValidationSchema}
             >
                 {(formik) => {
                     const { isValid, dirty } = formik;
                     return (
-                        <Form className="creat-form">
+                        <Form className="creation-form">
                             <h1 className="text-center mt-3 mb-3">
                                 Create new advert
                             </h1>
@@ -119,7 +94,7 @@ const AdvertCreationForm = () => {
                                     <option defaultValue={null}>
                                         Choose help type
                                     </option>
-                                    {helpTypes.map((o) => (
+                                    {advertCreationConsts.helpTypes.map((o) => (
                                         <option key={o} value={o}>
                                             {o}
                                         </option>
@@ -191,7 +166,7 @@ const AdvertCreationForm = () => {
                                     <option defaultValue={null}>
                                         Choose category
                                     </option>
-                                    {categories.map((o) => (
+                                    {advertCreationConsts.categories.map((o) => (
                                         <option key={o} value={o}>
                                             {o}
                                         </option>
@@ -216,7 +191,7 @@ const AdvertCreationForm = () => {
                                     <option defaultValue={null}>
                                         Choose terms
                                     </option>
-                                    {terms.map((o) => (
+                                    {advertCreationConsts.terms.map((o) => (
                                         <option key={o} value={o}>
                                             {o}
                                         </option>
