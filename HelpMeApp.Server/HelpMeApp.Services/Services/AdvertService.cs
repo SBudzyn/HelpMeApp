@@ -3,6 +3,7 @@ using HelpMeApp.DatabaseAccess.Entities.AdvertEntity;
 using HelpMeApp.DatabaseAccess.Filters;
 using HelpMeApp.DatabaseAccess.Interfaces;
 using HelpMeApp.Services.Interfaces;
+using HelpMeApp.Services.Models;
 using HelpMeApp.Services.Models.Advert;
 using HelpMeApp.Services.Models.Filters;
 using Microsoft.AspNetCore.Mvc;
@@ -73,6 +74,17 @@ namespace HelpMeApp.Services.Services
             var deactivatedAdvert = await _advertWriteRepository.DeactivateAdvertAsync(advertId);
 
             return _mapper.Map<AdvertDetailedResponseData>(deactivatedAdvert);
+        }
+
+        public async Task<GeneralData> GetGeneralDataAsync()
+        {
+            var categories = await _advertReadRepository.GetCategoriesAsync();
+
+            var terms = await _advertReadRepository.GetTermsAsync();
+
+            var advertsQuantity = await _advertReadRepository.CountAdverts();
+
+            return new GeneralData { Categories = categories, Terms = terms, AdvertsQuantity = advertsQuantity };
         }
     }
 }

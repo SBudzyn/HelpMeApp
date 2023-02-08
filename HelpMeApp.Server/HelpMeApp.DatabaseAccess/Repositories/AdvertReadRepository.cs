@@ -1,6 +1,7 @@
 ﻿using HelpMeApp.DatabaseAccess.Entities.AdvertEntity;
 using HelpMeApp.DatabaseAccess.Filters;
 using HelpMeApp.DatabaseAccess.FiltersExtensionMethods;
+using HelpMeApp.DatabaseAccess.Entities.CategoryEntity;
 using HelpMeApp.DatabaseAccess.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -38,6 +39,21 @@ namespace HelpMeApp.DatabaseAccess.Repositories
         public async Task<Advert> GetAdvertByIdAsync(int id)
         {
             return await _context.Adverts.FirstOrDefaultAsync(a => a.Id == id);
+        }
+
+        public async Task<Dictionary<int, string>> GetCategoriesAsync()
+        {
+            return await _context.Categories.ToDictionaryAsync(c => c.Id, c => c.Name);
+        }
+
+        public async Task<Dictionary<int, string>> GetTermsAsync()
+        {
+            return await _context.Terms.ToDictionaryAsync(t => t.Id, t => t.Days);
+        }
+
+        public async Task<int> CountAdverts()
+        {
+            return await _context.Adverts.CountAsync();
         }
     }
 }

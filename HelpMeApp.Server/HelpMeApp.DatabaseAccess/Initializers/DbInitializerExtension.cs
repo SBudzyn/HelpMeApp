@@ -12,15 +12,9 @@ namespace HelpMeApp.DatabaseAccess.Initializers
 
             using var scope = app.ApplicationServices.CreateScope();
             var services = scope.ServiceProvider;
-            try
-            {
-                var context = services.GetRequiredService<HelpMeDbContext>();
-                DbInitializer.Initialize(context);
-            }
-            catch (Exception ex)
-            {
-
-            }
+            
+            var context = services.GetRequiredService<HelpMeDbContext>();
+            DbInitializer.Initialize(context);
 
             return app;
         }
