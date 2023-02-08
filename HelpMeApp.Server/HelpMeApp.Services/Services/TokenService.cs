@@ -12,6 +12,8 @@ namespace HelpMeApp.Services.Services
 {
     public class TokenService : ITokenService
     {
+        private const string UserIdClaim = "UserId";
+
         private IConfiguration _configuration;
 
         public TokenService(IConfiguration configuration)
@@ -30,7 +32,7 @@ namespace HelpMeApp.Services.Services
 
         private List<Claim> GetClaims(AppUser user)
         {
-            return new List<Claim> { new Claim(ClaimTypes.Email, user.Email) };
+            return new List<Claim> { new Claim(UserIdClaim, user.Id.ToString()), new Claim(ClaimTypes.Email, user.Email) };
         }
 
         private SigningCredentials GetSigningCredentials()
