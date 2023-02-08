@@ -3,12 +3,9 @@ import { Formik, Field, Form, ErrorMessage } from "formik";
 import "./AdvertCreationForm.css";
 import advertCreationConsts from "../../constants/advertCreationConsts";
 import AdvertCreationValidationSchema from "./AdvertCreationValidationSchema.js";
+import { handleUploadFiles } from "../../services/filesUploading";
 
 const AdvertCreationForm = () => {
-    const [setShow] = useState(false);
-
-    const handleClose = () => setShow(false);
-
     const [uploadedFiles, setUploadedFiles] = useState([]);
     const [fileLimit, setFileLimit] = useState(false);
 
@@ -18,42 +15,15 @@ const AdvertCreationForm = () => {
         disabled: fileLimit,
         "btn-primary": true
     });
-
-    const handleUploadFiles = async (files) => {
-        const uploaded = [...uploadedFiles];
-        let limitExceeded = false;
-        for (const file of files) {
-            if (uploaded.findIndex((f) => f.name === file.name) === -1) {
-                const base64 = await convertToBase64(file);
-                uploaded.push({ name: file.name, base64: base64 });
-                if (uploaded.length === 6) setFileLimit(true);
-                if (uploaded.length > 6) {
-                    setFileLimit(false);
-                    limitExceeded = true;
-                }
-            }
-        }
-        if (!limitExceeded) setUploadedFiles(uploaded);
-    };
-
     const handleFileEvent = async (e) => {
-        const chosenFiles = Array.from(e.target.files);
-        handleUploadFiles(chosenFiles);
+        const chosenFiles = e.target.files;
+        handleUploadFiles(
+            chosenFiles,
+            setUploadedFiles,
+            setFileLimit,
+            uploadedFiles
+        );
     };
-
-    const convertToBase64 = (file) => {
-        return new Promise((resolve, reject) => {
-            const fileReader = new FileReader();
-            fileReader.readAsDataURL(file);
-            fileReader.onload = () => {
-                resolve(fileReader.result);
-            };
-            fileReader.onerror = (error) => {
-                reject(error);
-            };
-        });
-    };
-
     return (
         <>
             <Formik
@@ -76,7 +46,6 @@ const AdvertCreationForm = () => {
                         files: uploadedFiles
                     };
                     alert(JSON.stringify(allData));
-                    handleClose();
                 }}
                 validationSchema={AdvertCreationValidationSchema}
             >
@@ -101,11 +70,16 @@ const AdvertCreationForm = () => {
                                     <option defaultValue={null}>
                                         Choose help type
                                     </option>
-                                    {advertCreationConsts.helpTypes.map((o) => (
-                                        <option key={o} value={o}>
-                                            {o}
-                                        </option>
-                                    ))}
+                                    {advertCreationConsts.helpTypes.map(
+                                        (helpType) => (
+                                            <option
+                                                key={helpType}
+                                                value={helpType}
+                                            >
+                                                {helpType}
+                                            </option>
+                                        )
+                                    )}
                                 </Field>
                                 <div className="error-message">
                                     <ErrorMessage name="helpType" />
@@ -174,9 +148,12 @@ const AdvertCreationForm = () => {
                                         Choose category
                                     </option>
                                     {advertCreationConsts.categories.map(
-                                        (o) => (
-                                            <option key={o} value={o}>
-                                                {o}
+                                        (category) => (
+                                            <option
+                                                key={category}
+                                                value={category}
+                                            >
+                                                {category}
                                             </option>
                                         )
                                     )}
@@ -200,9 +177,9 @@ const AdvertCreationForm = () => {
                                     <option defaultValue={null}>
                                         Choose terms
                                     </option>
-                                    {advertCreationConsts.terms.map((o) => (
-                                        <option key={o} value={o}>
-                                            {o}
+                                    {advertCreationConsts.terms.map((terms) => (
+                                        <option key={terms} value={terms}>
+                                            {terms}
                                         </option>
                                     ))}
                                 </Field>
@@ -218,7 +195,7 @@ const AdvertCreationForm = () => {
                                     accept=".jpg, .jpeg, .png"
                                     onChange={(e) => handleFileEvent(e)}
                                     disabled={fileLimit}
-                                    className="m-1"
+                                    className="d-none"
                                 />
 
                                 <label htmlFor="fileUpload">
@@ -229,7 +206,7 @@ const AdvertCreationForm = () => {
 
                                 <div className="uploaded-files-list">
                                     {uploadedFiles.map((file) => (
-                                        <div key={file.base64}>{file.name}</div>
+                                        <div key={file.name}>{file.name}</div>
                                     ))}
                                 </div>
                             </div>

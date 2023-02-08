@@ -13,10 +13,6 @@
     height:fit-content;
     background-color: rgb(240, 240, 240);
   }
-  
-  #fileUpload {
-    display: none;
-}
 
   @media only screen and (max-width: 600px) {
     .header-button {

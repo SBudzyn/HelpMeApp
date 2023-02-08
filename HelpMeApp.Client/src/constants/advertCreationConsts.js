@@ -3,4 +3,5 @@ const advertCreationConsts = {
     categories: ["Food", "Clothes", "Evacuation", "Repairs"],
     terms: ["1", "2-3", "5-7", "10-20", "21-30"]
 };
+
 export default advertCreationConsts;
