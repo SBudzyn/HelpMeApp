@@ -12,6 +12,13 @@ const AdvertCreationForm = () => {
     const [uploadedFiles, setUploadedFiles] = useState([]);
     const [fileLimit, setFileLimit] = useState(false);
 
+    var classNames = require("classnames");
+    var uploadBtnClass = classNames({
+        btn: true,
+        disabled: fileLimit,
+        "btn-primary": true
+    });
+
     const handleUploadFiles = async (files) => {
         const uploaded = [...uploadedFiles];
         let limitExceeded = false;
@@ -166,11 +173,13 @@ const AdvertCreationForm = () => {
                                     <option defaultValue={null}>
                                         Choose category
                                     </option>
-                                    {advertCreationConsts.categories.map((o) => (
-                                        <option key={o} value={o}>
-                                            {o}
-                                        </option>
-                                    ))}
+                                    {advertCreationConsts.categories.map(
+                                        (o) => (
+                                            <option key={o} value={o}>
+                                                {o}
+                                            </option>
+                                        )
+                                    )}
                                 </Field>
                                 <div className="error-message">
                                     <ErrorMessage name="category" />
@@ -213,11 +222,7 @@ const AdvertCreationForm = () => {
                                 />
 
                                 <label htmlFor="fileUpload">
-                                    <a
-                                        className={`btn btn-primary ${
-                                            !fileLimit ? "" : "disabled"
-                                        } `}
-                                    >
+                                    <a className={uploadBtnClass}>
                                         Upload Photos
                                     </a>
                                 </label>
