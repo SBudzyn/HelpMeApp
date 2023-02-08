@@ -1,6 +1,8 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
+import RouteGuard from "../components/RouteGuard/RouteGuard";
 import BoardPage from "../pages/BoardPage/BoardPage";
+import AdvertPage from "../pages/AdvertPage/AdvertPage";
 import AuthorizationPage from "../pages/AuthorizationPage/AuthorizationPage";
 import routingUrl from "../constants/routingUrl";
 import LoginForm from "../components/AuthorizationForms/LoginForm";
@@ -30,8 +32,10 @@ const AppRoutes = () => {
                 path={routingUrl.pathToGiveHelpBoard}
                 element={<BoardPage />}
             />
+            <Route path={routingUrl.pathToAdvertById} element={<AdvertPage />} />
             <Route path={routingUrl.pathToChat} element={<h1>Chat</h1>} />
             <Route path={routingUrl.pathToProfile} element={<h1>Profile</h1>} />
+            <Route path={routingUrl.pathToPostAdvert} element={<RouteGuard element={BoardPage} />} />
         </Routes>
     );
 };
