@@ -4,7 +4,7 @@ import AdvertCreationForm from "../../components/AdvertCreationForm/AdvertCreati
 
 const AdvertCreationPage = () => {
     return (
-        <div className="page centered-form">
+        <div className="centered-form mb-5 mx-4">
             <AdvertCreationForm />
         </div>
     );

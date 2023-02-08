@@ -1,58 +1,83 @@
 import { useState, React } from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import "./AdvertCreationForm.css";
 
 const AdvertCreationForm = () => {
     const [setShow] = useState(false);
 
-    const [photo, setPhoto] = useState(null);
-
     const handleClose = () => setShow(false);
 
+    const [uploadedFiles, setUploadedFiles] = useState([]);
+    const [fileLimit, setFileLimit] = useState(false);
+
+    const handleUploadFiles = async (files) => {
+        const uploaded = [...uploadedFiles];
+        let limitExceeded = false;
+        for (const file of files) {
+            if (uploaded.findIndex((f) => f.name === file.name) === -1) {
+                const base64 = await convertToBase64(file);
+                uploaded.push({ name: file.name, base64: base64 });
+                if (uploaded.length === 6) setFileLimit(true);
+                if (uploaded.length > 6) {
+                    setFileLimit(false);
+                    limitExceeded = true;
+                }
+            }
+        }
+        if (!limitExceeded) setUploadedFiles(uploaded);
+    };
+
+    const handleFileEvent = async (e) => {
+        const chosenFiles = Array.from(e.target.files);
+        handleUploadFiles(chosenFiles);
+    };
+
+    const convertToBase64 = (file) => {
+        return new Promise((resolve, reject) => {
+            const fileReader = new FileReader();
+            fileReader.readAsDataURL(file);
+            fileReader.onload = () => {
+                resolve(fileReader.result);
+            };
+            fileReader.onerror = (error) => {
+                reject(error);
+            };
+        });
+    };
+
     const helpTypes = ["Need help", "Can help"];
-    const locations = ["Kharkiv", "Lviv", "Kyiv", "Odesa", "Dnipro"];
     const categories = ["Food", "Clothes", "Evacuation", "Repairs"];
     const terms = ["1", "2-3", "5-7", "10-20", "21-30"];
 
     const AdvertCreationSchema = Yup.object().shape({
         helpType: Yup.string()
-            .oneOf(
-                helpTypes,
-                "Invalid help type"
-            )
+            .oneOf(helpTypes, "Invalid help type")
             .required("Required!"),
         header: Yup.string()
+            .min(5, "Must be 5 at least characters")
             .max(45, "Must be 45 characters or less")
             .required("Required!"),
         info: Yup.string()
+            .min(20, "Must be 20 at least characters")
             .max(200, "Must be 200 characters or less")
             .required("Required!"),
         location: Yup.string()
-            .oneOf(
-                locations,
-                "Invalid location"
-            )
+            .min(4, "Must be 4 at least characters")
+            .max(20, "Must be 20 characters or less")
             .required("Required!"),
         category: Yup.string()
-            .oneOf(
-                categories,
-                "Invalid category"
-            )
+            .oneOf(categories, "Invalid category")
             .required("Required!"),
-        terms: Yup.string()
-            .oneOf(
-                terms,
-                "Invalid terms"
-            )
-            .required("Required!")
+        terms: Yup.string().oneOf(terms, "Invalid terms").required("Required!")
     });
 
     return (
         <>
-            <h1>Create new advert</h1>
             <Formik
                 initialValues={{
                     helpType: "",
+                    header: "",
                     info: "",
                     location: "",
                     category: "",
@@ -61,11 +86,12 @@ const AdvertCreationForm = () => {
                 onSubmit={async (values) => {
                     const allData = {
                         helpType: values.helpType,
+                        header: values.header,
                         info: values.info,
                         location: values.location,
                         category: values.category,
                         terms: values.terms,
-                        photo: photo.name
+                        files: uploadedFiles
                     };
                     alert(JSON.stringify(allData));
                     handleClose();
@@ -75,21 +101,24 @@ const AdvertCreationForm = () => {
                 {(formik) => {
                     const { isValid, dirty } = formik;
                     return (
-                        <Form className="form">
-                            <div className="mb-4 row">
-                                <label
-                                    htmlFor="helpType"
-                                    className="col-sm-5 col-form-label"
-                                >
-                                    Help Type
+                        <Form className="creat-form">
+                            <h1 className="text-center mt-3 mb-3">
+                                Create new advert
+                            </h1>
+                            <div className="mx-auto w-75">
+                                <label htmlFor="helpType" className="mb-5">
+                                    Help type
                                 </label>
                                 <br />
 
                                 <Field
                                     as="select"
                                     name="helpType"
-                                    className="form-select mb-3 drop-down border border-primary">
-                                    <option defaultValue={null}>Choose help type</option>
+                                    className="up form-select drop-down border-primary"
+                                >
+                                    <option defaultValue={null}>
+                                        Choose help type
+                                    </option>
                                     {helpTypes.map((o) => (
                                         <option key={o} value={o}>
                                             {o}
@@ -101,74 +130,55 @@ const AdvertCreationForm = () => {
                                 </div>
                             </div>
 
-                            <div className="mb-2 row">
-                                <label
-                                    htmlFor="header"
-                                    className="col-sm-2 col-form-label up"
-                                >
+                            <div className="mx-auto w-75">
+                                <label htmlFor="header" className="mb-5">
                                     Header
                                 </label>
                                 <Field
-                                    id="header"
+                                    as="textarea"
                                     name="header"
                                     placeholder="Short info about your advert"
-                                    type="text"
-                                    className="form-control up"
+                                    className="up form-control border-primary"
                                 />
                                 <div className="error-message">
                                     <ErrorMessage name="header" />
                                 </div>
                             </div>
 
-                            <div className="mb-2 row">
-                                <label
-                                    htmlFor="info"
-                                    className="col-sm-2 col-form-label up"
-                                >
+                            <div className="mx-auto w-75">
+                                <label htmlFor="info" className="mb-5">
                                     Information
                                 </label>
                                 <Field
-                                    id="info"
+                                    as="textarea"
                                     name="info"
                                     placeholder="Some detailed info about your advert"
-                                    type="text"
-                                    className="form-control up"
+                                    className="h-100 up form-control border-primary"
+                                    rows="4"
                                 />
                                 <div className="error-message">
                                     <ErrorMessage name="info" />
                                 </div>
                             </div>
 
-                            <div className="mb-3 row">
-                                <label
-                                    htmlFor="location"
-                                    className="col-sm-2 col-form-label"
-                                >
+                            <div className="mx-auto w-75">
+                                <label htmlFor="info" className="mb-5">
                                     Location
                                 </label>
-                                <br />
-
                                 <Field
-                                    as="select"
+                                    id="location"
                                     name="location"
-                                    className="form-select mb-3 drop-down border border-primary">
-                                    <option defaultValue={null}>Choose help type</option>
-                                    {locations.map((o) => (
-                                        <option key={o} value={o}>
-                                            {o}
-                                        </option>
-                                    ))}
-                                </Field>
+                                    placeholder="Your city"
+                                    type="text"
+                                    className="up form-control border-primary"
+                                />
                                 <div className="error-message">
                                     <ErrorMessage name="location" />
                                 </div>
                             </div>
 
-                            <div className="mb-2 row">
-                                <label
-                                    htmlFor="category"
-                                    className="col-sm-2 col-form-label"
-                                >
+                            <div className="mx-auto w-75">
+                                <label htmlFor="category" className="mb-5">
                                     Category
                                 </label>
                                 <br />
@@ -176,8 +186,11 @@ const AdvertCreationForm = () => {
                                 <Field
                                     as="select"
                                     name="category"
-                                    className="form-select mb-3 drop-down border border-primary">
-                                    <option defaultValue={null}>Choose help type</option>
+                                    className="up form-select drop-down border-primary"
+                                >
+                                    <option defaultValue={null}>
+                                        Choose category
+                                    </option>
                                     {categories.map((o) => (
                                         <option key={o} value={o}>
                                             {o}
@@ -189,11 +202,8 @@ const AdvertCreationForm = () => {
                                 </div>
                             </div>
 
-                            <div className="mb-2 row">
-                                <label
-                                    htmlFor="terms"
-                                    className="col-sm-2 col-form-label"
-                                >
+                            <div className="mx-auto w-75">
+                                <label htmlFor="terms" className="mb-5">
                                     Terms
                                 </label>
                                 <br />
@@ -201,8 +211,11 @@ const AdvertCreationForm = () => {
                                 <Field
                                     as="select"
                                     name="terms"
-                                    className="form-select mb-3 drop-down border border-primary">
-                                    <option defaultValue={null}>Choose help type</option>
+                                    className="up form-select drop-down border-primary"
+                                >
+                                    <option defaultValue={null}>
+                                        Choose terms
+                                    </option>
                                     {terms.map((o) => (
                                         <option key={o} value={o}>
                                             {o}
@@ -214,28 +227,35 @@ const AdvertCreationForm = () => {
                                 </div>
                             </div>
 
-                            <div className="mb-3 bm-3">
-                                <br />
-                                <label
-                                    htmlFor="photo"
-                                    className="form-label"
-                                >
-                                    Select your photo
-                                </label>
+                            <div className="mx-auto w-75">
                                 <input
-                                    className="form-control"
+                                    id="fileUpload"
                                     type="file"
-                                    id="photo"
-                                    onChange={(event) => {
-                                        setPhoto(
-                                            event.currentTarget.files[0]
-                                        );
-                                    }}
-                                ></input>
+                                    accept=".jpg, .jpeg, .png"
+                                    onChange={(e) => handleFileEvent(e)}
+                                    disabled={fileLimit}
+                                    className="m-1"
+                                />
+
+                                <label htmlFor="fileUpload">
+                                    <a
+                                        className={`btn btn-primary ${
+                                            !fileLimit ? "" : "disabled"
+                                        } `}
+                                    >
+                                        Upload Photos
+                                    </a>
+                                </label>
+
+                                <div className="uploaded-files-list">
+                                    {uploadedFiles.map((file) => (
+                                        <div key={file.base64}>{file.name}</div>
+                                    ))}
+                                </div>
                             </div>
                             <br />
                             <button
-                                className="submit-button horizontal-center btn btn-primary mb-3 up"
+                                className="mx-auto w-75 mt-4 mb-5 submit-button horizontal-center btn btn-primary mb-3"
                                 type="submit"
                                 disabled={!(dirty && isValid)}
                             >
