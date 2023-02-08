@@ -9,7 +9,7 @@ using HelpMeApp.DatabaseAccess.Entities.AdvertEntity;
 
 namespace HelpMeApp.Services.Models.Profile
 {
-    public class ProfileRequestModel
+    public class ProfileResponceData
     {
         public string Username { get; set; }
         public string Email { get; set; }
@@ -21,8 +21,9 @@ namespace HelpMeApp.Services.Models.Profile
         public DateTime RegistrationDate { get; set; }
         public string Info { get; set; }
         public bool IsBlocked { get; set; }
+        /*
         public List<HelpMeApp.DatabaseAccess.Entities.AdvertEntity.Advert> Adverts { get; set; }
         public List<Report> Reports { get; set; }
-        public List<Chat> Chats { get; set; }
+        public List<Chat> Chats { get; set; } */
     }
 }

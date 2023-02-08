@@ -24,7 +24,7 @@ namespace HelpMeApp.WebAPI.Controllers
         }
 
         [HttpGet("GetUserById/{id}")]
-        public async Task<ActionResult<ProfileResponseModel<ProfileRequestModel>>> GetUserById(string id)
+        public async Task<ActionResult<ProfileResultMessagesData<ProfileResponceData>>> GetUserById(string id)
         {
             var result = await _profileService.GetUserById(id);
             return result;
@@ -32,7 +32,7 @@ namespace HelpMeApp.WebAPI.Controllers
 
         [HttpPut("UpdateUser/{userId}")]
         [Authorize]
-        public async Task<ActionResult<ProfileResponseModel<ProfileEditionModel>>> Update(string userId, [FromBody] ProfileEditionModel profileEditionModel)
+        public async Task<ActionResult<ProfileResultMessagesData<ProfileEditionModel>>> Update(string userId, [FromBody] ProfileEditionModel profileEditionModel)
         {
             if (await _userManager.FindByIdAsync(userId) == null)
             {
@@ -44,7 +44,7 @@ namespace HelpMeApp.WebAPI.Controllers
 
         [HttpGet("DeleteUser/{userId}")]
         [Authorize]
-        public async Task<ActionResult<ProfileResponseModel<ProfileEditionModel>>> DeleteUser(string userId)
+        public async Task<ActionResult<ProfileResultMessagesData<ProfileEditionModel>>> DeleteUser(string userId)
         {
             if (await _userManager.FindByIdAsync(userId) == null)
             {

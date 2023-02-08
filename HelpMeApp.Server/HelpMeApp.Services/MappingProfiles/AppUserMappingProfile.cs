@@ -19,7 +19,7 @@ namespace HelpMeApp.Services.MappingProfiles
                 {
                     opt.MapFrom(src => src.Email);
                 });
-            CreateMap<AppUser, ProfileRequestModel>();
+            CreateMap<AppUser, ProfileResponceData>();
             CreateMap<ProfileEditionModel, AppUser>()
             .ForMember(dest => dest.Name, opt => opt.Condition(src => (src.Name != null)))
             .ForMember(dest => dest.Surname, opt => opt.Condition(src => (src.Surname != null)))

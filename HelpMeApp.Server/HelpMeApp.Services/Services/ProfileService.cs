@@ -24,10 +24,11 @@ namespace HelpMeApp.Services.Services
             _mapper = mapper;
             _passwordHasher = passwordHasher;
         }
-        public async Task<ProfileResponseModel<ProfileRequestModel>> GetUserById(string userId)
+        public async Task<ProfileResultMessagesData<ProfileResponceData>> GetUserById(string userId)
         {
-            var response = new ProfileResponseModel<ProfileRequestModel>();
+            var response = new ProfileResultMessagesData<ProfileResponceData>();
             AppUser foundedUser = await _userManager.FindByIdAsync(userId);
+
             if (foundedUser == null)
             {
                 response.Success = false;
@@ -35,7 +36,7 @@ namespace HelpMeApp.Services.Services
             }
             else
             {
-                var user = _mapper.Map<ProfileRequestModel>(foundedUser);
+                var user = _mapper.Map<ProfileResponceData>(foundedUser);
                 response.Data = user;
                 response.Success = true;
                 response.Message = "Your account was founded";
@@ -43,9 +44,9 @@ namespace HelpMeApp.Services.Services
             return response;
         }
 
-        public async Task<ProfileResponseModel<ProfileEditionModel>> UpdateUser(string userId, ProfileEditionModel profileEditionModel)
+        public async Task<ProfileResultMessagesData<ProfileEditionModel>> UpdateUser(string userId, ProfileEditionModel profileEditionModel)
         {
-            var response = new ProfileResponseModel<ProfileEditionModel>();
+            var response = new ProfileResultMessagesData<ProfileEditionModel>();
             AppUser foundedUser = await _userManager.FindByIdAsync(userId);
             var passwordHashVeryfication = _passwordHasher.VerifyHashedPassword(foundedUser, foundedUser.PasswordHash, profileEditionModel.PasswordHash);
             if (passwordHashVeryfication == PasswordVerificationResult.Failed)
@@ -68,9 +69,9 @@ namespace HelpMeApp.Services.Services
             return response;
         }
 
-        public async Task<ProfileResponseModel<ProfileEditionModel>> DeleteUser(string userId)
+        public async Task<ProfileResultMessagesData<ProfileEditionModel>> DeleteUser(string userId)
         {
-            var response = new ProfileResponseModel<ProfileEditionModel>();
+            var response = new ProfileResultMessagesData<ProfileEditionModel>();
             AppUser foundedUser = await _userManager.FindByIdAsync(userId);
             if (foundedUser.IsBlocked == true)
             {
