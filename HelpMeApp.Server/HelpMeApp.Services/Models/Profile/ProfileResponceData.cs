@@ -1,11 +1,9 @@
-﻿using HelpMeApp.DatabaseAccess.Entities.ChatEntity;
-using HelpMeApp.DatabaseAccess.Entities.ReportEntity;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using HelpMeApp.DatabaseAccess.Entities.AdvertEntity;
+
 
 namespace HelpMeApp.Services.Models.Profile
 {
@@ -13,7 +11,7 @@ namespace HelpMeApp.Services.Models.Profile
     {
         public string Username { get; set; }
         public string Email { get; set; }
-        public string PasswordHash { get; set; }
+        public string Password { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
         public byte[] Photo { get; set; }
@@ -21,9 +19,5 @@ namespace HelpMeApp.Services.Models.Profile
         public DateTime RegistrationDate { get; set; }
         public string Info { get; set; }
         public bool IsBlocked { get; set; }
-        /*
-        public List<HelpMeApp.DatabaseAccess.Entities.AdvertEntity.Advert> Adverts { get; set; }
-        public List<Report> Reports { get; set; }
-        public List<Chat> Chats { get; set; } */
     }
 }

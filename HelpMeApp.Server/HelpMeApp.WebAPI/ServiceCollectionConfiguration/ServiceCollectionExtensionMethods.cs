@@ -50,9 +50,13 @@ namespace HelpMeApp.WebAPI.ServiceCollectionConfiguration
 
                 options.AddPolicy("EditPolicy", policy =>
                 policy.Requirements.Add(new SameUserRequirement()));
+
+                options.AddPolicy("UserPolicy", policy =>
+                policy.Requirements.Add(new SameUserRequirement()));
             });
 
             services.AddTransient<IAuthorizationHandler, EditAllowedAuthorizationHandler>();
+            services.AddTransient<IAuthorizationHandler, UserValidAuthorizationHandler>();
         }
 
         public static void ConfigureMapping(this IServiceCollection services)

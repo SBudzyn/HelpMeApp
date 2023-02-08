@@ -7,52 +7,72 @@ using HelpMeApp.Services.Models.Profile;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Authorization;
 using HelpMeApp.Services.Interfaces;
-
+using HelpMeApp.DatabaseAccess.Entities.AdvertEntity;
+using HelpMeApp.WebAPI.Authorization;
 namespace HelpMeApp.WebAPI.Controllers
 {
     [Route("api/profile")]
     [ApiController]
-    public class ProfileController : ControllerBase
+    public class UserController : ControllerBase
     {
         private UserManager<AppUser> _userManager;
         private IProfileService _profileService;
+        private IAuthorizationService _authorizationService;
 
-        public ProfileController(UserManager<AppUser> userManager, IProfileService profileService)
+        public UserController(UserManager<AppUser> userManager, IProfileService profileService, IAuthorizationService authorizationService)
         {
+            _authorizationService= authorizationService;
             _userManager = userManager;
             _profileService = profileService;
         }
-
-        [HttpGet("GetUserById/{id}")]
-        public async Task<ActionResult<ProfileResultMessagesData<ProfileResponceData>>> GetUserById(string id)
+        [Authorize]
+        [HttpGet("GetUserById/{userId}")]
+        public async Task<ActionResult<ProfileResponceData>> GetUserById(string userId)
         {
-            var result = await _profileService.GetUserById(id);
-            return result;
+            if (await _userManager.FindByIdAsync(userId) != null)
+            {
+                var authorizationResult = await _authorizationService.AuthorizeAsync(User, userId, "EditPolicy");
+
+                if (authorizationResult.Succeeded)
+                {
+                    return await _profileService.GetUserById(userId);
+                }
+
+            }
+            return Unauthorized("You don`t have permission to modify the resource");          
         }
 
+        [Authorize]
         [HttpPut("UpdateUser/{userId}")]
-        [Authorize]
-        public async Task<ActionResult<ProfileResultMessagesData<ProfileEditionModel>>> Update(string userId, [FromBody] ProfileEditionModel profileEditionModel)
+        public async Task Update(string userId, [FromBody] ProfileResponceData profileResponceData)
         {
-            if (await _userManager.FindByIdAsync(userId) == null)
+            if (await _userManager.FindByIdAsync(userId) != null)
             {
-                return NotFound();
-            }
-            var result = await _profileService.UpdateUser(userId, profileEditionModel);
-            return result;
+                var authorizationResult = await _authorizationService.AuthorizeAsync(User, userId, "EditPolicy");
+
+                if (authorizationResult.Succeeded)
+                {
+                    await _profileService.UpdateUser(userId, profileResponceData);
+                }
+            }           
         }
 
+        [Authorize]
         [HttpGet("DeleteUser/{userId}")]
-        [Authorize]
-        public async Task<ActionResult<ProfileResultMessagesData<ProfileEditionModel>>> DeleteUser(string userId)
+        public async Task DeleteUser(string userId)
         {
-            if (await _userManager.FindByIdAsync(userId) == null)
+            
+            if (await _userManager.FindByIdAsync(userId) != null)
             {
-                return NotFound();
-            }
-            var result = await _profileService.DeleteUser(userId);
-            return result;
-        }
+                var authorizationResult = await _authorizationService.AuthorizeAsync(User, userId, "EditPolicy");
 
+                if (authorizationResult.Succeeded)
+                {
+                    await _profileService.DeleteUser(userId);
+                }
+
+            }
+   
+        }
     }
 }

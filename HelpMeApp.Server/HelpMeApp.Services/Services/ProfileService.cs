@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using HelpMeApp.Services.Models.Profile;
 using Microsoft.EntityFrameworkCore;
+using HelpMeApp;
 
 namespace HelpMeApp.Services.Services
 {
@@ -24,76 +25,51 @@ namespace HelpMeApp.Services.Services
             _mapper = mapper;
             _passwordHasher = passwordHasher;
         }
-        public async Task<ProfileResultMessagesData<ProfileResponceData>> GetUserById(string userId)
-        {
-            var response = new ProfileResultMessagesData<ProfileResponceData>();
-            AppUser foundedUser = await _userManager.FindByIdAsync(userId);
 
-            if (foundedUser == null)
-            {
-                response.Success = false;
-                response.Message = "Sorry, your account was not founded";
-            }
-            else
-            {
-                var user = _mapper.Map<ProfileResponceData>(foundedUser);
-                response.Data = user;
-                response.Success = true;
-                response.Message = "Your account was founded";
-            }
-            return response;
+        public async Task<ProfileResponceData> GetUserById(string userId)
+        {
+            AppUser user = await _userManager.FindByIdAsync(userId);
+
+            var userData = _mapper.Map<ProfileResponceData>(user);
+
+            return userData;
         }
 
-        public async Task<ProfileResultMessagesData<ProfileEditionModel>> UpdateUser(string userId, ProfileEditionModel profileEditionModel)
+        public async Task UpdateUser(string userId, ProfileResponceData profileResponceData)
         {
-            var response = new ProfileResultMessagesData<ProfileEditionModel>();
-            AppUser foundedUser = await _userManager.FindByIdAsync(userId);
-            var passwordHashVeryfication = _passwordHasher.VerifyHashedPassword(foundedUser, foundedUser.PasswordHash, profileEditionModel.PasswordHash);
-            if (passwordHashVeryfication == PasswordVerificationResult.Failed)
-            {
-                foundedUser.PasswordHash = _passwordHasher.HashPassword(foundedUser, profileEditionModel.PasswordHash);
-                profileEditionModel.PasswordWasHashed = true;
-            }
-            var mappingEditionModelAppUser = _mapper.Map(profileEditionModel, foundedUser);
-            var updateUserData = await _userManager.UpdateAsync(foundedUser);
-            if (updateUserData.Succeeded)
-            {
-                response.Success = true;
-                response.Message = "Your account was updated successfully";
-            }
-            else
-            {
-                response.Success = false;
-                response.Message = "Sorry, your account was not updated";                
-            }
-            return response;
-        }
+            
+            AppUser user = await _userManager.FindByIdAsync(userId);
+            if (user != null) {
 
-        public async Task<ProfileResultMessagesData<ProfileEditionModel>> DeleteUser(string userId)
-        {
-            var response = new ProfileResultMessagesData<ProfileEditionModel>();
-            AppUser foundedUser = await _userManager.FindByIdAsync(userId);
-            if (foundedUser.IsBlocked == true)
-            {
-                response.Success = false;
-                response.Message = "User is already blocked";
-            }
-            else
-            {
-                foundedUser.IsBlocked = true;
-                var updateUserData = await _userManager.UpdateAsync(foundedUser);
-                if (updateUserData.Succeeded)
+                var passwordHashVeryfication = _passwordHasher.VerifyHashedPassword(user, user.PasswordHash, profileResponceData.Password);
+                if (passwordHashVeryfication == PasswordVerificationResult.Failed)
                 {
-                    response.Success = true;
-                    response.Message = "User is blocked successfully";
+                    profileResponceData.Password = _passwordHasher.HashPassword(user, profileResponceData.Password);
                 }
                 else
                 {
-                    response.Success = false;
-                    response.Message = "Sorry, user was not blocked successfully";
-                }             
+                    profileResponceData.Password = user.PasswordHash;
+                }
+
+                var mappingEditionModelAppUser = _mapper.Map(profileResponceData, user);
+                var updateUserData = await _userManager.UpdateAsync(user);
             }
-            return response;
+        }
+
+        public async Task DeleteUser(string userId)
+        {          
+            AppUser user = await _userManager.FindByIdAsync(userId);
+            if (user != null)
+            {
+                if (user.IsBlocked == false)
+                {
+                    var mapToAppUser = _mapper.Map<ProfileResponceData>(user);
+
+                    user.IsBlocked = true;
+
+                    var updateUserData = await _userManager.UpdateAsync(user);
+                }
+            }          
         }
     }
 }
