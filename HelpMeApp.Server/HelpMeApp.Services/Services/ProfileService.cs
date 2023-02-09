@@ -35,23 +35,23 @@ namespace HelpMeApp.Services.Services
             return userData;
         }
 
-        public async Task UpdateUser(string userId, ProfileResponseData profileResponceData)
+        public async Task UpdateUser(string userId, ProfileResponseData profileResponseData)
         {
             
             AppUser user = await _userManager.FindByIdAsync(userId);
             if (user != null) {
 
-                var passwordHashVeryfication = _passwordHasher.VerifyHashedPassword(user, user.PasswordHash, profileResponceData.Password);
+                var passwordHashVeryfication = _passwordHasher.VerifyHashedPassword(user, user.PasswordHash, profileResponseData.Password);
                 if (passwordHashVeryfication == PasswordVerificationResult.Failed)
                 {
-                    profileResponceData.Password = _passwordHasher.HashPassword(user, profileResponceData.Password);
+                    profileResponseData.Password = _passwordHasher.HashPassword(user, profileResponseData.Password);
                 }
                 else
                 {
-                    profileResponceData.Password = user.PasswordHash;
+                    profileResponseData.Password = user.PasswordHash;
                 }
 
-                var mappingEditionModelAppUser = _mapper.Map(profileResponceData, user);
+                var mappingEditionModelAppUser = _mapper.Map(profileResponseData, user);
                 var updateUserData = await _userManager.UpdateAsync(user);
             }
         }

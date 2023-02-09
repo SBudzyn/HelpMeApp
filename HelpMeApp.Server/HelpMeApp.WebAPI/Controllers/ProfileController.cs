@@ -48,7 +48,7 @@ namespace HelpMeApp.WebAPI.Controllers
 
         [Authorize]
         [HttpPut("update-user/{userId}")]
-        public async Task Update(string userId, [FromBody] ProfileResponseData profileResponceData)
+        public async Task Update(string userId, [FromBody] ProfileResponseData profileResponseData)
         {
             if (await _userManager.FindByIdAsync(userId) != null)
             {
@@ -56,7 +56,7 @@ namespace HelpMeApp.WebAPI.Controllers
 
                 if (authorizationResult.Succeeded)
                 {
-                    await _profileService.UpdateUser(userId, profileResponceData);
+                    await _profileService.UpdateUser(userId, profileResponseData);
                 }
 
             }  
