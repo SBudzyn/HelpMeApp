@@ -2,7 +2,7 @@ import { useState, React } from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import "./AdvertCreationForm.css";
 import advertCreation from "../../constants/advertCreation";
-import AdvertCreationValidationSchema from "./AdvertCreationValidationSchema.js";
+import AdvertCreation from "../../validation/AdvertCreation.js";
 import { handleUploadFiles } from "../../services/filesUploading";
 import classNames from "classnames";
 
@@ -49,7 +49,7 @@ const AdvertCreationForm = () => {
                     };
                     alert(JSON.stringify(allData));
                 }}
-                validationSchema={AdvertCreationValidationSchema}
+                validationSchema={AdvertCreation}
             >
                 {(formik) => {
                     const { isValid, dirty } = formik;

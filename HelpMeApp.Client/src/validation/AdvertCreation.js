@@ -1,7 +1,7 @@
 import * as Yup from "yup";
-import advertCreation from "../../constants/advertCreation";
+import advertCreation from "../constants/advertCreation";
 
-const AdvertCreationValidationSchema = Yup.object().shape({
+const AdvertCreation = Yup.object().shape({
     helpType: Yup.string()
         .oneOf(advertCreation.helpTypes, "Invalid help type")
         .required("Required!"),
@@ -25,4 +25,4 @@ const AdvertCreationValidationSchema = Yup.object().shape({
         .required("Required!")
 });
 
-export default AdvertCreationValidationSchema;
+export default AdvertCreation;

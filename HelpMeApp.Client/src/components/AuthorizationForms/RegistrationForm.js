@@ -3,8 +3,8 @@ import { Formik, Field, Form, ErrorMessage } from "formik";
 import { Link } from "react-router-dom";
 import routingUrl from "../../constants/routingUrl";
 import Modal from "react-bootstrap/Modal";
-import AuthorizationValidationSchema from "./validation/AuthorizationValidationSchema";
-import RegistrationValidationSchema from "./validation/RegistrationValidationSchema";
+import Authorization from "../../validation/Authorization";
+import Registration from "../../validation/Registration";
 import "bootstrap/dist/css/bootstrap.css";
 import "./AuthorizationForms.css";
 
@@ -43,7 +43,7 @@ const RegistrationForm = () => {
                     setRegistrationData(values);
                     handleShow();
                 }}
-                validationSchema={AuthorizationValidationSchema}
+                validationSchema={Authorization}
             >
                 {(formik) => {
                     const { isValid, dirty } = formik;
@@ -115,7 +115,7 @@ const RegistrationForm = () => {
                                 phoneNumber: "",
                                 info: ""
                             }}
-                            validationSchema={RegistrationValidationSchema}
+                            validationSchema={Registration}
                             onSubmit={async (values) => {
                                 const allData = {
                                     email: registrationData.email,
