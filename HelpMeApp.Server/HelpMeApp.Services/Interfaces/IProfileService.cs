@@ -9,8 +9,8 @@ namespace HelpMeApp.Services.Interfaces
 {
     public interface IProfileService
     {
-        Task<ProfileResponceData> GetUserById(string userId);
-        Task UpdateUser(string userId, ProfileResponceData profileResponceData);
+        Task<ProfileResponseData> GetUserById(string userId);
+        Task UpdateUser(string userId, ProfileResponseData profileResponceData);
         Task DeleteUser(string userId);
     }
 }

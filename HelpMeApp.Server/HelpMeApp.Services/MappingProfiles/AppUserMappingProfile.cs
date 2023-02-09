@@ -20,13 +20,13 @@ namespace HelpMeApp.Services.MappingProfiles
                     opt.MapFrom(src => src.Email);
                 });
 
-            CreateMap<AppUser, ProfileResponceData>()
+            CreateMap<AppUser, ProfileResponseData>()
                 .ForMember(src => src.Password, opt =>
                 {
                     opt.MapFrom(src => src.PasswordHash);
                 });
 
-            CreateMap<ProfileResponceData, AppUser>()
+            CreateMap<ProfileResponseData, AppUser>()
                 .ForMember(src => src.PasswordHash, opt =>
                 {
                     opt.MapFrom(src => src.Password);

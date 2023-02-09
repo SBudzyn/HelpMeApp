@@ -26,16 +26,16 @@ namespace HelpMeApp.Services.Services
             _passwordHasher = passwordHasher;
         }
 
-        public async Task<ProfileResponceData> GetUserById(string userId)
+        public async Task<ProfileResponseData> GetUserById(string userId)
         {
             AppUser user = await _userManager.FindByIdAsync(userId);
 
-            var userData = _mapper.Map<ProfileResponceData>(user);
+            var userData = _mapper.Map<ProfileResponseData>(user);
 
             return userData;
         }
 
-        public async Task UpdateUser(string userId, ProfileResponceData profileResponceData)
+        public async Task UpdateUser(string userId, ProfileResponseData profileResponceData)
         {
             
             AppUser user = await _userManager.FindByIdAsync(userId);
@@ -63,7 +63,7 @@ namespace HelpMeApp.Services.Services
             {
                 if (user.IsBlocked == false)
                 {
-                    var mapToAppUser = _mapper.Map<ProfileResponceData>(user);
+                    var mapToAppUser = _mapper.Map<ProfileResponseData>(user);
 
                     user.IsBlocked = true;
 

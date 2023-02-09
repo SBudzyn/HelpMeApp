@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HelpMeApp.Services.Models.Profile
 {
-    public class ProfileResponceData
+    public class ProfileResponseData
     {
         public string Username { get; set; }
         public string Email { get; set; }

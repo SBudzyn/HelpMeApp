@@ -30,7 +30,7 @@ namespace HelpMeApp.WebAPI.Controllers
 
         [Authorize]
         [HttpGet("get-user-by-id/{userId}")]
-        public async Task<ActionResult<ProfileResponceData>> GetUserById(string userId)
+        public async Task<ActionResult<ProfileResponseData>> GetUserById(string userId)
         {
             if (await _userManager.FindByIdAsync(userId) != null)
             {
@@ -48,7 +48,7 @@ namespace HelpMeApp.WebAPI.Controllers
 
         [Authorize]
         [HttpPut("update-user/{userId}")]
-        public async Task Update(string userId, [FromBody] ProfileResponceData profileResponceData)
+        public async Task Update(string userId, [FromBody] ProfileResponseData profileResponceData)
         {
             if (await _userManager.FindByIdAsync(userId) != null)
             {
