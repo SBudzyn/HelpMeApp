@@ -26,7 +26,6 @@ namespace HelpMeApp.WebAPI.Controllers
             _authorizationService= authorizationService;
             _userManager = userManager;
             _profileService = profileService;
-
         }
 
         [Authorize]
