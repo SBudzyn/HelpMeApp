@@ -9,8 +9,10 @@ using Microsoft.AspNetCore.Authorization;
 using HelpMeApp.Services.Interfaces;
 using HelpMeApp.DatabaseAccess.Entities.AdvertEntity;
 using HelpMeApp.WebAPI.Authorization;
+
 namespace HelpMeApp.WebAPI.Controllers
 {
+
     [Route("api/profile")]
     [ApiController]
     public class UserController : ControllerBase
@@ -24,9 +26,11 @@ namespace HelpMeApp.WebAPI.Controllers
             _authorizationService= authorizationService;
             _userManager = userManager;
             _profileService = profileService;
+
         }
+
         [Authorize]
-        [HttpGet("GetUserById/{userId}")]
+        [HttpGet("get-user-by-id/{userId}")]
         public async Task<ActionResult<ProfileResponceData>> GetUserById(string userId)
         {
             if (await _userManager.FindByIdAsync(userId) != null)
@@ -39,11 +43,12 @@ namespace HelpMeApp.WebAPI.Controllers
                 }
 
             }
-            return Unauthorized("You don`t have permission to modify the resource");          
+            return Unauthorized("You don`t have permission to modify the resource");         
+            
         }
 
         [Authorize]
-        [HttpPut("UpdateUser/{userId}")]
+        [HttpPut("update-user/{userId}")]
         public async Task Update(string userId, [FromBody] ProfileResponceData profileResponceData)
         {
             if (await _userManager.FindByIdAsync(userId) != null)
@@ -54,11 +59,13 @@ namespace HelpMeApp.WebAPI.Controllers
                 {
                     await _profileService.UpdateUser(userId, profileResponceData);
                 }
-            }           
+
+            }  
+            
         }
 
         [Authorize]
-        [HttpGet("DeleteUser/{userId}")]
+        [HttpGet("delete-user/{userId}")]
         public async Task DeleteUser(string userId)
         {
             
