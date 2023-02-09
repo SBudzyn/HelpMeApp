@@ -1,0 +1,12 @@
+.justify-content-space-around {
+    justify-content: space-around;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.full-to-relative {
+    height: 100%;
+    width: 100%;
+}

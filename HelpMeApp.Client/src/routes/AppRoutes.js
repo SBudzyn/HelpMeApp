@@ -7,6 +7,8 @@ import AuthorizationPage from "../pages/AuthorizationPage/AuthorizationPage";
 import routingUrl from "../constants/routingUrl";
 import LoginForm from "../components/AuthorizationForms/LoginForm";
 import RegistrationForm from "../components/AuthorizationForms/RegistrationForm";
+import HomePage from "../pages/HomePage/HomePage";
+import PageNotFound from "../pages/PageNotFound/PageNotFound";
 
 const AppRoutes = () => {
     return (
@@ -14,7 +16,7 @@ const AppRoutes = () => {
             <Route
                 path={routingUrl.pathToHomePage}
                 exact
-                element={<h1>Home page</h1>}
+                element={<HomePage />}
             />
             <Route
                 path={routingUrl.pathToLoginPage}
@@ -26,7 +28,7 @@ const AppRoutes = () => {
             />
             <Route
                 path={routingUrl.pathToGetHelpBoard + "/:page"}
-                element={<BoardPage helpTypeId={1}/>}
+                element={<BoardPage helpTypeId={1} />}
             />
             <Route
                 path={routingUrl.pathToGiveHelpBoard + "/:page"}
@@ -36,12 +38,16 @@ const AppRoutes = () => {
                 path={routingUrl.pathToAdvertById}
                 element={<AdvertPage />}
             />
-            <Route path={routingUrl.pathToChat} element={<RouteGuard element={<h1>Chat</h1>} />} />
+            <Route
+                path={routingUrl.pathToChat}
+                element={<RouteGuard element={<h1>Chat</h1>} />}
+            />
             <Route path={routingUrl.pathToProfile} element={<h1>Profile</h1>} />
             <Route
                 path={routingUrl.pathToPostAdvert}
                 element={<RouteGuard element={BoardPage} />}
             />
+            <Route path="*" element={<PageNotFound />} />
         </Routes>
     );
 };

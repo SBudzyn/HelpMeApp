@@ -1,9 +1,10 @@
 import React from "react";
-import { Container } from "react-bootstrap";
+import { Container, Offcanvas } from "react-bootstrap";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import routingUrl from "../../constants/routingUrl";
 import HeaderAuthorizationChecker from "./HeaderAuthorizationChecker";
+import "bootstrap/dist/css/bootstrap.css";
 
 const Header = () => {
     return (
@@ -12,26 +13,41 @@ const Header = () => {
                 <Navbar.Brand href={routingUrl.pathToHomePage}>
                     Help Me App
                 </Navbar.Brand>
-                <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="me-auto">
-                        <Nav.Link href={routingUrl.pathToGiveHelpBoard + "/1"}>
-                            Help someone
-                        </Nav.Link>
-                        <Nav.Link href={routingUrl.pathToGetHelpBoard + "/1"}>
-                            Get help
-                        </Nav.Link>
-                    </Nav>
-                </Navbar.Collapse>
-                <Navbar.Collapse className="justify-content-end">
+                <Navbar.Toggle aria-controls="offcanvasNavbar-expand-sm" />
+                <Navbar.Offcanvas
+                    id="basic-navbar-nav"
+                    aria-labelledby={"offcanvasNavbarLabel-expand-sm"}
+                    placement="end"
+                >
+                    <Offcanvas.Header closeButton>
+                        <Offcanvas.Title>Tittle</Offcanvas.Title>
+                    </Offcanvas.Header>
+                    <Offcanvas.Body>
+                        <Nav>
+                            <Nav.Link
+                                href={routingUrl.pathToGiveHelpBoard + "/1"}
+                            >
+                                Help someone
+                            </Nav.Link>
+                            <Nav.Link
+                                href={routingUrl.pathToGetHelpBoard + "/1"}
+                            >
+                                Get help
+                            </Nav.Link>
+                        </Nav>
+                        <Nav className="ms-auto">
+                            <HeaderAuthorizationChecker />
+                        </Nav>
+                    </Offcanvas.Body>
+                </Navbar.Offcanvas>
+                {/* <Navbar.Collapse className="justify-content-end">
                     <Nav>
-                        {/* <Nav.Link href={routingUrl.pathToChat}>Chat</Nav.Link>
-                        <Nav.Link href={routingUrl.pathToProfile}>
-                            Profile
-                        </Nav.Link> */}
-                        <HeaderAuthorizationChecker />
+                        // <Nav.Link href={routingUrl.pathToChat}>Chat</Nav.Link>
+                        // <Nav.Link href={routingUrl.pathToProfile}>
+                        //    Profile
+                        // </Nav.Link>
                     </Nav>
-                </Navbar.Collapse>
+                </Navbar.Collapse> */}
             </Container>
         </Navbar>
     );
