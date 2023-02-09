@@ -1,9 +1,13 @@
-﻿using HelpMeApp.Services.Interfaces;
+﻿using FluentValidation;
+using FluentValidation.Results;
+using HelpMeApp.Services.Interfaces;
 using HelpMeApp.Services.Models.Advert;
+using HelpMeApp.Services.Models.Filters;
 using HelpMeApp.WebAPI.Authorization;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
@@ -19,22 +23,24 @@ namespace HelpMeApp.WebAPI.Controllers
     {
         private IAdvertService _advertService;
         private IAuthorizationService _authorizationService;
+        private IValidator<AdvertPostData> _advertValidator;
 
-        public AdvertController(IAdvertService advertService, IAuthorizationService authorizationService)
+        public AdvertController(IAdvertService advertService, IAuthorizationService authorizationService, IValidator<AdvertPostData> advertValidator)
         {
             _advertService = advertService;
             _authorizationService = authorizationService;
+            _advertValidator = advertValidator;
         }
 
         [HttpGet("page")]
-        public async Task<IActionResult> GetByPage(int page = 1, int pageSize = 20)
+        public async Task<IActionResult> GetByPage([FromQuery] AdvertFiltersData filters, int page = 1, int pageSize = 20)
         {
             if (page < 1 || pageSize < 1)
             {
                 return BadRequest();
             }
 
-            return Ok(await _advertService.GetAdvertsByPage(page, pageSize));
+            return Ok(await _advertService.GetAdvertsByPage(filters, page, pageSize));
         }
 
         [HttpGet("{advertId}")]
@@ -54,6 +60,20 @@ namespace HelpMeApp.WebAPI.Controllers
         [HttpPost]
         public async Task<IActionResult> AddAdvert(AdvertPostData advert)
         {
+            ValidationResult validationResult = _advertValidator.Validate(advert);
+
+            if (!validationResult.IsValid)
+            {
+                var modelStateDictionary = new ModelStateDictionary();
+
+                foreach (ValidationFailure failure in validationResult.Errors.Distinct())
+                {
+                    modelStateDictionary.AddModelError(failure.PropertyName, failure.ErrorMessage);
+                }
+
+                return ValidationProblem(modelStateDictionary);
+            }
+
             var userId = Guid.Parse(User.Claims.First(c => c.Type == "UserId").Value);
 
             var advertData = await _advertService.AddAdvertAsync(advert, userId);
@@ -65,6 +85,20 @@ namespace HelpMeApp.WebAPI.Controllers
         [HttpPut("{advertId}")]
         public async Task<IActionResult> UpdateAdvert(int advertId, AdvertPostData advert)
         {
+            ValidationResult validationResult = _advertValidator.Validate(advert);
+
+            if (!validationResult.IsValid)
+            {
+                var modelStateDictionary = new ModelStateDictionary();
+
+                foreach (ValidationFailure failure in validationResult.Errors)
+                {
+                    modelStateDictionary.AddModelError(failure.PropertyName, failure.ErrorMessage);
+                }
+
+                return ValidationProblem(modelStateDictionary);
+            }
+
             if (await _advertService.GetAdvertById(advertId) == null)
             {
                 return NotFound();
