@@ -4,11 +4,12 @@ import "./AuthorizationPage.css";
 import Background from "../../components/Background/Background";
 import { Navigate } from "react-router-dom";
 import routingUrl from "../../constants/routingUrl";
+import { checkToken } from "../../services/authorizationServices";
 
 const AuthorizationPage = ({ component: AuthorizationForm }) => {
     return (
         <div>
-            {localStorage.getItem("token")
+            {checkToken()
                 ? (
                     <Navigate to={routingUrl.pathToHomePage} />
                 )

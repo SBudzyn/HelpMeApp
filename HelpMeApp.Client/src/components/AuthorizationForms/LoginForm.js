@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import routingUrl from "../../constants/routingUrl";
 import AuthorizationValidationSchema from "./validation/AuthorizationValidationSchema";
 import "bootstrap/dist/css/bootstrap.css";
@@ -8,8 +8,8 @@ import "./AuthorizationForms.css";
 import baseRequest from "../../services/axiosServices";
 
 const LoginForm = () => {
-    const [alertMessage, setAlerMessage] = useState("");
-    const navigate = useNavigate("/");
+    const [alertMessage, setAlertMessage] = useState("");
+    // const navigate = useNavigate("/");
 
     return (
         <div className="auth-form">
@@ -32,7 +32,7 @@ const LoginForm = () => {
                 }}
                 validationSchema={AuthorizationValidationSchema}
                 onSubmit={async (values) => {
-                    setAlerMessage("");
+                    setAlertMessage("");
                     await baseRequest
                         .post("/authentication/login", values)
                         .then((response) => {
@@ -44,11 +44,11 @@ const LoginForm = () => {
                                     "token",
                                     response.data.token
                                 );
-                                navigate(routingUrl.pathToHomePage);
+                                location.href = routingUrl.pathToHomePage;
                             }
                         })
                         .catch((error) => {
-                            setAlerMessage("Unsuccessfull login");
+                            setAlertMessage("Unsuccessful login");
                             console.log(error);
                         });
                 }}

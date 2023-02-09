@@ -36,7 +36,7 @@ const AppRoutes = () => {
                 path={routingUrl.pathToAdvertById}
                 element={<AdvertPage />}
             />
-            <Route path={routingUrl.pathToChat} element={<h1>Chat</h1>} />
+            <Route path={routingUrl.pathToChat} element={<RouteGuard element={<h1>Chat</h1>} />} />
             <Route path={routingUrl.pathToProfile} element={<h1>Profile</h1>} />
             <Route
                 path={routingUrl.pathToPostAdvert}

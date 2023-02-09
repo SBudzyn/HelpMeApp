@@ -7,6 +7,7 @@ import { Link, useParams } from "react-router-dom";
 import baseRequest from "../../services/axiosServices";
 import Pagination from "../../components/Pagination/Pagination";
 import PropTypes from "react-bootstrap/esm/Image";
+import routingUrl from "../../constants/routingUrl";
 
 const BoardPage = (props) => {
     const params = useParams();
@@ -31,7 +32,10 @@ const BoardPage = (props) => {
         localStorage.termsId = "";
         localStorage.location = "";
         localStorage.sortBy = "";
-        location.reload();
+        location.href =
+            props.helpTypeId === 1
+                ? routingUrl.pathToGetHelpBoard + "/1"
+                : routingUrl.pathToGiveHelpBoard + "/1";
     };
 
     useEffect(() => {
@@ -54,7 +58,10 @@ const BoardPage = (props) => {
                     localStorage.location = values.location;
                     localStorage.termsId = values.termsId;
                     console.log(localStorage);
-                    location.reload();
+                    location.href =
+                        props.helpTypeId === 1
+                            ? routingUrl.pathToGetHelpBoard + "/1"
+                            : routingUrl.pathToGiveHelpBoard + "/1";
                 }}
             >
                 <div className="container">
@@ -87,7 +94,7 @@ const BoardPage = (props) => {
                             <div className="col-xs-12 col-lg-3">
                                 <Field
                                     as="select"
-                                    name="sortBy"
+                                    name="termsId"
                                     className="form-select mb-3 drop-down border border-warning"
                                 >
                                     <option defaultValue={null}>
@@ -113,10 +120,9 @@ const BoardPage = (props) => {
                                     name="sortBy"
                                     className="form-select mb-3 drop-down border border-primary"
                                 >
-                                    <option defaultValue={null}>Sort by</option>
+                                    <option defaultValue={""}>Sort by</option>
                                     <option value="date">Creation Date</option>
                                     <option value="rating">Rating</option>
-                                    ))
                                 </Field>
                             </div>
                             <div className="col-xs-12 col-lg-3">
@@ -180,7 +186,7 @@ const BoardPage = (props) => {
                 categoryId={~~localStorage.categoryId}
                 termsId={~~localStorage.termsId}
                 location={localStorage.location}
-                sortBy={~~localStorage.sortBy}
+                sortBy={localStorage.sortBy}
                 helpTypeId={props.helpTypeId}
             />
             <hr />

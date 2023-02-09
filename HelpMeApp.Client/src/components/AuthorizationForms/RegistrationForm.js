@@ -10,6 +10,8 @@ import "bootstrap/dist/css/bootstrap.css";
 import "./AuthorizationForms.css";
 
 const RegistrationForm = () => {
+    const [alertMessage, setAlerMessage] = useState("");
+    const [successMessage, setSuccessMessage] = useState("");
     const [registrationData, setRegistrationData] = useState({
         email: "",
         password: ""
@@ -18,7 +20,10 @@ const RegistrationForm = () => {
     // const [photo, setPhoto] = useState(null);
 
     const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    const handleShow = () => {
+        setShow(true);
+        setAlerMessage("");
+    };
 
     return (
         <div className="auth-form">
@@ -97,6 +102,9 @@ const RegistrationForm = () => {
                             >
                                 Next
                             </button>
+                            <div className="success-message">
+                                {successMessage}
+                            </div>
                         </Form>
                     );
                 }}
@@ -143,15 +151,21 @@ const RegistrationForm = () => {
                                     .post("/authentication/register", formData)
                                     .then((response) => {
                                         console.log(response);
-                                        alert(
-                                            "You`re successfuly registered. "
-                                        );
+                                        if (response.data.isSuccessful) {
+                                            handleClose();
+                                            setSuccessMessage(
+                                                "Success! Now you can login."
+                                            );
+                                        } else {
+                                            setAlerMessage("error");
+                                        }
                                     })
                                     .catch((error) => {
                                         console.log(error);
-                                        alert("Something went wrong");
+                                        setAlerMessage(
+                                            "unsuccessful registration"
+                                        );
                                     });
-                                handleClose();
                             }}
                         >
                             <Form>
@@ -257,12 +271,17 @@ const RegistrationForm = () => {
                                     </div>
                                 </div>
                                 <br />
-                                <button
-                                    type="submit"
-                                    className="horizontal-center btn btn-primary mb-1 modal-btn"
-                                >
-                                    Register
-                                </button>
+                                <div className="d-flex justify-content-center">
+                                    <button
+                                        type="submit"
+                                        className="btn btn-primary mb-1 modal-btn"
+                                    >
+                                        Register
+                                    </button>
+                                </div>
+                                <div className="d-flex justify-content-center error-message mt-3">
+                                    {alertMessage}
+                                </div>
                             </Form>
                         </Formik>
                     </div>
