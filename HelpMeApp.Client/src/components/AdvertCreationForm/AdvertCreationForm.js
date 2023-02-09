@@ -1,20 +1,21 @@
 import { useState, React } from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import "./AdvertCreationForm.css";
-import advertCreationConsts from "../../constants/advertCreationConsts";
+import advertCreation from "../../constants/advertCreation";
 import AdvertCreationValidationSchema from "./AdvertCreationValidationSchema.js";
 import { handleUploadFiles } from "../../services/filesUploading";
+import classNames from "classnames";
 
 const AdvertCreationForm = () => {
     const [uploadedFiles, setUploadedFiles] = useState([]);
     const [fileLimit, setFileLimit] = useState(false);
 
-    var classNames = require("classnames");
-    var uploadBtnClass = classNames({
+    const uploadBtnClass = classNames({
         btn: true,
         disabled: fileLimit,
         "btn-primary": true
     });
+
     const handleFileEvent = async (e) => {
         const chosenFiles = e.target.files;
         handleUploadFiles(
@@ -24,6 +25,7 @@ const AdvertCreationForm = () => {
             uploadedFiles
         );
     };
+
     return (
         <>
             <Formik
@@ -70,7 +72,7 @@ const AdvertCreationForm = () => {
                                     <option defaultValue={null}>
                                         Choose help type
                                     </option>
-                                    {advertCreationConsts.helpTypes.map(
+                                    {advertCreation.helpTypes.map(
                                         (helpType) => (
                                             <option
                                                 key={helpType}
@@ -147,7 +149,7 @@ const AdvertCreationForm = () => {
                                     <option defaultValue={null}>
                                         Choose category
                                     </option>
-                                    {advertCreationConsts.categories.map(
+                                    {advertCreation.categories.map(
                                         (category) => (
                                             <option
                                                 key={category}
@@ -177,7 +179,7 @@ const AdvertCreationForm = () => {
                                     <option defaultValue={null}>
                                         Choose terms
                                     </option>
-                                    {advertCreationConsts.terms.map((terms) => (
+                                    {advertCreation.terms.map((terms) => (
                                         <option key={terms} value={terms}>
                                             {terms}
                                         </option>

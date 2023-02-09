@@ -1,9 +1,9 @@
 import * as Yup from "yup";
-import advertCreationConsts from "../../constants/advertCreationConsts";
+import advertCreation from "../../constants/advertCreation";
 
 const AdvertCreationValidationSchema = Yup.object().shape({
     helpType: Yup.string()
-        .oneOf(advertCreationConsts.helpTypes, "Invalid help type")
+        .oneOf(advertCreation.helpTypes, "Invalid help type")
         .required("Required!"),
     header: Yup.string()
         .min(5, "Must be 5 at least characters")
@@ -18,10 +18,10 @@ const AdvertCreationValidationSchema = Yup.object().shape({
         .max(20, "Must be 20 characters or less")
         .required("Required!"),
     category: Yup.string()
-        .oneOf(advertCreationConsts.categories, "Invalid category")
+        .oneOf(advertCreation.categories, "Invalid category")
         .required("Required!"),
     terms: Yup.string()
-        .oneOf(advertCreationConsts.terms, "Invalid terms")
+        .oneOf(advertCreation.terms, "Invalid terms")
         .required("Required!")
 });
 
