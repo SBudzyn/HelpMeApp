@@ -26,15 +26,15 @@ namespace HelpMeApp.WebAPI.Controllers
             _authorizationService = authorizationService;
         }
 
-        [HttpGet("page")]
-        public async Task<IActionResult> GetByPage(int page = 1, int pageSize = 20)
+        [HttpGet("{pageId}")]
+        public async Task<IActionResult> GetByPage(int pageId = 1, int pageSize = 20)
         {
-            if (page < 1 || pageSize < 1)
+            if (pageId < 1 || pageSize < 1)
             {
                 return BadRequest();
             }
 
-            return Ok(await _advertService.GetAdvertsByPage(page, pageSize));
+            return Ok(await _advertService.GetAdvertsByPage(pageId, pageSize));
         }
 
         [HttpGet("{advertId}")]

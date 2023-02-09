@@ -2,11 +2,10 @@ import React, { useState } from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import { Link, useNavigate } from "react-router-dom";
 import routingUrl from "../../constants/routingUrl";
-import { serverUrl } from "../../constants/server";
 import AuthorizationValidationSchema from "./validation/AuthorizationValidationSchema";
 import "bootstrap/dist/css/bootstrap.css";
 import "./AuthorizationForms.css";
-import axios from "axios";
+import baseRequest from "../../services/axiosServices";
 
 const LoginForm = () => {
     const [alertMessage, setAlerMessage] = useState("");
@@ -34,10 +33,12 @@ const LoginForm = () => {
                 validationSchema={AuthorizationValidationSchema}
                 onSubmit={async (values) => {
                     setAlerMessage("");
-                    await axios
-                        .post(`${serverUrl}/api/authentication/login`, values)
+                    await baseRequest
+                        .post("/authentication/login", values)
                         .then((response) => {
-                            console.log(`isSuccessful : ${response.data.isSuccessful}`);
+                            console.log(
+                                `isSuccessful: ${response.data.isSuccessful}`
+                            );
                             if (response.data.isSuccessful) {
                                 localStorage.setItem(
                                     "token",
@@ -96,7 +97,7 @@ const LoginForm = () => {
                                     <ErrorMessage name="password" />
                                 </div>
                             </div>
-                            <div className="error-message">{ alertMessage }</div>
+                            <div className="error-message">{alertMessage}</div>
                             <br />
                             <button
                                 className="submit-button horizontal-center btn btn-primary up"

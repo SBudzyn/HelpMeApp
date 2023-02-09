@@ -1,16 +1,23 @@
-import axios from "axios";
 import { React, useEffect, useState } from "react";
-import { serverUrl } from "../../constants/server";
+import PropTypes from "prop-types";
 import AdvertCard from "../AdvertCard/AdvertCard";
+import baseRequest from "../../services/axiosServices";
 
-const AdvertShortInfoLayout = () => {
+const AdvertShortInfoLayout = (props) => {
     const [adverts, setAdverts] = useState([]);
 
     const retrieveAdverts = async () => {
-        await axios
-            .get(`${serverUrl}/api/advert/page`)
+        await baseRequest
+            .get(`/advert/page/${props.page}`, {
+                params: {
+                    helpTypeId: props.helpTypeId,
+                    categoryId: props.categoryId,
+                    termsId: props.termsId,
+                    location: props.location,
+                    sortBy: props.sortBy
+                }
+            })
             .then((response) => {
-                // alert(JSON.stringify(response.data));
                 return response.data;
             })
             .then((data) => {
@@ -21,47 +28,7 @@ const AdvertShortInfoLayout = () => {
     useEffect(() => {
         retrieveAdverts();
     }, []);
-    // let data = [];
 
-    // const response = await axios.get(`${serverUrl}/api/advert/page`).then(response => data = response.data);
-    // const data = [
-    //     {
-    //         id: 1,
-    //         title: "We need help. Please help us as soon as possible ",
-    //         location: "Kharkiv",
-    //         date: new Date("12.22.2022")
-    //     },
-    //     {
-    //         id: 2,
-    //         title: "HELP HELP HELLO HELLO We need help. Please help us as soon as possible. Help me help me my hero. I need your help",
-    //         location: "Kyiv",
-    //         date: new Date("12.12.2022")
-    //     },
-    //     {
-    //         id: 3,
-    //         title: "DO you wanna help me? Please help us as soon as possible",
-    //         location: "Odesa",
-    //         date: new Date("12.24.2022")
-    //     },
-    //     {
-    //         id: 4,
-    //         title: "I am helping you today. Please help us as soon as possible",
-    //         location: "Dnipro",
-    //         date: new Date("5.1.2023")
-    //     },
-    //     {
-    //         id: 5,
-    //         title: "We need help. Please help us as soon as possible",
-    //         location: "Lviv",
-    //         date: new Date("12.24.2022")
-    //     },
-    //     {
-    //         id: 6,
-    //         title: "We need help. Please help us as soon as possible",
-    //         location: "Poltava",
-    //         date: new Date("12.12.2022")
-    //     }
-    // ];
     return (
         <div className="container">
             <div className="row">
@@ -82,6 +49,15 @@ const AdvertShortInfoLayout = () => {
             </div>
         </div>
     );
+};
+
+AdvertShortInfoLayout.propTypes = {
+    page: PropTypes.number,
+    helpTypeId: PropTypes.number,
+    location: PropTypes.string,
+    sortBy: PropTypes.string,
+    categoryId: PropTypes.number,
+    termsId: PropTypes.number
 };
 
 export default AdvertShortInfoLayout;

@@ -2,6 +2,7 @@ import { useState, React } from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import { Link } from "react-router-dom";
 import routingUrl from "../../constants/routingUrl";
+import baseRequest from "../../services/axiosServices";
 import Modal from "react-bootstrap/Modal";
 import AuthorizationValidationSchema from "./validation/AuthorizationValidationSchema";
 import RegistrationValidationSchema from "./validation/RegistrationValidationSchema";
@@ -14,8 +15,7 @@ const RegistrationForm = () => {
         password: ""
     });
     const [show, setShow] = useState(false);
-
-    const [photo, setPhoto] = useState(null);
+    // const [photo, setPhoto] = useState(null);
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -121,19 +121,36 @@ const RegistrationForm = () => {
                                     email: registrationData.email,
                                     password: registrationData.password,
                                     name: values.name,
+                                    surname: values.surname,
                                     phoneNumber: values.phoneNumber,
-                                    info: values.info,
-                                    photo: photo.name
+                                    info: values.info
+                                    // photo: photo.name
                                 };
-                                alert(JSON.stringify(allData));
-                                // configure form data and send post request with photo
 
-                                // const formData = new FormData();
-                                // formData.append("file", photo);
+                                const formData = new FormData();
 
-                                // const response = await fetch('https://localhost:7048/api/Photo', {method: 'POST', body: formData});
+                                formData.append("email", allData.email);
+                                formData.append("password", allData.password);
+                                formData.append("name", allData.name);
+                                formData.append("surname", allData.surname);
+                                formData.append(
+                                    "phoneNumber",
+                                    allData.phoneNumber
+                                );
+                                formData.append("info", allData.info);
 
-                                // add redirection
+                                await baseRequest
+                                    .post("/authentication/register", formData)
+                                    .then((response) => {
+                                        console.log(response);
+                                        alert(
+                                            "You`re successfuly registered. "
+                                        );
+                                    })
+                                    .catch((error) => {
+                                        console.log(error);
+                                        alert("Something went wrong");
+                                    });
                                 handleClose();
                             }}
                         >
@@ -232,9 +249,9 @@ const RegistrationForm = () => {
                                             id="photo"
                                             accept="image/*"
                                             onChange={(event) => {
-                                                setPhoto(
-                                                    event.currentTarget.files[0]
-                                                );
+                                                // setPhoto(
+                                                //     event.currentTarget.files[0]
+                                                // );
                                             }}
                                         ></input>
                                     </div>

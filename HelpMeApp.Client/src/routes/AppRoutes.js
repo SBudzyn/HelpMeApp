@@ -18,24 +18,30 @@ const AppRoutes = () => {
             />
             <Route
                 path={routingUrl.pathToLoginPage}
-                element={<AuthorizationPage component={ LoginForm } />}
+                element={<AuthorizationPage component={LoginForm} />}
             />
             <Route
                 path={routingUrl.pathToSignUpPage}
-                element={<AuthorizationPage component={ RegistrationForm } />}
+                element={<AuthorizationPage component={RegistrationForm} />}
             />
             <Route
-                path={routingUrl.pathToGetHelpBoard}
-                element={<BoardPage />}
+                path={routingUrl.pathToGetHelpBoard + "/:page"}
+                element={<BoardPage helpTypeId={1}/>}
             />
             <Route
-                path={routingUrl.pathToGiveHelpBoard}
-                element={<BoardPage />}
+                path={routingUrl.pathToGiveHelpBoard + "/:page"}
+                element={<BoardPage helpTypeId={2} />}
             />
-            <Route path={routingUrl.pathToAdvertById} element={<AdvertPage />} />
+            <Route
+                path={routingUrl.pathToAdvertById}
+                element={<AdvertPage />}
+            />
             <Route path={routingUrl.pathToChat} element={<h1>Chat</h1>} />
             <Route path={routingUrl.pathToProfile} element={<h1>Profile</h1>} />
-            <Route path={routingUrl.pathToPostAdvert} element={<RouteGuard element={BoardPage} />} />
+            <Route
+                path={routingUrl.pathToPostAdvert}
+                element={<RouteGuard element={BoardPage} />}
+            />
         </Routes>
     );
 };

@@ -1,30 +1,60 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Formik, Field, Form } from "formik";
 import AdvertContainer from "../../components/AdvertContainer/AdvertContainer";
 import "bootstrap/dist/css/bootstrap.css";
 import "./BoardPage.css";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import baseRequest from "../../services/axiosServices";
+import Pagination from "../../components/Pagination/Pagination";
+import PropTypes from "react-bootstrap/esm/Image";
 
-const categories = ["clothes", "food", "healthcare"];
+const BoardPage = (props) => {
+    const params = useParams();
 
-const terms = ["1 day", "2-3 days", "4-5 days"];
+    const [generalData, setGeneralData] = useState({});
 
-const location = ["Kharkiv", "Lviv", "Kyiv"];
+    const retrieveGeneralData = async () => {
+        await baseRequest
+            .get("/advert/general-data")
+            .then((response) => {
+                return response.data;
+            })
+            .then((data) => {
+                console.log(JSON.stringify(data));
+                setGeneralData(data);
+            });
+    };
 
-const sortBy = ["terms", "rating"];
+    const reset = () => {
+        console.log("resetting filters");
+        localStorage.categoryId = "";
+        localStorage.termsId = "";
+        localStorage.location = "";
+        localStorage.sortBy = "";
+        location.reload();
+    };
 
-const BoardPage = () => {
+    useEffect(() => {
+        retrieveGeneralData();
+    }, []);
+
     return (
         <div className="page">
             <Formik
                 initialValues={{
-                    category: "",
-                    terms: "",
-                    location: "",
-                    sortBy: "terms"
+                    categoryId: localStorage?.categoryId ?? "",
+                    termsId: localStorage?.termsId ?? "",
+                    location: localStorage?.location ?? "",
+                    sortBy: localStorage?.sortBy ?? ""
                 }}
                 onSubmit={(values) => {
-                    alert(JSON.stringify(values));
+                    console.log(values);
+                    localStorage.categoryId = values.categoryId;
+                    localStorage.sortBy = values.sortBy;
+                    localStorage.location = values.location;
+                    localStorage.termsId = values.termsId;
+                    console.log(localStorage);
+                    location.reload();
                 }}
             >
                 <div className="container">
@@ -34,52 +64,22 @@ const BoardPage = () => {
                             <div className=" col-xs-12 col-lg-3">
                                 <Field
                                     as="select"
-                                    name="category"
+                                    name="categoryId"
                                     className="form-select mb-3 drop-down border border-primary"
                                 >
                                     <option defaultValue={null}>
                                         Choose category
                                     </option>
-                                    {categories.map((o) => (
+                                    {Object.keys(
+                                        generalData?.categories ?? []
+                                    ).map((key) => (
                                         <option
-                                            key={o}
-                                            value={o}
+                                            key={key}
+                                            value={key}
                                             className="dropdown-item border"
                                             aria-label="form-select-lg"
                                         >
-                                            {o}
-                                        </option>
-                                    ))}
-                                </Field>
-                            </div>
-                            <div className="col-xs-12 col-lg-3">
-                                <Field
-                                    as="select"
-                                    name="location"
-                                    className="form-select mb-3 drop-down border border-warning"
-                                >
-                                    <option defaultValue={null}>
-                                        Choose location
-                                    </option>
-                                    {location.map((o) => (
-                                        <option key={o} value={o}>
-                                            {o}
-                                        </option>
-                                    ))}
-                                </Field>
-                            </div>
-                            <div className="col-xs-12 col-lg-3">
-                                <Field
-                                    as="select"
-                                    name="terms"
-                                    className="form-select mb-3 drop-down border border-primary"
-                                >
-                                    <option defaultValue={null}>
-                                        Choose terms
-                                    </option>
-                                    {terms.map((o) => (
-                                        <option key={o} value={o}>
-                                            {o}
+                                            {generalData.categories[key]}
                                         </option>
                                     ))}
                                 </Field>
@@ -90,13 +90,42 @@ const BoardPage = () => {
                                     name="sortBy"
                                     className="form-select mb-3 drop-down border border-warning"
                                 >
-                                    <option defaultValue={null}>SortBy</option>
-                                    {sortBy.map((o) => (
-                                        <option key={o} value={o}>
-                                            {o}
-                                        </option>
-                                    ))}
+                                    <option defaultValue={null}>
+                                        Choose terms
+                                    </option>
+                                    {Object.keys(generalData?.terms ?? []).map(
+                                        (key) => (
+                                            <option
+                                                key={key}
+                                                value={key}
+                                                className="dropdown-item border"
+                                                aria-label="form-select-lg"
+                                            >
+                                                {generalData.terms[key]}
+                                            </option>
+                                        )
+                                    )}
                                 </Field>
+                            </div>
+                            <div className="col-xs-12 col-lg-3">
+                                <Field
+                                    as="select"
+                                    name="sortBy"
+                                    className="form-select mb-3 drop-down border border-primary"
+                                >
+                                    <option defaultValue={null}>Sort by</option>
+                                    <option value="date">Creation Date</option>
+                                    <option value="rating">Rating</option>
+                                    ))
+                                </Field>
+                            </div>
+                            <div className="col-xs-12 col-lg-3">
+                                <Field
+                                    type="text"
+                                    name="location"
+                                    className="form-control mb-3 border border-warning"
+                                    placeholder="choose location"
+                                />
                             </div>
                         </div>
                         <div className="row justify-content-between">
@@ -114,7 +143,7 @@ const BoardPage = () => {
                                     </button>
                                 </Link>
                             </div>
-                            <div className="mb-3 col-lg-3">
+                            <div className="mb-3 col-lg-4">
                                 <button
                                     style={{
                                         height: "100%",
@@ -126,14 +155,51 @@ const BoardPage = () => {
                                     Find
                                 </button>
                             </div>
+                            <div className="mb-3 col-lg-3">
+                                <button
+                                    style={{
+                                        height: "100%",
+                                        width: "100%"
+                                    }}
+                                    type="button"
+                                    onClick={() => {
+                                        reset();
+                                    }}
+                                    className="btn btn-outline-warning btn-lg"
+                                >
+                                    Reset Filters
+                                </button>
+                            </div>
                         </div>
                     </Form>
                 </div>
             </Formik>
             <hr />
-            <AdvertContainer />
+            <AdvertContainer
+                page={params.page}
+                categoryId={~~localStorage.categoryId}
+                termsId={~~localStorage.termsId}
+                location={localStorage.location}
+                sortBy={~~localStorage.sortBy}
+                helpTypeId={props.helpTypeId}
+            />
+            <hr />
+            <div className="container mt-3 mb-3">
+                <div className="row justify-content-center">
+                    <div className="col-xs-12 col-md-6 col-lg-3 col-xl-2">
+                        <Pagination
+                            adverts={generalData.advertsQuantity}
+                            currentPage={~~params.page}
+                        />
+                    </div>
+                </div>
+            </div>
         </div>
     );
+};
+
+BoardPage.propTypes = {
+    helpTypeId: PropTypes.number
 };
 
 export default BoardPage;

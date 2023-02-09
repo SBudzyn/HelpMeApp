@@ -4,8 +4,8 @@ import "bootstrap/dist/css/bootstrap.css";
 import "./AdvertPage.css";
 import { Carousel } from "react-bootstrap";
 import defaultPhoto from "../../media/defaultAdvertPhoto.jpg";
-import axios from "axios";
-import { serverUrl } from "../../constants/server";
+import baseRequest from "../../services/axiosServices";
+import getFormattedDate from "../../services/getFormattedDate";
 
 const photos = [defaultPhoto];
 const AdvertPage = () => {
@@ -14,8 +14,8 @@ const AdvertPage = () => {
     const [data, setData] = useState({});
 
     const retrieveAdvertById = async (id) => {
-        await axios
-            .get(`${serverUrl}/api/advert/${id}`)
+        await baseRequest
+            .get(`/advert/${id}`)
             .then((response) => {
                 return response.data;
             })
@@ -64,7 +64,7 @@ const AdvertPage = () => {
                         </div>
                         <div className="row space-around mb-3">
                             <div className="col-sm-4 col-md-3">
-                                {data?.creationDate ?? "No data"}
+                                {getFormattedDate(new Date(data?.creationDate ?? "1 1 1970")) }
                             </div>
                             <div className="col-sm-4 col-md-3">
                                 {data?.location ?? "No data"}
