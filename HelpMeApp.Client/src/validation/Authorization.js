@@ -3,7 +3,7 @@ import YupPassword from "yup-password";
 
 YupPassword(yupLogin);
 
-const Authoirzation = yupLogin.object().shape({
+const Authorization = yupLogin.object().shape({
     email: yupLogin
         .string()
         .required("Please provide valid email")
@@ -17,4 +17,4 @@ const Authoirzation = yupLogin.object().shape({
         .minNumbers(1, "Password must include at least one number")
 });
 
-export default Authoirzation;
+export default Authorization;
