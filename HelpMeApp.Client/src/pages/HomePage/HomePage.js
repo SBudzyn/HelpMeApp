@@ -23,17 +23,14 @@ const HomePage = () => {
             </section>
             <section>
                 <div className="row mt-5 justify-content-center">
-                    <h6 className="col-md-12 text-center">About Us</h6>
+                    <h6 className="col-md-12 text-center">About the project</h6>
                     <p className="col-md-6">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                        sed do eiusmod tempor incididunt ut labore et dolore
-                        magna aliqua. Ut enim ad minim veniam, quis nostrud
-                        exercitation ullamco laboris nisi ut aliquip ex ea
-                        commodo consequat. Duis aute irure dolor in
-                        reprehenderit in voluptate velit esse cillum dolore eu
-                        fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-                        non proident, sunt in culpa qui officia deserunt mollit
-                        anim id est laborum.
+                        HelpMeApp is an application that is aimed to connect,
+                        people who need help and those who want to help someone.
+                        So instead of looking for help among friends or using
+                        social medias, you can use board on the website, filter
+                        adverts and sort them. Also, the application is to provide
+                        a way of communication between users.
                     </p>
                 </div>
             </section>
