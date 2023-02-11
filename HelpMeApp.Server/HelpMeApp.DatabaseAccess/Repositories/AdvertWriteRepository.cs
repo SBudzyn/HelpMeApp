@@ -1,6 +1,5 @@
 ﻿using HelpMeApp.DatabaseAccess.Entities.AdvertEntity;
 using HelpMeApp.DatabaseAccess.Interfaces;
-using HelpMeApp.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
