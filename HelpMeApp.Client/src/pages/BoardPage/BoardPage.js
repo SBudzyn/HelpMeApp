@@ -16,7 +16,7 @@ const BoardPage = (props) => {
 
     const retrieveGeneralData = async () => {
         await baseRequest
-            .get("/advert/general-data")
+            .get("/adverts/general-data")
             .then((response) => {
                 return response.data;
             })

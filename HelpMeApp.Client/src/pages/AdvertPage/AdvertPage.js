@@ -15,7 +15,7 @@ const AdvertPage = () => {
 
     const retrieveAdvertById = async (id) => {
         await baseRequest
-            .get(`/advert/${id}`)
+            .get(`/adverts/${id}`)
             .then((response) => {
                 return response.data;
             })

@@ -8,7 +8,7 @@ const AdvertShortInfoLayout = (props) => {
 
     const retrieveAdverts = async () => {
         await baseRequest
-            .get(`/advert/page/${props.page}`, {
+            .get(`/adverts/page/${props.page}`, {
                 params: {
                     helpTypeId: props.helpTypeId,
                     categoryId: props.categoryId,

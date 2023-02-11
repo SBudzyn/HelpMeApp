@@ -10,7 +10,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import "./AuthorizationForms.css";
 
 const RegistrationForm = () => {
-    const [alertMessage, setAlerMessage] = useState("");
+    const [alertMessage, setAlertMessage] = useState("");
     const [successMessage, setSuccessMessage] = useState("");
     const [registrationData, setRegistrationData] = useState({
         email: "",
@@ -22,7 +22,7 @@ const RegistrationForm = () => {
     const handleClose = () => setShow(false);
     const handleShow = () => {
         setShow(true);
-        setAlerMessage("");
+        setAlertMessage("");
     };
 
     return (
@@ -154,16 +154,16 @@ const RegistrationForm = () => {
                                         if (response.data.isSuccessful) {
                                             handleClose();
                                             setSuccessMessage(
-                                                "Success! Now you can login."
+                                                "Success! Now you can login"
                                             );
                                         } else {
-                                            setAlerMessage("error");
+                                            setAlertMessage("error");
                                         }
                                     })
                                     .catch((error) => {
                                         console.log(error);
-                                        setAlerMessage(
-                                            "unsuccessful registration"
+                                        setAlertMessage(
+                                            "Unsuccessful registration"
                                         );
                                     });
                             }}

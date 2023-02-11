@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 
 namespace HelpMeApp.WebAPI.Controllers
 {
-    [Route("api/advert")]
+    [Route("api/adverts")]
     [ApiController]
     public class AdvertController : ControllerBase
     {
@@ -32,15 +32,15 @@ namespace HelpMeApp.WebAPI.Controllers
             _advertValidator = advertValidator;
         }
 
-        [HttpGet("{pageId}")]
-        public async Task<IActionResult> GetByPage([FromQuery] AdvertFiltersData filters, int page = 1, int pageSize = 20)
+        [HttpGet("page/{pageId}")]
+        public async Task<IActionResult> GetByPage([FromQuery] AdvertFiltersData filters, int pageId = 1, int pageSize = 20)
         {
             if (pageId < 1 || pageSize < 1)
             {
                 return BadRequest();
             }
 
-            return Ok(await _advertService.GetAdvertsByPage(filters, page, pageSize));
+            return Ok(await _advertService.GetAdvertsByPage(filters, pageId, pageSize));
         }
 
         [HttpGet("{advertId}")]
@@ -57,7 +57,7 @@ namespace HelpMeApp.WebAPI.Controllers
         }
 
         [Authorize]
-        [HttpPost]
+        [HttpPost("new")]
         public async Task<IActionResult> AddAdvert(AdvertPostData advert)
         {
             ValidationResult validationResult = _advertValidator.Validate(advert);
@@ -82,7 +82,7 @@ namespace HelpMeApp.WebAPI.Controllers
         }
 
         [Authorize]
-        [HttpPut("{advertId}")]
+        [HttpPut("update/{advertId}")]
         public async Task<IActionResult> UpdateAdvert(int advertId, AdvertPostData advert)
         {
             ValidationResult validationResult = _advertValidator.Validate(advert);
@@ -117,7 +117,7 @@ namespace HelpMeApp.WebAPI.Controllers
         }
 
         [Authorize]
-        [HttpDelete("{advertId}")]
+        [HttpDelete("delete/{advertId}")]
         public async Task<IActionResult> DeactivateAdvert(int advertId)
         {
             if (await _advertService.GetAdvertById(advertId) == null)
