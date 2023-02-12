@@ -1,5 +1,4 @@
 ﻿using System;
-using HelpMeApp.DatabaseAccess.Entities.PhotoEntity;
 
 namespace HelpMeApp.Services.Helpers
 {
@@ -7,6 +6,11 @@ namespace HelpMeApp.Services.Helpers
     {
         public static byte[] ConvertToBase64(string value)
         {
+            if (string.IsNullOrEmpty(value)) 
+            {
+            return Array.Empty<byte>();
+            }
+
             string[] array = value.Split(",");
 
             return Convert.FromBase64String(array[1]);
@@ -14,12 +18,12 @@ namespace HelpMeApp.Services.Helpers
 
         public static string GetImagePrefix(string value)
         {
-            return value.Split(",")[0];
-        }
+            if (string.IsNullOrEmpty(value))
+            {
+                return string.Empty;
+            }
 
-        public static string ConvertBase64ToString(Photo photo)
-        {
-            return string.Join(',', photo.Prefix, photo.Data);
+            return value.Split(",")[0];
         }
     }
 }
