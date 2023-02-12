@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using HelpMeApp.DatabaseAccess.Entities.AdvertEntity;
 
 namespace HelpMeApp.DatabaseAccess.Entities.PhotoEntity
@@ -14,5 +15,10 @@ namespace HelpMeApp.DatabaseAccess.Entities.PhotoEntity
         public string Prefix { get; set; }
         [Required]
         public byte[] Data { get; set; }
+
+        public override string ToString()
+        {
+            return string.Join(',', Prefix, Convert.ToBase64String(Data));
+        }
     }
 }

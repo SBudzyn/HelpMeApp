@@ -38,7 +38,7 @@ namespace HelpMeApp.DatabaseAccess.Repositories
 
         public async Task<Advert> GetAdvertByIdAsync(int id)
         {
-            return await _context.Adverts.FirstOrDefaultAsync(a => a.Id == id);
+            return await _context.Adverts.Include(x => x.Photos).FirstOrDefaultAsync(a => a.Id == id);
         }
 
         public async Task<Dictionary<int, string>> GetCategoriesAsync()

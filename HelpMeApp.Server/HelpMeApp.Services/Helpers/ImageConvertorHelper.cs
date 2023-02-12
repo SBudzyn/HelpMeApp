@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using HelpMeApp.DatabaseAccess.Entities.PhotoEntity;
 
 namespace HelpMeApp.Services.Helpers
 {
@@ -18,6 +15,11 @@ namespace HelpMeApp.Services.Helpers
         public static string GetImagePrefix(string value)
         {
             return value.Split(",")[0];
+        }
+
+        public static string ConvertBase64ToString(Photo photo)
+        {
+            return string.Join(',', photo.Prefix, photo.Data);
         }
     }
 }
