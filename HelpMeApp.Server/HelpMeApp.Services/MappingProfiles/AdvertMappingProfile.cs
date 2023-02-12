@@ -1,9 +1,13 @@
 ﻿using AutoMapper;
+using Bogus.Bson;
 using HelpMeApp.DatabaseAccess.Entities.AdvertEntity;
+using HelpMeApp.DatabaseAccess.Entities.PhotoEntity;
 using HelpMeApp.DatabaseAccess.Filters;
+using HelpMeApp.Services.Helpers;
 using HelpMeApp.Services.Models.Advert;
 using HelpMeApp.Services.Models.Filters;
 using System;
+using System.Buffers.Text;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -28,6 +32,16 @@ namespace HelpMeApp.Services.MappingProfiles
             CreateMap<Advert, AdvertPreviewResponseData>();
 
             CreateMap<AdvertPostData, Advert>();
+
+            CreateMap<string, Photo>()
+                .ForMember(src => src.Data, opt =>
+                {
+                    opt.MapFrom(src => ImageConvertorHelper.ConvertToBase64(src));
+                })
+                .ForMember(src => src.Prefix , opt =>
+                {
+                    opt.MapFrom(src => ImageConvertorHelper.GetImagePrefix(src));
+                });
 
             CreateMap<AdvertFiltersData, AdvertFilters>();
         }

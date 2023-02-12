@@ -14,7 +14,10 @@ namespace HelpMeApp.DatabaseAccess.Entities.AppUserEntity
         public string Name { get; set; }
         [Required]
         public string Surname { get; set; }
+
+        public string PhotoPrefix { get; set; }
         public byte[] Photo { get; set; }
+
         [Required]
         public DateTime RegistrationDate { get; set; }
         public string Info { get; set; }

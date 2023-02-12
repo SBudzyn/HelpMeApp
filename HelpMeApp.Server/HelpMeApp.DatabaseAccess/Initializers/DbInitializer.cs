@@ -42,6 +42,8 @@ namespace HelpMeApp.DatabaseAccess.Initializers
                 advert.HelpTypeId = DatabaseSeeder.HelpTypes[Random.Shared.Next(0, DatabaseSeeder.HelpTypes.Count)].Id;
                 advert.CategoryId = DatabaseSeeder.Categories[Random.Shared.Next(0, DatabaseSeeder.Categories.Count)].Id;
                 advert.TermsId = DatabaseSeeder.Terms[Random.Shared.Next(0, DatabaseSeeder.Terms.Count)].Id;
+                bool randomBool = new Random().Next(2) == 1;
+                advert.IsClosed = advert.ClosureDate == DateTime.MinValue ? false : randomBool;
             }
             context.Adverts.AddRange(DatabaseSeeder.Adverts);
 

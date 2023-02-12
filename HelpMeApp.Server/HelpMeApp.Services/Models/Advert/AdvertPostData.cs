@@ -12,6 +12,6 @@ namespace HelpMeApp.Services.Models.Advert
         public int CategoryId { get; set; }
         public int TermsId { get; set; }
         public int HelpTypeId { get; set; }
-        public List<byte[]> Photos { get; set; } = new List<byte[]>();
+        public List<string> Photos { get; set; } = new List<string>();
     }
 }

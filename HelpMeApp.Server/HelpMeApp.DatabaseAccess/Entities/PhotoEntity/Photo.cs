@@ -11,6 +11,7 @@ namespace HelpMeApp.DatabaseAccess.Entities.PhotoEntity
         public int AdvertId { get; set; }
         public Advert Advert { get; set; }
 
+        public string Prefix { get; set; }
         [Required]
         public byte[] Data { get; set; }
     }
