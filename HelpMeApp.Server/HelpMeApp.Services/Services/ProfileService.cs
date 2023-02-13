@@ -16,14 +16,14 @@ using HelpMeApp.DatabaseAccess.Entities.AdvertEntity;
 
 namespace HelpMeApp.Services.Services
 {
-    public class ProfileService : IProfileService
+    public class UserController : IProfileService
     {
         private UserManager<AppUser> _userManager;
         private IMapper _mapper;
         private IPasswordHasher<AppUser> _passwordHasher;
         private IAdvertService _advertService;
 
-        public ProfileService(UserManager<AppUser> userManager, IMapper mapper, IPasswordHasher<AppUser> passwordHasher, IAdvertService advertService)
+        public UserController(UserManager<AppUser> userManager, IMapper mapper, IPasswordHasher<AppUser> passwordHasher, IAdvertService advertService)
         {
             _userManager = userManager;
             _mapper = mapper;
@@ -40,10 +40,9 @@ namespace HelpMeApp.Services.Services
            
             return userData;
         }
-
-        
+       
         public async Task<ProfileResultMessageModel> UpdateUser(string userId, ProfileUpdateData profileUpdateData)
-            {
+        {
             var result = new ProfileResultMessageModel();
             AppUser user = await _userManager.FindByIdAsync(userId);
             if (user != null) {
@@ -52,32 +51,28 @@ namespace HelpMeApp.Services.Services
                 if (passwordHashVerification == PasswordVerificationResult.Failed)
                 {
                     profileUpdateData.Password = _passwordHasher.HashPassword(user, profileUpdateData.Password);
+                }
             }
             else
             {
                     profileUpdateData.Password = user.PasswordHash;
             }
-            return response;
-        }
-            
-                var mappingEditionModelAppUser = _mapper.Map(profileUpdateData, user);
-                var updateUserData = await _userManager.UpdateAsync(user);
+
+            var mappingEditionModelAppUser = _mapper.Map(profileUpdateData, user);
+            var updateUserData = await _userManager.UpdateAsync(user);
             if (updateUserData.Succeeded)
             {
-                    result.Success = true;
-                    result.Message = "Your account has been updated successfully";
+                result.Success = true;
+                result.Message = "Your account has been updated successfully";
             }
             else
             {
-                    result.Success = false;
-                    result.Message = "An error has occurred. The data has not been updated";
-                }
-
+                result.Success = false;
+                result.Message = "An error has occurred. The data has not been updated";
             }
-
-            return result;           
+            return result;
         }
-        
+
         public async Task<ProfileResultMessageModel> DeleteUser(string userId)
         {
             var result = new ProfileResultMessageModel();
@@ -99,7 +94,7 @@ namespace HelpMeApp.Services.Services
             }
 
             result.Success = false;
-            result.Message = "User is alredy deleted";
+            result.Message = "User is already deleted";
             return result;
         }
     } 

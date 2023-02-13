@@ -83,7 +83,7 @@ namespace HelpMeApp.WebAPI.ServiceCollectionConfiguration
             services.AddTransient<ITokenService, TokenService>();
             services.AddTransient<IAuthenticationService, AuthenticationService>();
             services.AddTransient<IAdvertService, AdvertService>();
-            services.AddTransient<IProfileService, ProfileService>();
+            services.AddTransient<IProfileService, UserController>();
         }
 
         public static void BindRepositories(this IServiceCollection services)
