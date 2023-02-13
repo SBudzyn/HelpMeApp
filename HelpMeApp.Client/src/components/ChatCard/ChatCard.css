@@ -1,0 +1,25 @@
+.text-dec-none {
+    text-decoration: none;
+}
+
+.text-dec-none, .text-dec-none:hover {
+    color: black;
+}
+
+.card-size {
+    min-width: 16rem;
+}
+
+.image-border-bottom {
+    border-bottom: 0.3px solid rgba(0, 0, 0, 0.759);
+}
+
+.title {
+    height: 73px;
+    overflow: hidden;
+}
+
+.footer-content {
+    justify-content: space-around;
+    display: flex;
+}
