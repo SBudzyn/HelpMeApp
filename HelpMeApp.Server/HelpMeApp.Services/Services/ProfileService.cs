@@ -16,14 +16,14 @@ using HelpMeApp.DatabaseAccess.Entities.AdvertEntity;
 
 namespace HelpMeApp.Services.Services
 {
-    public class UserController : IProfileService
+    public class ProfileService : IProfileService
     {
         private UserManager<AppUser> _userManager;
         private IMapper _mapper;
         private IPasswordHasher<AppUser> _passwordHasher;
         private IAdvertService _advertService;
 
-        public UserController(UserManager<AppUser> userManager, IMapper mapper, IPasswordHasher<AppUser> passwordHasher, IAdvertService advertService)
+        public ProfileService(UserManager<AppUser> userManager, IMapper mapper, IPasswordHasher<AppUser> passwordHasher, IAdvertService advertService)
         {
             _userManager = userManager;
             _mapper = mapper;

@@ -12,24 +12,17 @@ namespace HelpMeApp.DatabaseAccess.Entities.AppUserEntity
     {
         [Required]
         public string Name { get; set; }
-
         [Required]
         public string Surname { get; set; }
-
         public byte[] Photo { get; set; }
-
         [Required]
         public DateTime RegistrationDate { get; set; }
-
         public string Info { get; set; }
-
         [Required]
         public bool IsBlocked { get; set; }
 
         public List<Advert> Adverts { get; set; } = new List<Advert>();
-
         public List<Report> Reports { get; set; } = new List<Report>();
-
         public List<Chat> Chats { get; set; } = new List<Chat>();
     }
 }

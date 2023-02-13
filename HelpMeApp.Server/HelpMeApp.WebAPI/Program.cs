@@ -23,8 +23,6 @@ builder.Services.ConfigureMapping();
 builder.Services.ConfigureAuthorization();
 builder.Services.ConfigureValidation();
 builder.Services.ConfigureJWT(builder.Configuration);
-builder.Services.ConfigureMapping();
-builder.Services.BindServices();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<HelpMeDbContext>(opts =>
@@ -34,14 +32,15 @@ builder.Services.AddDbContext<HelpMeDbContext>(opts =>
 });
 builder.Services.AddScoped<DbInitializer>();
 
-builder.Services.AddIdentity<AppUser, IdentityRole<Guid>>(
-    options =>
+builder.Services.AddIdentity<AppUser, IdentityRole<Guid>>
+    (options =>
     {
-        options.Password.RequireDigit= true;
-        options.Password.RequiredLength= 8;
-        options.Password.RequireLowercase= true;
-        options.Password.RequireUppercase= true;
-    })
+        options.Password.RequireDigit = true;
+        options.Password.RequiredLength = 8;
+        options.Password.RequireLowercase = true;
+        options.Password.RequireUppercase = true;
+    }
+    )
     .AddEntityFrameworkStores<HelpMeDbContext>();
 
 var app = builder.Build();

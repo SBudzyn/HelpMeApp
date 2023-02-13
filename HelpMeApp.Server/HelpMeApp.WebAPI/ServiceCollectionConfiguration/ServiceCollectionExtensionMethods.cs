@@ -3,7 +3,6 @@ using FluentValidation;
 using HelpMeApp.DatabaseAccess.Interfaces;
 using HelpMeApp.DatabaseAccess.Repositories;
 using HelpMeApp.Services.Interfaces;
-
 using HelpMeApp.Services.MappingProfiles;
 using HelpMeApp.Services.Services;
 using HelpMeApp.Services.Validators;
@@ -83,7 +82,7 @@ namespace HelpMeApp.WebAPI.ServiceCollectionConfiguration
             services.AddTransient<ITokenService, TokenService>();
             services.AddTransient<IAuthenticationService, AuthenticationService>();
             services.AddTransient<IAdvertService, AdvertService>();
-            services.AddTransient<IProfileService, UserController>();
+            services.AddTransient<IProfileService, ProfileService>();
         }
 
         public static void BindRepositories(this IServiceCollection services)
