@@ -5,6 +5,7 @@ import AuthorizationPage from "../pages/AuthorizationPage/AuthorizationPage";
 import routingUrl from "../constants/routingUrl";
 import LoginForm from "../components/AuthorizationForms/LoginForm";
 import RegistrationForm from "../components/AuthorizationForms/RegistrationForm";
+import AdvertCreationPage from "../pages/AdvertCreationPage/AdvertCreationPage";
 
 const AppRoutes = () => {
     return (
@@ -32,6 +33,10 @@ const AppRoutes = () => {
             />
             <Route path={routingUrl.pathToChat} element={<h1>Chat</h1>} />
             <Route path={routingUrl.pathToProfile} element={<h1>Profile</h1>} />
+            <Route
+                path={routingUrl.pathToAdvertCreation}
+                element={<AdvertCreationPage />}
+            />
         </Routes>
     );
 };

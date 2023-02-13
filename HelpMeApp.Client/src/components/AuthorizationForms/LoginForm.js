@@ -2,7 +2,7 @@ import React from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import { Link } from "react-router-dom";
 import routingUrl from "../../constants/routingUrl";
-import AuthorizationValidationSchema from "./validation/AuthorizationValidationSchema";
+import Authorization from "../../validation/Authorization";
 import "bootstrap/dist/css/bootstrap.css";
 import "./AuthorizationForms.css";
 
@@ -26,7 +26,7 @@ const LoginForm = () => {
                     email: "",
                     password: ""
                 }}
-                validationSchema={AuthorizationValidationSchema}
+                validationSchema={Authorization}
                 onSubmit={async (values) => {
                     alert(JSON.stringify(values, null, 2));
                 }}
