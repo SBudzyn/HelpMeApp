@@ -35,10 +35,10 @@ builder.Services.AddScoped<DbInitializer>();
 builder.Services.AddIdentity<AppUser, IdentityRole<Guid>>
     (options =>
     {
-        options.Password.RequireDigit = true;
-        options.Password.RequiredLength = 8;
-        options.Password.RequireLowercase = true;
-        options.Password.RequireUppercase = true;
+        options.Password.RequireDigit= true;
+        options.Password.RequiredLength= 8;
+        options.Password.RequireLowercase= true;
+        options.Password.RequireUppercase= true;
     }
     )
     .AddEntityFrameworkStores<HelpMeDbContext>();
