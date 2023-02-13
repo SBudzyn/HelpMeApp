@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 import routingUrl from "../../constants/routingUrl";
 import baseRequest from "../../services/axiosServices";
 import Modal from "react-bootstrap/Modal";
-import AuthorizationValidationSchema from "./validation/AuthorizationValidationSchema";
-import RegistrationValidationSchema from "./validation/RegistrationValidationSchema";
+import Authorization from "../../validation/Authorization";
+import Registration from "../../validation/Registration";
 import "bootstrap/dist/css/bootstrap.css";
 import "./AuthorizationForms.css";
 
@@ -79,7 +79,7 @@ const RegistrationForm = () => {
                     setRegistrationData(values);
                     handleShow();
                 }}
-                validationSchema={AuthorizationValidationSchema}
+                validationSchema={Authorization}
             >
                 {(formik) => {
                     const { isValid, dirty } = formik;

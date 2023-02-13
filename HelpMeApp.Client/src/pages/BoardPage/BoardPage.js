@@ -132,7 +132,7 @@ const BoardPage = (props) => {
                         </div>
                         <div className="row justify-content-between">
                             <div className="mb-3 col-lg-3">
-                                <Link to="/new-advert">
+                                <Link to={routingUrl.pathToAdvertCreation}>
                                     <button
                                         type="button"
                                         className="btn btn-outline-warning btn-lg w-100 h-100"

@@ -9,6 +9,7 @@ import LoginForm from "../components/AuthorizationForms/LoginForm";
 import RegistrationForm from "../components/AuthorizationForms/RegistrationForm";
 import HomePage from "../pages/HomePage/HomePage";
 import PageNotFound from "../pages/PageNotFound/PageNotFound";
+import AdvertCreationPage from "../pages/AdvertCreationPage/AdvertCreationPage";
 
 const AppRoutes = () => {
     return (
@@ -44,8 +45,8 @@ const AppRoutes = () => {
             />
             <Route path={routingUrl.pathToProfile} element={<h1>Profile</h1>} />
             <Route
-                path={routingUrl.pathToPostAdvert}
-                element={<RouteGuard element={BoardPage} />}
+                path={routingUrl.pathToAdvertCreation}
+                element={<AdvertCreationPage />}
             />
             <Route path="*" element={<PageNotFound />} />
         </Routes>
