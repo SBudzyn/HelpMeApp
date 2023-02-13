@@ -49,10 +49,10 @@ namespace HelpMeApp.WebAPI.ServiceCollectionConfiguration
                 .Build();
 
                 options.AddPolicy("EditPolicy", policy =>
-                policy.Requirements.Add(new SameUserRequirement()));
+                policy.Requirements.Add(new CreatorRequirement()));
 
                 options.AddPolicy("UserPolicy", policy =>
-                policy.Requirements.Add(new SameUserRequirement()));
+                policy.Requirements.Add(new CreatorRequirement()));
             });
 
             services.AddTransient<IAuthorizationHandler, EditAllowedAuthorizationHandler>();

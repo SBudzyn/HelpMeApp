@@ -69,5 +69,15 @@ namespace HelpMeApp.Services.Services
 
             return _mapper.Map<AdvertDetailedResponseData>(deactivatedAdvert);
         }
+        
+        public async Task<IEnumerable<AdvertPreviewResponseData>> GetAllUserAdverts(string userId)
+        {
+            var usersAdverts = await _advertReadRepository.GetAllUserAdverts(userId);
+
+            var advertsData = _mapper.Map<IEnumerable<AdvertPreviewResponseData>>(usersAdverts);
+
+            return advertsData;
+        } 
+
     }
 }

@@ -1,4 +1,5 @@
-﻿using HelpMeApp.Services.Models.Advert;
+﻿using HelpMeApp.DatabaseAccess.Entities.AdvertEntity;
+using HelpMeApp.Services.Models.Advert;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,5 +15,6 @@ namespace HelpMeApp.Services.Interfaces
         Task<AdvertDetailedResponseData> AddAdvertAsync(AdvertPostData advert, Guid userId);
         Task<AdvertDetailedResponseData> UpdateAdvertAsync(AdvertPostData advert, int advertId);
         Task<AdvertDetailedResponseData> DeactivateAdvertAsync(int advertId);
+        Task<IEnumerable<AdvertPreviewResponseData>> GetAllUserAdverts(string userId);
     }
 }

@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using HelpMeApp.Services.Models.Advert;
 
 namespace HelpMeApp.Services.Models.Profile
 {
-    public class ProfileResponseData
+    public class ProfileResponceData
     {
         public string Email { get; set; }
-        public string Password { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
         public byte[] Photo { get; set; }
@@ -18,5 +17,6 @@ namespace HelpMeApp.Services.Models.Profile
         public DateTime RegistrationDate { get; set; }
         public string Info { get; set; }
         public bool IsBlocked { get; set; }
+        public IEnumerable<AdvertPreviewResponseData> UsersAdverts { get;set; }
     }
 }

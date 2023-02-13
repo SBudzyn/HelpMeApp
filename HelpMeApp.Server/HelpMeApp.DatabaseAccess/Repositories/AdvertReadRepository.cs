@@ -1,6 +1,6 @@
 ﻿using HelpMeApp.DatabaseAccess.Entities.AdvertEntity;
 using HelpMeApp.DatabaseAccess.Interfaces;
-using HelpMeApp.Repositories;
+//using HelpMeApp.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -33,6 +33,13 @@ namespace HelpMeApp.DatabaseAccess.Repositories
         public async Task<Advert> GetAdvertByIdAsync(int id)
         {
             return await _context.Adverts.FirstOrDefaultAsync(a => a.Id == id);
+        }
+
+        public async Task<IEnumerable<Advert>> GetAllUserAdverts(string userId)
+        {
+            return await _context.Adverts
+                .Where(a => a.CreatorId.ToString() == userId)
+                .ToListAsync();
         }
     }
 }

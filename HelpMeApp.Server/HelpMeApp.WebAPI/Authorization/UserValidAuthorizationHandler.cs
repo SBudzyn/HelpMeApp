@@ -7,7 +7,7 @@ using HelpMeApp.Services.Models.Profile;
 
 namespace HelpMeApp.WebAPI.Authorization
 {
-    public class UserValidAuthorizationHandler : AuthorizationHandler<SameUserRequirement, string>
+    public class UserValidAuthorizationHandler : AuthorizationHandler<CreatorRequirement, string>
     {
         private IProfileService _profileService;
 
@@ -16,7 +16,7 @@ namespace HelpMeApp.WebAPI.Authorization
             _profileService = profileService;
         }
 
-        protected async override Task HandleRequirementAsync(AuthorizationHandlerContext context, SameUserRequirement requirement, string userProvidedId)
+        protected async override Task HandleRequirementAsync(AuthorizationHandlerContext context, CreatorRequirement requirement, string userProvidedId)
         {
             var userId = context.User.Claims.First(c => c.Type == "UserId").Value;
             var user = await _profileService.GetUserById(userProvidedId);
