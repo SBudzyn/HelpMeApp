@@ -1,12 +1,16 @@
 ﻿using AutoMapper;
+using FluentValidation;
 using HelpMeApp.DatabaseAccess.Interfaces;
 using HelpMeApp.DatabaseAccess.Repositories;
 using HelpMeApp.Services.Interfaces;
+
 using HelpMeApp.Services.MappingProfiles;
 using HelpMeApp.Services.Services;
+using HelpMeApp.Services.Validators;
 using HelpMeApp.WebAPI.Authorization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
@@ -69,6 +73,11 @@ namespace HelpMeApp.WebAPI.ServiceCollectionConfiguration
             services.AddSingleton(mapperConfig.CreateMapper());
         }
 
+        public static void ConfigureValidation(this IServiceCollection services)
+        {
+            services.AddValidatorsFromAssemblyContaining<RegistrationValidator>(ServiceLifetime.Transient);
+        }
+
         public static void BindServices(this IServiceCollection services)
         {
             services.AddTransient<ITokenService, TokenService>();
@@ -81,6 +90,7 @@ namespace HelpMeApp.WebAPI.ServiceCollectionConfiguration
         {
             services.AddTransient<IAdvertReadRepository, AdvertReadRepository>();
             services.AddTransient<IAdvertWriteRepository, AdvertWriteRepository>();
+
         }
     }
 }

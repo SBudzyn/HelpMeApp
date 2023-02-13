@@ -43,7 +43,7 @@ namespace HelpMeApp.Services.Services
 
         
         public async Task<ProfileResultMessageModel> UpdateUser(string userId, ProfileUpdateData profileUpdateData)
-        {
+            {
             var result = new ProfileResultMessageModel();
             AppUser user = await _userManager.FindByIdAsync(userId);
             if (user != null) {
@@ -52,21 +52,23 @@ namespace HelpMeApp.Services.Services
                 if (passwordHashVerification == PasswordVerificationResult.Failed)
                 {
                     profileUpdateData.Password = _passwordHasher.HashPassword(user, profileUpdateData.Password);
-                }
-                else
-                {
+            }
+            else
+            {
                     profileUpdateData.Password = user.PasswordHash;
-                }
-
+            }
+            return response;
+        }
+            
                 var mappingEditionModelAppUser = _mapper.Map(profileUpdateData, user);
                 var updateUserData = await _userManager.UpdateAsync(user);
-                if (updateUserData.Succeeded) 
-                {
+            if (updateUserData.Succeeded)
+            {
                     result.Success = true;
                     result.Message = "Your account has been updated successfully";
-                }
-                else
-                {
+            }
+            else
+            {
                     result.Success = false;
                     result.Message = "An error has occurred. The data has not been updated";
                 }
@@ -75,17 +77,17 @@ namespace HelpMeApp.Services.Services
 
             return result;           
         }
-
+        
         public async Task<ProfileResultMessageModel> DeleteUser(string userId)
         {
             var result = new ProfileResultMessageModel();
             AppUser user = await _userManager.FindByIdAsync(userId);
             if (user != null && user.IsBlocked == false)
-            {
+        {
                 user.IsBlocked = true;
                 var updateUserData = await _userManager.UpdateAsync(user);
                 if (updateUserData.Succeeded)
-                {
+            {              
                     result.Success = true;
                     result.Message = "Your account has been deleted successfully";
                 }
@@ -93,12 +95,12 @@ namespace HelpMeApp.Services.Services
                 {
                     result.Success = false;
                     result.Message = "An error has occurred. Your account has not been deleted";
-                }
+                }                  
             }
 
             result.Success = false;
             result.Message = "User is alredy deleted";
             return result;
         }
-    }
+    } 
 }

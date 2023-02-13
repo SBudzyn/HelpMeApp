@@ -1,4 +1,7 @@
-﻿using System;
+﻿using HelpMeApp.DatabaseAccess.Entities.AdvertEntity;
+using HelpMeApp.DatabaseAccess.Entities.ChatEntity;
+using HelpMeApp.DatabaseAccess.Entities.ReportEntity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,7 +16,12 @@ namespace HelpMeApp.Services.Models.Registration
         public string Name { get; set; }
         public string Surname { get; set; }
         public string PhoneNumber { get; set; }
-        public string Info { get; set; }
         public byte[] Photo { get; set; }
+        public DateTime RegistrationDate { get; set; } 
+        public string Info { get; set; } 
+        public bool IsBlocked { get; set; }
+        public List<HelpMeApp.DatabaseAccess.Entities.AdvertEntity.Advert> Adverts { get; set; }
+        public List<Report> Reports { get; set; } 
+        public List<Chat> Chats { get; set; } 
     }
 }

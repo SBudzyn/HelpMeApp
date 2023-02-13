@@ -56,8 +56,9 @@ namespace HelpMeApp.WebAPI.Controllers
             var result = await _profileService.GetUserById(userId);
 
             return Ok(result);        
-        }   
-    
+        }
+        
+        [HttpPut("UpdateUser/{userId}")]
         [Authorize]
         [HttpPut("update-user/{userId}")]
         public async Task<ActionResult<ProfileResultMessageModel>> Update(string userId, [FromBody] ProfileUpdateData profileResponseData)
@@ -66,16 +67,17 @@ namespace HelpMeApp.WebAPI.Controllers
             var result = new ProfileResultMessageModel();
 
             if (await _userManager.FindByIdAsync(userId) != null)
-            {
+        {
                 var authorizationResult = await _authorizationService.AuthorizeAsync(User, userId, "EditPolicy");
 
                 if (authorizationResult.Succeeded)
-                {
+            {
                    result = await _profileService.UpdateUser(userId, profileResponseData);
-                }
-                return result;
             }
-
+            var result = await _profileService.UpdateUser(userId, profileEditionModel);
+            return result;
+        }
+        
             return NotFound("User was not found");
         }
 
@@ -86,15 +88,16 @@ namespace HelpMeApp.WebAPI.Controllers
             var result = new ProfileResultMessageModel();
 
             if (await _userManager.FindByIdAsync(userId) != null)
-            {
+        {
                 var authorizationResult = await _authorizationService.AuthorizeAsync(User, userId, "EditPolicy");
 
                 if (authorizationResult.Succeeded)
-                {
+            {
                     result = await _profileService.DeleteUser(userId);
-                }
-                return result;
             }
+            var result = await _profileService.DeleteUser(userId);
+            return result;
+        } 
 
             return NotFound("User was not found");
         }
