@@ -33,16 +33,6 @@ namespace HelpMeApp.Services.MappingProfiles
 
             CreateMap<AdvertPostData, Advert>();
 
-            CreateMap<string, Photo>()
-                .ForMember(src => src.Data, opt =>
-                {
-                    opt.MapFrom(src => ImageConvertorHelper.ConvertToBase64(src));
-                })
-                .ForMember(src => src.Prefix , opt =>
-                {
-                    opt.MapFrom(src => ImageConvertorHelper.GetImagePrefix(src));
-                });
-
             CreateMap<AdvertFiltersData, AdvertFilters>();
         }
     }

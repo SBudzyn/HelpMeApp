@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using HelpMeApp.DatabaseAccess.Entities.AdvertEntity;
+using HelpMeApp.DatabaseAccess.Entities.PhotoEntity;
 using HelpMeApp.DatabaseAccess.Filters;
 using HelpMeApp.DatabaseAccess.Interfaces;
+using HelpMeApp.Services.Helpers;
 using HelpMeApp.Services.Interfaces;
 using HelpMeApp.Services.Models;
 using HelpMeApp.Services.Models.Advert;
@@ -52,6 +54,9 @@ namespace HelpMeApp.Services.Services
         {
             var mappedAdvert = _mapper.Map<Advert>(advert);
             mappedAdvert.CreatorId = userId;
+            mappedAdvert.Photos = advert.Photos.Select(x => 
+                                  new Photo { Data = ImageConvertorHelper.ConvertToBase64(x),
+                                              Prefix = ImageConvertorHelper.GetImagePrefix(x) }).ToList();
 
             var domainAdvert = await _advertWriteRepository.AddAdvertAsync(mappedAdvert);
 
