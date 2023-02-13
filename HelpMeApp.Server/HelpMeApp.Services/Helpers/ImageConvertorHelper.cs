@@ -8,7 +8,7 @@ namespace HelpMeApp.Services.Helpers
         {
             if (string.IsNullOrEmpty(value)) 
             {
-            return Array.Empty<byte>();
+                return Array.Empty<byte>();
             }
 
             string[] array = value.Split(",");
