@@ -5,7 +5,7 @@ const Pagination = (props) => {
     const pageSize = 20;
     const numberOfPages = Math.ceil(props.adverts / pageSize);
     return (
-        <nav aria-label="...">
+        <nav>
             <ul className="pagination">
                 <li
                     style={{ width: "50%", textAlign: "center" }}

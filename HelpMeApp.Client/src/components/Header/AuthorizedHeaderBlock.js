@@ -3,7 +3,7 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 import routingUrl from "../../constants/routingUrl";
 import { logout } from "../../services/authorizationServices";
 
-const Authorized = () => {
+const AuthorizedHeaderBlock = () => {
     return <NavDropdown title="Profile">
         <NavDropdown.Item href={routingUrl.pathToProfile}>
             View profile info
@@ -15,4 +15,4 @@ const Authorized = () => {
     </NavDropdown>;
 };
 
-export default Authorized;
+export default AuthorizedHeaderBlock;

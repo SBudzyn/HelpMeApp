@@ -17,12 +17,43 @@ const RegistrationForm = () => {
         password: ""
     });
     const [show, setShow] = useState(false);
-    // const [photo, setPhoto] = useState(null);
 
     const handleClose = () => setShow(false);
     const handleShow = () => {
         setShow(true);
         setAlertMessage("");
+    };
+
+    const submitRegistration = async (values) => {
+        const fullRegistrationData = {
+            email: registrationData.email,
+            password: registrationData.password,
+            name: values.name,
+            surname: values.surname,
+            phoneNumber: values.phoneNumber,
+            info: values.info
+        };
+
+        await baseRequest
+            .post(
+                "/authentication/register",
+                fullRegistrationData
+            )
+            .then((response) => {
+                if (response.data.isSuccessful) {
+                    handleClose();
+                    setSuccessMessage(
+                        "Success! Now you can login"
+                    );
+                } else {
+                    setAlertMessage("error");
+                }
+            })
+            .catch(() => {
+                setAlertMessage(
+                    "Unsuccessful registration"
+                );
+            });
     };
 
     return (
@@ -124,49 +155,7 @@ const RegistrationForm = () => {
                                 info: ""
                             }}
                             validationSchema={RegistrationValidationSchema}
-                            onSubmit={async (values) => {
-                                const allData = {
-                                    email: registrationData.email,
-                                    password: registrationData.password,
-                                    name: values.name,
-                                    surname: values.surname,
-                                    phoneNumber: values.phoneNumber,
-                                    info: values.info
-                                    // photo: photo.name
-                                };
-
-                                const formData = new FormData();
-
-                                formData.append("email", allData.email);
-                                formData.append("password", allData.password);
-                                formData.append("name", allData.name);
-                                formData.append("surname", allData.surname);
-                                formData.append(
-                                    "phoneNumber",
-                                    allData.phoneNumber
-                                );
-                                formData.append("info", allData.info);
-
-                                await baseRequest
-                                    .post("/authentication/register", formData)
-                                    .then((response) => {
-                                        console.log(response);
-                                        if (response.data.isSuccessful) {
-                                            handleClose();
-                                            setSuccessMessage(
-                                                "Success! Now you can login"
-                                            );
-                                        } else {
-                                            setAlertMessage("error");
-                                        }
-                                    })
-                                    .catch((error) => {
-                                        console.log(error);
-                                        setAlertMessage(
-                                            "Unsuccessful registration"
-                                        );
-                                    });
-                            }}
+                            onSubmit={submitRegistration}
                         >
                             <Form>
                                 <div className="mb-3 row modal-group">
@@ -262,11 +251,6 @@ const RegistrationForm = () => {
                                             type="file"
                                             id="photo"
                                             accept="image/*"
-                                            onChange={(event) => {
-                                                // setPhoto(
-                                                //     event.currentTarget.files[0]
-                                                // );
-                                            }}
                                         ></input>
                                     </div>
                                 </div>

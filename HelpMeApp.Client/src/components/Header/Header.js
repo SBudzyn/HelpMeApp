@@ -3,8 +3,10 @@ import { Container, Offcanvas } from "react-bootstrap";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import routingUrl from "../../constants/routingUrl";
-import HeaderAuthorizationChecker from "./HeaderAuthorizationChecker";
 import "bootstrap/dist/css/bootstrap.css";
+import { checkToken } from "../../services/authorizationServices";
+import AuthorizedHeaderBlock from "./AuthorizedHeaderBlock";
+import UnauthorizedHeaderBlock from "./UnauthorizedHeaderBlock";
 
 const Header = () => {
     return (
@@ -13,12 +15,8 @@ const Header = () => {
                 <Navbar.Brand href={routingUrl.pathToHomePage}>
                     Help Me App
                 </Navbar.Brand>
-                <Navbar.Toggle aria-controls="offcanvasNavbar-expand-sm" />
-                <Navbar.Offcanvas
-                    id="basic-navbar-nav"
-                    aria-labelledby={"offcanvasNavbarLabel-expand-sm"}
-                    placement="end"
-                >
+                <Navbar.Toggle />
+                <Navbar.Offcanvas id="basic-navbar-nav" placement="end">
                     <Offcanvas.Header closeButton>
                         <Offcanvas.Title>Tittle</Offcanvas.Title>
                     </Offcanvas.Header>
@@ -36,18 +34,10 @@ const Header = () => {
                             </Nav.Link>
                         </Nav>
                         <Nav className="ms-auto">
-                            <HeaderAuthorizationChecker />
+                            {checkToken() ? <AuthorizedHeaderBlock /> : <UnauthorizedHeaderBlock />}
                         </Nav>
                     </Offcanvas.Body>
                 </Navbar.Offcanvas>
-                {/* <Navbar.Collapse className="justify-content-end">
-                    <Nav>
-                        // <Nav.Link href={routingUrl.pathToChat}>Chat</Nav.Link>
-                        // <Nav.Link href={routingUrl.pathToProfile}>
-                        //    Profile
-                        // </Nav.Link>
-                    </Nav>
-                </Navbar.Collapse> */}
             </Container>
         </Navbar>
     );

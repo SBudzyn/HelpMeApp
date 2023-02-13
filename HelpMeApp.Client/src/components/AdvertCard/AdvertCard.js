@@ -7,7 +7,7 @@ import routingUrl from "../../constants/routingUrl";
 import "./AdvertCard.css";
 import getFormattedDate from "./../../services/getFormattedDate";
 
-const AdvertShortInfo = (props) => {
+const AdvertCard = (props) => {
     const linkToAdvert = `${routingUrl.pathToAdvert}/${props.id}`;
     const photoSrc = props.photo ?? defaultAdvertPhoto;
     return (
@@ -34,7 +34,7 @@ const AdvertShortInfo = (props) => {
     );
 };
 
-AdvertShortInfo.propTypes = {
+AdvertCard.propTypes = {
     title: PropTypes.string,
     photo: PropTypes.string,
     date: PropTypes.instanceOf(Date),
@@ -42,4 +42,4 @@ AdvertShortInfo.propTypes = {
     id: PropTypes.number
 };
 
-export default AdvertShortInfo;
+export default AdvertCard;

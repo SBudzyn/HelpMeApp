@@ -10,12 +10,12 @@ const HomePage = () => {
             <section>
                 <div className="row justify-content-space-around mt-5">
                     <Link to={routingUrl.pathToGetHelpBoard + "/1"} className="col-md-3 mt-3">
-                        <button className="btn btn-outline-primary full-to-relative">
+                        <button className="btn btn-outline-primary w-100 h-100">
                             I need Help
                         </button>
                     </Link>
                     <Link to={routingUrl.pathToGiveHelpBoard + "/1"} className="col-md-3 mt-3">
-                        <button className="btn btn-outline-warning full-to-relative">
+                        <button className="btn btn-outline-warning w-100 h-100">
                             I can give Help
                         </button>
                     </Link>

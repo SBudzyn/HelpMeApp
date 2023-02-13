@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import AdvertCard from "../AdvertCard/AdvertCard";
 import baseRequest from "../../services/axiosServices";
 
-const AdvertShortInfoLayout = (props) => {
+const AdvertContainer = (props) => {
     const [adverts, setAdverts] = useState([]);
 
     const retrieveAdverts = async () => {
@@ -32,17 +32,17 @@ const AdvertShortInfoLayout = (props) => {
     return (
         <div className="container">
             <div className="row">
-                {adverts.map((a) => (
+                {adverts.map((advert) => (
                     <div
                         className="col-xs-12 col-sm-8 col-md-6 col-lg-4 col-xl-3 col-xxl-3 mb-3"
-                        key={a.id}
+                        key={advert.id}
                     >
                         <AdvertCard
-                            key={a.id}
-                            id={a.id}
-                            title={a.header}
-                            location={a.location}
-                            date={new Date(a.creationDate)}
+                            key={advert.id}
+                            id={advert.id}
+                            title={advert.header}
+                            location={advert.location}
+                            date={new Date(advert.creationDate)}
                         />
                     </div>
                 ))}
@@ -51,7 +51,7 @@ const AdvertShortInfoLayout = (props) => {
     );
 };
 
-AdvertShortInfoLayout.propTypes = {
+AdvertContainer.propTypes = {
     page: PropTypes.number,
     helpTypeId: PropTypes.number,
     location: PropTypes.string,
@@ -60,4 +60,4 @@ AdvertShortInfoLayout.propTypes = {
     termsId: PropTypes.number
 };
 
-export default AdvertShortInfoLayout;
+export default AdvertContainer;

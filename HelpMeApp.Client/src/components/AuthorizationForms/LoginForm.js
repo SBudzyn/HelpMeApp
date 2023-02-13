@@ -9,7 +9,6 @@ import baseRequest from "../../services/axiosServices";
 
 const LoginForm = () => {
     const [alertMessage, setAlertMessage] = useState("");
-    // const navigate = useNavigate("/");
 
     return (
         <div className="auth-form">
@@ -36,9 +35,6 @@ const LoginForm = () => {
                     await baseRequest
                         .post("/authentication/login", values)
                         .then((response) => {
-                            console.log(
-                                `isSuccessful: ${response.data.isSuccessful}`
-                            );
                             if (response.data.isSuccessful) {
                                 localStorage.setItem(
                                     "token",
@@ -47,9 +43,8 @@ const LoginForm = () => {
                                 location.href = routingUrl.pathToHomePage;
                             }
                         })
-                        .catch((error) => {
+                        .catch(() => {
                             setAlertMessage("Unsuccessful login");
-                            console.log(error);
                         });
                 }}
             >

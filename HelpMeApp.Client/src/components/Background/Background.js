@@ -29,17 +29,7 @@ const Background = () => {
                             <path
                                 d="M0 -61L52.8 -30.5L52.8 30.5L0 61L-52.8 30.5L-52.8 -30.5Z"
                                 fill="#005d9f"
-                            >
-                                <animate
-                                    id="op"
-                                    attributeType="CSS"
-                                    attributeName="opacity"
-                                    from="1"
-                                    to="0.5"
-                                    dur="3s"
-                                    begin="3s;op.end+3s"
-                                />
-                            </path>
+                            ></path>
                         </g>
                     );
                 })}

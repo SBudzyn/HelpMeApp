@@ -6,6 +6,7 @@ import { Carousel } from "react-bootstrap";
 import defaultPhoto from "../../media/defaultAdvertPhoto.jpg";
 import baseRequest from "../../services/axiosServices";
 import getFormattedDate from "../../services/getFormattedDate";
+import checkRetrievedData from "../../services/checkRetrievedData";
 
 const photos = [defaultPhoto];
 const AdvertPage = () => {
@@ -28,18 +29,17 @@ const AdvertPage = () => {
         retrieveAdvertById(params.id);
     }, []);
 
-    console.log(params.id);
     return (
-        <div className="container" key={1}>
+        <div className="container">
             <div className="row page bg-light">
                 <div className="col-md-12 col-lg-3 column-1">
                     <Carousel>
-                        {photos.map((p) => {
+                        {photos.map((photo) => {
                             return (
-                                <Carousel.Item key={1}>
+                                <Carousel.Item key={photo.name}>
                                     <img
                                         className="d-block w-100"
-                                        src={p}
+                                        src={photo}
                                         alt="slide"
                                     ></img>
                                 </Carousel.Item>
@@ -58,7 +58,7 @@ const AdvertPage = () => {
                         <div className="row">
                             <div className="col-xs-12">
                                 <h4 className="space-around mt-3">
-                                    {data?.header ?? "No data"}
+                                    {checkRetrievedData(data?.header)}
                                 </h4>
                             </div>
                         </div>
@@ -67,13 +67,13 @@ const AdvertPage = () => {
                                 {getFormattedDate(new Date(data?.creationDate ?? "1 1 1970")) }
                             </div>
                             <div className="col-sm-4 col-md-3">
-                                {data?.location ?? "No data"}
+                                {checkRetrievedData(data?.location)}
                             </div>
                             <div className="col-sm-4 col-md-3">
-                                {data?.category ?? "No data"}
+                                {checkRetrievedData(data?.category)}
                             </div>
                         </div>
-                        <p>{data?.info ?? "No data"}</p>
+                        <p>{checkRetrievedData(data?.info)}</p>
                     </div>
                 </div>
             </div>

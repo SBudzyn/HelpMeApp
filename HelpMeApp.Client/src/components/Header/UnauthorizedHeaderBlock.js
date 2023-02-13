@@ -1,7 +1,7 @@
 import React from "react";
 import { Nav } from "react-bootstrap";
 
-const Unauthorized = () => {
+const UnauthorizedHeaderBlock = () => {
     return (
         <>
             <Nav.Link href="/login">login</Nav.Link>
@@ -10,4 +10,4 @@ const Unauthorized = () => {
     );
 };
 
-export default Unauthorized;
+export default UnauthorizedHeaderBlock;

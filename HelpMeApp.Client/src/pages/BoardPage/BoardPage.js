@@ -21,13 +21,11 @@ const BoardPage = (props) => {
                 return response.data;
             })
             .then((data) => {
-                console.log(JSON.stringify(data));
                 setGeneralData(data);
             });
     };
 
     const reset = () => {
-        console.log("resetting filters");
         localStorage.categoryId = "";
         localStorage.termsId = "";
         localStorage.location = "";
@@ -52,12 +50,10 @@ const BoardPage = (props) => {
                     sortBy: localStorage?.sortBy ?? ""
                 }}
                 onSubmit={(values) => {
-                    console.log(values);
                     localStorage.categoryId = values.categoryId;
                     localStorage.sortBy = values.sortBy;
                     localStorage.location = values.location;
                     localStorage.termsId = values.termsId;
-                    console.log(localStorage);
                     location.href =
                         props.helpTypeId === 1
                             ? routingUrl.pathToGetHelpBoard + "/1"
@@ -138,12 +134,8 @@ const BoardPage = (props) => {
                             <div className="mb-3 col-lg-3">
                                 <Link to="/new-advert">
                                     <button
-                                        style={{
-                                            height: "100%",
-                                            width: "100%"
-                                        }}
                                         type="button"
-                                        className="btn btn-outline-warning btn-lg"
+                                        className="btn btn-outline-warning btn-lg w-100 h-100"
                                     >
                                         New Advert
                                     </button>
@@ -151,27 +143,19 @@ const BoardPage = (props) => {
                             </div>
                             <div className="mb-3 col-lg-4">
                                 <button
-                                    style={{
-                                        height: "100%",
-                                        width: "100%"
-                                    }}
                                     type="submit"
-                                    className="btn btn-outline-primary btn-lg"
+                                    className="btn btn-outline-primary btn-lg w-100 h-100"
                                 >
                                     Find
                                 </button>
                             </div>
                             <div className="mb-3 col-lg-3">
                                 <button
-                                    style={{
-                                        height: "100%",
-                                        width: "100%"
-                                    }}
                                     type="button"
                                     onClick={() => {
                                         reset();
                                     }}
-                                    className="btn btn-outline-warning btn-lg"
+                                    className="btn btn-outline-warning btn-lg w-100 h-100"
                                 >
                                     Reset Filters
                                 </button>
