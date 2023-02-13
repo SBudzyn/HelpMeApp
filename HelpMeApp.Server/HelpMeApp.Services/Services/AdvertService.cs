@@ -2,6 +2,7 @@
 using HelpMeApp.DatabaseAccess.Entities.AdvertEntity;
 using HelpMeApp.DatabaseAccess.Interfaces;
 using HelpMeApp.Services.Interfaces;
+using HelpMeApp.Services.Models;
 using HelpMeApp.Services.Models.Advert;
 using System;
 using System.Collections.Generic;
@@ -69,7 +70,18 @@ namespace HelpMeApp.Services.Services
 
             return _mapper.Map<AdvertDetailedResponseData>(deactivatedAdvert);
         }
-        
+
+        public async Task<GeneralData> GetGeneralDataAsync()
+        {
+            var categories = await _advertReadRepository.GetCategoriesAsync();
+
+            var terms = await _advertReadRepository.GetTermsAsync();
+
+            var advertsQuantity = await _advertReadRepository.CountAdverts();
+
+            return new GeneralData { Categories = categories, Terms = terms, AdvertsQuantity = advertsQuantity };
+        }
+
         public async Task<IEnumerable<AdvertPreviewResponseData>> GetAllUserAdverts(string userId)
         {
             var usersAdverts = await _advertReadRepository.GetAllUserAdverts(userId);

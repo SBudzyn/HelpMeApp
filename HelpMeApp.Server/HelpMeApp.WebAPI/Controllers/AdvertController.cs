@@ -102,5 +102,11 @@ namespace HelpMeApp.WebAPI.Controllers
 
             return Ok(result);
         }
+        
+        [HttpGet("general-data")]
+        public async Task<IActionResult> GetGeneralData()
+        {
+            return Ok(await _advertService.GetGeneralDataAsync());
+        }
     }
 }
