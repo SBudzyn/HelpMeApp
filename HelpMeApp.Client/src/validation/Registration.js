@@ -3,7 +3,7 @@ import "yup-phone";
 import YupPassword from "yup-password";
 YupPassword(yupRegistration);
 
-const RegistrationValidationSchema = yupRegistration.object().shape({
+const Registration = yupRegistration.object().shape({
     name: yupRegistration
         .string("Name")
         .min(2, "This name is too short")
@@ -24,4 +24,4 @@ const RegistrationValidationSchema = yupRegistration.object().shape({
     photo: yupRegistration.mixed().nullable().notRequired()
 });
 
-export default RegistrationValidationSchema;
+export default Registration;
