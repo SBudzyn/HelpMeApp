@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using HelpMeApp.WebAPI.ServiceCollectionConfiguration;
 using HelpMeApp.DatabaseAccess.Initializers;
+using HelpMeApp.WebAPI.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +24,7 @@ builder.Services.ConfigureMapping();
 builder.Services.ConfigureAuthorization();
 builder.Services.ConfigureValidation();
 builder.Services.ConfigureJWT(builder.Configuration);
+builder.Services.ConfigureChat();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<HelpMeDbContext>(opts =>
@@ -62,5 +64,6 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapHub<ChatHub>("/chat-hub");
 
 app.Run();

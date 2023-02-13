@@ -4,6 +4,7 @@ using HelpMeApp.DatabaseAccess.Interfaces;
 using HelpMeApp.DatabaseAccess.Repositories;
 using HelpMeApp.Services.Interfaces;
 using HelpMeApp.Services.MappingProfiles;
+using HelpMeApp.Services.Models;
 using HelpMeApp.Services.Services;
 using HelpMeApp.Services.Validators;
 using HelpMeApp.WebAPI.Authorization;
@@ -13,6 +14,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using System.Collections.Generic;
 using System.Text;
 
 namespace HelpMeApp.WebAPI.ServiceCollectionConfiguration
@@ -64,8 +66,16 @@ namespace HelpMeApp.WebAPI.ServiceCollectionConfiguration
             {
                 map.AddProfile<AppUserMappingProfile>();
                 map.AddProfile<AdvertMappingProfile>();
+                map.AddProfile<MessageMappingProfiles>();
+                map.AddProfile<ChatMappingProfiles>();
             });
             services.AddSingleton(mapperConfig.CreateMapper());
+        }
+
+        public static void ConfigureChat(this IServiceCollection services)
+        {
+            services.AddSignalR();
+            services.AddSingleton<IDictionary<string, UserConnection>>(options => new Dictionary<string, UserConnection>());
         }
 
         public static void ConfigureValidation(this IServiceCollection services)
@@ -78,12 +88,18 @@ namespace HelpMeApp.WebAPI.ServiceCollectionConfiguration
             services.AddTransient<ITokenService, TokenService>();
             services.AddTransient<IAuthenticationService, AuthenticationService>();
             services.AddTransient<IAdvertService, AdvertService>();
+            services.AddTransient<IChatService, ChatService>();
+            services.AddTransient<IMessageService, MessageService>();
         }
 
         public static void BindRepositories(this IServiceCollection services)
         {
             services.AddTransient<IAdvertReadRepository, AdvertReadRepository>();
             services.AddTransient<IAdvertWriteRepository, AdvertWriteRepository>();
+            services.AddTransient<IChatReadRepository, ChatReadRepository>();
+            services.AddTransient<IChatWriteRepository, ChatWriteRepository>();
+            services.AddTransient<IMessageReadRepository, MessageReadRepository>();
+            services.AddTransient<IMessageWriteRepository, MessageWriteRepository>();
         }
     }
 }
