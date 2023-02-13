@@ -31,11 +31,11 @@ namespace HelpMeApp.Services.Services
             _advertService = advertService;
         }
 
-        public async Task<ProfileResponceData> GetUserById(string userId)
+        public async Task<ProfileResponseData> GetUserById(string userId)
         {
             AppUser user = await _userManager.FindByIdAsync(userId);
             
-            var userData = _mapper.Map<ProfileResponceData>(user);
+            var userData = _mapper.Map<ProfileResponseData>(user);
             userData.UsersAdverts = await _advertService.GetAllUserAdverts(userId);
            
             return userData;

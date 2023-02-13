@@ -32,7 +32,7 @@ namespace HelpMeApp.WebAPI.Controllers
 
         [Authorize]
         [HttpGet("get-user-by-id/{userId}")]
-        public async Task<ActionResult<ProfileResponceData>> GetUserById(string userId)
+        public async Task<ActionResult<ProfileResponseData>> GetUserById(string userId)
         {
             if (await _userManager.FindByIdAsync(userId) != null)
             {
@@ -48,7 +48,7 @@ namespace HelpMeApp.WebAPI.Controllers
         
         [Authorize]
         [HttpGet("get-my-info")]
-        public async Task<ActionResult<ProfileResponceData>> GetMyInfo()
+        public async Task<ActionResult<ProfileResponseData>> GetMyInfo()
         {
             ClaimsPrincipal claimsPrincipal = HttpContext.User;
             var userId = claimsPrincipal.FindFirst(c => c.Type == "UserId").Value;  

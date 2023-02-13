@@ -7,7 +7,7 @@ using HelpMeApp.Services.Models.Advert;
 
 namespace HelpMeApp.Services.Models.Profile
 {
-    public class ProfileResponceData
+    public class ProfileResponseData
     {
         public string Email { get; set; }
         public string Name { get; set; }
