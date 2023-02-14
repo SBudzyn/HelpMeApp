@@ -78,11 +78,11 @@ namespace HelpMeApp.Services.Services
             var result = new ProfileResultMessageModel();
             AppUser user = await _userManager.FindByIdAsync(userId);
             if (user != null && user.IsBlocked == false)
-        {
+            {
                 user.IsBlocked = true;
                 var updateUserData = await _userManager.UpdateAsync(user);
                 if (updateUserData.Succeeded)
-            {              
+                {              
                     result.Success = true;
                     result.Message = "Your account has been deleted successfully";
                 }

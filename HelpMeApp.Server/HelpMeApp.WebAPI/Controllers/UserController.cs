@@ -92,8 +92,9 @@ namespace HelpMeApp.WebAPI.Controllers
                 if (authorizationResult.Succeeded)
                 {
                     result = await _profileService.DeleteUser(userId);
+                    return result;
                 }
-                return result;
+                
             }
 
             return NotFound("User was not found");
