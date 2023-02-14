@@ -24,6 +24,19 @@ namespace HelpMeApp.Services.Services
             _mapper = mapper;
         }
 
+        public async Task<ChatPreviewData> GetChatByIdAsync(int id)
+        {
+            var domainChat = await _chatReadRepository.GetChatByIdAsync(id);
+
+            return _mapper.Map<ChatPreviewData>(domainChat);
+        }
+
+        public async Task<ChatPreviewData> GetChatByAdvertAndHelperAsync(int chatId, Guid helperId)
+        {
+            var domainChat = await _chatReadRepository.GetChatByAdvertAndHelperAsync(chatId, helperId);
+
+            return _mapper.Map<ChatPreviewData>(domainChat);
+        }
 
         public async Task<IEnumerable<ChatPreviewData>> GetChatsByUserAsync(Guid userId)
         {
@@ -32,25 +45,19 @@ namespace HelpMeApp.Services.Services
             return _mapper.Map<IEnumerable<ChatPreviewData>>(domainChats);
         }
 
-        public async Task<int> GetChatIdAsync(Guid userId, int advertId)
+        public async Task<ChatPreviewData> AddChatAsync(int advertId, Guid userId)
         {
-            var domainChat = await _chatReadRepository.GetCertainChatAsync(userId, advertId);
-
-            if (domainChat == null)
+            var chat = new Chat()
             {
-                var chat = new Chat();
+                AdvertId = advertId,
+                UserId = userId,
+                IsConfirmedByCreator = false,
+                IsConfirmedBySecondSide = false,
+            };
 
-                chat.AdvertId = advertId;
-                chat.UserId = userId;
-                chat.IsConfirmedByCreator = false;
-                chat.IsConfirmedBySecondSide = false;
+            var domainChat = await _chatWriteRepository.AddChatAsync(chat);
 
-                var createdAdvert =  await _chatWriteRepository.AddChatAsync(chat);
-
-                return createdAdvert.Id;
-            }
-
-            return domainChat.Id;
+            return _mapper.Map<ChatPreviewData>(domainChat);
         }
     }
 }

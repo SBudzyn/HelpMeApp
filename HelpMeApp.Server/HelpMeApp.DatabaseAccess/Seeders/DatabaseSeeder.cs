@@ -78,7 +78,7 @@ namespace HelpMeApp.DatabaseAccess.Seeders
                 .RuleFor(m => m.Text, f => f.Lorem.Sentences(f.Random.Number(1, 5)))
                 .RuleFor(m => m.CreationDate, f => f.Date.Recent());
 
-            Messages.AddRange(messageFaker.Generate(23));
+            Messages.AddRange(messageFaker.Generate(0));
 
             var chatId = 1;
             var chatFaker = new Faker<Chat>("uk")
@@ -86,7 +86,7 @@ namespace HelpMeApp.DatabaseAccess.Seeders
                 .RuleFor(c => c.IsConfirmedBySecondSide, f => f.PickRandom(true, false))
                 .RuleFor(c => c.IsConfirmedByCreator, f => f.PickRandom(true, false));
 
-            Chats.AddRange(chatFaker.Generate(9));
+            Chats.AddRange(chatFaker.Generate(0));
 
             var advertFaker = new Faker<Advert>("uk")
                .RuleFor(a => a.Header, f => f.Hacker.Phrase())

@@ -13,12 +13,20 @@ namespace HelpMeApp.Services.MappingProfiles
     {
         public MessageMappingProfiles()
         {
-            CreateMap<MessageData, Message>();
+            CreateMap<MessageData, Message>()
+                .ForMember(src => src.CreationDate, opt =>
+                {
+                    opt.MapFrom(src => src.SentTime);
+                });
 
             CreateMap<Message, MessageData>()
                 .ForMember(src => src.SentTime, opt =>
                 {
                     opt.MapFrom(src => src.CreationDate);
+                })
+                .ForMember(src => src.SenderId, opt =>
+                {
+                    opt.MapFrom(src => src.SenderRoleId == 1 ? src.Chat.Advert.CreatorId : src.Chat.UserId);
                 });
         }
     }

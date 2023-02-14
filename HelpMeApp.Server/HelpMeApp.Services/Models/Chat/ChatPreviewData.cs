@@ -11,8 +11,7 @@ namespace HelpMeApp.Services.Models.Chat
     {
         public int Id { get; set; }
         public string AdvertTitle { get; set; }
-        public byte[] AdvertPhoto { get; set; }
-        public string InterlocutorName { get; set; }
+        public string ResponderName { get; set; }
         public MessageData LastMessage { get; set; }
     }
 }

@@ -37,7 +37,7 @@ namespace HelpMeApp.Services.Services
         {
             var message = _mapper.Map<Message>(messageData);
             
-            var chat = await _chatReadRepository.GetChatByIdAsync(message.Id);  
+            var chat = await _chatReadRepository.GetChatByIdAsync(messageData.ChatId);  
 
             if (chat.Advert.CreatorId == messageData.SenderId)
             {

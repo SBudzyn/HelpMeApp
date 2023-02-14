@@ -11,6 +11,6 @@ namespace HelpMeApp.DatabaseAccess.Interfaces
     {
         Task<Chat> GetChatByIdAsync(int id);
         Task<IEnumerable<Chat>> GetChatsByUserAsync(Guid userId);
-        Task<Chat> GetCertainChatAsync(Guid userId, int advertId);
+        Task<Chat> GetChatByAdvertAndHelperAsync(int advertId, Guid userId);
     }
 }

@@ -26,7 +26,10 @@ namespace HelpMeApp.DatabaseAccess.Repositories
         public async Task<IEnumerable<Message>> GetMessagesByChatAsync(int chatId)
         {
             return await _context.Messages
-                .Where(m => m.ChatId == chatId).ToListAsync();
+                .Where(m => m.ChatId == chatId)
+                .Include(m => m.Chat)
+                .ThenInclude(c => c.Advert)
+                .ToListAsync();
         }
     }
 }

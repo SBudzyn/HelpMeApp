@@ -13,7 +13,20 @@ namespace HelpMeApp.Services.MappingProfiles
     {
         public ChatMappingProfiles()
         {
-            CreateMap<Chat, ChatPreviewData>();
+            CreateMap<Chat, ChatPreviewData>()
+                .ForMember(src => src.ResponderName, opt =>
+                {
+                    opt.MapFrom(src => src.User.Name);
+                })
+                .ForMember(src => src.LastMessage, opt =>
+                {
+                    opt.MapFrom(src => src.Messages.LastOrDefault());
+                })
+                .ForMember(src => src.AdvertTitle, opt =>
+                {
+                    opt.MapFrom(src => src.Advert.Header);
+                });
+                
         }
     }
 }

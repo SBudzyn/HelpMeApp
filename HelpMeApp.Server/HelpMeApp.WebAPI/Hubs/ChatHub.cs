@@ -28,7 +28,7 @@ namespace HelpMeApp.WebAPI.Hubs
         public async override Task OnConnectedAsync()
         {
             await base.OnConnectedAsync();
-            await Clients.All.SendAsync("Bomba");
+            await Clients.All.SendAsync("Connected");
         }
 
         public override Task OnDisconnectedAsync(Exception exception)
@@ -42,23 +42,23 @@ namespace HelpMeApp.WebAPI.Hubs
 
         }
 
-        public async Task Test()
-        {
-            await Clients.All.SendAsync("Hiiiiii");
-        }
-
-        public async Task JoinChat(int advertId)
+        public async Task JoinChat(int chatId)
         {
             var userId = Guid.Parse(Context.User.Claims.First(c => c.Type == "UserId").Value);
 
-            var chatId = await _chatService.GetChatIdAsync(userId, advertId);
+            var chat = await _chatService.GetChatByIdAsync(chatId);
+
+            if (chat == null)
+            {
+                return;
+            }
 
             _connections[Context.ConnectionId] = new UserConnection() { ChatId = chatId.ToString() };
             await Groups.AddToGroupAsync(Context.ConnectionId, chatId.ToString());
 
             if (_connections.TryGetValue(Context.ConnectionId, out UserConnection userConnection))
             {
-                var messageHistory = _messageService.GetMessagesByChat(chatId);
+                var messageHistory = await  _messageService.GetMessagesByChat(chatId);
 
                 await Clients.Group(userConnection.ChatId).SendAsync("Receive", messageHistory);
             }

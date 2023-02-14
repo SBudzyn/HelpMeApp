@@ -13,10 +13,12 @@ namespace HelpMeApp.WebAPI.Controllers
     public class ChatsController : ControllerBase
     {
         private IChatService _chatService;
+        private IAdvertService _advertService;
 
-        public ChatsController(IChatService chatService)
+        public ChatsController(IChatService chatService, IAdvertService advertService)
         {
             _chatService = chatService;
+            _advertService = advertService;
         }
 
         [Authorize]
@@ -26,6 +28,31 @@ namespace HelpMeApp.WebAPI.Controllers
             var userId = Guid.Parse(User.Claims.First(c => c.Type == "UserId").Value);
 
             return Ok(await _chatService.GetChatsByUserAsync(userId));
+        }
+
+        [Authorize]
+        [HttpGet("advert/{advertId}")]
+        public async Task<IActionResult> GetChatByAdvert(int advertId)
+        {
+            var userId = Guid.Parse(User.Claims.First(c => c.Type == "UserId").Value);
+
+            var chat = await _chatService.GetChatByAdvertAndHelperAsync(advertId, userId);
+
+            if (chat != null)
+            {
+                return Ok(chat);
+            }
+
+            var advert = await _advertService.GetAdvertById(advertId);
+
+            if (advert == null)
+            {
+                return BadRequest();
+            }
+
+            var createdChat = await _chatService.AddChatAsync(advertId, userId);
+
+            return Ok(createdChat);
         }
     }
 }

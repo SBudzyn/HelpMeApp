@@ -35,11 +35,14 @@ namespace HelpMeApp.DatabaseAccess.Repositories
                 .ToListAsync();
         }
 
-        public async Task<Chat> GetCertainChatAsync(Guid userId, int advertId)
+        public async Task<Chat> GetChatByAdvertAndHelperAsync(int advertId, Guid userId)
         {
             return await _context.Chats
-                .Where(c => c.UserId == userId || c.Advert.CreatorId == userId)
+                .Where(c => c.UserId == userId)
                 .Where(c => c.AdvertId == advertId)
+                .Include(c => c.User)
+                .Include(c => c.Advert)
+                .Include(c => c.Messages)
                 .FirstOrDefaultAsync();
         }
     }
