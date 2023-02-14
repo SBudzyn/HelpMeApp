@@ -22,7 +22,7 @@ namespace HelpMeApp.Services.MappingProfiles
                 .ForMember(src => src.Photo, opt =>
                 {
                     opt.Ignore();
-                }); ;
+                });
         }
     }
 }
