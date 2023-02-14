@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import routingUrl from "../../constants/routingUrl";
-import defaultChatPhoto from "../../media/defaultAvatarProfileIcon.jpg";
+import defaultAvatarProfileIcon from "../../media/defaultAvatarProfileIcon.jpg";
 import "./ChatCard.css";
 
 const months = [
@@ -25,7 +25,7 @@ const dayOfWeek = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
 const ChatShortInfo = (props) => {
     const linkToChat = `${routingUrl.pathToChat}/${props.id}`;
-    const photoSrc = props.photo ?? defaultChatPhoto;
+    const photoSrc = props.photo ?? defaultAvatarProfileIcon;
     const date = `${dayOfWeek[props.date.getDay()]} ${
         months[props.date.getMonth()]
     } ${props.date.getDate()}`;

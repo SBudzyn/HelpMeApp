@@ -6,6 +6,7 @@ import routingUrl from "../constants/routingUrl";
 import LoginForm from "../components/AuthorizationForms/LoginForm";
 import RegistrationForm from "../components/AuthorizationForms/RegistrationForm";
 import AdvertCreationPage from "../pages/AdvertCreationPage/AdvertCreationPage";
+import ChatPage from "../pages/ChatPage/ChatPage";
 
 const AppRoutes = () => {
     return (
@@ -17,11 +18,11 @@ const AppRoutes = () => {
             />
             <Route
                 path={routingUrl.pathToLoginPage}
-                element={<AuthorizationPage component={ LoginForm } />}
+                element={<AuthorizationPage component={LoginForm} />}
             />
             <Route
                 path={routingUrl.pathToSignUpPage}
-                element={<AuthorizationPage component={ RegistrationForm } />}
+                element={<AuthorizationPage component={RegistrationForm} />}
             />
             <Route
                 path={routingUrl.pathToGetHelpBoard}
@@ -31,7 +32,7 @@ const AppRoutes = () => {
                 path={routingUrl.pathToGiveHelpBoard}
                 element={<BoardPage />}
             />
-            <Route path={routingUrl.pathToChat} element={<h1>Chat</h1>} />
+            <Route path={routingUrl.pathToChat} element={<ChatPage />} />
             <Route path={routingUrl.pathToProfile} element={<h1>Profile</h1>} />
             <Route
                 path={routingUrl.pathToAdvertCreation}
