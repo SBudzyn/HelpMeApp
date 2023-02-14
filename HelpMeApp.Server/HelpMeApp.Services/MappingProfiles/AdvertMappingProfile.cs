@@ -31,7 +31,11 @@ namespace HelpMeApp.Services.MappingProfiles
 
             CreateMap<Advert, AdvertPreviewResponseData>();
 
-            CreateMap<AdvertPostData, Advert>();
+            CreateMap<AdvertPostData, Advert>()
+                .ForMember(src => src.Photos, opt =>
+                {
+                    opt.Ignore();
+                });
 
             CreateMap<AdvertFiltersData, AdvertFilters>();
         }

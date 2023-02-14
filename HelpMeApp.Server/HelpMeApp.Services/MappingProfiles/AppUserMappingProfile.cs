@@ -21,12 +21,8 @@ namespace HelpMeApp.Services.MappingProfiles
                 })
                 .ForMember(src => src.Photo, opt =>
                 {
-                    opt.MapFrom(src => ImageConvertorHelper.ConvertToBase64(src.Photo));
-                })
-                .ForMember(src => src.PhotoPrefix, opt =>
-                {
-                    opt.MapFrom(src => ImageConvertorHelper.GetImagePrefix(src.Photo));
-                });
+                    opt.Ignore();
+                }); ;
         }
     }
 }

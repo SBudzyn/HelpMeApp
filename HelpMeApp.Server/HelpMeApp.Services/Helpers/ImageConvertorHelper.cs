@@ -1,4 +1,6 @@
 ﻿using System;
+using Bogus.DataSets;
+using HelpMeApp.DatabaseAccess.Entities.PhotoEntity;
 
 namespace HelpMeApp.Services.Helpers
 {
@@ -24,6 +26,16 @@ namespace HelpMeApp.Services.Helpers
             }
 
             return value.Split(",")[0];
+        }
+
+        public static string ConvertPhotoToString(Photo photo)
+        {
+            if (string.IsNullOrEmpty(photo.Prefix))
+            {
+                return string.Empty;
+            }
+
+            return string.Join(',', photo.Prefix, Convert.ToBase64String(photo.Data));
         }
     }
 }

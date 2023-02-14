@@ -46,6 +46,7 @@ namespace HelpMeApp.Services.Services
             var domainAdvert = await _advertReadRepository.GetAdvertByIdAsync(id);
 
             var advertData = _mapper.Map<AdvertDetailedResponseData>(domainAdvert);
+            advertData.Photos = domainAdvert.Photos.Select(x => ImageConvertorHelper.ConvertPhotoToString(x)).ToList();
 
             return advertData;
         }
@@ -60,7 +61,11 @@ namespace HelpMeApp.Services.Services
 
             var domainAdvert = await _advertWriteRepository.AddAdvertAsync(mappedAdvert);
 
-            return _mapper.Map<AdvertDetailedResponseData>(domainAdvert);
+            var response = _mapper.Map<AdvertDetailedResponseData>(domainAdvert);
+
+            response.Photos = domainAdvert.Photos.Select(x => ImageConvertorHelper.ConvertPhotoToString(x)).ToList();
+
+            return response;
         }
 
         public async Task<AdvertDetailedResponseData> UpdateAdvertAsync(AdvertPostData advertUpdate, int advertId)
