@@ -35,24 +35,17 @@ const RegistrationForm = () => {
         };
 
         await baseRequest
-            .post(
-                "/authentication/register",
-                fullRegistrationData
-            )
+            .post("/authentication/register", fullRegistrationData)
             .then((response) => {
                 if (response.data.isSuccessful) {
                     handleClose();
-                    setSuccessMessage(
-                        "Success! Now you can login"
-                    );
+                    setSuccessMessage("Success! Now you can login");
                 } else {
                     setAlertMessage("error");
                 }
             })
             .catch(() => {
-                setAlertMessage(
-                    "Unsuccessful registration"
-                );
+                setAlertMessage("Unsuccessful registration");
             });
     };
 
@@ -154,7 +147,7 @@ const RegistrationForm = () => {
                                 phoneNumber: "",
                                 info: ""
                             }}
-                            validationSchema={RegistrationValidationSchema}
+                            validationSchema={Registration}
                             onSubmit={submitRegistration}
                         >
                             <Form>

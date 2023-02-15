@@ -6,9 +6,11 @@ const routingUrl = {
     pathToGiveHelpBoard: "/provide-help-board",
     pathToGetHelpBoard: "/get-help-board",
     pathToChat: "/chat",
-    pathToAdvertById: "/advert/:id"
+    pathToAdvertById: "/advert/:id",
     pathToProfile: "/my-profile",
-    pathToAdvertCreation: "/new-advert"
+    pathToAdvertCreation: "/new-advert",
+    pathToModifyProfileData: "/modify-userdata",
+    pathToDeleteUserConfirmation: "/delete-user"
 };
 
 export default routingUrl;
