@@ -2,10 +2,20 @@ import React from "react";
 import PropTypes from "prop-types";
 import "./AuthorizationPage.css";
 import Background from "../../components/Background/Background";
+import { Navigate } from "react-router-dom";
+import routingUrl from "../../constants/routingUrl";
+import { checkToken } from "../../services/authorizationServices";
 
 const AuthorizationPage = ({ component: AuthorizationForm }) => {
     return (
         <div>
+            {checkToken()
+                ? (
+                    <Navigate to={routingUrl.pathToHomePage} />
+                )
+                : (
+                    <></>
+                )}
             <div>
                 <Background />
             </div>
@@ -17,7 +27,7 @@ const AuthorizationPage = ({ component: AuthorizationForm }) => {
 };
 
 AuthorizationPage.propTypes = {
-    component: PropTypes.component
+    component: PropTypes.element
 };
 
 export default AuthorizationPage;

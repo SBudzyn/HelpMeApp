@@ -13,10 +13,12 @@ namespace HelpMeApp.DatabaseAccess.Repositories
     public class AdvertWriteRepository : IAdvertWriteRepository
     {
         private HelpMeDbContext _context;
+        private IAdvertReadRepository _advertReadRepository;
 
-        public AdvertWriteRepository(HelpMeDbContext context)
+        public AdvertWriteRepository(HelpMeDbContext context, IAdvertReadRepository readRepository)
         {
             _context = context;
+            _advertReadRepository = readRepository;
         }
 
         public async Task<Advert> AddAdvertAsync(Advert advert)
@@ -25,7 +27,7 @@ namespace HelpMeApp.DatabaseAccess.Repositories
 
             await _context.SaveChangesAsync();
 
-            return domainAdvert.Entity;
+            return await _advertReadRepository.GetAdvertByIdAsync(domainAdvert.Entity.Id);
         }
 
         public async Task<Advert> UpdateAdvertAsync(Advert advert)
@@ -34,12 +36,12 @@ namespace HelpMeApp.DatabaseAccess.Repositories
 
             await _context.SaveChangesAsync();
 
-            return advert;
+            return await _advertReadRepository.GetAdvertByIdAsync(advert.Id);
         }
 
         public async Task<Advert> DeactivateAdvertAsync(int id)
         {
-            var advert = await _context.Adverts.FirstAsync(a => a.Id == id);
+            var advert = await _advertReadRepository.GetAdvertByIdAsync(id);
 
             advert.IsClosed = true;
 

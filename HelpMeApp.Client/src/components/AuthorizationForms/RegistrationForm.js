@@ -2,6 +2,7 @@ import { useState, React } from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import { Link } from "react-router-dom";
 import routingUrl from "../../constants/routingUrl";
+import baseRequest from "../../services/axiosServices";
 import Modal from "react-bootstrap/Modal";
 import Authorization from "../../validation/Authorization";
 import Registration from "../../validation/Registration";
@@ -9,16 +10,51 @@ import "bootstrap/dist/css/bootstrap.css";
 import "./AuthorizationForms.css";
 
 const RegistrationForm = () => {
+    const [alertMessage, setAlertMessage] = useState("");
+    const [successMessage, setSuccessMessage] = useState("");
     const [registrationData, setRegistrationData] = useState({
         email: "",
         password: ""
     });
     const [show, setShow] = useState(false);
 
-    const [photo, setPhoto] = useState(null);
-
     const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    const handleShow = () => {
+        setShow(true);
+        setAlertMessage("");
+    };
+
+    const submitRegistration = async (values) => {
+        const fullRegistrationData = {
+            email: registrationData.email,
+            password: registrationData.password,
+            name: values.name,
+            surname: values.surname,
+            phoneNumber: values.phoneNumber,
+            info: values.info
+        };
+
+        await baseRequest
+            .post(
+                "/authentication/register",
+                fullRegistrationData
+            )
+            .then((response) => {
+                if (response.data.isSuccessful) {
+                    handleClose();
+                    setSuccessMessage(
+                        "Success! Now you can login"
+                    );
+                } else {
+                    setAlertMessage("error");
+                }
+            })
+            .catch(() => {
+                setAlertMessage(
+                    "Unsuccessful registration"
+                );
+            });
+    };
 
     return (
         <div className="auth-form">
@@ -97,6 +133,9 @@ const RegistrationForm = () => {
                             >
                                 Next
                             </button>
+                            <div className="success-message">
+                                {successMessage}
+                            </div>
                         </Form>
                     );
                 }}
@@ -115,27 +154,8 @@ const RegistrationForm = () => {
                                 phoneNumber: "",
                                 info: ""
                             }}
-                            validationSchema={Registration}
-                            onSubmit={async (values) => {
-                                const allData = {
-                                    email: registrationData.email,
-                                    password: registrationData.password,
-                                    name: values.name,
-                                    phoneNumber: values.phoneNumber,
-                                    info: values.info,
-                                    photo: photo.name
-                                };
-                                alert(JSON.stringify(allData));
-                                // configure form data and send post request with photo
-
-                                // const formData = new FormData();
-                                // formData.append("file", photo);
-
-                                // const response = await fetch('https://localhost:7048/api/Photo', {method: 'POST', body: formData});
-
-                                // add redirection
-                                handleClose();
-                            }}
+                            validationSchema={RegistrationValidationSchema}
+                            onSubmit={submitRegistration}
                         >
                             <Form>
                                 <div className="mb-3 row modal-group">
@@ -231,21 +251,21 @@ const RegistrationForm = () => {
                                             type="file"
                                             id="photo"
                                             accept="image/*"
-                                            onChange={(event) => {
-                                                setPhoto(
-                                                    event.currentTarget.files[0]
-                                                );
-                                            }}
                                         ></input>
                                     </div>
                                 </div>
                                 <br />
-                                <button
-                                    type="submit"
-                                    className="horizontal-center btn btn-primary mb-1 modal-btn"
-                                >
-                                    Register
-                                </button>
+                                <div className="d-flex justify-content-center">
+                                    <button
+                                        type="submit"
+                                        className="btn btn-primary mb-1 modal-btn"
+                                    >
+                                        Register
+                                    </button>
+                                </div>
+                                <div className="d-flex justify-content-center error-message mt-3">
+                                    {alertMessage}
+                                </div>
                             </Form>
                         </Formik>
                     </div>

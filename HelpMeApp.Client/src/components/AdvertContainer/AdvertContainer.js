@@ -1,59 +1,48 @@
-import { React } from "react";
+import { React, useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import AdvertCard from "../AdvertCard/AdvertCard";
+import baseRequest from "../../services/axiosServices";
 
-const AdvertShortInfoLayout = () => {
-    const data = [
-        {
-            id: 1,
-            title: "We need help. Please help us as soon as possible ",
-            location: "Kharkiv",
-            date: new Date("12.22.2022")
-        },
-        {
-            id: 2,
-            title: "HELP HELP HELLO HELLO We need help. Please help us as soon as possible. Help me help me my hero. I need your help",
-            location: "Kyiv",
-            date: new Date("12.12.2022")
-        },
-        {
-            id: 3,
-            title: "DO you wanna help me? Please help us as soon as possible",
-            location: "Odesa",
-            date: new Date("12.24.2022")
-        },
-        {
-            id: 4,
-            title: "I am helping you today. Please help us as soon as possible",
-            location: "Dnipro",
-            date: new Date("5.1.2023")
-        },
-        {
-            id: 5,
-            title: "We need help. Please help us as soon as possible",
-            location: "Lviv",
-            date: new Date("12.24.2022")
-        },
-        {
-            id: 6,
-            title: "We need help. Please help us as soon as possible",
-            location: "Poltava",
-            date: new Date("12.12.2022")
-        }
-    ];
+const AdvertContainer = (props) => {
+    const [adverts, setAdverts] = useState([]);
+
+    const retrieveAdverts = async () => {
+        await baseRequest
+            .get(`/adverts/page/${props.page}`, {
+                params: {
+                    helpTypeId: props.helpTypeId,
+                    categoryId: props.categoryId,
+                    termsId: props.termsId,
+                    location: props.location,
+                    sortBy: props.sortBy
+                }
+            })
+            .then((response) => {
+                return response.data;
+            })
+            .then((data) => {
+                setAdverts(data);
+            });
+    };
+
+    useEffect(() => {
+        retrieveAdverts();
+    }, []);
+
     return (
         <div className="container">
             <div className="row">
-                {data.map((a) => (
+                {adverts.map((advert) => (
                     <div
                         className="col-xs-12 col-sm-8 col-md-6 col-lg-4 col-xl-3 col-xxl-3 mb-3"
-                        key={a.id}
+                        key={advert.id}
                     >
                         <AdvertCard
-                            key={a.id}
-                            id={a.id}
-                            title={a.title}
-                            location={a.location}
-                            date={a.date}
+                            key={advert.id}
+                            id={advert.id}
+                            title={advert.header}
+                            location={advert.location}
+                            date={new Date(advert.creationDate)}
                         />
                     </div>
                 ))}
@@ -62,4 +51,13 @@ const AdvertShortInfoLayout = () => {
     );
 };
 
-export default AdvertShortInfoLayout;
+AdvertContainer.propTypes = {
+    page: PropTypes.number,
+    helpTypeId: PropTypes.number,
+    location: PropTypes.string,
+    sortBy: PropTypes.string,
+    categoryId: PropTypes.number,
+    termsId: PropTypes.number
+};
+
+export default AdvertContainer;
