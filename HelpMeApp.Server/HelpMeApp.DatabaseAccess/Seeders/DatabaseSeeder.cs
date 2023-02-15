@@ -44,8 +44,8 @@ namespace HelpMeApp.DatabaseAccess.Seeders
 
         public static List<HelpType> HelpTypes = new List<HelpType>()
         {
-            new HelpType(){ Name = "NeedHelp" },
-            new HelpType(){ Name = "CanHelp" }
+            new HelpType(){ Name = "Need help" },
+            new HelpType(){ Name = "Can help" }
         };
 
         public static List<SenderRole> SenderRoles = new List<SenderRole>()

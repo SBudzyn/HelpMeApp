@@ -82,9 +82,11 @@ namespace HelpMeApp.Services.Services
 
             var terms = await _advertReadRepository.GetTermsAsync();
 
+            var helpTypes = await _advertReadRepository.GetHelpTypesAsync();
+
             var advertsQuantity = await _advertReadRepository.CountAdverts();
 
-            return new GeneralData { Categories = categories, Terms = terms, AdvertsQuantity = advertsQuantity };
+            return new GeneralData { Categories = categories, Terms = terms, HelpTypes = helpTypes, AdvertsQuantity = advertsQuantity };
         }
     }
 }
