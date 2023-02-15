@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Container, Row, Col, Form, Button, ListGroup } from "react-bootstrap";
 import "./Chat.css";
+import avatar from "../../media/defaultAvatarProfileIcon.jpg";
 
 const Chat = () => {
     const [selectedChatId, setSelectedChatId] = useState(null);
@@ -9,6 +10,7 @@ const Chat = () => {
         {
             id: 1,
             name: "User 1",
+            profilePic: avatar,
             messages: [
                 { text: "Hello, how are you?", sender: "User 1" },
                 { text: "I'm doing well, thanks!", sender: "You" }
@@ -17,6 +19,7 @@ const Chat = () => {
         {
             id: 2,
             name: "User 2",
+            profilPic: avatar,
             messages: [
                 { text: "Hi, what's up?", sender: "User 2" },
                 { text: "Nothing much, just hanging out.", sender: "You" }
@@ -81,12 +84,12 @@ const Chat = () => {
                                     }`}
                                 >
                                     <img
-                                        src={message.profile_pic}
+                                        src={avatar}
                                         alt="Profile"
                                         className="profile-icon"
                                     />
                                     <p>
-                                        {message.sender}: {message.text}
+                                        {message.text}
                                     </p>
                                 </div>
                             ))}
