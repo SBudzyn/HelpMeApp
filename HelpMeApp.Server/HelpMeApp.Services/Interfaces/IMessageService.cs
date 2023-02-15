@@ -9,7 +9,7 @@ namespace HelpMeApp.Services.Interfaces
 {
     public interface IMessageService
     {
-        Task<IEnumerable<MessageData>> GetMessagesByChat(int ChatId);
+        Task<IEnumerable<MessageData>> GetMessagesByChat(int chatId, int page = 1, int amount = 100);
         Task<MessageData> AddMessageAsync(MessageData messageData);
     }
 }

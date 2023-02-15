@@ -10,6 +10,6 @@ namespace HelpMeApp.DatabaseAccess.Interfaces
     public interface IMessageReadRepository
     {
         Task<Message> GetMessageByIdAsync(int id);
-        Task<IEnumerable<Message>> GetMessagesByChatAsync(int chatId);
+        Task<IEnumerable<Message>> GetMessagesByChatAsync(int chatId, int page, int amount);
     }
 }

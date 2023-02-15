@@ -26,9 +26,9 @@ namespace HelpMeApp.Services.Services
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<MessageData>> GetMessagesByChat(int ChatId)
+        public async Task<IEnumerable<MessageData>> GetMessagesByChat(int chatId, int page = 1, int amount = 100)
         {
-            var domainMessages = await _messageReadRepository.GetMessagesByChatAsync(ChatId);
+            var domainMessages = await _messageReadRepository.GetMessagesByChatAsync(chatId, page, amount);
 
             return _mapper.Map<IEnumerable<MessageData>>(domainMessages);
         }

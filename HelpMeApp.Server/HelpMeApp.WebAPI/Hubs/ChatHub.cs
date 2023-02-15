@@ -25,12 +25,6 @@ namespace HelpMeApp.WebAPI.Hubs
             _connections = connections;
         }
 
-        public async override Task OnConnectedAsync()
-        {
-            await base.OnConnectedAsync();
-            await Clients.All.SendAsync("Connected");
-        }
-
         public override Task OnDisconnectedAsync(Exception exception)
         {
             if (_connections.ContainsKey(Context.ConnectionId))

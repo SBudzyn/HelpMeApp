@@ -14,20 +14,22 @@ namespace HelpMeApp.WebAPI.Controllers
     {
         private IChatService _chatService;
         private IAdvertService _advertService;
+        private IMessageService _messageService;
 
-        public ChatsController(IChatService chatService, IAdvertService advertService)
+        public ChatsController(IChatService chatService, IAdvertService advertService, IMessageService messageService)
         {
             _chatService = chatService;
             _advertService = advertService;
+            _messageService = messageService;
         }
 
         [Authorize]
         [HttpGet("get-my-chats")]
-        public async Task<IActionResult> GetMyChats()
+        public async Task<IActionResult> GetMyChats(int amount = 30, int page = 1)
         {
             var userId = Guid.Parse(User.Claims.First(c => c.Type == "UserId").Value);
 
-            return Ok(await _chatService.GetChatsByUserAsync(userId));
+            return Ok(await _chatService.GetChatsByUserAsync(userId, amount, page));
         }
 
         [Authorize]
@@ -36,7 +38,7 @@ namespace HelpMeApp.WebAPI.Controllers
         {
             var userId = Guid.Parse(User.Claims.First(c => c.Type == "UserId").Value);
 
-            var chat = await _chatService.GetChatByAdvertAndHelperAsync(advertId, userId);
+            var chat = await _chatService.GetChatByAdvertAndResponderAsync(advertId, userId);
 
             if (chat != null)
             {
@@ -53,6 +55,13 @@ namespace HelpMeApp.WebAPI.Controllers
             var createdChat = await _chatService.AddChatAsync(advertId, userId);
 
             return Ok(createdChat);
+        }
+
+        [Authorize]
+        [HttpGet("messages/{chatId}")]
+        public async Task<IActionResult> GetMessagesByChat(int chatId, int page = 1, int amount = 100)
+        {
+            return Ok(await _messageService.GetMessagesByChat(chatId, page, amount));
         }
     }
 }

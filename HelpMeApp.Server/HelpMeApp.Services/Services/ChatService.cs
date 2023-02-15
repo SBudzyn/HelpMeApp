@@ -31,16 +31,16 @@ namespace HelpMeApp.Services.Services
             return _mapper.Map<ChatPreviewData>(domainChat);
         }
 
-        public async Task<ChatPreviewData> GetChatByAdvertAndHelperAsync(int chatId, Guid helperId)
+        public async Task<ChatPreviewData> GetChatByAdvertAndResponderAsync(int chatId, Guid helperId)
         {
-            var domainChat = await _chatReadRepository.GetChatByAdvertAndHelperAsync(chatId, helperId);
+            var domainChat = await _chatReadRepository.GetChatByAdvertAndResponderAsync(chatId, helperId);
 
             return _mapper.Map<ChatPreviewData>(domainChat);
         }
 
-        public async Task<IEnumerable<ChatPreviewData>> GetChatsByUserAsync(Guid userId)
+        public async Task<IEnumerable<ChatPreviewData>> GetChatsByUserAsync(Guid userId, int amount, int page)
         {
-            var domainChats = await _chatReadRepository.GetChatsByUserAsync(userId);
+            var domainChats = await _chatReadRepository.GetChatsByUserAsync(userId, amount, page);
 
             return _mapper.Map<IEnumerable<ChatPreviewData>>(domainChats);
         }

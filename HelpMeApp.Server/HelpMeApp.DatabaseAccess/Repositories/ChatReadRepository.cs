@@ -25,17 +25,21 @@ namespace HelpMeApp.DatabaseAccess.Repositories
                 .FirstOrDefaultAsync(c => c.Id == id);
         }
 
-        public async Task<IEnumerable<Chat>> GetChatsByUserAsync(Guid userId)
+        public async Task<IEnumerable<Chat>> GetChatsByUserAsync(Guid userId, int amount, int page)
         {
             return await _context.Chats
                 .Where(c => c.UserId == userId)
                 .Where(c => c.Messages.Count() != 0)
                 .Include(c => c.User)
                 .Include(c => c.Advert)
+                .Include(c => c.Messages)
+                .OrderByDescending(c => c.Messages.OrderByDescending(c => c.CreationDate).LastOrDefault().CreationDate)
+                .Skip((page - 1) * amount)
+                .Take(amount)
                 .ToListAsync();
         }
 
-        public async Task<Chat> GetChatByAdvertAndHelperAsync(int advertId, Guid userId)
+        public async Task<Chat> GetChatByAdvertAndResponderAsync(int advertId, Guid userId)
         {
             return await _context.Chats
                 .Where(c => c.UserId == userId)
