@@ -64,6 +64,7 @@ namespace HelpMeApp.WebAPI.ServiceCollectionConfiguration
             {
                 map.AddProfile<AppUserMappingProfile>();
                 map.AddProfile<AdvertMappingProfile>();
+                map.AddProfile<ReportMappingProfile>();
             });
             services.AddSingleton(mapperConfig.CreateMapper());
         }
@@ -78,12 +79,15 @@ namespace HelpMeApp.WebAPI.ServiceCollectionConfiguration
             services.AddTransient<ITokenService, TokenService>();
             services.AddTransient<IAuthenticationService, AuthenticationService>();
             services.AddTransient<IAdvertService, AdvertService>();
+            services.AddTransient<IReportReadRepository, ReportReadRepository>();
+            services.AddTransient<IReportWriteRepository, ReportWriteRepository>();
         }
 
         public static void BindRepositories(this IServiceCollection services)
         {
             services.AddTransient<IAdvertReadRepository, AdvertReadRepository>();
             services.AddTransient<IAdvertWriteRepository, AdvertWriteRepository>();
+            services.AddTransient<IReportService, ReportService>();
         }
     }
 }

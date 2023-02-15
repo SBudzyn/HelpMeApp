@@ -3,6 +3,7 @@ using FluentValidation.Results;
 using HelpMeApp.Services.Interfaces;
 using HelpMeApp.Services.Models.Advert;
 using HelpMeApp.Services.Models.Filters;
+using HelpMeApp.Services.Models.Report;
 using HelpMeApp.WebAPI.Authorization;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -22,12 +23,14 @@ namespace HelpMeApp.WebAPI.Controllers
     public class AdvertController : ControllerBase
     {
         private IAdvertService _advertService;
+        private IReportService _reportService;
         private IAuthorizationService _authorizationService;
         private IValidator<AdvertPostData> _advertValidator;
 
-        public AdvertController(IAdvertService advertService, IAuthorizationService authorizationService, IValidator<AdvertPostData> advertValidator)
+        public AdvertController(IAdvertService advertService, IReportService reportService, IAuthorizationService authorizationService, IValidator<AdvertPostData> advertValidator)
         {
             _advertService = advertService;
+            _reportService = reportService;
             _authorizationService = authorizationService;
             _advertValidator = advertValidator;
         }
@@ -141,6 +144,25 @@ namespace HelpMeApp.WebAPI.Controllers
         public async Task<IActionResult> GetGeneralData()
         {
             return Ok(await _advertService.GetGeneralDataAsync());
+        }
+
+        [Authorize]
+        [HttpPost("report/{AdvertId}")]
+        public async Task<IActionResult> AddReport(int advertId, [FromBody] string text)
+        {
+            var userId = Guid.Parse(User.Claims.First(c => c.Type == "UserId").Value);
+
+            var reportData = new ReportData()
+            {
+                AdvertId = advertId,
+                IsResolved = false,
+                UserId = userId,
+                Text = text
+            };
+
+            var addedReport = await _reportService.AddReportAsync(reportData);
+
+            return Ok(addedReport);
         }
     }
 }
