@@ -13,7 +13,7 @@ namespace HelpMeApp.Services.Models.Advert
         public Guid CreatorId { get; set; }
         public string Category { get; set; }
         public string Terms { get; set; }
-        public List<byte[]> Photos { get; set; } = new List<byte[]>();
+        public List<string> Photos { get; set; } = new List<string>();
         public DateTime CreationDate { get; set; }
         public bool IsClosed { get; set; }
     }

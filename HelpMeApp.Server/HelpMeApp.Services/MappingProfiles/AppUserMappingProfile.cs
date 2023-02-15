@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using HelpMeApp.DatabaseAccess.Entities.AppUserEntity;
+using HelpMeApp.Services.Helpers;
 using HelpMeApp.Services.Models.Registration;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,10 @@ namespace HelpMeApp.Services.MappingProfiles
                 .ForMember(src => src.UserName, opt =>
                 {
                     opt.MapFrom(src => src.Email);
+                })
+                .ForMember(src => src.Photo, opt =>
+                {
+                    opt.Ignore();
                 });
         }
     }
