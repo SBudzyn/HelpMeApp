@@ -25,7 +25,7 @@ namespace HelpMeApp.WebAPI.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register([FromForm] RegistrationRequestModel registrationData)
+        public async Task<IActionResult> Register([FromBody] RegistrationRequestModel registrationData)
         {
             ValidationResult validationResult = _registrationValidator.Validate(registrationData);
 

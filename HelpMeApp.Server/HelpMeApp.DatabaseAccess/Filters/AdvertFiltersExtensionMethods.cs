@@ -43,7 +43,7 @@ namespace HelpMeApp.DatabaseAccess.FiltersExtensionMethods
         {
             if (termsId != 0)
             {
-                return query.Where(a => a.HelpTypeId == termsId);
+                return query.Where(a => a.TermsId == termsId);
             }
 
             return query;
