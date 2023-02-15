@@ -44,17 +44,24 @@ namespace HelpMeApp.Services.Services
         {
             var result = new ProfileResultMessageModel();
             AppUser user = await _userManager.FindByIdAsync(userId);
-            if (user != null) {
+            PasswordVerificationResult passwordHashVerification;
+            if (profileUpdateData.Password != null)
+            {
+                 passwordHashVerification = _passwordHasher.VerifyHashedPassword(user, user.PasswordHash, profileUpdateData.Password);
 
-                var passwordHashVerification = _passwordHasher.VerifyHashedPassword(user, user.PasswordHash, profileUpdateData.Password);
                 if (passwordHashVerification == PasswordVerificationResult.Failed)
                 {
+
                     profileUpdateData.Password = _passwordHasher.HashPassword(user, profileUpdateData.Password);
+                }
+                else
+                {
+                    profileUpdateData.Password = user.PasswordHash;
                 }
             }
             else
             {
-                    profileUpdateData.Password = user.PasswordHash;
+                profileUpdateData.Password = user.PasswordHash;
             }
 
             var mappingEditionModelAppUser = _mapper.Map(profileUpdateData, user);

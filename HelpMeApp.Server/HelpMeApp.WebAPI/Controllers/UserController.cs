@@ -61,9 +61,11 @@ namespace HelpMeApp.WebAPI.Controllers
         }
 
         [Authorize]
-        [HttpPut("update-user/{userId}")]
-        public async Task<ActionResult<ProfileResultMessageModel>> Update(string userId, [FromBody] ProfileUpdateData profileResponseData)
+        [HttpPut("update-user")]
+        public async Task<ActionResult<ProfileResultMessageModel>> Update([FromBody] ProfileUpdateData profileResponseData)
         {
+            ClaimsPrincipal claimsPrincipal = HttpContext.User;
+            var userId = claimsPrincipal.FindFirst(c => c.Type == "UserId").Value;
 
             var result = new ProfileResultMessageModel();
 
@@ -82,9 +84,12 @@ namespace HelpMeApp.WebAPI.Controllers
         }
 
         [Authorize]
-        [HttpGet("delete-user/{userId}")]
-        public async Task<ActionResult<ProfileResultMessageModel>> DeleteUser(string userId)
+        [HttpGet("delete-user")]
+        public async Task<ActionResult<ProfileResultMessageModel>> DeleteUser()
         {
+            ClaimsPrincipal claimsPrincipal = HttpContext.User;
+            var userId = claimsPrincipal.FindFirst(c => c.Type == "UserId").Value;
+
             var result = new ProfileResultMessageModel();
 
             if (await _userManager.FindByIdAsync(userId) != null)
@@ -103,9 +108,12 @@ namespace HelpMeApp.WebAPI.Controllers
         }
 
         [Authorize]
-        [HttpGet("get-user-adverts/{userId}")]
-        public async Task<ActionResult<IEnumerable<AdvertPreviewResponseData>>> GetAllUserAdverts(string userId)
+        [HttpGet("get-user-adverts")]
+        public async Task<ActionResult<IEnumerable<AdvertPreviewResponseData>>> GetAllUserAdverts()
         {
+            ClaimsPrincipal claimsPrincipal = HttpContext.User;
+            var userId = claimsPrincipal.FindFirst(c => c.Type == "UserId").Value;
+
             if (await _userManager.FindByIdAsync(userId) != null)
             {
                 var authorizationResult = await _authorizationService.AuthorizeAsync(User, userId, "EditPolicy");
