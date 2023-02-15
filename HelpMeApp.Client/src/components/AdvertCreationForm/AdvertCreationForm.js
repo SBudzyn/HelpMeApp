@@ -1,14 +1,32 @@
-import { useState, React } from "react";
+import { React, useEffect, useState } from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import "./AdvertCreationForm.css";
-import advertCreation from "../../constants/advertCreation";
 import AdvertCreation from "../../validation/AdvertCreation.js";
 import { handleUploadFiles } from "../../services/filesUploading";
 import classNames from "classnames";
+import baseRequest from "../../services/axiosServices";
+import routingUrl from "../../constants/routingUrl";
 
 const AdvertCreationForm = () => {
     const [uploadedFiles, setUploadedFiles] = useState([]);
     const [fileLimit, setFileLimit] = useState(false);
+
+    const [generalData, setGeneralData] = useState({});
+
+    const retrieveGeneralData = async () => {
+        await baseRequest
+            .get("/adverts/general-data")
+            .then((response) => {
+                return response.data;
+            })
+            .then((data) => {
+                setGeneralData(data);
+            });
+    };
+
+    useEffect(() => {
+        retrieveGeneralData();
+    }, []);
 
     const uploadBtnClass = classNames({
         btn: true,
@@ -26,30 +44,43 @@ const AdvertCreationForm = () => {
         );
     };
 
+    const submitCreation = async (values) => {
+        const fullAdvertCreationData = {
+            header: values.header,
+            info: values.info,
+            categoryId: values.category,
+            termsId: values.terms,
+            helpTypeId: values.helpType,
+            location: values.location,
+            photos: uploadedFiles.map(x => x.base64)
+        };
+
+        await baseRequest
+            .post("/adverts/new", fullAdvertCreationData, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + localStorage.token
+                }
+            })
+            .then((response) => {
+                location.href = `${routingUrl.pathToAdvert}/${response.data.id}`;
+            })
+            .catch((error) => {
+                alert(error);
+            });
+    };
+
     return (
         <>
             <Formik
                 initialValues={{
-                    helpType: "",
-                    header: "",
+                    helpTypeId: "",
                     info: "",
-                    location: "",
-                    category: "",
-                    terms: ""
-                }}
-                onSubmit={async (values) => {
-                    const allData = {
-                        helpType: values.helpType,
-                        header: values.header,
-                        info: values.info,
-                        location: values.location,
-                        category: values.category,
-                        terms: values.terms,
-                        files: uploadedFiles
-                    };
-                    alert(JSON.stringify(allData));
+                    categoryId: "",
+                    termsId: ""
                 }}
                 validationSchema={AdvertCreation}
+                onSubmit={async (values) => submitCreation(values)}
             >
                 {(formik) => {
                     const { isValid, dirty } = formik;
@@ -72,16 +103,18 @@ const AdvertCreationForm = () => {
                                     <option defaultValue={null}>
                                         Choose help type
                                     </option>
-                                    {advertCreation.helpTypes.map(
-                                        (helpType) => (
-                                            <option
-                                                key={helpType}
-                                                value={helpType}
-                                            >
-                                                {helpType}
-                                            </option>
-                                        )
-                                    )}
+                                    {Object.keys(
+                                        generalData?.helpTypes ?? []
+                                    ).map((key) => (
+                                        <option
+                                            key={key}
+                                            value={key}
+                                            className="dropdown-item border"
+                                            aria-label="form-select-lg"
+                                        >
+                                            {generalData.helpTypes[key]}
+                                        </option>
+                                    ))}
                                 </Field>
                                 <div className="error-message">
                                     <ErrorMessage name="helpType" />
@@ -149,16 +182,18 @@ const AdvertCreationForm = () => {
                                     <option defaultValue={null}>
                                         Choose category
                                     </option>
-                                    {advertCreation.categories.map(
-                                        (category) => (
-                                            <option
-                                                key={category}
-                                                value={category}
-                                            >
-                                                {category}
-                                            </option>
-                                        )
-                                    )}
+                                    {Object.keys(
+                                        generalData?.categories ?? []
+                                    ).map((key) => (
+                                        <option
+                                            key={key}
+                                            value={key}
+                                            className="dropdown-item border"
+                                            aria-label="form-select-lg"
+                                        >
+                                            {generalData.categories[key]}
+                                        </option>
+                                    ))}
                                 </Field>
                                 <div className="error-message">
                                     <ErrorMessage name="category" />
@@ -179,11 +214,18 @@ const AdvertCreationForm = () => {
                                     <option defaultValue={null}>
                                         Choose terms
                                     </option>
-                                    {advertCreation.terms.map((terms) => (
-                                        <option key={terms} value={terms}>
-                                            {terms}
-                                        </option>
-                                    ))}
+                                    {Object.keys(generalData?.terms ?? []).map(
+                                        (key) => (
+                                            <option
+                                                key={key}
+                                                value={key}
+                                                className="dropdown-item border"
+                                                aria-label="form-select-lg"
+                                            >
+                                                {generalData.terms[key]}
+                                            </option>
+                                        )
+                                    )}
                                 </Field>
                                 <div className="error-message">
                                     <ErrorMessage name="terms" />
