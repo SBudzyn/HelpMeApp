@@ -21,7 +21,9 @@ namespace HelpMeApp.Services.MappingProfiles
                     opt.MapFrom(src => src.Email);
                 });
 
-            CreateMap<AppUser, ProfileResponseData>();  
+            CreateMap<AppUser, ProfileResponseData>();
+
+            CreateMap<AdvertPreviewResponseData, ProfileGetUserAdverts>();
 
             CreateMap<ProfileUpdateData, AppUser>()
                 .ForMember(src => src.PasswordHash, opt =>

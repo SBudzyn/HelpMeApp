@@ -36,7 +36,6 @@ namespace HelpMeApp.Services.Services
             AppUser user = await _userManager.FindByIdAsync(userId);
             
             var userData = _mapper.Map<ProfileResponseData>(user);
-            userData.UsersAdverts = await _advertService.GetAllUserAdverts(userId);
            
             return userData;
         }
@@ -96,6 +95,13 @@ namespace HelpMeApp.Services.Services
             result.Success = false;
             result.Message = "User is already deleted";
             return result;
+        }
+
+        public async Task<IEnumerable<AdvertPreviewResponseData>> GetAllUserAdverts(string userId)
+        {
+            var userAdverts = await _advertService.GetAllUserAdverts(userId);
+
+            return userAdverts;
         }
     } 
 }

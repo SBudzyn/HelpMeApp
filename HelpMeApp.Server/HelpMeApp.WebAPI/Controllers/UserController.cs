@@ -12,6 +12,8 @@ using HelpMeApp.WebAPI.Authorization;
 using System.Security.Principal;
 using System.Security.Claims;
 using Microsoft.IdentityModel.Tokens;
+using System.Linq;
+using HelpMeApp.Services.Models.Advert;
 
 namespace HelpMeApp.WebAPI.Controllers
 {
@@ -99,5 +101,26 @@ namespace HelpMeApp.WebAPI.Controllers
 
             return NotFound("User was not found");
         }
+
+        [Authorize]
+        [HttpGet("get-user-adverts/{userId}")]
+        public async Task<ActionResult<IEnumerable<AdvertPreviewResponseData>>> GetAllUserAdverts(string userId)
+        {
+            if (await _userManager.FindByIdAsync(userId) != null)
+            {
+                var authorizationResult = await _authorizationService.AuthorizeAsync(User, userId, "EditPolicy");
+
+                if (authorizationResult.Succeeded)
+                {
+                    var result = await _profileService.GetAllUserAdverts(userId);
+                    return result.ToList();
+                }
+
+            }
+
+            return NotFound("User was not found");
+        }
+
+
     }
 }
