@@ -154,7 +154,7 @@ const RegistrationForm = () => {
                                 phoneNumber: "",
                                 info: ""
                             }}
-                            validationSchema={RegistrationValidationSchema}
+                            validationSchema={Registration}
                             onSubmit={submitRegistration}
                         >
                             <Form>
