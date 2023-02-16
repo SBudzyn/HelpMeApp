@@ -64,5 +64,12 @@ namespace HelpMeApp.DatabaseAccess.Repositories
         {
             return await _context.Adverts.CountAsync();
         }
+
+        public async Task<IEnumerable<Advert>> GetAllUserAdverts(string userId)
+        {
+            return await _context.Adverts
+                .Where(a => a.CreatorId.ToString() == userId)
+                .ToListAsync();
+        }
     }
 }

@@ -52,10 +52,14 @@ namespace HelpMeApp.WebAPI.ServiceCollectionConfiguration
                 .Build();
 
                 options.AddPolicy("EditPolicy", policy =>
-                policy.Requirements.Add(new SameUserRequirement()));
+                policy.Requirements.Add(new CreatorRequirement()));
+
+                options.AddPolicy("UserPolicy", policy =>
+                policy.Requirements.Add(new CreatorRequirement()));
             });
 
             services.AddTransient<IAuthorizationHandler, EditAllowedAuthorizationHandler>();
+            services.AddTransient<IAuthorizationHandler, UserValidAuthorizationHandler>();
         }
 
         public static void ConfigureMapping(this IServiceCollection services)
@@ -64,6 +68,7 @@ namespace HelpMeApp.WebAPI.ServiceCollectionConfiguration
             {
                 map.AddProfile<AppUserMappingProfile>();
                 map.AddProfile<AdvertMappingProfile>();
+                map.AddProfile<ReportMappingProfile>();
             });
             services.AddSingleton(mapperConfig.CreateMapper());
         }
@@ -78,12 +83,16 @@ namespace HelpMeApp.WebAPI.ServiceCollectionConfiguration
             services.AddTransient<ITokenService, TokenService>();
             services.AddTransient<IAuthenticationService, AuthenticationService>();
             services.AddTransient<IAdvertService, AdvertService>();
+            services.AddTransient<IProfileService, ProfileService>();
+            services.AddTransient<IReportService, ReportService>();
         }
 
         public static void BindRepositories(this IServiceCollection services)
         {
             services.AddTransient<IAdvertReadRepository, AdvertReadRepository>();
             services.AddTransient<IAdvertWriteRepository, AdvertWriteRepository>();
+            services.AddTransient<IReportReadRepository, ReportReadRepository>();
+            services.AddTransient<IReportWriteRepository, ReportWriteRepository>();
         }
     }
 }
