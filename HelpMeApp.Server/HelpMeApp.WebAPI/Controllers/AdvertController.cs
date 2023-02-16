@@ -152,6 +152,13 @@ namespace HelpMeApp.WebAPI.Controllers
         {
             var userId = Guid.Parse(User.Claims.First(c => c.Type == "UserId").Value);
 
+            var existingReport = await _reportService.GetReportByAdvertAndUserAsync(advertId, userId);
+
+            if (existingReport != null)
+            {
+                return BadRequest("You've reported this advert earlier");
+            }
+
             var reportData = new ReportData()
             {
                 AdvertId = advertId,

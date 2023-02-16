@@ -18,6 +18,14 @@ namespace HelpMeApp.DatabaseAccess.Repositories
             _context = context;
         }
 
+        public async Task<Report> GetReportByAdvertAndUserAsync(int advertId, Guid userId)
+        {
+            return await _context.Reports
+                .Where(r => r.AdvertId == advertId)
+                .Where(r => r.UserId == userId)
+                .FirstOrDefaultAsync();
+        }
+
         public async Task<Report> GetReportByIdAsync(int id)
         {
             return await _context.Reports

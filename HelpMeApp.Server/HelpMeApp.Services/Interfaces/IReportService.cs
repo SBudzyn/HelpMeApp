@@ -9,6 +9,7 @@ namespace HelpMeApp.Services.Interfaces
 {
     public interface IReportService
     {
+        Task<ReportData> GetReportByAdvertAndUserAsync(int advertId, Guid userId);
         Task<ReportData> AddReportAsync(ReportData report);
     }
 }

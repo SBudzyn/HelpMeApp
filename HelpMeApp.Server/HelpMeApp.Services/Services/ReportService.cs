@@ -13,13 +13,22 @@ namespace HelpMeApp.Services.Services
 {
     public class ReportService : IReportService
     {
+        private IReportReadRepository _reportReadRepository;
         private IReportWriteRepository _reportWriteRepository;
         private IMapper _mapper;
 
-        public ReportService(IReportWriteRepository reportWriteRepository, IMapper mapper)
+        public ReportService(IReportWriteRepository reportWriteRepository, IReportReadRepository reportReadRepository, IMapper mapper)
         {
+            _reportReadRepository = reportReadRepository;
             _reportWriteRepository = reportWriteRepository;
             _mapper = mapper;
+        }
+
+        public async Task<ReportData> GetReportByAdvertAndUserAsync(int advertId, Guid userId)
+        {
+            var domainReport = await _reportReadRepository.GetReportByAdvertAndUserAsync(advertId, userId);
+
+            return _mapper.Map<ReportData>(domainReport);
         }
 
         public async Task<ReportData> AddReportAsync(ReportData report)

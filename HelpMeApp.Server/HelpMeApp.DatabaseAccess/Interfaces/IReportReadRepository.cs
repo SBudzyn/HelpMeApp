@@ -10,5 +10,6 @@ namespace HelpMeApp.DatabaseAccess.Interfaces
     public interface IReportReadRepository
     {
         Task<Report> GetReportByIdAsync(int id);
+        Task<Report> GetReportByAdvertAndUserAsync(int advertId, Guid userId);
     }
 }
