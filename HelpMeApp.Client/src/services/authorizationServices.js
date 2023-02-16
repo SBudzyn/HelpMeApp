@@ -6,5 +6,6 @@ export const checkToken = () => {
 
 export const logout = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("userId");
     location.href = routingUrl.pathToHomePage;
 };

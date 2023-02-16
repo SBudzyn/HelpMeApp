@@ -3,16 +3,16 @@ using System;
 
 namespace HelpMeApp.WebAPI.Authorization
 {
-    public class SameUserRequirement : IAuthorizationRequirement
+    public class CreatorRequirement : IAuthorizationRequirement
     {
         public Guid UserId { get; set; }
 
-        public SameUserRequirement()
+        public CreatorRequirement()
         {
 
         }
 
-        public SameUserRequirement(Guid userId)
+        public CreatorRequirement(Guid userId)
         {
             UserId = userId;
         }
