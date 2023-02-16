@@ -1,5 +1,8 @@
 ﻿using AutoMapper;
 using HelpMeApp.DatabaseAccess.Entities.AppUserEntity;
+using HelpMeApp.Services.Models.Profile;
+using HelpMeApp.Services.Models.Advert;
+using HelpMeApp.Services.Helpers;
 using HelpMeApp.Services.Models.Registration;
 using System;
 using System.Collections.Generic;
@@ -17,7 +20,21 @@ namespace HelpMeApp.Services.MappingProfiles
                 .ForMember(src => src.UserName, opt =>
                 {
                     opt.MapFrom(src => src.Email);
+                })
+                .ForMember(src => src.Photo, opt =>
+                {
+                    opt.Ignore();
                 });
-        }
+
+            CreateMap<AppUser, ProfileResponseData>();
+
+            CreateMap<AdvertPreviewResponseData, ProfileGetUserAdverts>();
+
+            CreateMap<ProfileUpdateData, AppUser>()
+                .ForMember(src => src.PasswordHash, opt =>
+                {
+                    opt.MapFrom(src => src.Password);
+                });            
+        }   
     }
 }

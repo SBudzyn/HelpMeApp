@@ -3,6 +3,7 @@ using FluentValidation.Results;
 using HelpMeApp.Services.Interfaces;
 using HelpMeApp.Services.Models.Advert;
 using HelpMeApp.Services.Models.Filters;
+using HelpMeApp.Services.Models.Report;
 using HelpMeApp.WebAPI.Authorization;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -17,30 +18,32 @@ using System.Threading.Tasks;
 
 namespace HelpMeApp.WebAPI.Controllers
 {
-    [Route("api/advert")]
+    [Route("api/adverts")]
     [ApiController]
     public class AdvertController : ControllerBase
     {
         private IAdvertService _advertService;
+        private IReportService _reportService;
         private IAuthorizationService _authorizationService;
         private IValidator<AdvertPostData> _advertValidator;
 
-        public AdvertController(IAdvertService advertService, IAuthorizationService authorizationService, IValidator<AdvertPostData> advertValidator)
+        public AdvertController(IAdvertService advertService, IReportService reportService, IAuthorizationService authorizationService, IValidator<AdvertPostData> advertValidator)
         {
             _advertService = advertService;
+            _reportService = reportService;
             _authorizationService = authorizationService;
             _advertValidator = advertValidator;
         }
 
-        [HttpGet("page")]
-        public async Task<IActionResult> GetByPage([FromQuery] AdvertFiltersData filters, int page = 1, int pageSize = 20)
+        [HttpGet("page/{pageId}")]
+        public async Task<IActionResult> GetByPage([FromQuery] AdvertFiltersData filters, int pageId = 1, int pageSize = 20)
         {
-            if (page < 1 || pageSize < 1)
+            if (pageId < 1 || pageSize < 1)
             {
                 return BadRequest();
             }
 
-            return Ok(await _advertService.GetAdvertsByPage(filters, page, pageSize));
+            return Ok(await _advertService.GetAdvertsByPage(filters, pageId, pageSize));
         }
 
         [HttpGet("{advertId}")]
@@ -57,7 +60,7 @@ namespace HelpMeApp.WebAPI.Controllers
         }
 
         [Authorize]
-        [HttpPost]
+        [HttpPost("new")]
         public async Task<IActionResult> AddAdvert(AdvertPostData advert)
         {
             ValidationResult validationResult = _advertValidator.Validate(advert);
@@ -82,7 +85,7 @@ namespace HelpMeApp.WebAPI.Controllers
         }
 
         [Authorize]
-        [HttpPut("{advertId}")]
+        [HttpPut("update/{advertId}")]
         public async Task<IActionResult> UpdateAdvert(int advertId, AdvertPostData advert)
         {
             ValidationResult validationResult = _advertValidator.Validate(advert);
@@ -117,7 +120,7 @@ namespace HelpMeApp.WebAPI.Controllers
         }
 
         [Authorize]
-        [HttpDelete("{advertId}")]
+        [HttpDelete("delete/{advertId}")]
         public async Task<IActionResult> DeactivateAdvert(int advertId)
         {
             if (await _advertService.GetAdvertById(advertId) == null)
@@ -141,6 +144,32 @@ namespace HelpMeApp.WebAPI.Controllers
         public async Task<IActionResult> GetGeneralData()
         {
             return Ok(await _advertService.GetGeneralDataAsync());
+        }
+
+        [Authorize]
+        [HttpPost("report/{AdvertId}")]
+        public async Task<IActionResult> AddReport(int advertId, [FromBody] string text)
+        {
+            var userId = Guid.Parse(User.Claims.First(c => c.Type == "UserId").Value);
+
+            var existingReport = await _reportService.GetReportByAdvertAndUserAsync(advertId, userId);
+
+            if (existingReport != null)
+            {
+                return BadRequest("You've reported this advert earlier");
+            }
+
+            var reportData = new ReportData()
+            {
+                AdvertId = advertId,
+                IsResolved = false,
+                UserId = userId,
+                Text = text
+            };
+
+            var addedReport = await _reportService.AddReportAsync(reportData);
+
+            return Ok(addedReport);
         }
     }
 }
