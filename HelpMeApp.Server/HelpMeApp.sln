@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HelpMeApp.Services", "HelpM
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HelpMeApp.DatabaseAccess", "HelpMeApp.DatabaseAccess\HelpMeApp.DatabaseAccess.csproj", "{27BC2301-6652-4FA5-B292-218A91F449AD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelpMeApp.Tests", "HelpMeApp.Tests\HelpMeApp.Tests.csproj", "{7BBCFEAB-6056-4A23-B90B-30C0A0954124}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{27BC2301-6652-4FA5-B292-218A91F449AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{27BC2301-6652-4FA5-B292-218A91F449AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{27BC2301-6652-4FA5-B292-218A91F449AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7BBCFEAB-6056-4A23-B90B-30C0A0954124}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7BBCFEAB-6056-4A23-B90B-30C0A0954124}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7BBCFEAB-6056-4A23-B90B-30C0A0954124}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7BBCFEAB-6056-4A23-B90B-30C0A0954124}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

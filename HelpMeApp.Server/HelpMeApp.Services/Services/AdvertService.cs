@@ -96,5 +96,15 @@ namespace HelpMeApp.Services.Services
 
             return new GeneralData { Categories = categories, Terms = terms, AdvertsQuantity = advertsQuantity };
         }
+
+        public async Task<IEnumerable<AdvertPreviewResponseData>> GetAllUserAdverts(string userId)
+        {
+            var usersAdverts = await _advertReadRepository.GetAllUserAdverts(userId);
+
+            var advertsData = _mapper.Map<IEnumerable<AdvertPreviewResponseData>>(usersAdverts);
+
+            return advertsData;
+        } 
+
     }
 }

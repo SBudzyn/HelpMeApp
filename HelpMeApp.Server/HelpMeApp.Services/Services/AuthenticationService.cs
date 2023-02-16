@@ -34,6 +34,8 @@ namespace HelpMeApp.Services.Services
             user.Photo = ImageConvertorHelper.ConvertToBase64(registrationData.Photo);
             user.PhotoPrefix = ImageConvertorHelper.GetImagePrefix(registrationData.Photo);
 
+            user.RegistrationDate= DateTime.Now;
+
             var result = await _userManager.CreateAsync(user, registrationData.Password);
 
             var response = new RegistrationResponseModel() { IsSuccessful = false, Message = String.Empty };
@@ -65,6 +67,7 @@ namespace HelpMeApp.Services.Services
             {
                 response.IsSuccessful = true;
                 response.Token = _tokenService.GenerateToken(user);
+                response.UserId = user.Id;
             }
 
             return response;
