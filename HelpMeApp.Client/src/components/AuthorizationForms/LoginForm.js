@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import routingUrl from "../../constants/routingUrl";
 import Authorization from "../../validation/Authorization";
 import "bootstrap/dist/css/bootstrap.css";
