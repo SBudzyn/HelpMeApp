@@ -6,11 +6,9 @@ import classNames from "classnames";
 import { baseRequestWithToken } from "../../services/axiosServices";
 import "bootstrap/dist/css/bootstrap.css";
 
-// import { useNavigate } from "react-router-dom";
-// import routingUrl from "../../constants/routingUrl";
-
 const ModifyProfileDataForm = () => {
     const [uploadedFiles, setUploadedFiles] = useState([]);
+
     const [alertMessage, setAlertMessage] = useState("");
     const [successMessage, setSuccessMessage] = useState("");
 
@@ -18,11 +16,6 @@ const ModifyProfileDataForm = () => {
     useEffect(() => {
         retrieveUserData();
     }, []);
-    /*
-    const navigate = useNavigate();
-    const NavigateToProfile = () => {
-        navigate(routingUrl.pathToProfile);
-    }; */
 
     const submitDataModification = async (values) => {
         const ModificationData = {

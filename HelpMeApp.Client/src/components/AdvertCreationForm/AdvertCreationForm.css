@@ -1,8 +1,8 @@
 .error-message {
-    font-size: 18px;
+    font-size: 17px;
     position: relative;
     bottom: 3vh;
-    color: rgba(48, 228, 60, 0.773);
+    color: rgba(228, 48, 48, 0.773);
   }
 
   .creation-form {

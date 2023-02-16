@@ -10,8 +10,6 @@ import RegistrationForm from "../components/AuthorizationForms/RegistrationForm"
 import HomePage from "../pages/HomePage/HomePage";
 import PageNotFound from "../pages/PageNotFound/PageNotFound";
 import AdvertCreationPage from "../pages/AdvertCreationPage/AdvertCreationPage";
-// import UserProfile from "../components/Profile/UserProfile";
-// import ModifyProfileDataForm from "../components/Profile/UserDataModificationForm";
 import ProfilePage from "../pages/ProfilePage/ProfilePage";
 import ModifyProfileDataPage from "../pages/UserDataModificationModificaPage/UserDataModificationPage";
 import UsersAdvertsPage from "../pages/UserAdvertsPage/UserAdvertsPage";

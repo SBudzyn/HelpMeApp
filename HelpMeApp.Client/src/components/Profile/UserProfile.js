@@ -4,7 +4,6 @@ import "bootstrap/dist/css/bootstrap.css";
 import { Link, useNavigate } from "react-router-dom";
 import routingUrl from "../../constants/routingUrl";
 import "./UserProfile.css";
-// import DeleteUserConfirmation from "./DeleteUserConfirmation";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import { baseRequestWithToken } from "../../services/axiosServices";
@@ -34,6 +33,7 @@ const Profile = () => {
     const NavigateToProfile = () => {
         navigate(routingUrl.pathToLoginPage);
     };
+
     const retrieveUserHelpsCounter = async () => {
         await baseRequestWithToken
             .get("/profile/count-user-helps")
