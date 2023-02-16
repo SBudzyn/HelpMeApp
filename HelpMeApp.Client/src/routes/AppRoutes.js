@@ -46,7 +46,7 @@ const AppRoutes = () => {
             <Route path={routingUrl.pathToProfile} element={<h1>Profile</h1>} />
             <Route
                 path={routingUrl.pathToAdvertCreation}
-                element={<AdvertCreationPage />}
+                element={<RouteGuard element={AdvertCreationPage} />}
             />
             <Route path="*" element={<PageNotFound />} />
         </Routes>
