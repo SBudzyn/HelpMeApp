@@ -4,6 +4,7 @@ using HelpMeApp.DatabaseAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HelpMeApp.DatabaseAccess.Migrations
 {
     [DbContext(typeof(HelpMeDbContext))]
-    partial class HelpMeDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230212183903_AddPrefixToPhoto")]
+    partial class AddPrefixToPhoto
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -189,10 +192,10 @@ namespace HelpMeApp.DatabaseAccess.Migrations
             modelBuilder.Entity("HelpMeApp.DatabaseAccess.Entities.ChatEntity.Chat", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("AdvertId")
                         .HasColumnType("int");
@@ -202,19 +205,16 @@ namespace HelpMeApp.DatabaseAccess.Migrations
                         .HasColumnType("bit")
                         .HasDefaultValue(false);
 
-                    b.Property<bool>("IsConfirmedByResponder")
+                    b.Property<bool>("IsConfirmedBySecondSide")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
                         .HasDefaultValue(false);
 
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasAlternateKey("UserId", "AdvertId");
+                    b.HasKey("Id", "UserId", "AdvertId");
 
                     b.HasIndex("AdvertId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Chats");
                 });
@@ -543,6 +543,7 @@ namespace HelpMeApp.DatabaseAccess.Migrations
                     b.HasOne("HelpMeApp.DatabaseAccess.Entities.ChatEntity.Chat", "Chat")
                         .WithMany("Messages")
                         .HasForeignKey("ChatId")
+                        .HasPrincipalKey("Id")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
