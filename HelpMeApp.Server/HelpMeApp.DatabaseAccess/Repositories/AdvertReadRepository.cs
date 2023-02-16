@@ -64,6 +64,7 @@ namespace HelpMeApp.DatabaseAccess.Repositories
         {
             return await _context.Adverts
                 .Where(a => a.CreatorId.ToString() == userId)
+                .Where(a => a.HelpTypeId == 1)
                 .ToListAsync();
         }
 
