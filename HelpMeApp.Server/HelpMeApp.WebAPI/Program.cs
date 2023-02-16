@@ -47,6 +47,13 @@ builder.Services.AddIdentity<AppUser, IdentityRole<Guid>>
 
 var app = builder.Build();
 
+app.UseCors(builder => 
+{
+    builder.WithOrigins("http://localhost:3000");
+    builder.AllowAnyMethod();
+    builder.AllowAnyHeader();
+});
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

@@ -54,10 +54,14 @@ namespace HelpMeApp.WebAPI.ServiceCollectionConfiguration
                 .Build();
 
                 options.AddPolicy("EditPolicy", policy =>
-                policy.Requirements.Add(new SameUserRequirement()));
+                policy.Requirements.Add(new CreatorRequirement()));
+
+                options.AddPolicy("UserPolicy", policy =>
+                policy.Requirements.Add(new CreatorRequirement()));
             });
 
             services.AddTransient<IAuthorizationHandler, EditAllowedAuthorizationHandler>();
+            services.AddTransient<IAuthorizationHandler, UserValidAuthorizationHandler>();
         }
 
         public static void ConfigureMapping(this IServiceCollection services)
@@ -90,6 +94,7 @@ namespace HelpMeApp.WebAPI.ServiceCollectionConfiguration
             services.AddTransient<IAdvertService, AdvertService>();
             services.AddTransient<IChatService, ChatService>();
             services.AddTransient<IMessageService, MessageService>();
+            services.AddTransient<IProfileService, ProfileService>();
         }
 
         public static void BindRepositories(this IServiceCollection services)
