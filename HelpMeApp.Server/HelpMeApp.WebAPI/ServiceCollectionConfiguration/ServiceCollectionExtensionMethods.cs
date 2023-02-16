@@ -72,6 +72,7 @@ namespace HelpMeApp.WebAPI.ServiceCollectionConfiguration
                 map.AddProfile<AdvertMappingProfile>();
                 map.AddProfile<MessageMappingProfiles>();
                 map.AddProfile<ChatMappingProfiles>();
+                map.AddProfile<ReportMappingProfile>();
             });
             services.AddSingleton(mapperConfig.CreateMapper());
         }
@@ -95,6 +96,7 @@ namespace HelpMeApp.WebAPI.ServiceCollectionConfiguration
             services.AddTransient<IChatService, ChatService>();
             services.AddTransient<IMessageService, MessageService>();
             services.AddTransient<IProfileService, ProfileService>();
+            services.AddTransient<IReportService, ReportService>();
         }
 
         public static void BindRepositories(this IServiceCollection services)
@@ -105,6 +107,8 @@ namespace HelpMeApp.WebAPI.ServiceCollectionConfiguration
             services.AddTransient<IChatWriteRepository, ChatWriteRepository>();
             services.AddTransient<IMessageReadRepository, MessageReadRepository>();
             services.AddTransient<IMessageWriteRepository, MessageWriteRepository>();
+            services.AddTransient<IReportReadRepository, ReportReadRepository>();
+            services.AddTransient<IReportWriteRepository, ReportWriteRepository>();
         }
     }
 }
