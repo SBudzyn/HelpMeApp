@@ -14,5 +14,7 @@ namespace HelpMeApp.Services.Interfaces
         Task<ProfileResultMessageModel> UpdateUser(string userId, ProfileUpdateData profileUpdateData);
         Task<ProfileResultMessageModel> DeleteUser(string userId);
         Task<IEnumerable<AdvertPreviewResponseData>> GetAllUserAdverts(string userId);
+        Task<UserHelpsCountData> CountUserHelps(string userId);
+
     }
 }
