@@ -2,7 +2,6 @@ import { useState, React, useEffect } from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import ProfileDataModificationScheme from "../../validation/ProfileDataModification";
 import { handleUploadFiles } from "../../services/filesUploading";
-import classNames from "classnames";
 import { baseRequestWithToken } from "../../services/axiosServices";
 import "bootstrap/dist/css/bootstrap.css";
 
@@ -45,11 +44,6 @@ const ModifyProfileDataForm = () => {
                 setAlertMessage("An error occured while modifing data");
             });
     };
-
-    const uploadBtnClass = classNames({
-        btn: true,
-        "btn-primary": true
-    });
 
     const handleFileEvent = async (e) => {
         const chosenFiles = e.target.files;
@@ -211,7 +205,7 @@ const ModifyProfileDataForm = () => {
                                 />
 
                                 <label htmlFor="fileUpload">
-                                    <a className={uploadBtnClass}>
+                                    <a className="btn btn-primary">
                                         Upload Photos
                                     </a>
                                 </label>
