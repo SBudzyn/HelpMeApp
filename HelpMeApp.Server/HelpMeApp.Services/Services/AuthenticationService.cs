@@ -63,6 +63,7 @@ namespace HelpMeApp.Services.Services
             {
                 response.IsSuccessful = true;
                 response.Token = _tokenService.GenerateToken(user);
+                response.UserId = user.Id;
             }
 
             return response;

@@ -40,6 +40,11 @@ const LoginForm = () => {
                                     "token",
                                     response.data.token
                                 );
+
+                                localStorage.setItem(
+                                    "userId",
+                                    response.data.userId
+                                );
                                 location.href = routingUrl.pathToHomePage;
                             }
                         })
