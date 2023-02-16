@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HelpMeApp.WebAPI.Authorization
 {
-    public class EditAllowedAuthorizationHandler : AuthorizationHandler<SameUserRequirement, int>
+    public class EditAllowedAuthorizationHandler : AuthorizationHandler<CreatorRequirement, int>
     {
         private IAdvertService _advertService;
         
@@ -16,7 +16,7 @@ namespace HelpMeApp.WebAPI.Authorization
             _advertService = advertService;
         }
 
-        protected async override Task HandleRequirementAsync(AuthorizationHandlerContext context, SameUserRequirement requirement, int advertId)
+        protected async override Task HandleRequirementAsync(AuthorizationHandlerContext context, CreatorRequirement requirement, int advertId)
         {
             var userId = Guid.Parse(context.User.Claims.First(c => c.Type == "UserId").Value);
 

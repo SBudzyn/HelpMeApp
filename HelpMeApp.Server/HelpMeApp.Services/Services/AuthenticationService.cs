@@ -30,6 +30,8 @@ namespace HelpMeApp.Services.Services
         public async Task<RegistrationResponseModel> RegisterAsync(RegistrationRequestModel registrationData)
         {
             var user = _mapper.Map<AppUser>(registrationData);
+            user.RegistrationDate= DateTime.Now;
+
             var result = await _userManager.CreateAsync(user, registrationData.Password);
 
             var response = new RegistrationResponseModel() { IsSuccessful = false, Message = String.Empty };
