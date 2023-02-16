@@ -4,7 +4,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import "./AdvertPage.css";
 import { Carousel } from "react-bootstrap";
 import defaultPhoto from "../../media/defaultAdvertPhoto.jpg";
-import baseRequest from "../../services/axiosServices";
+import { baseRequest } from "../../services/axiosServices";
 import getFormattedDate from "../../services/getFormattedDate";
 import checkRetrievedData from "../../services/checkRetrievedData";
 
@@ -64,7 +64,9 @@ const AdvertPage = () => {
                         </div>
                         <div className="row space-around mb-3">
                             <div className="col-sm-4 col-md-3">
-                                {getFormattedDate(new Date(data?.creationDate ?? "1 1 1970")) }
+                                {getFormattedDate(
+                                    new Date(data?.creationDate ?? "1 1 1970")
+                                )}
                             </div>
                             <div className="col-sm-4 col-md-3">
                                 {checkRetrievedData(data?.location)}

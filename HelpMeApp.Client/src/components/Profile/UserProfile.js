@@ -7,7 +7,7 @@ import "./UserProfile.css";
 // import DeleteUserConfirmation from "./DeleteUserConfirmation";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
-import baseRequest from "../../services/axiosServices";
+import { baseRequestWithToken } from "../../services/axiosServices";
 
 const data = {
     name: "Name",
@@ -23,10 +23,23 @@ const Profile = () => {
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+
     const [userData, setGeneralData] = useState({});
+    const [userHelpsCounter, setUserHelpsCounter] = useState({});
+
+    const retrieveUserHelpsCounter = async () => {
+        await baseRequestWithToken
+            .get("/profile/count-user-helps")
+            .then((response) => {
+                return response.data;
+            })
+            .then((data) => {
+                setUserHelpsCounter(data);
+            });
+    };
 
     const retrieveUserData = async () => {
-        await baseRequest
+        await baseRequestWithToken
             .get("/profile/get-my-info")
             .then((response) => {
                 return response.data;
@@ -36,17 +49,11 @@ const Profile = () => {
             });
     };
 
-    localStorage.email = userData.email;
-    localStorage.name = userData.name;
-    localStorage.surname = userData.surname;
-    localStorage.username = userData.userName;
-    localStorage.phoneNumber = userData.phoneNumber;
-    localStorage.info = userData.info;
-    localStorage.surname = userData.surname;
-
     useEffect(() => {
         retrieveUserData();
+        retrieveUserHelpsCounter();
     }, []);
+
     return (
         <div className="container">
             <div className="row mt-3">
@@ -72,7 +79,8 @@ const Profile = () => {
                         <h2>{userData.phoneNumber ?? "No data"}</h2>
                     </div>
                     <h5 className="mt-2">
-                        helped {data?.helpedNtimes ?? "No data"} times
+                        helped {userHelpsCounter.userHelpsCount ?? "No data"}{" "}
+                        times
                     </h5>
                     <div className="row mt-4">
                         <div className="col-lg-4 ">

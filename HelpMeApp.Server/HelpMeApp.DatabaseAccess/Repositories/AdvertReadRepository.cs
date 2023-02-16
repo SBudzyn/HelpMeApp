@@ -66,5 +66,13 @@ namespace HelpMeApp.DatabaseAccess.Repositories
                 .Where(a => a.CreatorId.ToString() == userId)
                 .ToListAsync();
         }
+
+        public async Task<int> CountUserHelps(string userId)
+        {
+            return await _context.Adverts
+                .Where(a => a.HelpTypeId == 2)
+                .Where(a => a.CreatorId.ToString() == userId)
+                .CountAsync();
+        }
     }
 }

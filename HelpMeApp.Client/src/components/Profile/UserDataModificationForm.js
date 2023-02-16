@@ -1,57 +1,84 @@
-import { useState, React } from "react";
+import { useState, React, useEffect } from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import ProfileDataModificationScheme from "../../validation/ProfileDataModification";
 import { handleUploadFiles } from "../../services/filesUploading";
 import classNames from "classnames";
-import baseRequest from "../../services/axiosServices";
+import { baseRequestWithToken } from "../../services/axiosServices";
+import "bootstrap/dist/css/bootstrap.css";
+
 // import { useNavigate } from "react-router-dom";
 // import routingUrl from "../../constants/routingUrl";
 
 const ModifyProfileDataForm = () => {
     const [uploadedFiles, setUploadedFiles] = useState([]);
-    const [fileLimit, setFileLimit] = useState(false);
     const [alertMessage, setAlertMessage] = useState("");
+    const [successMessage, setSuccessMessage] = useState("");
+
+    const [userData, setUserData] = useState({});
+    useEffect(() => {
+        retrieveUserData();
+    }, []);
     /*
     const navigate = useNavigate();
     const NavigateToProfile = () => {
         navigate(routingUrl.pathToProfile);
     }; */
 
+    const submitDataModification = async (values) => {
+        const ModificationData = {
+            email: values.email ?? userData.email,
+            name: values.name ?? userData.name,
+            surname: values.surname ?? userData.surname,
+            userName: values.userName ?? userData.userName,
+            info: values.info ?? userData.info,
+            phoneNumber: values.phoneNumber ?? userData.phoneNumber,
+            uploadedFiles: values.photo ?? userData.photo
+        };
+
+        setAlertMessage("");
+        setSuccessMessage("");
+        await baseRequestWithToken
+            .put("profile/update-user", ModificationData)
+            .then((response) => {
+                if (response.data.success) {
+                    setSuccessMessage(
+                        "Success! Your account has been updated successfully"
+                    );
+                } else {
+                    setAlertMessage(response.data.message);
+                }
+            })
+            .catch(() => {
+                setAlertMessage("An error occured while modifing data");
+            });
+    };
+
     const uploadBtnClass = classNames({
         btn: true,
-        disabled: fileLimit,
         "btn-primary": true
     });
 
     const handleFileEvent = async (e) => {
         const chosenFiles = e.target.files;
-        handleUploadFiles(
-            chosenFiles,
-            setUploadedFiles,
-            setFileLimit,
-            uploadedFiles
-        );
+        handleUploadFiles(chosenFiles, setUploadedFiles);
     };
 
+    const retrieveUserData = async () => {
+        await baseRequestWithToken
+            .get("/profile/get-my-info")
+            .then((response) => {
+                return response.data;
+            })
+            .then((data) => {
+                setUserData(data);
+            });
+    };
     return (
         <>
             <Formik
                 initialValues={{}}
                 onSubmit={async (values) => {
-                    setAlertMessage("");
-                    await baseRequest
-                        .put(
-                            "https://localhost:7049/api/profile/update-user",
-                            values
-                        )
-                        .then((response) => {
-                            return response;
-                        })
-                        .catch(() => {
-                            setAlertMessage(
-                                "An error occured while modifing data"
-                            );
-                        });
+                    submitDataModification(values);
                 }}
                 validationSchema={ProfileDataModificationScheme}
             >
@@ -60,7 +87,7 @@ const ModifyProfileDataForm = () => {
                     return (
                         <Form className="creation-form">
                             <h1 className="text-center mt-3 mb-3">
-                                Edit your info
+                                Modify your info
                             </h1>
 
                             <div className="mx-auto w-75">
@@ -71,7 +98,7 @@ const ModifyProfileDataForm = () => {
                                     as="input"
                                     type="email"
                                     name="email"
-                                    placeholder={localStorage.email}
+                                    placeholder={userData.email}
                                     className="up form-control border-primary"
                                 />
                                 <div className="error-message">
@@ -104,7 +131,7 @@ const ModifyProfileDataForm = () => {
                                     as="input"
                                     type="text"
                                     name="name"
-                                    placeholder={localStorage.name}
+                                    placeholder={userData.name}
                                     className="h-100 up form-control border-primary"
                                     rows="4"
                                 />
@@ -121,12 +148,29 @@ const ModifyProfileDataForm = () => {
                                     as="input"
                                     type="text"
                                     name="surname"
-                                    placeholder={localStorage.surname}
+                                    placeholder={userData.surname}
+                                    className="h-100 up form-control border-primary"
+                                    rows="4"
+                                />
+                                <div className="error-message mx-auto">
+                                    <ErrorMessage name="surname" />
+                                </div>
+                            </div>
+
+                            <div className="mx-auto w-75">
+                                <label htmlFor="userName" className="mb-5">
+                                    Username
+                                </label>
+                                <Field
+                                    as="input"
+                                    type="text"
+                                    name="userName"
+                                    placeholder={userData.userName}
                                     className="h-100 up form-control border-primary"
                                     rows="4"
                                 />
                                 <div className="error-message">
-                                    <ErrorMessage name="surname" />
+                                    <ErrorMessage name="userName" />
                                 </div>
                             </div>
 
@@ -138,7 +182,7 @@ const ModifyProfileDataForm = () => {
                                     as="input"
                                     type="tel"
                                     name="phoneNumber"
-                                    placeholder={localStorage.phoneNumber}
+                                    placeholder={userData.phoneNumber}
                                     className="h-100 up form-control border-primary"
                                     rows="4"
                                 />
@@ -155,7 +199,7 @@ const ModifyProfileDataForm = () => {
                                     as="input"
                                     type="text"
                                     name="info"
-                                    placeholder={localStorage.info}
+                                    placeholder={userData.info}
                                     className="h-100 up form-control border-primary"
                                     rows="4"
                                 />
@@ -170,7 +214,6 @@ const ModifyProfileDataForm = () => {
                                     type="file"
                                     accept=".jpg, .jpeg, .png"
                                     onChange={(e) => handleFileEvent(e)}
-                                    disabled={fileLimit}
                                     className="d-none"
                                 />
 
@@ -186,15 +229,20 @@ const ModifyProfileDataForm = () => {
                                     ))}
                                 </div>
                             </div>
-                            <div className="error-message">{alertMessage}</div>
+                            <div className="error-message-submit">
+                                {alertMessage}
+                            </div>
                             <br />
                             <button
-                                className="mx-auto w-75 mt-4 mb-5 submit-button horizontal-center btn btn-primary mb-3"
+                                className="mx-auto w-75 mb-5 submit-button horizontal-center btn btn-primary mb-3"
                                 type="submit"
                                 disabled={!(dirty && isValid)}
                             >
                                 Update
                             </button>
+                            <div className="success-message">
+                                {successMessage}
+                            </div>
                         </Form>
                     );
                 }}

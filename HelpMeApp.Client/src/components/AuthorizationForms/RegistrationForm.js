@@ -2,7 +2,7 @@ import { useState, React } from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import { Link } from "react-router-dom";
 import routingUrl from "../../constants/routingUrl";
-import baseRequest from "../../services/axiosServices";
+import { baseRequest } from "../../services/axiosServices";
 import Modal from "react-bootstrap/Modal";
 import Authorization from "../../validation/Authorization";
 import Registration from "../../validation/Registration";

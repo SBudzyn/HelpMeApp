@@ -4,7 +4,7 @@ import AdvertContainer from "../../components/AdvertContainer/AdvertContainer";
 import "bootstrap/dist/css/bootstrap.css";
 import "./BoardPage.css";
 import { Link, useParams } from "react-router-dom";
-import baseRequest from "../../services/axiosServices";
+import { baseRequest } from "../../services/axiosServices";
 import Pagination from "../../components/Pagination/Pagination";
 import PropTypes from "react-bootstrap/esm/Image";
 import routingUrl from "../../constants/routingUrl";

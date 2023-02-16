@@ -94,7 +94,13 @@ namespace HelpMeApp.Services.Services
             var advertsData = _mapper.Map<IEnumerable<AdvertPreviewResponseData>>(usersAdverts);
 
             return advertsData;
-        } 
+        }
 
+        public async Task<int> CountUserHelps(string userId)
+        {
+            var userHelps = await _advertReadRepository.CountUserHelps(userId);
+
+            return userHelps;
+        }
     }
 }

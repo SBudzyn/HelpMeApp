@@ -1,7 +1,7 @@
 import { React, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import AdvertCard from "../AdvertCard/AdvertCard";
-import baseRequest from "../../services/axiosServices";
+import { baseRequest } from "../../services/axiosServices";
 
 const AdvertContainer = (props) => {
     const [adverts, setAdverts] = useState([]);

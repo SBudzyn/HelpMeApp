@@ -19,5 +19,7 @@ namespace HelpMeApp.Services.Interfaces
         Task<AdvertDetailedResponseData> DeactivateAdvertAsync(int advertId);
         Task<IEnumerable<AdvertPreviewResponseData>> GetAllUserAdverts(string userId);
         Task<GeneralData> GetGeneralDataAsync();
+        Task<int> CountUserHelps(string userId);
+
     }
 }

@@ -8,4 +8,22 @@
     bottom: 3vh;
     color: rgba(228, 48, 48, 0.773);
     font-weight: 600;
+
 }
+.error-message-submit{
+    font-size: 17px;
+    position: relative;
+    bottom: 1vh;
+    color: rgba(228, 48, 48, 0.773);
+    font-weight: 600;
+    margin-left: 125px;
+    margin-top: 35px;
+}
+.success-message {
+    font-size: 17px;
+    position: relative;
+    bottom: 3vh;
+    color: rgba(81, 228, 48, 0.773);
+    font-weight: 600;
+    margin-left: 70px;
+  }

@@ -34,12 +34,12 @@ namespace HelpMeApp.Services.Services
         public async Task<ProfileResponseData> GetUserById(string userId)
         {
             AppUser user = await _userManager.FindByIdAsync(userId);
-            
+
             var userData = _mapper.Map<ProfileResponseData>(user);
-           
+
             return userData;
         }
-       
+
         public async Task<ProfileResultMessageModel> UpdateUser(string userId, ProfileUpdateData profileUpdateData)
         {
             var result = new ProfileResultMessageModel();
@@ -47,7 +47,7 @@ namespace HelpMeApp.Services.Services
             PasswordVerificationResult passwordHashVerification;
             if (profileUpdateData.Password != null)
             {
-                 passwordHashVerification = _passwordHasher.VerifyHashedPassword(user, user.PasswordHash, profileUpdateData.Password);
+                passwordHashVerification = _passwordHasher.VerifyHashedPassword(user, user.PasswordHash, profileUpdateData.Password);
 
                 if (passwordHashVerification == PasswordVerificationResult.Failed)
                 {
@@ -88,7 +88,7 @@ namespace HelpMeApp.Services.Services
                 user.IsBlocked = true;
                 var updateUserData = await _userManager.UpdateAsync(user);
                 if (updateUserData.Succeeded)
-                {              
+                {
                     result.Success = true;
                     result.Message = "Your account has been deleted successfully";
                 }
@@ -96,7 +96,7 @@ namespace HelpMeApp.Services.Services
                 {
                     result.Success = false;
                     result.Message = "An error has occurred. Your account has not been deleted";
-                }                  
+                }
             }
 
             result.Success = false;
@@ -110,5 +110,12 @@ namespace HelpMeApp.Services.Services
 
             return userAdverts;
         }
-    } 
+
+        public async Task<UserHelpsCountData> CountUserHelps(string userId)
+        {
+            var countUserHelps = await _advertService.CountUserHelps(userId);
+
+            return new UserHelpsCountData { UserHelpsCount = countUserHelps };
+        }
+    }
 }

@@ -38,26 +38,26 @@ namespace HelpMeApp.WebAPI.Controllers
         {
             if (await _userManager.FindByIdAsync(userId) != null)
             {
-                var authorizationResult = await _authorizationService.AuthorizeAsync(User, userId, "EditPolicy");               
+                var authorizationResult = await _authorizationService.AuthorizeAsync(User, userId, "EditPolicy");
                 if (authorizationResult.Succeeded)
-                { 
+                {
                     return await _profileService.GetUserById(userId);
-                }                
+                }
             }
 
-            return Unauthorized("You don`t have permission to modify the resource");                    
+            return Unauthorized("You don`t have permission to modify the resource");
         }
-        
+
         [Authorize]
         [HttpGet("get-my-info")]
         public async Task<ActionResult<ProfileResponseData>> GetMyInfo()
         {
             ClaimsPrincipal claimsPrincipal = HttpContext.User;
-            var userId = claimsPrincipal.FindFirst(c => c.Type == "UserId").Value;  
-            
+            var userId = claimsPrincipal.FindFirst(c => c.Type == "UserId").Value;
+
             var result = await _profileService.GetUserById(userId);
 
-            return Ok(result);        
+            return Ok(result);
         }
 
         [Authorize]
@@ -101,7 +101,7 @@ namespace HelpMeApp.WebAPI.Controllers
                     result = await _profileService.DeleteUser(userId);
                     return result;
                 }
-                
+
             }
 
             return NotFound("User was not found");
@@ -122,6 +122,28 @@ namespace HelpMeApp.WebAPI.Controllers
                 {
                     var result = await _profileService.GetAllUserAdverts(userId);
                     return result.ToList();
+                }
+
+            }
+
+            return NotFound("User was not found");
+        }
+
+        [Authorize]
+        [HttpGet("count-user-helps")]
+        public async Task<ActionResult<UserHelpsCountData>> CountUserHelps()
+        {
+            ClaimsPrincipal claimsPrincipal = HttpContext.User;
+            var userId = claimsPrincipal.FindFirst(c => c.Type == "UserId").Value;
+
+            if (await _userManager.FindByIdAsync(userId) != null)
+            {
+                var authorizationResult = await _authorizationService.AuthorizeAsync(User, userId, "EditPolicy");
+
+                if (authorizationResult.Succeeded)
+                {
+                    var result = await _profileService.CountUserHelps(userId);
+                    return result;
                 }
 
             }
