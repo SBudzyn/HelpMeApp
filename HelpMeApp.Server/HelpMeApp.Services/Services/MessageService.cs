@@ -2,6 +2,7 @@
 using HelpMeApp.DatabaseAccess.Entities.MessageEntity;
 using HelpMeApp.DatabaseAccess.Interfaces;
 using HelpMeApp.Services.Interfaces;
+using HelpMeApp.Services.Models.Enums;
 using HelpMeApp.Services.Models.Message;
 using System;
 using System.Collections.Generic;
@@ -11,12 +12,6 @@ using System.Threading.Tasks;
 
 namespace HelpMeApp.Services.Services
 {
-    enum SenderRoles
-    {
-        Creator = 1,
-        Responder = 2
-    }
-
     public class MessageService : IMessageService
     {
         private IMessageReadRepository _messageReadRepository;
@@ -58,11 +53,11 @@ namespace HelpMeApp.Services.Services
 
             var messageToReturn = _mapper.Map<MessageData>(domainMessage);
 
-            if (domainMessage.SenderRoleId == 1)
+            if (domainMessage.SenderRoleId == (int)SenderRoles.Creator)
             {
                 messageToReturn.SenderId = domainMessage.Chat.Advert.CreatorId;
             }
-            else if (domainMessage.SenderRoleId == 2)
+            else if (domainMessage.SenderRoleId == (int)SenderRoles.Responder)
             {
                 messageToReturn.SenderId = domainMessage.Chat.UserId;
             }

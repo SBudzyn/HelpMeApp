@@ -81,10 +81,8 @@ namespace HelpMeApp.DatabaseAccess.Seeders
             var chatId = 1;
             var chatFaker = new Faker<Chat>("uk")
                 .RuleFor(c => c.Id, _ => chatId++)
-                .RuleFor(c => c.IsConfirmedBySecondSide, f => f.PickRandom(true, false))
+                .RuleFor(c => c.IsConfirmedByResponder, f => f.PickRandom(true, false))
                 .RuleFor(c => c.IsConfirmedByCreator, f => f.PickRandom(true, false));
-
-            Chats.AddRange(chatFaker.Generate(0));
 
             var advertFaker = new Faker<Advert>("uk")
                .RuleFor(a => a.Header, f => f.Hacker.Phrase())

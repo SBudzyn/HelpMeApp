@@ -20,7 +20,7 @@ namespace HelpMeApp.DatabaseAccess.Entities.ChatEntity
         public Advert Advert { get; set; }
 
         [Required]
-        public bool IsConfirmedBySecondSide { get; set; }
+        public bool IsConfirmedByResponder { get; set; }
         [Required]
         public bool IsConfirmedByCreator { get; set; }
 

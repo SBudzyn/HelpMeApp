@@ -14,7 +14,7 @@ namespace HelpMeApp.DatabaseAccess.Entities.ChatEntity
                 .HasAlternateKey(x => new { x.UserId, x.AdvertId });
 
             builder
-                .Property(x => x.IsConfirmedBySecondSide)
+                .Property(x => x.IsConfirmedByResponder)
                 .HasDefaultValue(false);
 
             builder

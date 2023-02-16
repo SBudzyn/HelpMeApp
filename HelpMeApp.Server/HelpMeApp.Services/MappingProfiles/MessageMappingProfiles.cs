@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using HelpMeApp.DatabaseAccess.Entities.MessageEntity;
+using HelpMeApp.Services.Models.Enums;
 using HelpMeApp.Services.Models.Message;
 using System;
 using System.Collections.Generic;

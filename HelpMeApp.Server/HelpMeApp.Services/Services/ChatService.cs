@@ -52,7 +52,7 @@ namespace HelpMeApp.Services.Services
                 AdvertId = advertId,
                 UserId = userId,
                 IsConfirmedByCreator = false,
-                IsConfirmedBySecondSide = false,
+                IsConfirmedByResponder = false,
             };
 
             var domainChat = await _chatWriteRepository.AddChatAsync(chat);
