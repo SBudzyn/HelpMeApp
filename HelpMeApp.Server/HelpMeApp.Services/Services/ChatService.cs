@@ -38,9 +38,9 @@ namespace HelpMeApp.Services.Services
             return _mapper.Map<ChatPreviewData>(domainChat);
         }
 
-        public async Task<IEnumerable<ChatPreviewData>> GetChatsByUserAsync(Guid userId, int amount, int page)
+        public async Task<IEnumerable<ChatPreviewData>> GetChatsByUserAsync(Guid userId, int page, int pageSize)
         {
-            var domainChats = await _chatReadRepository.GetChatsByUserAsync(userId, amount, page);
+            var domainChats = await _chatReadRepository.GetChatsByUserAsync(userId, page, pageSize);
 
             return _mapper.Map<IEnumerable<ChatPreviewData>>(domainChats);
         }

@@ -78,8 +78,6 @@ namespace HelpMeApp.DatabaseAccess.Seeders
                 .RuleFor(m => m.Text, f => f.Lorem.Sentences(f.Random.Number(1, 5)))
                 .RuleFor(m => m.CreationDate, f => f.Date.Recent());
 
-            Messages.AddRange(messageFaker.Generate(0));
-
             var chatId = 1;
             var chatFaker = new Faker<Chat>("uk")
                 .RuleFor(c => c.Id, _ => chatId++)

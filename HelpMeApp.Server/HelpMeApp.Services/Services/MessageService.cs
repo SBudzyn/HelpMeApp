@@ -11,6 +11,12 @@ using System.Threading.Tasks;
 
 namespace HelpMeApp.Services.Services
 {
+    enum SenderRoles
+    {
+        Creator = 1,
+        Responder = 2
+    }
+
     public class MessageService : IMessageService
     {
         private IMessageReadRepository _messageReadRepository;
@@ -41,15 +47,11 @@ namespace HelpMeApp.Services.Services
 
             if (chat.Advert.CreatorId == messageData.SenderId)
             {
-                message.SenderRoleId = 1;
+                message.SenderRoleId = (int)SenderRoles.Creator;
             }
             else if (chat.UserId == messageData.SenderId)
             {
-                message.SenderRoleId = 2;
-            }
-            else
-            {
-                message.SenderRoleId = 3;
+                message.SenderRoleId = (int)SenderRoles.Responder;
             }
 
             var domainMessage = await _messageWriteRepository.AddMessageAsync(message);

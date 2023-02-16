@@ -25,7 +25,7 @@ namespace HelpMeApp.DatabaseAccess.Repositories
                 .FirstOrDefaultAsync(c => c.Id == id);
         }
 
-        public async Task<IEnumerable<Chat>> GetChatsByUserAsync(Guid userId, int amount, int page)
+        public async Task<IEnumerable<Chat>> GetChatsByUserAsync(Guid userId, int page, int pageSize)
         {
             return await _context.Chats
                 .Where(c => c.UserId == userId)
@@ -34,8 +34,8 @@ namespace HelpMeApp.DatabaseAccess.Repositories
                 .Include(c => c.Advert)
                 .Include(c => c.Messages)
                 .OrderByDescending(c => c.Messages.OrderByDescending(c => c.CreationDate).LastOrDefault().CreationDate)
-                .Skip((page - 1) * amount)
-                .Take(amount)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
                 .ToListAsync();
         }
 

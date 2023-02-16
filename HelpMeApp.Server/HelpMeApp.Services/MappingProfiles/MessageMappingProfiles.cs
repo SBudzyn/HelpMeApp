@@ -26,7 +26,7 @@ namespace HelpMeApp.Services.MappingProfiles
                 })
                 .ForMember(src => src.SenderId, opt =>
                 {
-                    opt.MapFrom(src => src.SenderRoleId == 1 ? src.Chat.Advert.CreatorId : src.Chat.UserId);
+                    opt.MapFrom(src => src.SenderRoleId == (int)SenderRoles.Creator ? src.Chat.Advert.CreatorId : src.Chat.UserId);
                 });
         }
     }

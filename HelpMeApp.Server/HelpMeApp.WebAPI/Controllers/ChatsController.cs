@@ -25,11 +25,11 @@ namespace HelpMeApp.WebAPI.Controllers
 
         [Authorize]
         [HttpGet("get-my-chats")]
-        public async Task<IActionResult> GetMyChats(int amount = 30, int page = 1)
+        public async Task<IActionResult> GetMyChats(int page = 1, int pageSize = 30)
         {
             var userId = Guid.Parse(User.Claims.First(c => c.Type == "UserId").Value);
 
-            return Ok(await _chatService.GetChatsByUserAsync(userId, amount, page));
+            return Ok(await _chatService.GetChatsByUserAsync(userId, page, pageSize));
         }
 
         [Authorize]

@@ -11,7 +11,7 @@ namespace HelpMeApp.Services.Interfaces
     {
         Task<ChatPreviewData> GetChatByIdAsync(int id);
         Task<ChatPreviewData> GetChatByAdvertAndResponderAsync(int advertId, Guid helperId);
-        Task<IEnumerable<ChatPreviewData>> GetChatsByUserAsync(Guid userId, int amount, int page);
+        Task<IEnumerable<ChatPreviewData>> GetChatsByUserAsync(Guid userId, int page, int pageSize);
         Task<ChatPreviewData> AddChatAsync(int advertId, Guid userId);
     }
 }

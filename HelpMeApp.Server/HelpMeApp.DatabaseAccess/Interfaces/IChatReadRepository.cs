@@ -10,7 +10,7 @@ namespace HelpMeApp.DatabaseAccess.Interfaces
     public interface IChatReadRepository
     {
         Task<Chat> GetChatByIdAsync(int id);
-        Task<IEnumerable<Chat>> GetChatsByUserAsync(Guid userId, int amount, int page);
+        Task<IEnumerable<Chat>> GetChatsByUserAsync(Guid userId, int page, int pageSize);
         Task<Chat> GetChatByAdvertAndResponderAsync(int advertId, Guid userId);
     }
 }
