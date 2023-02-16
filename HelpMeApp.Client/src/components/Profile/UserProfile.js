@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import photo1 from "../../media/defaultAdvertPhoto.jpg";
 import "bootstrap/dist/css/bootstrap.css";
 import { Link } from "react-router-dom";
@@ -7,7 +7,8 @@ import "./UserProfile.css";
 // import DeleteUserConfirmation from "./DeleteUserConfirmation";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
-// import EditProfileDataForm from "./UserDataModificationForm";
+import baseRequest from "../../services/axiosServices";
+
 const data = {
     name: "Name",
     surname: "Surname",
@@ -22,6 +23,30 @@ const Profile = () => {
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+    const [userData, setGeneralData] = useState({});
+
+    const retrieveUserData = async () => {
+        await baseRequest
+            .get("/profile/get-my-info")
+            .then((response) => {
+                return response.data;
+            })
+            .then((data) => {
+                setGeneralData(data);
+            });
+    };
+
+    localStorage.email = userData.email;
+    localStorage.name = userData.name;
+    localStorage.surname = userData.surname;
+    localStorage.username = userData.userName;
+    localStorage.phoneNumber = userData.phoneNumber;
+    localStorage.info = userData.info;
+    localStorage.surname = userData.surname;
+
+    useEffect(() => {
+        retrieveUserData();
+    }, []);
     return (
         <div className="container">
             <div className="row mt-3">
@@ -36,15 +61,15 @@ const Profile = () => {
                 <div className="col-lg-8">
                     <div className="row">
                         <div className="col-lg-2">
-                            <h1>{data?.name ?? "No data"}</h1>
+                            <h1>{userData.name ?? "No data"}</h1>
                         </div>
 
                         <div className="col-lg mx-1">
-                            <h1>{data?.surname ?? "No data"}</h1>
+                            <h1>{userData.surname ?? "No data"}</h1>
                         </div>
                     </div>
                     <div className="row">
-                        <h2>{data?.phoneNumber ?? "No data"}</h2>
+                        <h2>{userData.phoneNumber ?? "No data"}</h2>
                     </div>
                     <h5 className="mt-2">
                         helped {data?.helpedNtimes ?? "No data"} times
@@ -79,7 +104,9 @@ const Profile = () => {
             </div>
             <div className="row mt-4 bg-light">
                 <div className="col-xs-12">
-                    <p className="mt-4">{data?.info ?? "No data provided"}</p>
+                    <p className="mt-4">
+                        {userData.info ?? "No data provided"}
+                    </p>
                 </div>
             </div>
 

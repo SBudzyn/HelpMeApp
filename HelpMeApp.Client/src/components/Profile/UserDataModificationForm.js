@@ -3,10 +3,19 @@ import { Formik, Field, Form, ErrorMessage } from "formik";
 import ProfileDataModificationScheme from "../../validation/ProfileDataModification";
 import { handleUploadFiles } from "../../services/filesUploading";
 import classNames from "classnames";
+import baseRequest from "../../services/axiosServices";
+// import { useNavigate } from "react-router-dom";
+// import routingUrl from "../../constants/routingUrl";
 
 const ModifyProfileDataForm = () => {
     const [uploadedFiles, setUploadedFiles] = useState([]);
     const [fileLimit, setFileLimit] = useState(false);
+    const [alertMessage, setAlertMessage] = useState("");
+    /*
+    const navigate = useNavigate();
+    const NavigateToProfile = () => {
+        navigate(routingUrl.pathToProfile);
+    }; */
 
     const uploadBtnClass = classNames({
         btn: true,
@@ -29,16 +38,20 @@ const ModifyProfileDataForm = () => {
             <Formik
                 initialValues={{}}
                 onSubmit={async (values) => {
-                    const allData = {
-                        email: values.email,
-                        password: values.password,
-                        name: values.name,
-                        surname: values.surname,
-                        phoneNumber: values.phoneNumber,
-                        info: values.info,
-                        files: uploadedFiles
-                    };
-                    alert(JSON.stringify(allData));
+                    setAlertMessage("");
+                    await baseRequest
+                        .put(
+                            "https://localhost:7049/api/profile/update-user",
+                            values
+                        )
+                        .then((response) => {
+                            return response;
+                        })
+                        .catch(() => {
+                            setAlertMessage(
+                                "An error occured while modifing data"
+                            );
+                        });
                 }}
                 validationSchema={ProfileDataModificationScheme}
             >
@@ -58,6 +71,7 @@ const ModifyProfileDataForm = () => {
                                     as="input"
                                     type="email"
                                     name="email"
+                                    placeholder={localStorage.email}
                                     className="up form-control border-primary"
                                 />
                                 <div className="error-message">
@@ -73,6 +87,7 @@ const ModifyProfileDataForm = () => {
                                     as="input"
                                     type="password"
                                     name="password"
+                                    placeholder="Type new password if you want to change it"
                                     className="h-100 up form-control border-primary"
                                     rows="4"
                                 />
@@ -89,6 +104,7 @@ const ModifyProfileDataForm = () => {
                                     as="input"
                                     type="text"
                                     name="name"
+                                    placeholder={localStorage.name}
                                     className="h-100 up form-control border-primary"
                                     rows="4"
                                 />
@@ -105,6 +121,7 @@ const ModifyProfileDataForm = () => {
                                     as="input"
                                     type="text"
                                     name="surname"
+                                    placeholder={localStorage.surname}
                                     className="h-100 up form-control border-primary"
                                     rows="4"
                                 />
@@ -121,6 +138,7 @@ const ModifyProfileDataForm = () => {
                                     as="input"
                                     type="tel"
                                     name="phoneNumber"
+                                    placeholder={localStorage.phoneNumber}
                                     className="h-100 up form-control border-primary"
                                     rows="4"
                                 />
@@ -137,6 +155,7 @@ const ModifyProfileDataForm = () => {
                                     as="input"
                                     type="text"
                                     name="info"
+                                    placeholder={localStorage.info}
                                     className="h-100 up form-control border-primary"
                                     rows="4"
                                 />
@@ -167,6 +186,7 @@ const ModifyProfileDataForm = () => {
                                     ))}
                                 </div>
                             </div>
+                            <div className="error-message">{alertMessage}</div>
                             <br />
                             <button
                                 className="mx-auto w-75 mt-4 mb-5 submit-button horizontal-center btn btn-primary mb-3"

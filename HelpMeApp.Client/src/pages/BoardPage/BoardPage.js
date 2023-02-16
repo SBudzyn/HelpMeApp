@@ -35,7 +35,6 @@ const BoardPage = (props) => {
                 ? routingUrl.pathToGetHelpBoard + "/1"
                 : routingUrl.pathToGiveHelpBoard + "/1";
     };
-
     useEffect(() => {
         retrieveGeneralData();
     }, []);
