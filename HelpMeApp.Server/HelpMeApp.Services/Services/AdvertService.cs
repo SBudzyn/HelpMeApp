@@ -28,7 +28,7 @@ namespace HelpMeApp.Services.Services
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<AdvertPreviewResponseData>> GetAdvertsByPage([FromQuery] AdvertFiltersData filters, int page, int pageSize)
+        public async Task<IEnumerable<AdvertPreviewResponseData>> GetAdvertsByPageAsync([FromQuery] AdvertFiltersData filters, int page, int pageSize)
         {
             var filtersDomain = _mapper.Map<AdvertFilters>(filters);
 
@@ -39,7 +39,7 @@ namespace HelpMeApp.Services.Services
             return advertsData;
         }
 
-        public async Task<AdvertDetailedResponseData> GetAdvertById(int id)
+        public async Task<AdvertDetailedResponseData> GetAdvertByIdAsync(int id)
         {
             var domainAdvert = await _advertReadRepository.GetAdvertByIdAsync(id);
 
@@ -87,7 +87,7 @@ namespace HelpMeApp.Services.Services
             return new GeneralData { Categories = categories, Terms = terms, AdvertsQuantity = advertsQuantity };
         }
 
-        public async Task<IEnumerable<AdvertPreviewResponseData>> GetAllUserAdverts(string userId)
+        public async Task<IEnumerable<AdvertPreviewResponseData>> GetAllUserAdvertsAsync(string userId)
         {
             var usersAdverts = await _advertReadRepository.GetAllUserAdverts(userId);
 
