@@ -9,7 +9,8 @@ const routingUrl = {
     pathToAdvertById: "/advert/:id",
     pathToProfile: "/my-profile",
     pathToAdvertCreation: "/new-advert",
-    pathToModifyProfileData: "/modify-userdata"
+    pathToModifyProfileData: "/modify-userdata",
+    pathToUsersAdvertsPage: "/my-adverts"
 };
 
 export default routingUrl;

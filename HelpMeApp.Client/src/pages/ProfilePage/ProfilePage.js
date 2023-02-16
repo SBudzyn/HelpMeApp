@@ -1,8 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 import "./ProfilePage.css";
+import Profile from "../../components/Profile/UserProfile";
 
-const ProfilePage = ({ component: Profile }) => {
+const ProfilePage = () => {
     return (
         <div>
             <div className="page centered-form">

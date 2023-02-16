@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import photo1 from "../../media/defaultAdvertPhoto.jpg";
 import "bootstrap/dist/css/bootstrap.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import routingUrl from "../../constants/routingUrl";
 import "./UserProfile.css";
 // import DeleteUserConfirmation from "./DeleteUserConfirmation";
@@ -27,6 +27,13 @@ const Profile = () => {
     const [userData, setGeneralData] = useState({});
     const [userHelpsCounter, setUserHelpsCounter] = useState({});
 
+    const [alertMessage, setAlertMessage] = useState("");
+    const [successMessage, setSuccessMessage] = useState("");
+
+    const navigate = useNavigate();
+    const NavigateToProfile = () => {
+        navigate(routingUrl.pathToLoginPage);
+    };
     const retrieveUserHelpsCounter = async () => {
         await baseRequestWithToken
             .get("/profile/count-user-helps")
@@ -49,14 +56,27 @@ const Profile = () => {
             });
     };
 
+    const submitAccountDeleting = () => {
+        setAlertMessage("");
+        setSuccessMessage("");
+        baseRequestWithToken.get("profile/delete-user").then((response) => {
+            if (response.data.success) {
+                localStorage.token = "";
+                NavigateToProfile();
+            } else {
+                setAlertMessage(response.data.message);
+                handleClose();
+            }
+        });
+    };
+
     useEffect(() => {
         retrieveUserData();
         retrieveUserHelpsCounter();
     }, []);
-
     return (
         <div className="container">
-            <div className="row mt-3">
+            <div className="row mt-3 col-sm-12 ">
                 <div className="col-lg-4">
                     {" "}
                     <img
@@ -67,11 +87,11 @@ const Profile = () => {
                 </div>
                 <div className="col-lg-8">
                     <div className="row">
-                        <div className="col-lg-2">
+                        <div className="col-lg-3 col-md-3">
                             <h1>{userData.name ?? "No data"}</h1>
                         </div>
 
-                        <div className="col-lg mx-1">
+                        <div className="col-lg-4 col-md-4 mx-1">
                             <h1>{userData.surname ?? "No data"}</h1>
                         </div>
                     </div>
@@ -82,16 +102,16 @@ const Profile = () => {
                         helped {userHelpsCounter.userHelpsCount ?? "No data"}{" "}
                         times
                     </h5>
-                    <div className="row mt-4">
-                        <div className="col-lg-4 ">
-                            <Link to={routingUrl.pathToSignUpPage}>
+                    <div className="row mt-2">
+                        <div className="col-lg-4 col-sm-12 my-2 col-md-12">
+                            <Link to={routingUrl.pathToUsersAdvertsPage}>
                                 <button className="btn btn-warning btn-block btn-lg">
                                     View users adverts
                                 </button>
                             </Link>
                         </div>
 
-                        <div className="col-lg-4">
+                        <div className="col-lg-4 col-sm-12 my-2">
                             <Link to={routingUrl.pathToModifyProfileData}>
                                 <button className="btn btn-warning btn-lg">
                                     Modify profile data
@@ -99,7 +119,7 @@ const Profile = () => {
                             </Link>
                         </div>
 
-                        <div className="col-lg-4">
+                        <div className="col-lg-4 col-sm-12 mt-2">
                             <button
                                 className="btn btn-warning btn-lg"
                                 onClick={handleShow}
@@ -110,13 +130,15 @@ const Profile = () => {
                     </div>
                 </div>
             </div>
-            <div className="row mt-4 bg-light">
+            <div className="row mt-4 bg-light col-sm-12 mt-3">
                 <div className="col-xs-12">
                     <p className="mt-4">
                         {userData.info ?? "No data provided"}
                     </p>
                 </div>
             </div>
+            <div className="success-message">{successMessage}</div>
+            <div className="error-message">{alertMessage}</div>
 
             <Modal
                 show={show}
@@ -134,7 +156,9 @@ const Profile = () => {
                     <Button variant="secondary" onClick={handleClose}>
                         No
                     </Button>
-                    <Button variant="primary">I am sure</Button>
+                    <Button variant="primary" onClick={submitAccountDeleting}>
+                        I am sure
+                    </Button>
                 </Modal.Footer>
             </Modal>
         </div>

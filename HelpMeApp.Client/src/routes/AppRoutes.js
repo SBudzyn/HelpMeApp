@@ -10,9 +10,11 @@ import RegistrationForm from "../components/AuthorizationForms/RegistrationForm"
 import HomePage from "../pages/HomePage/HomePage";
 import PageNotFound from "../pages/PageNotFound/PageNotFound";
 import AdvertCreationPage from "../pages/AdvertCreationPage/AdvertCreationPage";
-import UserProfile from "../components/Profile/UserProfile";
-import ModifyProfileDataForm from "../components/Profile/UserDataModificationForm";
+// import UserProfile from "../components/Profile/UserProfile";
+// import ModifyProfileDataForm from "../components/Profile/UserDataModificationForm";
 import ProfilePage from "../pages/ProfilePage/ProfilePage";
+import ModifyProfileDataPage from "../pages/UserDataModificationModificaPage/UserDataModificationPage";
+import UsersAdvertsPage from "../pages/UserAdvertsPage/UserAdvertsPage";
 const AppRoutes = () => {
     return (
         <Routes>
@@ -51,11 +53,15 @@ const AppRoutes = () => {
             />
             <Route
                 path={routingUrl.pathToProfile}
-                element={<ProfilePage component={UserProfile} />}
+                element={<RouteGuard element={ProfilePage} />}
             />
             <Route
                 path={routingUrl.pathToModifyProfileData}
-                element={<ProfilePage component={ModifyProfileDataForm} />}
+                element={<RouteGuard element={ModifyProfileDataPage} />}
+            />
+            <Route
+                path={routingUrl.pathToUsersAdvertsPage}
+                element={<RouteGuard element={UsersAdvertsPage} />}
             />
             <Route path="*" element={<PageNotFound />} />
         </Routes>
