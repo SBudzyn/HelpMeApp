@@ -4,6 +4,7 @@ using HelpMeApp.DatabaseAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HelpMeApp.DatabaseAccess.Migrations
 {
     [DbContext(typeof(HelpMeDbContext))]
-    partial class HelpMeDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230216211226_ChangedSecondSideToResponder")]
+    partial class ChangedSecondSideToResponder
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -39,7 +42,7 @@ namespace HelpMeApp.DatabaseAccess.Migrations
                     b.Property<DateTime>("CreationDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 2, 12, 20, 39, 2, 992, DateTimeKind.Local).AddTicks(1953));
+                        .HasDefaultValue(new DateTime(2023, 2, 16, 22, 12, 26, 583, DateTimeKind.Local).AddTicks(769));
 
                     b.Property<Guid>("CreatorId")
                         .HasColumnType("uniqueidentifier");
@@ -135,9 +138,6 @@ namespace HelpMeApp.DatabaseAccess.Migrations
 
                     b.Property<byte[]>("Photo")
                         .HasColumnType("varbinary(max)");
-
-                    b.Property<string>("PhotoPrefix")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("RegistrationDate")
                         .HasColumnType("datetime2");
@@ -250,7 +250,7 @@ namespace HelpMeApp.DatabaseAccess.Migrations
                     b.Property<DateTime>("CreationDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 2, 12, 20, 39, 2, 993, DateTimeKind.Local).AddTicks(8658));
+                        .HasDefaultValue(new DateTime(2023, 2, 16, 22, 12, 26, 583, DateTimeKind.Local).AddTicks(7507));
 
                     b.Property<int>("SenderRoleId")
                         .HasColumnType("int");
@@ -282,9 +282,6 @@ namespace HelpMeApp.DatabaseAccess.Migrations
                     b.Property<byte[]>("Data")
                         .IsRequired()
                         .HasColumnType("varbinary(max)");
-
-                    b.Property<string>("Prefix")
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
