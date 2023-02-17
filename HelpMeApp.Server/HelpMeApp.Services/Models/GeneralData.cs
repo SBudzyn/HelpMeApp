@@ -13,5 +13,6 @@ namespace HelpMeApp.Services.Models
         public int AdvertsQuantity { get; set; }
         public Dictionary<int, string> Categories { get; set; }
         public Dictionary<int, string> Terms { get; set; }
+        public Dictionary<int, string> HelpTypes { get; set; }
     }
 }

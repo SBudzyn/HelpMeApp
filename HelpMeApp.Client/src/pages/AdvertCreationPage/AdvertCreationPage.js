@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import "./AdvertCreationPage.css";
 import AdvertCreationForm from "../../components/AdvertCreationForm/AdvertCreationForm";
 
@@ -8,6 +9,10 @@ const AdvertCreationPage = () => {
             <AdvertCreationForm />
         </div>
     );
+};
+
+AdvertCreationPage.propTypes = {
+    component: PropTypes.element
 };
 
 export default AdvertCreationPage;
