@@ -8,10 +8,13 @@ namespace HelpMeApp.DatabaseAccess.Entities.ChatEntity
         public void Configure(EntityTypeBuilder<Chat> builder)
         {
             builder
-                .HasKey(x => new { x.Id, x.UserId, x.AdvertId });
+                .HasKey(x => x.Id);
 
             builder
-                .Property(x => x.IsConfirmedBySecondSide)
+                .HasAlternateKey(x => new { x.UserId, x.AdvertId });
+
+            builder
+                .Property(x => x.IsConfirmedByResponder)
                 .HasDefaultValue(false);
 
             builder
