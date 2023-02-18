@@ -16,11 +16,15 @@ using System.Threading.Tasks;
 namespace HelpMeApp.Tests.Services
 {
     [TestFixture]
-    public class AdvertServiceTest
+    public class AdvertServiceTests
     {
+        private const string GetAdvertsByPageAsyncMethodName = nameof(AdvertService.GetAdvertsByPageAsync);
+        private const string GetAdvertByIdAsyncMethodName = nameof(AdvertService.GetAdvertByIdAsync);
+        private const string AddAdvertAsyncMethodName = nameof(AdvertService.AddAdvertAsync);
+
         private Mock<IAdvertReadRepository> _advertReadRepositoryMock;
-        private Mock<IAdvertWriteRepository> _advertWriteRepository;
-        private Mock<IMapper> _mapper;
+        private Mock<IAdvertWriteRepository> _advertWriteRepositoryMock;
+        private Mock<IMapper> _mapperMock;
 
         private AdvertService _advertService;
 
@@ -28,14 +32,18 @@ namespace HelpMeApp.Tests.Services
         public void TestInitialize()
         {
             _advertReadRepositoryMock = new Mock<IAdvertReadRepository>();
-            _advertWriteRepository = new Mock<IAdvertWriteRepository>();
-            _mapper = new Mock<IMapper>();
+            _advertWriteRepositoryMock = new Mock<IAdvertWriteRepository>();
+            _mapperMock = new Mock<IMapper>();
 
-            _advertService = new AdvertService(_advertReadRepositoryMock.Object, _advertWriteRepository.Object, _mapper.Object);
+            var advertReadRepository = _advertReadRepositoryMock.Object;
+            var advertWriteRepository = _advertWriteRepositoryMock.Object;
+            var mapper = _mapperMock.Object;
+
+            _advertService = new AdvertService(advertReadRepository, advertWriteRepository, mapper);
         }
 
-        [TestCase(TestName = $"{nameof(AdvertService.GetAdvertsByPageAsync)}. Should return mapped collection of AdvertDetailedResponseData")]
-        public async Task GetAdvertsByPageAsyncTest()
+        [TestCase(TestName = $"{GetAdvertsByPageAsyncMethodName}. Should return mapped collection of AdvertDetailedResponseData")]
+        public async Task GetAdvertsByPageAsync_ReturnsAdvertPreviewResponseData_MappedFromAdvertRetrievedFromAdvertReadRepository()
         {
             IEnumerable<AdvertPreviewResponseData> expected = CreateAdvertsPreviewResponseData();
             
@@ -51,8 +59,8 @@ namespace HelpMeApp.Tests.Services
             Assert.AreEqual(expected, actual);
         }
 
-        [TestCase(TestName = $"{nameof(AdvertService.GetAdvertByIdAsync)}. Should return AdvertDetailedResponseData mapped from Advert recieved from IAdvertRepository")]
-        public async Task GetAdvertByIdAsyncTest()
+        [TestCase(TestName = $"{GetAdvertByIdAsyncMethodName}. Should return AdvertDetailedResponseData mapped from Advert recieved from IAdvertRepository")]
+        public async Task GetAdvertByIdAsync_ReturnsAdvertDetailedResponseData_MappedFromAdvertRetrieivedFromAdvertReadRepository()
         {
             int advertId = 1;
             AdvertDetailedResponseData expected = new AdvertDetailedResponseData();
@@ -65,8 +73,8 @@ namespace HelpMeApp.Tests.Services
             Assert.AreEqual(expected.GetType(), actual.GetType()); 
         }
 
-        [TestCase(TestName = $"{nameof(AdvertService.GetAdvertsByPageAsync)}. Should return AdvertDetailedResponseData mapped from Advert recieved from IAdvertRepository even if passed filters are null")]
-        public async Task GetAdvertByIdAsyncNullForFiltersDataTest()
+        [TestCase(TestName = $"{GetAdvertsByPageAsyncMethodName}. Should return AdvertDetailedResponseData mapped from Advert recieved from IAdvertRepository even if passed filters are null")]
+        public async Task GetAdvertByIdAsync_ReturnsAdvertPreviewResponseData_WhenPassedFiltersAreNull()
         {
             IEnumerable<AdvertPreviewResponseData> expected = CreateAdvertsPreviewResponseData();
 
@@ -82,8 +90,8 @@ namespace HelpMeApp.Tests.Services
             Assert.AreEqual(expected, actual);
         }
 
-        [TestCase(TestName = $"{nameof(AdvertService.AddAdvertAsync)}. Should return AdvertDetailedResponseData that is mapped from added Advert")]
-        public async Task AddAdvertAsyncTest()
+        [TestCase(TestName = $"{AddAdvertAsyncMethodName}. Should return AdvertDetailedResponseData that is mapped from added Advert")]
+        public async Task AddAdvertAsync_ReturnsAdvertDetailedResponseData_MappedFromAddedEntity()
         {
             var expected = new AdvertDetailedResponseData();
 
@@ -112,25 +120,25 @@ namespace HelpMeApp.Tests.Services
 
         private void SetupAdvertRepositoryAddAdvertAsyncMock(Advert advert)
         {
-            _advertWriteRepository
+            _advertWriteRepositoryMock
                 .Setup(r => r.AddAdvertAsync(advert))
                 .ReturnsAsync(new Advert());
         }
 
         private void SetupAdvertMappingProfileAdvertToAdvertDetailedResponseData()
         {
-            _mapper
+            _mapperMock
                 .Setup(m => m.Map<AdvertDetailedResponseData>(It.IsAny<Advert>()))
                 .Returns(new AdvertDetailedResponseData());
 
-            _mapper
+            _mapperMock
                 .Setup(m => m.Map<IEnumerable<AdvertDetailedResponseData>>(It.IsAny<IEnumerable<Advert>>()))
                 .Returns(new List<AdvertDetailedResponseData>());
         }
 
         private void SetupAdvertMappingProfileAdvertPostDataToAdvert()
         {
-            _mapper
+            _mapperMock
                 .Setup(m => m.Map<Advert>(It.IsAny<AdvertPostData>()))
                 .Returns(new Advert());
         }
