@@ -42,14 +42,18 @@ const RegistrationForm = () => {
             .then((response) => {
                 if (response.data.isSuccessful) {
                     handleClose();
-                    setSuccessMessage("Success! Now you can login");
+                    setSuccessMessage(
+                        "Success! Now you can login"
+                    );
                 } else {
                     setAlertMessage("error");
                 }
             })
             .catch(() => {
-                setAlertMessage("Unsuccessful registration");
-            });
+                setAlertMessage(
+                    "Unsuccessful registration"
+            );
+        });
     };
 
     return (

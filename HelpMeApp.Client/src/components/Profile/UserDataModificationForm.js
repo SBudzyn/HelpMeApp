@@ -6,7 +6,7 @@ import { baseRequestWithToken } from "../../services/axiosServices";
 import "bootstrap/dist/css/bootstrap.css";
 import "./UserProfile.css";
 
-const UserDataModificationForm = () => {
+const UserDataModificationForm = () => {   
     const [uploadedFiles, setUploadedFiles] = useState([]);
 
     const [alertMessage, setAlertMessage] = useState("");
