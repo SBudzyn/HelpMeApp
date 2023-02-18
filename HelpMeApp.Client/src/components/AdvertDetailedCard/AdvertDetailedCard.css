@@ -1,0 +1,18 @@
+.width-100-relative {
+    width: 100%;
+}
+
+.space-around {
+    display: flex;
+    justify-content: space-around;
+}
+
+.atributes-text {
+    font-weight: 600;
+}
+
+.description-text {
+    width: 75%;
+    margin: auto;
+    font-weight: 400;
+}
