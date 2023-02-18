@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Container, Row, Col, Form, Button, ListGroup } from "react-bootstrap";
 import "./Chat.css";
 import avatar from "../../media/defaultAvatarProfileIcon.jpg";
-import advertPic from "../../media/defaultAdvertPhoto.jpg";
+import advertPicture from "../../media/defaultAdvertPhoto.jpg";
 import routingUrl from "../../constants/routingUrl";
 
 const ChatForm = () => {
@@ -16,7 +16,7 @@ const ChatForm = () => {
             advertId: 1,
             advert: "I need clothes",
             avatar,
-            advertPic,
+            advertPicture,
             messages: [
                 {
                     text: "Hello, I can help you!",
@@ -36,7 +36,7 @@ const ChatForm = () => {
             advertId: 2,
             advert: "I want to move to another city",
             avatar,
-            advertPic,
+            advertPicture,
             messages: [
                 {
                     text: "Hello. Do you need evacuation?",
@@ -66,7 +66,7 @@ const ChatForm = () => {
             advertId: 3,
             advert: "FOOD PLEASE",
             avatar,
-            advertPic,
+            advertPicture,
             messages: [
                 {
                     text: "Hello! I can send you some food!",
@@ -102,7 +102,7 @@ const ChatForm = () => {
             advertId: 4,
             advert: "I need clothes",
             avatar,
-            advertPic,
+            advertPicture,
             messages: [
                 {
                     text: "Hellloooo. I have clothes for 8yo girl and 15yo boy. What fits you?",
@@ -128,7 +128,7 @@ const ChatForm = () => {
             advertId: 5,
             advert: "My roof is broken",
             avatar,
-            advertPic,
+            advertPicture,
             messages: [
                 {
                     text: "Oh, i am so sorry. How can i help you?",
@@ -170,7 +170,7 @@ const ChatForm = () => {
             advertId: 6,
             advert: "I dont have money for food",
             avatar,
-            advertPic,
+            advertPicture,
             messages: [
                 {
                     text: "Hello! I want to help you with food. How many peoples are there in your family?",
@@ -263,7 +263,7 @@ const ChatForm = () => {
                                 className="overflow-hidden lh-sm"
                             >
                                 <img
-                                    src={advertPic}
+                                    src={advertPicture}
                                     alt="Image"
                                     className="image-icon mt-0"
                                 />
