@@ -9,7 +9,13 @@ import { checkToken } from "../../services/authorizationServices";
 const AuthorizationPage = ({ component: AuthorizationForm }) => {
     return (
         <div>
-            {checkToken() ? <Navigate to={routingUrl.pathToHomePage} /> : <></>}
+            {checkToken()
+                ? (
+                    <Navigate to={routingUrl.pathToHomePage} />
+                ) 
+                : (
+                    <></>
+                )}
             <div>
                 <Background />
             </div>

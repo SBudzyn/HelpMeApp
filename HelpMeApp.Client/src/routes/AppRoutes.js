@@ -11,9 +11,10 @@ import HomePage from "../pages/HomePage/HomePage";
 import PageNotFound from "../pages/PageNotFound/PageNotFound";
 import AdvertCreationPage from "../pages/AdvertCreationPage/AdvertCreationPage";
 import ProfilePage from "../pages/ProfilePage/ProfilePage";
-import ModifyProfileDataPage from "../pages/UserDataModificationModificaPage/UserDataModificationPage";
+import UserDataModificationPage from "../pages/ProfilePage/UserDataModificationPage/UserDataModificationPage";
 import UsersAdvertsPage from "../pages/UserAdvertsPage/UserAdvertsPage";
 const AppRoutes = () => {
+
     return (
         <Routes>
             <Route
@@ -54,8 +55,8 @@ const AppRoutes = () => {
                 element={<RouteGuard element={ProfilePage} />}
             />
             <Route
-                path={routingUrl.pathToModifyProfileData}
-                element={<RouteGuard element={ModifyProfileDataPage} />}
+                path={routingUrl.pathToProfileModification}
+                element={<RouteGuard element={UserDataModificationPage} />}
             />
             <Route
                 path={routingUrl.pathToUsersAdvertsPage}

@@ -35,7 +35,10 @@ const RegistrationForm = () => {
         };
 
         await baseRequest
-            .post("/authentication/register", fullRegistrationData)
+            .post(
+                "/authentication/register", 
+                fullRegistrationData
+            )
             .then((response) => {
                 if (response.data.isSuccessful) {
                     handleClose();

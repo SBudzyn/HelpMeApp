@@ -87,20 +87,14 @@ namespace HelpMeApp.Services.Services
             return new GeneralData { Categories = categories, Terms = terms, AdvertsQuantity = advertsQuantity };
         }
 
-        public async Task<IEnumerable<AdvertPreviewResponseData>> GetAllUserAdverts(string userId)
+        public async Task<IEnumerable<AdvertPreviewResponseData>> GetAllUserAdverts(string userId, int page, int pageSize)
         {
-            var usersAdverts = await _advertReadRepository.GetAllUserAdverts(userId);
+            var usersAdverts = await _advertReadRepository.GetAdvertsUserNeedHelpByPage(userId, page, pageSize);
 
             var advertsData = _mapper.Map<IEnumerable<AdvertPreviewResponseData>>(usersAdverts);
 
             return advertsData;
         }
 
-        public async Task<int> CountUserHelps(string userId)
-        {
-            var userHelps = await _advertReadRepository.CountUserHelps(userId);
-
-            return userHelps;
-        }
     }
 }

@@ -14,6 +14,11 @@ namespace HelpMeApp.DatabaseAccess.Repositories
 {
     public class AdvertReadRepository : IAdvertReadRepository
     {
+        enum UserHelpType 
+        {
+            UserNeedHelp = 1,
+            UserCanHelp = 2
+        }
         private HelpMeDbContext _context;
 
         public AdvertReadRepository(HelpMeDbContext context)
@@ -60,20 +65,25 @@ namespace HelpMeApp.DatabaseAccess.Repositories
             return await _context.Adverts.CountAsync();
         }
 
-        public async Task<IEnumerable<Advert>> GetAllUserAdverts(string userId)
+        public async Task<IEnumerable<Advert>> GetAdvertsUserNeedHelpByPage(string userId, int page, int pageSize) 
         {
             return await _context.Adverts
+                .Where(a => a.IsClosed == false)
                 .Where(a => a.CreatorId.ToString() == userId)
-                .Where(a => a.HelpTypeId == 1)
+                .Where(a => a.HelpTypeId == (int)UserHelpType.UserNeedHelp)
+                .Include(a => a.Photos)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
                 .ToListAsync();
         }
 
-        public async Task<int> CountUserHelps(string userId)
+        public async Task<int> CountHowMuchUserHelps(string userId)
         {
             return await _context.Adverts
-                .Where(a => a.HelpTypeId == 2)
+                .Where(a => a.HelpTypeId == (int)UserHelpType.UserCanHelp)
                 .Where(a => a.CreatorId.ToString() == userId)
                 .CountAsync();
         }
+
     }
 }

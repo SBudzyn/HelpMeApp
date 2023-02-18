@@ -108,9 +108,14 @@ namespace HelpMeApp.WebAPI.Controllers
         }
 
         [Authorize]
-        [HttpGet("get-user-adverts")]
-        public async Task<ActionResult<IEnumerable<AdvertPreviewResponseData>>> GetAllUserAdverts()
+        [HttpGet("get-user-adverts/{pageId}")]
+        public async Task<ActionResult<IEnumerable<AdvertPreviewResponseData>>> GetAllUserAdverts(int pageId = 1, int pageSize = 2)
         {
+            if (pageId < 1 || pageSize < 1)
+            {
+                return BadRequest();
+            }
+
             ClaimsPrincipal claimsPrincipal = HttpContext.User;
             var userId = claimsPrincipal.FindFirst(c => c.Type == "UserId").Value;
 
@@ -120,7 +125,7 @@ namespace HelpMeApp.WebAPI.Controllers
 
                 if (authorizationResult.Succeeded)
                 {
-                    var result = await _profileService.GetAllUserAdverts(userId);
+                    var result = await _profileService.GetAdvertsUserNeedHelpByPage(userId, pageId, pageSize);
                     return result.ToList();
                 }
 
@@ -131,7 +136,7 @@ namespace HelpMeApp.WebAPI.Controllers
 
         [Authorize]
         [HttpGet("count-user-helps")]
-        public async Task<ActionResult<UserHelpsCountData>> CountUserHelps()
+        public async Task<ActionResult<int>> CountUserHelps()
         {
             ClaimsPrincipal claimsPrincipal = HttpContext.User;
             var userId = claimsPrincipal.FindFirst(c => c.Type == "UserId").Value;
@@ -142,7 +147,7 @@ namespace HelpMeApp.WebAPI.Controllers
 
                 if (authorizationResult.Succeeded)
                 {
-                    var result = await _profileService.CountUserHelps(userId);
+                    var result = await _profileService.CountHowMuchUserHelps(userId);
                     return result;
                 }
 

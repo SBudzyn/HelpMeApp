@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import "./UserDataModificationPage.css";
-import ModifyProfileDataForm from "../../components/Profile/UserDataModificationForm";
+import "../ProfilePage.css";
+import ModifyProfileDataForm from "../../../components/Profile/UserDataModificationForm";
 
 const ModifyProfileDataPage = () => {
     return (

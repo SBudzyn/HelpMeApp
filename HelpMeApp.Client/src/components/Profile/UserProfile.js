@@ -8,16 +8,7 @@ import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import { baseRequestWithToken } from "../../services/axiosServices";
 
-const data = {
-    name: "Name",
-    surname: "Surname",
-    phoneNumber: "+38012332144",
-    photo: null,
-    helpedNtimes: 2,
-    info: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmodLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmodLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmodLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmodLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmodLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmodLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmodLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmodLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmodLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmodLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmodLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmodLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmodLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmodLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmodLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod"
-};
-
-const Profile = () => {
+const UserProfile = () => {
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
@@ -30,7 +21,7 @@ const Profile = () => {
     const [successMessage, setSuccessMessage] = useState("");
 
     const navigate = useNavigate();
-    const NavigateToProfile = () => {
+    const NavigateToUserProfile = () => {
         navigate(routingUrl.pathToLoginPage);
     };
 
@@ -62,8 +53,9 @@ const Profile = () => {
         baseRequestWithToken.get("profile/delete-user").then((response) => {
             if (response.data.success) {
                 localStorage.token = "";
-                NavigateToProfile();
+                NavigateToUserProfile();
             } else {
+                console.log(response.data.success);
                 setAlertMessage(response.data.message);
                 handleClose();
             }
@@ -80,7 +72,7 @@ const Profile = () => {
                 <div className="col-lg-4">
                     {" "}
                     <img
-                        src={data?.photo ?? photo1}
+                        src={photo1}
                         style={{ width: "18rem" }}
                         className="border border-dark"
                     ></img>
@@ -105,7 +97,7 @@ const Profile = () => {
                     <div className="row mt-2">
                         <div className="col-lg-4 col-sm-12 my-2 col-md-12">
                             <Link to={routingUrl.pathToUsersAdvertsPage}>
-                                <button className="btn btn-warning btn-block btn-lg">
+                                <button className="btn btn-warning btn-block btn-lg w-100 ">
                                     View users adverts
                                 </button>
                             </Link>
@@ -113,7 +105,7 @@ const Profile = () => {
 
                         <div className="col-lg-4 col-sm-12 my-2">
                             <Link to={routingUrl.pathToModifyProfileData}>
-                                <button className="btn btn-warning btn-lg">
+                                <button className="btn btn-warning btn-lg w-100">
                                     Modify profile data
                                 </button>
                             </Link>
@@ -121,7 +113,7 @@ const Profile = () => {
 
                         <div className="col-lg-4 col-sm-12 mt-2">
                             <button
-                                className="btn btn-warning btn-lg"
+                                className="btn btn-warning btn-lg w-100"
                                 onClick={handleShow}
                             >
                                 Delete an account
@@ -137,8 +129,8 @@ const Profile = () => {
                     </p>
                 </div>
             </div>
-            <div className="success-message">{successMessage}</div>
-            <div className="error-message">{alertMessage}</div>
+            <div className="success-message-profile">{successMessage}</div>
+            <div className="error-message-profile">{alertMessage}</div>
 
             <Modal
                 show={show}
@@ -147,7 +139,7 @@ const Profile = () => {
                 keyboard={false}
             >
                 <Modal.Header closeButton>
-                    <Modal.Title>Modal title</Modal.Title>
+                    <Modal.Title>Account deletion</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     Are you sure you want to delete an account?
@@ -165,4 +157,4 @@ const Profile = () => {
     );
 };
 
-export default Profile;
+export default UserProfile;

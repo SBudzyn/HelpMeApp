@@ -13,6 +13,7 @@ using HelpMeApp;
 using HelpMeApp.Services.Models.Advert;
 using HelpMeApp.Services.Services;
 using HelpMeApp.DatabaseAccess.Entities.AdvertEntity;
+using HelpMeApp.DatabaseAccess.Interfaces;
 
 namespace HelpMeApp.Services.Services
 {
@@ -22,13 +23,14 @@ namespace HelpMeApp.Services.Services
         private IMapper _mapper;
         private IPasswordHasher<AppUser> _passwordHasher;
         private IAdvertService _advertService;
-
-        public ProfileService(UserManager<AppUser> userManager, IMapper mapper, IPasswordHasher<AppUser> passwordHasher, IAdvertService advertService)
+        private IAdvertReadRepository _advertReadRepository;
+        public ProfileService(UserManager<AppUser> userManager, IMapper mapper, IPasswordHasher<AppUser> passwordHasher, IAdvertService advertService, IAdvertReadRepository advertReadRepository)
         {
             _userManager = userManager;
             _mapper = mapper;
             _passwordHasher = passwordHasher;
             _advertService = advertService;
+            _advertReadRepository = advertReadRepository;
         }
 
         public async Task<ProfileResponseData> GetUserById(string userId)
@@ -90,13 +92,14 @@ namespace HelpMeApp.Services.Services
                 if (updateUserData.Succeeded)
                 {
                     result.Success = true;
-                    result.Message = "Your account has been deleted successfully";
+                    result.Message = "Your account has been deleted successfully";                  
                 }
                 else
                 {
                     result.Success = false;
-                    result.Message = "An error has occurred. Your account has not been deleted";
+                    result.Message = "An error has occurred. Your account has not been deleted";                
                 }
+                return result;
             }
 
             result.Success = false;
@@ -104,18 +107,17 @@ namespace HelpMeApp.Services.Services
             return result;
         }
 
-        public async Task<IEnumerable<AdvertPreviewResponseData>> GetAllUserAdverts(string userId)
+        public async Task<IEnumerable<AdvertPreviewResponseData>> GetAdvertsUserNeedHelpByPage(string userId, int page, int pageSize)
         {
-            var userAdverts = await _advertService.GetAllUserAdverts(userId);
+            var userAdverts = await _advertService.GetAllUserAdverts(userId, page, pageSize);
 
             return userAdverts;
         }
 
-        public async Task<UserHelpsCountData> CountUserHelps(string userId)
+        public async Task<int> CountHowMuchUserHelps(string userId)
         {
-            var countUserHelps = await _advertService.CountUserHelps(userId);
-
-            return new UserHelpsCountData { UserHelpsCount = countUserHelps };
+            var userHelps = await _advertReadRepository.CountHowMuchUserHelps(userId);
+            return userHelps;
         }
     }
 }
