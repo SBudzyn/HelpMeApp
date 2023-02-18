@@ -2,6 +2,7 @@ import * as yupModifyProfileData from "yup";
 import "yup-phone";
 import YupPassword from "yup-password";
 YupPassword(yupModifyProfileData);
+
 const ProfileDataModificationScheme = yupModifyProfileData.object().shape(
     {
         email: yupModifyProfileData

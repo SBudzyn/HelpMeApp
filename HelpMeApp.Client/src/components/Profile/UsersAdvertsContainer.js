@@ -7,7 +7,7 @@ const UsersAdvertsContainer = () => {
 
     const retrieveAdverts = async () => {
         await baseRequestWithToken
-            .get("/profile/get-user-adverts")
+            .get("/profile/get-user-adverts/")
             .then((response) => {
                 return response.data;
             })
@@ -15,7 +15,6 @@ const UsersAdvertsContainer = () => {
                 setAdverts(data);
             });
     };
-
     useEffect(() => {
         retrieveAdverts();
     }, []);

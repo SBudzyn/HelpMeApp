@@ -4,8 +4,9 @@ import ProfileDataModificationScheme from "../../validation/ProfileDataModificat
 import { handleUploadFiles } from "../../services/filesUploading";
 import { baseRequestWithToken } from "../../services/axiosServices";
 import "bootstrap/dist/css/bootstrap.css";
+import "./UserProfile.css";
 
-const ModifyProfileDataForm = () => {
+const UserDataModificationForm = () => {
     const [uploadedFiles, setUploadedFiles] = useState([]);
 
     const [alertMessage, setAlertMessage] = useState("");
@@ -60,6 +61,7 @@ const ModifyProfileDataForm = () => {
                 setUserData(data);
             });
     };
+    
     return (
         <>
             <Formik
@@ -88,7 +90,7 @@ const ModifyProfileDataForm = () => {
                                     placeholder={userData.email}
                                     className="up form-control border-primary"
                                 />
-                                <div className="error-message">
+                                <div className="error-message-profile">
                                     <ErrorMessage name="email" />
                                 </div>
                             </div>
@@ -105,7 +107,7 @@ const ModifyProfileDataForm = () => {
                                     className="h-100 up form-control border-primary"
                                     rows="4"
                                 />
-                                <div className="error-message">
+                                <div className="error-message-profile">
                                     <ErrorMessage name="password" />
                                 </div>
                             </div>
@@ -122,7 +124,7 @@ const ModifyProfileDataForm = () => {
                                     className="h-100 up form-control border-primary"
                                     rows="4"
                                 />
-                                <div className="error-message">
+                                <div className="error-message-profile">
                                     <ErrorMessage name="name" />
                                 </div>
                             </div>
@@ -139,7 +141,7 @@ const ModifyProfileDataForm = () => {
                                     className="h-100 up form-control border-primary"
                                     rows="4"
                                 />
-                                <div className="error-message mx-auto">
+                                <div className="error-message-profile">
                                     <ErrorMessage name="surname" />
                                 </div>
                             </div>
@@ -156,7 +158,7 @@ const ModifyProfileDataForm = () => {
                                     className="h-100 up form-control border-primary"
                                     rows="4"
                                 />
-                                <div className="error-message">
+                                <div className="error-message-profile">
                                     <ErrorMessage name="userName" />
                                 </div>
                             </div>
@@ -173,7 +175,7 @@ const ModifyProfileDataForm = () => {
                                     className="h-100 up form-control border-primary"
                                     rows="4"
                                 />
-                                <div className="error-message">
+                                <div className="error-message-profile">
                                     <ErrorMessage name="phoneNumber" />
                                 </div>
                             </div>
@@ -190,7 +192,7 @@ const ModifyProfileDataForm = () => {
                                     className="h-100 up form-control border-primary"
                                     rows="4"
                                 />
-                                <div className="error-message">
+                                <div className="error-message-profile">
                                     <ErrorMessage name="info" />
                                 </div>
                             </div>
@@ -216,7 +218,7 @@ const ModifyProfileDataForm = () => {
                                     ))}
                                 </div>
                             </div>
-                            <div className="error-message-submit">
+                            <div className="error-message-submit-profile">
                                 {alertMessage}
                             </div>
                             <br />
@@ -227,7 +229,7 @@ const ModifyProfileDataForm = () => {
                             >
                                 Update
                             </button>
-                            <div className="success-message">
+                            <div className="success-message-profile">
                                 {successMessage}
                             </div>
                         </Form>
@@ -238,4 +240,4 @@ const ModifyProfileDataForm = () => {
     );
 };
 
-export default ModifyProfileDataForm;
+export default UserDataModificationForm;
