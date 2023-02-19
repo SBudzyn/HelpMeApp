@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import "bootstrap/dist/css/bootstrap.css";
+import "./../../styles/pages.css";
 import "./AdvertDetailedCard.css";
 import { Carousel } from "react-bootstrap";
 import defaultPhoto from "../../media/defaultAdvertPhoto.jpg";
 import baseRequest from "../../services/axiosServices";
 import getFormattedDate from "../../services/getFormattedDate";
 import checkRetrievedData from "../../services/checkRetrievedData";
+// import { Link } from "react-router-dom";
 
 const photos = [defaultPhoto];
 
@@ -29,60 +31,62 @@ const AdvertDetailedCard = (props) => {
     }, []);
 
     return (
-        <div className="container mt-3">
-            <div className="row bg-light">
-                <div className="col-md-12 col-lg-3 column-1">
-                    <Carousel>
-                        {photos.map((photo) => {
-                            return (
-                                <Carousel.Item key={photo.name}>
-                                    <img
-                                        className="d-block w-100"
-                                        src={photo}
-                                        alt="slide"
-                                    ></img>
-                                </Carousel.Item>
-                            );
-                        })}
-                    </Carousel>
-                    <div>{`Category: ${data?.category}`}</div>
-                    <div>{`Terms: ${data?.terms} days`}</div>
-                    <div>{`Location: ${data.location}`}</div>
-                    <div>{`Creation Date: ${getFormattedDate(
-                        new Date(data?.creationDate ?? "1 1 1970")
-                    )}`}</div>
-                    {/* <button className="btn btn-primary mt-3 width-100-relative">
-                        chat
-                    </button>
-                    <button className="btn btn-warning mt-3 width-100-relative">
-                        report
-                    </button> */}
-                </div>
-                <div className="col-md-12 col-lg-9">
-                    <div className="container">
-                        <div className="row">
-                            <div className="col-xs-12">
-                                <h4 className="space-around mt-3">
-                                    {checkRetrievedData(data?.header)}
-                                </h4>
+        <div className="container-fluid common-background">
+            <div className="container pt-3">
+                <div className="row">
+                    <div className="col-md-12 col-lg-3 advert-short-info rounded bg-light ">
+                        <Carousel>
+                            {photos.map((photo) => {
+                                return (
+                                    <Carousel.Item key={photo.name}>
+                                        <img
+                                            className="d-block w-100 img-thumbnail"
+                                            src={photo}
+                                            alt="slide"
+                                        ></img>
+                                    </Carousel.Item>
+                                );
+                            })}
+                        </Carousel>
+                        <div>
+                            <div className="attributes-text mt-3">{`Category: ${data?.category}`}</div>
+                            <div className="attributes-text mt-2">{`Terms: ${data?.terms} days`}</div>
+                            <div className="attributes-text mt-2">{`Location: ${data.location}`}</div>
+                            <div className="attributes-text mt-2">{`Creation Date: ${getFormattedDate(
+                                new Date(data?.creationDate ?? "1 1 1970")
+                            )}`}</div>
+                        </div>
+                    </div>
+                    <div className="col-md-12 col-lg-9">
+                        <div className="container d-flex flex-column h-100">
+                            <div className="col-xs-12 d-flex author-link">
+                                <img
+                                    src={photos}
+                                    className="author-photo rounded-circle"
+                                ></img>
+                                <h6 className="author-text">UserName</h6>
+                            </div>
+                            <div className="row">
+                                <div className="col-xs-12 mb-2">
+                                    <h4 className="space-around mt-3">
+                                        {checkRetrievedData(data?.header)}
+                                    </h4>
+                                </div>
+                            </div>
+                            <div>
+                                <p className="description-text">
+                                    {checkRetrievedData(data?.info)}
+                                </p>
+                            </div>
+                            <div className="row mt-auto actions-block">
+                                <button className="btn btn-primary col-xs-12 col-md-4 action-button">
+                                    Chat
+                                </button>
+                                <button className="btn btn-danger col-xs-12 col-md-4 action-button">
+                                    Report
+                                </button>
                             </div>
                         </div>
-                        <div className="row space-around mb-3">
-                            <div className="col-sm-4 col-md-3 atributes-text">
-                                {getFormattedDate(
-                                    new Date(data?.creationDate ?? "1 1 1970")
-                                )}
-                            </div>
-                            <div className="col-sm-4 col-md-3 atributes-text">
-                                {checkRetrievedData(data?.location)}
-                            </div>
-                            <div className="col-sm-4 col-md-3 atributes-text">
-                                {checkRetrievedData(data?.category)}
-                            </div>
-                        </div>
-                        <p className="description-text">
-                            {checkRetrievedData(data?.info)}
-                        </p>
                     </div>
                 </div>
             </div>

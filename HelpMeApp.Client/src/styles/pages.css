@@ -1,0 +1,7 @@
+:root {
+    --common-background-color: rgb(243, 243, 243);
+}
+
+.common-background {
+    background-color: var(--common-background-color);
+}

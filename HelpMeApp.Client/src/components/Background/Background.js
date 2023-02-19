@@ -14,7 +14,7 @@ const Background = () => {
     return (
         <svg
             id="visual"
-            viewBox="0 0 100% 90vh"
+            viewBox="0 0 100 100%"
             width="100%"
             height="90vh"
             xmlns="http://www.w3.org/2000/svg"
