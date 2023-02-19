@@ -44,8 +44,8 @@ namespace HelpMeApp.DatabaseAccess.Seeders
 
         public static List<HelpType> HelpTypes = new List<HelpType>()
         {
-            new HelpType(){ Name = "NeedHelp" },
-            new HelpType(){ Name = "CanHelp" }
+            new HelpType(){ Name = "Need help" },
+            new HelpType(){ Name = "Can help" }
         };
 
         public static List<SenderRole> SenderRoles = new List<SenderRole>()
@@ -83,7 +83,7 @@ namespace HelpMeApp.DatabaseAccess.Seeders
             var chatId = 1;
             var chatFaker = new Faker<Chat>("uk")
                 .RuleFor(c => c.Id, _ => chatId++)
-                .RuleFor(c => c.IsConfirmedBySecondSide, f => f.PickRandom(true, false))
+                .RuleFor(c => c.IsConfirmedByResponder, f => f.PickRandom(true, false))
                 .RuleFor(c => c.IsConfirmedByCreator, f => f.PickRandom(true, false));
 
             Chats.AddRange(chatFaker.Generate(300));
