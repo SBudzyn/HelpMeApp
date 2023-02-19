@@ -17,6 +17,7 @@ using HelpMeApp.Services.Models.Advert;
 
 namespace HelpMeApp.WebAPI.Controllers
 {
+
     [Route("api/profile")]
     [ApiController]
     public class UserController : ControllerBase
@@ -58,7 +59,7 @@ namespace HelpMeApp.WebAPI.Controllers
         public async Task<ActionResult<ProfileResponseData>> GetUserById(string userId)
         {
             var authorizationResult = UserAutorization(userId);
-            if (authorizationResult.Result == true) 
+            if (authorizationResult.Result == true)
             {
                 return await _profileService.GetUserById(userId);
             }
@@ -90,11 +91,11 @@ namespace HelpMeApp.WebAPI.Controllers
 
             var authorizationResult = UserAutorization(userId);
             if (authorizationResult.Result == true)
-            {              
-                 return await _profileService.UpdateUser(userId, profileResponseData);              
+            {
+                return await _profileService.UpdateUser(userId, profileResponseData);
             }
 
-            return NotFound("User was not found");
+            return Unauthorized("You don`t have permission to modify the resource");
         }
 
         [Authorize]
@@ -109,7 +110,7 @@ namespace HelpMeApp.WebAPI.Controllers
                 return await _profileService.DeleteUser(userId);
             }
 
-            return NotFound("User was not found");
+            return Unauthorized("You don`t have permission to modify the resource");
         }
 
         [Authorize]
@@ -130,7 +131,7 @@ namespace HelpMeApp.WebAPI.Controllers
                 return result.ToList();
             }
 
-            return NotFound("User was not found");
+            return Unauthorized("You don`t have permission to modify the resource");
         }
 
         [Authorize]
@@ -146,7 +147,7 @@ namespace HelpMeApp.WebAPI.Controllers
                 return result;
             }
 
-            return NotFound("User was not found");
+            return Unauthorized("You don`t have permission to modify the resource");
         }
     }
 }

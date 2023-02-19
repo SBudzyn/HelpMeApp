@@ -12,7 +12,7 @@ const AuthorizationPage = ({ component: AuthorizationForm }) => {
             {checkToken()
                 ? (
                     <Navigate to={routingUrl.pathToHomePage} />
-                ) 
+                )
                 : (
                     <></>
                 )}

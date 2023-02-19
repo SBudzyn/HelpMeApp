@@ -92,12 +92,12 @@ namespace HelpMeApp.Services.Services
                 if (updateUserData.Succeeded)
                 {
                     result.Success = true;
-                    result.Message = "Your account has been deleted successfully";                  
+                    result.Message = "Your account has been deleted successfully";
                 }
                 else
                 {
                     result.Success = false;
-                    result.Message = "An error has occurred. Your account has not been deleted";                
+                    result.Message = "An error has occurred. Your account has not been deleted";
                 }
                 return result;
             }
@@ -109,7 +109,7 @@ namespace HelpMeApp.Services.Services
 
         public async Task<IEnumerable<AdvertPreviewResponseData>> GetAdvertsUserNeedHelpByPage(string userId, int page, int pageSize)
         {
-            var userAdverts = await _advertService.GetAllUserAdverts(userId, page, pageSize);
+            var userAdverts = await _advertService.GetAdvertsUserNeedHelpByPage(userId, page, pageSize);
 
             return userAdverts;
         }
