@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace HelpMeApp.WebAPI.Hubs
 {
+    [Authorize]
     public class ChatHub : Hub
     {
         private IChatService _chatService;
@@ -53,7 +54,7 @@ namespace HelpMeApp.WebAPI.Hubs
             {
                 var messageHistory = await  _messageService.GetMessagesByChat(chatId);
 
-                await Clients.Group(userConnection.ChatId).SendAsync("Receive", messageHistory);
+                await Clients.Group(userConnection.ChatId).SendAsync("ReceiveMessagesHistory", messageHistory);
             }
         }
 
@@ -73,7 +74,7 @@ namespace HelpMeApp.WebAPI.Hubs
 
                 var savedMessage = await _messageService.AddMessageAsync(messageData);
 
-                await Clients.Group(userConnection.ChatId).SendAsync("Receive", savedMessage);
+                await Clients.Group(userConnection.ChatId).SendAsync("ReceiveMessage", savedMessage);
             }
 
         }

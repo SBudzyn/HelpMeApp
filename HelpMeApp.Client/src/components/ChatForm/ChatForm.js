@@ -1,22 +1,26 @@
 import React, { useState, useEffect } from "react";
-import { Container, Row, Col, Form, Button, ListGroup } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
-import "./Chat.css";
-import { HubConnectionBuilder, LogLevel, HttpTransportType } from "@microsoft/signalr";
+import { Container, Row, Col, Button, ListGroup } from "react-bootstrap";
+import { useParams } from "react-router-dom";
+import { Field, Form, Formik } from "formik";
+import {
+    HubConnectionBuilder,
+    LogLevel,
+    HttpTransportType
+} from "@microsoft/signalr";
 import avatar from "../../media/defaultAvatarProfileIcon.jpg";
-// import routingUrl from "../../constants/routingUrl";
+import routingUrl from "../../constants/routingUrl";
 import baseRequest from "../../services/axiosServices";
+import "./Chat.css";
 
 const ChatForm = () => {
     const [selectedChatId, setSelectedChatId] = useState(null);
     const [messages, setMessages] = useState([]);
     const [allChats, setAllChats] = useState([]);
+    const params = useParams();
 
     const [connection, setConnection] = useState();
-    const navigate = useNavigate();
 
     const joinChat = async (chatId) => {
-        console.log(localStorage.token);
         try {
             const connection = new HubConnectionBuilder()
                 .configureLogging(LogLevel.Debug)
@@ -25,13 +29,15 @@ const ChatForm = () => {
                     accessTokenFactory: () => localStorage.token,
                     UseDefaultCredentials: true
                 })
-
                 .build();
 
-            connection.on("Receive", (message) => {
+            connection.on("ReceiveMessagesHistory", (messagesHistory) => {
+                setMessages(messagesHistory);
+                console.log(messagesHistory.length);
+            });
+            connection.on("ReceiveMessage", (message) => {
                 setMessages((messages) => [...messages, message]);
             });
-            console.log("inside try");
             connection.onclose((e) => {
                 setConnection();
                 setMessages([]);
@@ -73,13 +79,15 @@ const ChatForm = () => {
 
     useEffect(() => {
         getChats();
-        console.log(messages);
+        if (params.id) {
+            handleChatSelect(parseInt(params.id));
+            location.href = `${routingUrl.pathToChat}/${params.id}`;
+        }
     }, []);
 
     const handleChatSelect = (id) => {
         setSelectedChatId(id);
         joinChat(id);
-        navigate(`/chat/${id}`);
     };
 
     const redirectToAdvert = () => {
@@ -111,7 +119,7 @@ const ChatForm = () => {
                                 <p className="p-0 my-0">{chat.responderName}</p>
                                 <p className="text-truncate lh-base mb-0">
                                     {chat.lastMessage?.senderId ===
-                                    chat.responderName
+                                    localStorage.userId
                                         ? "You: "
                                         : " "}
                                     {chat.lastMessage?.text}
@@ -149,7 +157,7 @@ const ChatForm = () => {
                                 <div
                                     key={index}
                                     className={`message h-auto pb-0 ${
-                                        message.senderId === "Me"
+                                        message.senderId === localStorage.userId
                                             ? "right"
                                             : "left"
                                     }`}
@@ -163,38 +171,38 @@ const ChatForm = () => {
                                 </div>
                             ))}
                     </div>
-                    <Row>
-                        <Col xs={10} className="pe-0">
-                            <Form.Group controlId="formMessage">
-                                <Form.Control
-                                    type="text"
-                                    placeholder="Enter message..."
-                                    value={""}
-                                    className="rounded-bottom-left-1"
-                                    onChange={(event) =>
-                                        setMessages(event.target.value)
-                                    }
-                                />
-                            </Form.Group>
-                        </Col>
-                        <Col xs={2} className="ps-0">
-                            <Form
-                                onSubmit={(e) => {
-                                    e.preventDefault();
-                                    sendMessage("");
-                                    setMessages("");
-                                }}
-                            >
-                                <Button
-                                    type="submit"
-                                    className="w-100 rounded-0 rounded-end"
-                                    // disabled={!message}
-                                >
-                                    Send
-                                </Button>
-                            </Form>
-                        </Col>
-                    </Row>
+
+                    <Formik
+                        initialValues={{
+                            message: ""
+                        }}
+                        onSubmit={async (values) => {
+                            sendMessage(values.message);
+                        }}
+                    >
+                        <Form>
+                            <Row>
+                                <Col xs={10} className="pe-0">
+                                    <Field
+                                        id="message"
+                                        name="message"
+                                        type="text"
+                                        placeholder="Enter message..."
+                                        className="rounded-bottom-left-1"
+                                    />{" "}
+                                </Col>
+                                <Col xs={2} className="ps-0">
+                                    <Button
+                                        type="submit"
+                                        className="w-100 rounded-0 rounded-end"
+                                        // disabled={!message}
+                                    >
+                                        Send
+                                    </Button>
+                                </Col>
+                            </Row>
+                        </Form>
+                    </Formik>
                 </Col>
             </Row>
         </Container>

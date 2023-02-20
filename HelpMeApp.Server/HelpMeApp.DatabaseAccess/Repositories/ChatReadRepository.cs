@@ -28,7 +28,7 @@ namespace HelpMeApp.DatabaseAccess.Repositories
         public async Task<IEnumerable<Chat>> GetChatsByUserAsync(Guid userId, int page, int pageSize)
         {
             return await _context.Chats
-                .Where(c => c.UserId == userId)
+                .Where(c => c.UserId == userId || c.Advert.CreatorId == userId)
                 .Include(c => c.User)
                 .Include(c => c.Advert)
                 .Include(c => c.Messages)
