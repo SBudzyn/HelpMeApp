@@ -96,7 +96,7 @@ const UserProfile = () => {
                     </h5>
                     <div className="row mt-2">
                         <div className="col-lg-4 col-sm-12 my-2 col-md-12">
-                            <Link to={routingUrl.pathToUsersAdvertsPage}>
+                            <Link to={routingUrl.pathToUsersAdverts}>
                                 <button className="btn btn-warning btn-block btn-lg w-100 ">
                                     View users adverts
                                 </button>
@@ -104,7 +104,7 @@ const UserProfile = () => {
                         </div>
 
                         <div className="col-lg-4 col-sm-12 my-2">
-                            <Link to={routingUrl.pathToModifyProfileData}>
+                            <Link to={routingUrl.pathToProfileModification}>
                                 <button className="btn btn-warning btn-lg w-100">
                                     Modify profile data
                                 </button>

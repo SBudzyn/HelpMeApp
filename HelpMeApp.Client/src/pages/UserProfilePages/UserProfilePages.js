@@ -5,9 +5,11 @@ import "./UserProfilePages.css";
 // import { Navigate } from "react-router-dom";
 
 const UserProfilePages = ({ component: ProfileForms }) => {
-    <div className="page centered-form">
-        <ProfileForms />
-    </div>
+    return (
+        <div className="page centered-form">
+            <ProfileForms />
+        </div>
+    );
 };
 
 UserProfilePages.propTypes = {

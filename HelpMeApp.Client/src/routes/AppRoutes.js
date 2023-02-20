@@ -54,7 +54,7 @@ const AppRoutes = () => {
             />
             <Route
                 path={routingUrl.pathToProfile}
-                element={<UserProfilePages component={UserProfile} />}
+                element={<UserProfilePages component={UserProfile}/>}
             />
             <Route
                 path={routingUrl.pathToProfileModification}
