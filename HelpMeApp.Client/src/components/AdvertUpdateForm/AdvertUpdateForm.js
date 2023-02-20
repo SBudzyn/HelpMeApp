@@ -1,17 +1,33 @@
-import { useState, React } from "react";
+import { useState, React, useEffect } from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 // import ProfileDataModificationScheme from "../../validation/ProfileDataModification";
 import { handleUploadFiles } from "../../services/filesUploading";
 // import { baseRequestWithToken } from "../../services/axiosServices";
 import "bootstrap/dist/css/bootstrap.css";
 import classNames from "classnames";
-import advertCreation from "../../constants/advertCreation";
 import PropTypes from "prop-types";
-import { baseRequestWithToken } from "../../services/axiosServices";
+import { baseRequestWithToken, baseRequest } from "../../services/axiosServices";
 
 const AdvertUpdateForm = (params) => {
     const [uploadedFiles, setUploadedFiles] = useState([]);
     const [fileLimit, setFileLimit] = useState(false);
+
+    const [generalData, setGeneralData] = useState({});
+
+    const retrieveGeneralData = async () => {
+        await baseRequest
+            .get("/adverts/general-data")
+            .then((response) => {
+                return response.data;
+            })
+            .then((data) => {
+                setGeneralData(data);
+            });
+    };
+
+    useEffect(() => {
+        retrieveGeneralData();
+    }, []);
 
     const uploadBtnClass = classNames({
         btn: true,
@@ -39,13 +55,13 @@ const AdvertUpdateForm = (params) => {
 
     const submitDataModification = async (values) => {
         const UpdateAdvertData = {
-            helpType: values.helpType,
             header: values.header,
             info: values.info,
+            categoryId: values.category,
+            termsId: values.terms,
+            helpTypeId: values.helpType,
             location: values.location,
-            category: values.category,
-            terms: values.terms,
-            files: uploadedFiles
+            photos: uploadedFiles.map(x => x.base64)
         };
 
         setAlertMessage("");
@@ -86,10 +102,6 @@ const AdvertUpdateForm = (params) => {
                     advertId: ""
                 }}
                 onSubmit={async (values) => {
-                    console.log(values.helpType);
-                    console.log(values.location);
-                    console.log(values.terms);
-                    values.advertId = params.userId;
                     submitDataModification(values);
                 }}
                 // validationSchema={AdvertCreation}
@@ -115,16 +127,18 @@ const AdvertUpdateForm = (params) => {
                                     <option defaultValue={null}>
                                         Choose help type
                                     </option>
-                                    {advertCreation.helpTypes.map(
-                                        (helpType) => (
-                                            <option
-                                                key={helpType}
-                                                value={helpType}
-                                            >
-                                                {helpType}
-                                            </option>
-                                        )
-                                    )}
+                                    {Object.keys(
+                                        generalData?.helpTypes ?? []
+                                    ).map((key) => (
+                                        <option
+                                            key={key}
+                                            value={key}
+                                            className="dropdown-item border"
+                                            aria-label="form-select-lg"
+                                        >
+                                            {generalData.helpTypes[key]}
+                                        </option>
+                                    ))}
                                 </Field>
                                 <div className="error-message">
                                     <ErrorMessage name="helpType" />
@@ -192,16 +206,18 @@ const AdvertUpdateForm = (params) => {
                                     <option defaultValue={null}>
                                         Choose category
                                     </option>
-                                    {advertCreation.categories.map(
-                                        (category) => (
-                                            <option
-                                                key={category}
-                                                value={category}
-                                            >
-                                                {category}
-                                            </option>
-                                        )
-                                    )}
+                                    {Object.keys(
+                                        generalData?.categories ?? []
+                                    ).map((key) => (
+                                        <option
+                                            key={key}
+                                            value={key}
+                                            className="dropdown-item border"
+                                            aria-label="form-select-lg"
+                                        >
+                                            {generalData.categories[key]}
+                                        </option>
+                                    ))}
                                 </Field>
                                 <div className="error-message">
                                     <ErrorMessage name="category" />
@@ -222,11 +238,18 @@ const AdvertUpdateForm = (params) => {
                                     <option defaultValue={null}>
                                         Choose terms
                                     </option>
-                                    {advertCreation.terms.map((terms) => (
-                                        <option key={terms} value={terms}>
-                                            {terms}
-                                        </option>
-                                    ))}
+                                    {Object.keys(generalData?.terms ?? []).map(
+                                        (key) => (
+                                            <option
+                                                key={key}
+                                                value={key}
+                                                className="dropdown-item border"
+                                                aria-label="form-select-lg"
+                                            >
+                                                {generalData.terms[key]}
+                                            </option>
+                                        )
+                                    )}
                                 </Field>
                                 <div className="error-message">
                                     <ErrorMessage name="terms" />
@@ -254,8 +277,8 @@ const AdvertUpdateForm = (params) => {
                                         <div key={file.name}>{file.name}</div>
                                     ))}
                                 </div>
-                                <div className="error-message">{alertMessage}</div>
                             </div>
+                            <div className="error-message">{alertMessage}</div>
                             <br />
                             <button
                                 className="mx-auto w-75 mt-4 mb-5 submit-button horizontal-center btn btn-primary mb-3"
