@@ -8,6 +8,7 @@ import routingUrl from "../../constants/routingUrl";
 const ChatForm = () => {
     const [selectedChatId, setSelectedChatId] = useState(null);
     const [message, setMessage] = useState("");
+    const meAsSender = "Me"
 
     const [chats, setChats] = useState([
         {
@@ -230,7 +231,7 @@ const ChatForm = () => {
                             ...chat.messages,
                             {
                                 text: message,
-                                sender: "Me",
+                                sender: meAsSender,
                                 sentTime: time
                             }
                         ];
@@ -271,7 +272,7 @@ const ChatForm = () => {
                                 <p className="p-0 my-0">{chat.name}</p>
                                 <p className="text-truncate lh-base mb-0">
                                     {chat.messages[chat.messages.length - 1]
-                                        .sender === "Me"
+                                        .sender === meAsSender
                                         ? "You: "
                                         : " "}
                                     {
@@ -310,7 +311,7 @@ const ChatForm = () => {
                                 <div
                                     key={index}
                                     className={`message h-auto pb-0 ${
-                                        message.sender === "Me"
+                                        message.sender === meAsSender
                                             ? "right"
                                             : "left"
                                     }`}
