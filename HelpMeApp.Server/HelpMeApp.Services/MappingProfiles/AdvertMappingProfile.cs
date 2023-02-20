@@ -27,6 +27,10 @@ namespace HelpMeApp.Services.MappingProfiles
                 .ForMember(src => src.Terms, opt =>
                 {
                     opt.MapFrom(src => src.Terms.Days);
+                })
+                .ForMember(src => src.CreatorName, opt =>
+                {
+                    opt.MapFrom(src => $"{src.Creator.Name} {src.Creator.Surname}");
                 });
 
             CreateMap<Advert, AdvertPreviewResponseData>();

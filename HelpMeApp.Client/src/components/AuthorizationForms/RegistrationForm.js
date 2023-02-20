@@ -29,11 +29,11 @@ const RegistrationForm = () => {
             email: registrationData.email,
             password: registrationData.password,
             name: values.name,
-            surname: values.surname,
+            surname: values.Surname,
             phoneNumber: values.phoneNumber,
             info: values.info
         };
-
+        alert(JSON.stringify(fullRegistrationData));
         await baseRequest
             .post(
                 "/authentication/register",
@@ -198,7 +198,7 @@ const RegistrationForm = () => {
                                     />
                                 </div>
                                 <div className="error-message">
-                                    <ErrorMessage name="Surname" />
+                                    <ErrorMessage name="surname" />
                                 </div>
                                 <div className="mb-3 row modal-group">
                                     <label

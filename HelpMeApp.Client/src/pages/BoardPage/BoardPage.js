@@ -147,7 +147,7 @@ const BoardPage = (props) => {
                                     type="text"
                                     name="location"
                                     className="form-control mb-3 border border-warning"
-                                    placeholder="choose location"
+                                    placeholder="Choose location"
                                 />
                             </div>
                         </div>
