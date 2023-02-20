@@ -9,16 +9,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HelpMeApp.DatabaseAccess.Enums;
 
 namespace HelpMeApp.DatabaseAccess.Repositories
 {
     public class AdvertReadRepository : IAdvertReadRepository
     {
-        enum UserHelpType 
-        {
-            UserNeedHelp = 1,
-            UserCanHelp = 2
-        }
         private HelpMeDbContext _context;
 
         public AdvertReadRepository(HelpMeDbContext context)

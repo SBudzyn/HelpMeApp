@@ -15,6 +15,7 @@ const UsersAdvertsContainer = () => {
                 setAdverts(data);
             });
     };
+
     useEffect(() => {
         retrieveAdverts();
     }, []);

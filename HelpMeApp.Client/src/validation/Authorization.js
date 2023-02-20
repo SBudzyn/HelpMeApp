@@ -1,5 +1,6 @@
 import * as yupLogin from "yup";
 import YupPassword from "yup-password";
+
 YupPassword(yupLogin);
 
 const Authorization = yupLogin.object().shape({
