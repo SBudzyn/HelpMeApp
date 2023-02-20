@@ -1,9 +1,7 @@
 import * as Yup from "yup";
-import advertCreation from "../constants/advertCreation";
 
 const AdvertCreation = Yup.object().shape({
     helpType: Yup.string()
-        .oneOf(advertCreation.helpTypes, "Invalid help type")
         .required("Required!"),
     header: Yup.string()
         .min(5, "Must be 5 at least characters")
@@ -18,10 +16,8 @@ const AdvertCreation = Yup.object().shape({
         .max(20, "Must be 20 characters or less")
         .required("Required!"),
     category: Yup.string()
-        .oneOf(advertCreation.categories, "Invalid category")
         .required("Required!"),
     terms: Yup.string()
-        .oneOf(advertCreation.terms, "Invalid terms")
         .required("Required!")
 });
 

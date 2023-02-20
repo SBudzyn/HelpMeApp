@@ -44,8 +44,8 @@ namespace HelpMeApp.DatabaseAccess.Seeders
 
         public static List<HelpType> HelpTypes = new List<HelpType>()
         {
-            new HelpType(){ Name = "NeedHelp" },
-            new HelpType(){ Name = "CanHelp" }
+            new HelpType(){ Name = "Need help" },
+            new HelpType(){ Name = "Can help" }
         };
 
         public static List<SenderRole> SenderRoles = new List<SenderRole>()
@@ -71,22 +71,22 @@ namespace HelpMeApp.DatabaseAccess.Seeders
             var reportFaker = new Faker<Report>("uk")
                 .RuleFor(r => r.Text, f => f.Lorem.Sentences(f.Random.Number(1, 5)));
 
-            Reports.AddRange(reportFaker.Generate(9));
+            Reports.AddRange(reportFaker.Generate(25));
 
             var messageFaker = new Faker<Message>("uk")
                 .RuleFor(m => m.SenderRoleId, f => f.PickRandom(SenderRoles).Id)
                 .RuleFor(m => m.Text, f => f.Lorem.Sentences(f.Random.Number(1, 5)))
                 .RuleFor(m => m.CreationDate, f => f.Date.Recent());
 
-            Messages.AddRange(messageFaker.Generate(23));
+            Messages.AddRange(messageFaker.Generate(100));
 
             var chatId = 1;
             var chatFaker = new Faker<Chat>("uk")
                 .RuleFor(c => c.Id, _ => chatId++)
-                .RuleFor(c => c.IsConfirmedBySecondSide, f => f.PickRandom(true, false))
+                .RuleFor(c => c.IsConfirmedByResponder, f => f.PickRandom(true, false))
                 .RuleFor(c => c.IsConfirmedByCreator, f => f.PickRandom(true, false));
 
-            Chats.AddRange(chatFaker.Generate(9));
+            Chats.AddRange(chatFaker.Generate(300));
 
             var advertFaker = new Faker<Advert>("uk")
                .RuleFor(a => a.Header, f => f.Hacker.Phrase())
@@ -96,10 +96,9 @@ namespace HelpMeApp.DatabaseAccess.Seeders
                .RuleFor(a => a.CategoryId, f => f.PickRandom(Categories).Id)
                .RuleFor(a => a.TermsId, f => f.PickRandom(Terms).Id)
                .RuleFor(a => a.CreationDate, f => f.Date.Between(new DateTime(2023, 01, 01), new DateTime(2023, 01, 25)))
-               .RuleFor(a => a.ClosureDate, f => f.PickRandom(default, f.Date.Between(new DateTime(2023, 01, 26), new DateTime(2023, 02, 10))))
-               .RuleFor(a => a.IsClosed, f => f.PickRandom(true, false));
+               .RuleFor(a => a.ClosureDate, f => f.PickRandom(default, f.Date.Between(new DateTime(2023, 01, 26), new DateTime(2023, 02, 10))));
 
-            Adverts.AddRange(advertFaker.Generate(9));
+            Adverts.AddRange(advertFaker.Generate(1000));
 
             var hasher = new PasswordHasher<AppUser>();
             var appUserFaker = new Faker<AppUser>("uk")
@@ -113,7 +112,7 @@ namespace HelpMeApp.DatabaseAccess.Seeders
                .RuleFor(u => u.PasswordHash, f => hasher.HashPassword(null, "admin"))
                .RuleFor(u => u.PhoneNumber, f => f.Phone.PhoneNumber());
 
-            var users = appUserFaker.Generate(9);
+            var users = appUserFaker.Generate(300);
             AppUsers.AddRange(users);
         }
     }

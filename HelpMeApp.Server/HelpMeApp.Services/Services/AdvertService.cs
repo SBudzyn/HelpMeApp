@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using HelpMeApp.DatabaseAccess.Entities.AdvertEntity;
+using HelpMeApp.DatabaseAccess.Entities.PhotoEntity;
 using HelpMeApp.DatabaseAccess.Filters;
 using HelpMeApp.DatabaseAccess.Interfaces;
+using HelpMeApp.Services.Helpers;
 using HelpMeApp.Services.Interfaces;
 using HelpMeApp.Services.Models;
 using HelpMeApp.Services.Models.Advert;
@@ -28,7 +30,7 @@ namespace HelpMeApp.Services.Services
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<AdvertPreviewResponseData>> GetAdvertsByPage([FromQuery] AdvertFiltersData filters, int page, int pageSize)
+        public async Task<IEnumerable<AdvertPreviewResponseData>> GetAdvertsByPage(AdvertFiltersData filters, int page, int pageSize)
         {
             var filtersDomain = _mapper.Map<AdvertFilters>(filters);
 
@@ -44,6 +46,7 @@ namespace HelpMeApp.Services.Services
             var domainAdvert = await _advertReadRepository.GetAdvertByIdAsync(id);
 
             var advertData = _mapper.Map<AdvertDetailedResponseData>(domainAdvert);
+            advertData.Photos = domainAdvert.Photos.Select(x => ImageConvertorHelper.ConvertPhotoToString(x)).ToList();
 
             return advertData;
         }
@@ -52,10 +55,17 @@ namespace HelpMeApp.Services.Services
         {
             var mappedAdvert = _mapper.Map<Advert>(advert);
             mappedAdvert.CreatorId = userId;
+            mappedAdvert.Photos = advert.Photos.Select(x => 
+                                  new Photo { Data = ImageConvertorHelper.ConvertToBase64(x),
+                                              Prefix = ImageConvertorHelper.GetImagePrefix(x) }).ToList();
 
             var domainAdvert = await _advertWriteRepository.AddAdvertAsync(mappedAdvert);
 
-            return _mapper.Map<AdvertDetailedResponseData>(domainAdvert);
+            var response = _mapper.Map<AdvertDetailedResponseData>(domainAdvert);
+
+            response.Photos = domainAdvert.Photos.Select(x => ImageConvertorHelper.ConvertPhotoToString(x)).ToList();
+
+            return response;
         }
 
         public async Task<AdvertDetailedResponseData> UpdateAdvertAsync(AdvertPostData advertUpdate, int advertId)
@@ -82,9 +92,11 @@ namespace HelpMeApp.Services.Services
 
             var terms = await _advertReadRepository.GetTermsAsync();
 
+            var helpTypes = await _advertReadRepository.GetHelpTypesAsync();
+
             var advertsQuantity = await _advertReadRepository.CountAdverts();
 
-            return new GeneralData { Categories = categories, Terms = terms, AdvertsQuantity = advertsQuantity };
+            return new GeneralData { Categories = categories, Terms = terms, HelpTypes = helpTypes, AdvertsQuantity = advertsQuantity };
         }
 
         public async Task<IEnumerable<AdvertPreviewResponseData>> GetAdvertsUserNeedHelpByPage(string userId, int page, int pageSize)

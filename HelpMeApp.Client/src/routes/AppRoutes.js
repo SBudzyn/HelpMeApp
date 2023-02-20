@@ -51,7 +51,7 @@ const AppRoutes = () => {
             />
             <Route
                 path={routingUrl.pathToAdvertCreation}
-                element={<AdvertCreationPage />}
+                element={<RouteGuard element={AdvertCreationPage} />}
             />
             <Route
                 path={routingUrl.pathToProfile}

@@ -60,6 +60,11 @@ namespace HelpMeApp.DatabaseAccess.Repositories
             return await _context.Terms.ToDictionaryAsync(t => t.Id, t => t.Days);
         }
 
+        public async Task<Dictionary<int, string>> GetHelpTypesAsync()
+        {
+            return await _context.HelpTypes.ToDictionaryAsync(h => h.Id, h => h.Name);
+        }
+
         public async Task<int> CountAdverts()
         {
             return await _context.Adverts.CountAsync();
