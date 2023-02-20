@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Button, ListGroup } from "react-bootstrap";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Field, Form, Formik } from "formik";
 import {
     HubConnectionBuilder,
@@ -19,8 +19,14 @@ const ChatForm = () => {
     const params = useParams();
 
     const [connection, setConnection] = useState();
+    const navigate = useNavigate();
 
     const joinChat = async (chatId) => {
+        try {
+            connection.stop();
+        } catch (e) {
+            console.error(e);
+        }
         try {
             const connection = new HubConnectionBuilder()
                 .configureLogging(LogLevel.Debug)
@@ -81,13 +87,13 @@ const ChatForm = () => {
         getChats();
         if (params.id) {
             handleChatSelect(parseInt(params.id));
-            location.href = `${routingUrl.pathToChat}/${params.id}`;
         }
     }, []);
 
     const handleChatSelect = (id) => {
         setSelectedChatId(id);
         joinChat(id);
+        navigate(`${routingUrl.pathToChat}/${id}`);
     };
 
     const redirectToAdvert = () => {
