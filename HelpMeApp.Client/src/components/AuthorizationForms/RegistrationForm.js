@@ -36,7 +36,7 @@ const RegistrationForm = () => {
 
         await baseRequest
             .post(
-                "/authentication/register", 
+                "/authentication/register",
                 fullRegistrationData
             )
             .then((response) => {
@@ -52,8 +52,8 @@ const RegistrationForm = () => {
             .catch(() => {
                 setAlertMessage(
                     "Unsuccessful registration"
-            );
-        });
+                );
+            });
     };
 
     return (
