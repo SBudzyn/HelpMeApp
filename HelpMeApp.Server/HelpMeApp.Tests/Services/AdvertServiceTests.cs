@@ -35,15 +35,16 @@ namespace HelpMeApp.Tests.Services
             _advertWriteRepositoryMock = new Mock<IAdvertWriteRepository>();
             _mapperMock = new Mock<IMapper>();
 
-            var advertReadRepository = _advertReadRepositoryMock.Object;
-            var advertWriteRepository = _advertWriteRepositoryMock.Object;
-            var mapper = _mapperMock.Object;
-
-            _advertService = new AdvertService(advertReadRepository, advertWriteRepository, mapper);
+            _advertService = new AdvertService
+                (
+                _advertReadRepositoryMock.Object, 
+                _advertWriteRepositoryMock.Object, 
+                _mapperMock.Object
+                );
         }
 
         [TestCase(TestName = $"{GetAdvertsByPageAsyncMethodName}. Should return mapped collection of AdvertDetailedResponseData")]
-        public async Task GetAdvertsByPageAsync_ReturnsAdvertPreviewResponseData_MappedFromAdvertRetrievedFromAdvertReadRepository()
+        public async Task GetAdvertsByPageAsync_ReturnsAdvertPreviewResponseData()
         {
             IEnumerable<AdvertPreviewResponseData> expected = CreateAdvertsPreviewResponseData();
             
@@ -60,7 +61,7 @@ namespace HelpMeApp.Tests.Services
         }
 
         [TestCase(TestName = $"{GetAdvertByIdAsyncMethodName}. Should return AdvertDetailedResponseData mapped from Advert recieved from IAdvertRepository")]
-        public async Task GetAdvertByIdAsync_ReturnsAdvertDetailedResponseData_MappedFromAdvertRetrieivedFromAdvertReadRepository()
+        public async Task GetAdvertByIdAsync_ReturnsAdvertDetailedResponseData()
         {
             int advertId = 1;
             AdvertDetailedResponseData expected = new AdvertDetailedResponseData();
@@ -91,7 +92,7 @@ namespace HelpMeApp.Tests.Services
         }
 
         [TestCase(TestName = $"{AddAdvertAsyncMethodName}. Should return AdvertDetailedResponseData that is mapped from added Advert")]
-        public async Task AddAdvertAsync_ReturnsAdvertDetailedResponseData_MappedFromAddedEntity()
+        public async Task AddAdvertAsync_ReturnsAdvertDetailedResponseData()
         {
             var expected = new AdvertDetailedResponseData();
 
