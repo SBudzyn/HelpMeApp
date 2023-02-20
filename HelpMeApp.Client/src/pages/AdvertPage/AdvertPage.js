@@ -7,6 +7,7 @@ import defaultPhoto from "../../media/defaultAdvertPhoto.jpg";
 import baseRequest from "../../services/axiosServices";
 import getFormattedDate from "../../services/getFormattedDate";
 import checkRetrievedData from "../../services/checkRetrievedData";
+import routingUrl from "../../constants/routingUrl";
 
 const photos = [defaultPhoto];
 const AdvertPage = () => {
@@ -22,6 +23,22 @@ const AdvertPage = () => {
             })
             .then((data) => {
                 setData(data);
+            });
+    };
+
+    const redirectToChat = async () => {
+        await baseRequest
+            .get(`/chats/advert/${data.id}`, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + localStorage.token
+                }
+            })
+            .then((response) => {
+                return response.data;
+            })
+            .then((data) => {
+                location.href = `${routingUrl.pathToChat}/${data.id}`;
             });
     };
 
@@ -46,7 +63,13 @@ const AdvertPage = () => {
                             );
                         })}
                     </Carousel>
-                    <button className="btn btn-primary mt-3 width-100-relative">
+                    <button
+                        onClick={(e) => {
+                            e.preventDefault();
+                            redirectToChat();
+                        }}
+                        className="btn btn-primary mt-3 width-100-relative"
+                    >
                         chat
                     </button>
                     <button className="btn btn-warning mt-3 width-100-relative">
@@ -64,7 +87,9 @@ const AdvertPage = () => {
                         </div>
                         <div className="row space-around mb-3">
                             <div className="col-sm-4 col-md-3">
-                                {getFormattedDate(new Date(data?.creationDate ?? "1 1 1970")) }
+                                {getFormattedDate(
+                                    new Date(data?.creationDate ?? "1 1 1970")
+                                )}
                             </div>
                             <div className="col-sm-4 col-md-3">
                                 {checkRetrievedData(data?.location)}

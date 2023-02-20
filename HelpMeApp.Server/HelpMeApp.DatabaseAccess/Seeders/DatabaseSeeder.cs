@@ -80,9 +80,7 @@ namespace HelpMeApp.DatabaseAccess.Seeders
 
             Messages.AddRange(messageFaker.Generate(100));
 
-            var chatId = 1;
             var chatFaker = new Faker<Chat>("uk")
-                .RuleFor(c => c.Id, _ => chatId++)
                 .RuleFor(c => c.IsConfirmedByResponder, f => f.PickRandom(true, false))
                 .RuleFor(c => c.IsConfirmedByCreator, f => f.PickRandom(true, false));
 

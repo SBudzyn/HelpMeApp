@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using HelpMeApp.DatabaseAccess.Entities.ChatEntity;
 using HelpMeApp.DatabaseAccess.Interfaces;
+using HelpMeApp.Services.Helpers;
 using HelpMeApp.Services.Interfaces;
 using HelpMeApp.Services.Models.Chat;
 using System;
@@ -41,8 +42,15 @@ namespace HelpMeApp.Services.Services
         public async Task<IEnumerable<ChatPreviewData>> GetChatsByUserAsync(Guid userId, int page, int pageSize)
         {
             var domainChats = await _chatReadRepository.GetChatsByUserAsync(userId, page, pageSize);
+            var mappedChats = _mapper.Map<IEnumerable<ChatPreviewData>>(domainChats);
 
-            return _mapper.Map<IEnumerable<ChatPreviewData>>(domainChats);
+            foreach(var chat in mappedChats)
+            {
+                chat.AdvertPicture = domainChats.ToList().Where(i => i.AdvertId == chat.AdvertId).Select(c => c.Advert.Photos.Select(p => ImageConvertorHelper.ConvertPhotoToString(p)
+                ).FirstOrDefault()).FirstOrDefault();
+            }
+
+            return mappedChats;
         }
 
         public async Task<ChatPreviewData> AddChatAsync(int advertId, Guid userId)

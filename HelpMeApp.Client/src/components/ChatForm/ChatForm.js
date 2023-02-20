@@ -1,260 +1,100 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Form, Button, ListGroup } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import "./Chat.css";
+import { HubConnectionBuilder, LogLevel, HttpTransportType } from "@microsoft/signalr";
 import avatar from "../../media/defaultAvatarProfileIcon.jpg";
-import advertPicture from "../../media/defaultAdvertPhoto.jpg";
 import routingUrl from "../../constants/routingUrl";
+import baseRequest from "../../services/axiosServices";
 
 const ChatForm = () => {
     const [selectedChatId, setSelectedChatId] = useState(null);
-    const [message, setMessage] = useState("");
+    const [messages, setMessages] = useState([]);
+    const [allChats, setAllChats] = useState([]);
 
-    const [chats, setChats] = useState([
-        {
-            id: 1,
-            name: "Alex Petrov",
-            advertId: 1,
-            advert: "I need clothes",
-            avatar,
-            advertPicture,
-            messages: [
-                {
-                    text: "Hello, I can help you!",
-                    sender: "Responder",
-                    sentTime: "15:05"
-                },
-                {
-                    text: "Wow thank you. I need warm clothes as soon as possible",
-                    sender: "Me",
-                    sentTime: "15:10"
-                }
-            ]
-        },
-        {
-            id: 2,
-            name: "Vasyl Ignatenko",
-            advertId: 2,
-            advert: "I want to move to another city",
-            avatar,
-            advertPicture,
-            messages: [
-                {
-                    text: "Hello. Do you need evacuation?",
-                    sender: "Me",
-                    sentTime: "12:02"
-                },
-                {
-                    text: "Yes. Of course i need evacuation. Isnt it obviosly???",
-                    sender: "Responder",
-                    sentTime: "12:05"
-                },
-                {
-                    text: "Yep, sorry. It wasnt clearly enough.",
-                    sender: "Me",
-                    sentTime: "12:05"
-                },
-                {
-                    text: "Where are you now?",
-                    sender: "Me",
-                    sentTime: "12:05"
-                }
-            ]
-        },
-        {
-            id: 3,
-            name: "Marusya Velenko",
-            advertId: 3,
-            advert: "FOOD PLEASE",
-            avatar,
-            advertPicture,
-            messages: [
-                {
-                    text: "Hello! I can send you some food!",
-                    sender: "Responder",
-                    sentTime: "15:05"
-                },
-                {
-                    text: "Yes. please. I will send you my information",
-                    sender: "Me",
-                    sentTime: "15:08"
-                },
-                {
-                    text: "Okay, i am waiting.",
-                    sender: "Me",
-                    sentTime: "15:15"
-                },
-                { text: "Hello?", sender: "Me", sentTime: "17:20" },
-                {
-                    text: "I am still waiting for your response",
-                    sender: "Me",
-                    sentTime: "19:30"
-                },
-                {
-                    text: "I guess you don't need my help anymore...",
-                    sender: "Me",
-                    sentTime: "22:45"
-                }
-            ]
-        },
-        {
-            id: 4,
-            name: "Khrystyna Som",
-            advertId: 4,
-            advert: "I need clothes",
-            avatar,
-            advertPicture,
-            messages: [
-                {
-                    text: "Hellloooo. I have clothes for 8yo girl and 15yo boy. What fits you?",
-                    sender: "Responder",
-                    sentTime: "12:05"
-                },
-                { text: "Oh, thank you.", sender: "Me", sentTime: "12:05" },
-                {
-                    text: "Clothes for boy will fits me more.",
-                    sender: "Me",
-                    sentTime: "12:05"
-                },
-                {
-                    text: "Here is my info for sending clothes:",
-                    sender: "Me",
-                    sentTime: "12:05"
-                }
-            ]
-        },
-        {
-            id: 5,
-            name: "Oleg Vynnyk",
-            advertId: 5,
-            advert: "My roof is broken",
-            avatar,
-            advertPicture,
-            messages: [
-                {
-                    text: "Oh, i am so sorry. How can i help you?",
-                    sender: "Responder",
-                    sentTime: "12:05"
-                },
-                {
-                    text: "I have some money.",
-                    sender: "Responder",
-                    sentTime: "12:05"
-                },
-                { text: "Oh, no, thanks", sender: "Me", sentTime: "12:05" },
-                { text: "I dont need money", sender: "Me", sentTime: "12:05" },
-                {
-                    text: "I need help with materials for my roof",
-                    sender: "Me",
-                    sentTime: "12:05"
-                },
-                {
-                    text: "It is unreal to find anything here even if you have money",
-                    sender: "Me",
-                    sentTime: "12:05"
-                },
-                {
-                    text: "Oh i understand it now...",
-                    sender: "Responder",
-                    sentTime: "12:05"
-                },
-                {
-                    text: "Than i cant help you right now, sorry",
-                    sender: "Responder",
-                    sentTime: "12:05"
-                }
-            ]
-        },
-        {
-            id: 6,
-            name: "Alisa Bekker",
-            advertId: 6,
-            advert: "I dont have money for food",
-            avatar,
-            advertPicture,
-            messages: [
-                {
-                    text: "Hello! I want to help you with food. How many peoples are there in your family?",
-                    sender: "Responder",
-                    sentTime: "12:05"
-                },
-                {
-                    text: "Oooh, i have a big family.",
-                    sender: "Me",
-                    sentTime: "12:05"
-                },
-                { text: "There is 7 of us", sender: "Me", sentTime: "12:05" },
-                { text: "I have 4 children.", sender: "Me", sentTime: "12:05" },
-                {
-                    text: "And i also count me, my husband and my mom",
-                    sender: "Me",
-                    sentTime: "12:05"
-                },
-                {
-                    text: "Okay. Thats not a problem",
-                    sender: "Responder",
-                    sentTime: "12:05"
-                },
-                {
-                    text: "Send me information for post office so i will be able to send you something. I will send some toys for kids also. How old are they?",
-                    sender: "Responder",
-                    sentTime: "12:05"
-                },
-                {
-                    text: "They are 3, 5, 8 and 15 yo",
-                    sender: "Me",
-                    sentTime: "12:05"
-                },
-                {
-                    text: "Great! I have some toys and clothes for them!",
-                    sender: "Responder",
-                    sentTime: "12:05"
-                }
-            ]
+    const [connection, setConnection] = useState();
+    const navigate = useNavigate();
+
+    const joinChat = async (chatId) => {
+        console.log("inside join chat");
+        try {
+            const connection = new HubConnectionBuilder()
+                .configureLogging(LogLevel.Debug)
+                .withUrl("https://localhost:7049/chat-hub", {
+                    transport: HttpTransportType.LongPolling,
+                    accessTokenFactory: () => localStorage.token,
+                    UseDefaultCredentials: true
+                })
+
+                .build();
+
+            connection.on("Receive", (message) => {
+                setMessages((messages) => [...messages, message]);
+            });
+            console.log("inside try");
+            connection.onclose((e) => {
+                setConnection();
+                setMessages([]);
+            });
+
+            await connection.start();
+            await connection.invoke("JoinChat", chatId);
+            setConnection(connection);
+        } catch (e) {
+            console.log(e);
         }
-    ]);
+    };
+
+    const sendMessage = async (message) => {
+        try {
+            await connection.invoke("SendMessage", message);
+        } catch (e) {
+            console.log(e);
+        }
+    };
+
+    const getChats = async () => {
+        await baseRequest
+            .get("/chats/get-my-chats", {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + localStorage.token
+                }
+            })
+            .then((response) => {
+                console.log(response);
+                return response.data;
+            })
+            .then((data) => {
+                console.log(data);
+                setAllChats(data);
+            });
+    };
+
+    useEffect(() => {
+        getChats();
+        console.log(messages);
+    }, []);
 
     const handleChatSelect = (id) => {
         setSelectedChatId(id);
-    };
-
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        if (message && selectedChatId) {
-            setChats(
-                chats.map((chat) => {
-                    if (chat.id === selectedChatId) {
-                        const today = new Date();
-                        const time =
-                            today.getHours() + ":" + today.getMinutes();
-                        chat.messages = [
-                            ...chat.messages,
-                            {
-                                text: message,
-                                sender: "Me",
-                                sentTime: time
-                            }
-                        ];
-                    }
-                    return chat;
-                })
-            );
-            setMessage("");
-        }
+        joinChat(id);
+        navigate(`/chat/${id}`);
     };
 
     const redirectToAdvert = () => {
-        location.href = `${routingUrl.pathToAdvert}/${message.advertId}`;
+        location.href = `${routingUrl.pathToAdvert}/${selectedChat.advertId}`;
     };
 
     const selectedChat =
-        selectedChatId && chats.find((chat) => chat.id === selectedChatId);
+        selectedChatId && allChats.find((chat) => chat.id === selectedChatId);
 
     return (
         <Container>
             <Row className="mt-2">
                 <Col xs={4} className="chats-list-window">
                     <ListGroup>
-                        {chats.map((chat) => (
+                        {allChats.map((chat) => (
                             <ListGroup.Item
                                 key={chat.id}
                                 action
@@ -263,21 +103,18 @@ const ChatForm = () => {
                                 className="overflow-hidden lh-sm"
                             >
                                 <img
-                                    src={advertPicture}
+                                    src={chat.advertPicture}
                                     alt="Image"
                                     className="image-icon mt-0"
                                 />
-                                <strong>{chat.advert}</strong>
-                                <p className="p-0 my-0">{chat.name}</p>
+                                <strong>{chat.advertTitle}</strong>
+                                <p className="p-0 my-0">{chat.responderName}</p>
                                 <p className="text-truncate lh-base mb-0">
-                                    {chat.messages[chat.messages.length - 1]
-                                        .sender === "Me"
+                                    {chat.lastMessage?.senderId ===
+                                    chat.responderName
                                         ? "You: "
                                         : " "}
-                                    {
-                                        chat.messages[chat.messages.length - 1]
-                                            .text
-                                    }
+                                    {chat.lastMessage?.text}
                                 </p>
                             </ListGroup.Item>
                         ))}
@@ -293,7 +130,9 @@ const ChatForm = () => {
                             } `}
                         />
                         <h2 className="flex-grow-1 ms-1">
-                            {selectedChat ? selectedChat.name : "Select chat"}
+                            {selectedChat
+                                ? selectedChat.responderName
+                                : "Select chat"}
                         </h2>
                         <Button
                             onClick={redirectToAdvert}
@@ -310,7 +149,7 @@ const ChatForm = () => {
                                 <div
                                     key={index}
                                     className={`message h-auto pb-0 ${
-                                        message.sender === "Me"
+                                        message.senderId === "Me"
                                             ? "right"
                                             : "left"
                                     }`}
@@ -330,19 +169,26 @@ const ChatForm = () => {
                                 <Form.Control
                                     type="text"
                                     placeholder="Enter message..."
-                                    value={message}
+                                    value={""}
                                     className="rounded-bottom-left-1"
                                     onChange={(event) =>
-                                        setMessage(event.target.value)
+                                        setMessages(event.target.value)
                                     }
                                 />
                             </Form.Group>
                         </Col>
                         <Col xs={2} className="ps-0">
-                            <Form onSubmit={handleSubmit}>
+                            <Form
+                                onSubmit={(e) => {
+                                    e.preventDefault();
+                                    sendMessage("");
+                                    setMessages("");
+                                }}
+                            >
                                 <Button
                                     type="submit"
                                     className="w-100 rounded-0 rounded-end"
+                                    // disabled={!message}
                                 >
                                     Send
                                 </Button>
