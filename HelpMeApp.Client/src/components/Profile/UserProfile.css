@@ -24,3 +24,27 @@
     font-weight: 600;
     margin-left: 70px;
 }
+
+.name-surname-profile {
+    font-weight: 560;
+}
+
+.text-profile {
+    font-weight: 550;
+}
+
+.surname-profile {
+    padding: 0%;
+}
+
+h4 .user-data-profile {
+    font-weight: 200;
+}
+
+.link-buttons {
+    font-weight: 200;
+}
+
+.info-profile {
+    font-size: 20px;
+}

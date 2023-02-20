@@ -16,6 +16,7 @@ import UsersAdvertsPage from "../pages/UserAdvertsPage/UserAdvertsPage";
 import UserProfilePages from "../pages/UserProfilePages/UserProfilePages";
 import UserDataModificationForm from "../components/Profile/UserDataModificationForm";
 import UserProfile from "../components/Profile/UserProfile";
+import AdvertUpdateForm from "../components/AdvertUpdateForm/AdvertUpdateForm"
 const AppRoutes = () => {
     return (
         <Routes>
@@ -63,6 +64,10 @@ const AppRoutes = () => {
             <Route
                 path={routingUrl.pathToUsersAdvertsPage}
                 element={<RouteGuard element={UsersAdvertsPage} />}
+            />
+            <Route
+                path={routingUrl.pathToAdvertUpdateForm}
+                element={<AdvertUpdateForm advertId="20"/>}
             />
             <Route path="*" element={<PageNotFound />} />
         </Routes>

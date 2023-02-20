@@ -10,7 +10,8 @@ const routingUrl = {
     pathToProfile: "/my-profile",
     pathToAdvertCreation: "/new-advert",
     pathToProfileModification: "/edit-user",
-    pathToUsersAdverts: "/my-adverts/:id"
+    pathToUsersAdverts: "/my-adverts/:id",
+    pathToAdvertUpdateForm: "/update-advert"
 };
 
 export default routingUrl;

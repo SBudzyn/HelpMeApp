@@ -15,7 +15,7 @@ const UserProfile = () => {
     const handleShow = () => setShow(true);
 
     const [userData, setGeneralData] = useState({});
-    const [userHelpsCounter, setUserHelpsCounter] = useState({});
+    const [userHelpsCounter, setUserHelpsCounter] = useState();
 
     const [alertMessage, setAlertMessage] = useState("");
     const [successMessage, setSuccessMessage] = useState("");
@@ -27,7 +27,7 @@ const UserProfile = () => {
 
     const retrieveUserHelpsCounter = async () => {
         await baseRequestWithToken
-            .get("/profile/count-user-helps")
+            .get("/profile/count-how-much-user-helps")
             .then((response) => {
                 return response.data;
             })
@@ -69,7 +69,7 @@ const UserProfile = () => {
     return (
         <div className="container">
             <div className="row mt-3 col-sm-12 ">
-                <div className="col-lg-4">
+                <div className="col-lg-3">
                     {" "}
                     <img
                         src={photo1}
@@ -77,27 +77,32 @@ const UserProfile = () => {
                         className="border border-dark"
                     ></img>
                 </div>
-                <div className="col-lg-8">
+                <div className="col-lg-9">
                     <div className="row">
-                        <div className="col-lg-3 col-md-3">
-                            <h1>{userData.name ?? "No data"}</h1>
-                        </div>
-
-                        <div className="col-lg-4 col-md-4 mx-1">
-                            <h1>{userData.surname ?? "No data"}</h1>
+                        <div className="col-lg-9 col-md-3 text-profile">
+                            <h1 className="name-surname-profile">{userData.name ?? "No data"} {userData.surname ?? "No data"}</h1>
                         </div>
                     </div>
                     <div className="row">
-                        <h2>{userData.phoneNumber ?? "No data"}</h2>
+                        <h4 className="text-profile">Telephone number: <span className="user-data-profile">{userData.phoneNumber ?? "No data"}</span></h4>
                     </div>
-                    <h5 className="mt-2">
-                        helped {userHelpsCounter.userHelpsCount ?? "No data"}{" "}
-                        times
-                    </h5>
+                    <div className="row">
+                        <h4 className="text-profile">E-mail: <span className="user-data-profile">{userData.email ?? "No data"}</span></h4>
+                    </div>
+                    <div className="row">
+                        <h4 className="text-profile">
+                            Username: <span className="user-data-profile">{userData.userName ?? "No data"}</span>{" "}
+                        </h4>
+                    </div>
+                    <div className="row">
+                        <h4 className="text-profile">
+                            Helped: <span className="user-data-profile">{userHelpsCounter ?? "No data"} times </span>
+                        </h4>
+                    </div>
                     <div className="row mt-2">
                         <div className="col-lg-4 col-sm-12 my-2 col-md-12">
                             <Link to={routingUrl.pathToUsersAdverts}>
-                                <button className="btn btn-warning btn-block btn-lg w-100 ">
+                                <button className="btn btn-warning btn-block btn-lg w-100 link-buttons ">
                                     View users adverts
                                 </button>
                             </Link>
@@ -105,7 +110,7 @@ const UserProfile = () => {
 
                         <div className="col-lg-4 col-sm-12 my-2">
                             <Link to={routingUrl.pathToProfileModification}>
-                                <button className="btn btn-warning btn-lg w-100">
+                                <button className="btn btn-warning btn-lg w-100 link-buttons">
                                     Modify profile data
                                 </button>
                             </Link>
@@ -113,20 +118,20 @@ const UserProfile = () => {
 
                         <div className="col-lg-4 col-sm-12 mt-2">
                             <button
-                                className="btn btn-warning btn-lg w-100"
+                                className="btn btn-warning btn-lg w-100 link-buttons"
                                 onClick={handleShow}
                             >
                                 Delete an account
                             </button>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div className="row mt-4 bg-light col-sm-12 mt-3">
-                <div className="col-xs-12">
-                    <p className="mt-4">
-                        {userData.info ?? "No data provided"}
-                    </p>
+                    <div className="row mt-4 bg-light col-sm-12 mt-3">
+                        <div className="col-xs-12">
+                            <p className="mt-4 info-profile">
+                                {userData.info ?? "No data provided"}
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div className="success-message-profile">{successMessage}</div>
