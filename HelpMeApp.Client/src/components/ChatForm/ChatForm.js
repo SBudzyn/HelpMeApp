@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import "./Chat.css";
 import { HubConnectionBuilder, LogLevel, HttpTransportType } from "@microsoft/signalr";
 import avatar from "../../media/defaultAvatarProfileIcon.jpg";
-import routingUrl from "../../constants/routingUrl";
+// import routingUrl from "../../constants/routingUrl";
 import baseRequest from "../../services/axiosServices";
 
 const ChatForm = () => {
@@ -16,12 +16,12 @@ const ChatForm = () => {
     const navigate = useNavigate();
 
     const joinChat = async (chatId) => {
-        console.log("inside join chat");
+        console.log(localStorage.token);
         try {
             const connection = new HubConnectionBuilder()
                 .configureLogging(LogLevel.Debug)
                 .withUrl("https://localhost:7049/chat-hub", {
-                    transport: HttpTransportType.LongPolling,
+                    transport: HttpTransportType.WebSockets,
                     accessTokenFactory: () => localStorage.token,
                     UseDefaultCredentials: true
                 })
@@ -83,7 +83,7 @@ const ChatForm = () => {
     };
 
     const redirectToAdvert = () => {
-        location.href = `${routingUrl.pathToAdvert}/${selectedChat.advertId}`;
+        // location.href = `${routingUrl.pathToAdvert}/${selectedChat.advertId}`;
     };
 
     const selectedChat =
@@ -145,7 +145,7 @@ const ChatForm = () => {
 
                     <div className="chat-window bg-primary bg-opacity-25">
                         {selectedChat &&
-                            selectedChat.messages.map((message, index) => (
+                            messages.map((message, index) => (
                                 <div
                                     key={index}
                                     className={`message h-auto pb-0 ${

@@ -29,7 +29,6 @@ namespace HelpMeApp.DatabaseAccess.Repositories
         {
             return await _context.Chats
                 .Where(c => c.UserId == userId)
-                .Where(c => c.Messages.Count() != 0)
                 .Include(c => c.User)
                 .Include(c => c.Advert)
                 .Include(c => c.Messages)

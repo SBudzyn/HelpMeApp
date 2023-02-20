@@ -11,7 +11,6 @@ using System.Threading.Tasks;
 
 namespace HelpMeApp.WebAPI.Hubs
 {
-    [Authorize]
     public class ChatHub : Hub
     {
         private IChatService _chatService;
