@@ -264,7 +264,7 @@ const ChatForm = () => {
                             >
                                 <img
                                     src={advertPicture}
-                                    alt="Image"
+                                    alt="Advert picture"
                                     className="image-icon mt-0"
                                 />
                                 <strong>{chat.advert}</strong>
@@ -331,7 +331,7 @@ const ChatForm = () => {
                                     type="text"
                                     placeholder="Enter message..."
                                     value={message}
-                                    className="rounded-bottom-left-1"
+                                    className="rounded-bottom-left"
                                     onChange={(event) =>
                                         setMessage(event.target.value)
                                     }
