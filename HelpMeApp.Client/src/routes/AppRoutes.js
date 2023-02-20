@@ -10,13 +10,12 @@ import RegistrationForm from "../components/AuthorizationForms/RegistrationForm"
 import HomePage from "../pages/HomePage/HomePage";
 import PageNotFound from "../pages/PageNotFound/PageNotFound";
 import AdvertCreationPage from "../pages/AdvertCreationPage/AdvertCreationPage";
-// import ProfilePage from "../pages/ProfilePage/ProfilePage";
-// import UserDataModificationPage from "../pages/ProfilePage/UserDataModificationPage/UserDataModificationPage";
 import UsersAdvertsPage from "../pages/UserAdvertsPage/UserAdvertsPage";
 import UserProfilePages from "../pages/UserProfilePages/UserProfilePages";
 import UserDataModificationForm from "../components/Profile/UserDataModificationForm";
 import UserProfile from "../components/Profile/UserProfile";
-import AdvertUpdateForm from "../components/AdvertUpdateForm/AdvertUpdateForm"
+import AdvertUpdateForm from "../components/AdvertUpdateForm/AdvertUpdateForm";
+
 const AppRoutes = () => {
     return (
         <Routes>

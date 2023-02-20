@@ -99,7 +99,7 @@ namespace HelpMeApp.Services.Services
             return new GeneralData { Categories = categories, Terms = terms, HelpTypes = helpTypes, AdvertsQuantity = advertsQuantity };
         }
 
-        public async Task<IEnumerable<AdvertPreviewResponseData>> GetAdvertsUserNeedHelpByPage(string userId, int page, int pageSize)
+        public async Task<IEnumerable<AdvertPreviewResponseData>> GetAllUserAdverts(string userId, int page, int pageSize)
         {
             var usersAdverts = await _advertReadRepository.GetAdvertsUserNeedHelpByPage(userId, page, pageSize);
 

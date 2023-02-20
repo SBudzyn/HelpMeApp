@@ -1,14 +1,13 @@
 import { useState, React, useEffect } from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
-// import ProfileDataModificationScheme from "../../validation/ProfileDataModification";
 import { handleUploadFiles } from "../../services/filesUploading";
-// import { baseRequestWithToken } from "../../services/axiosServices";
 import "bootstrap/dist/css/bootstrap.css";
 import classNames from "classnames";
 import PropTypes from "prop-types";
 import { baseRequestWithToken, baseRequest } from "../../services/axiosServices";
+import AdvertFormsValidation from "../../validation/AdvertFormsValidation";
 
-const AdvertUpdateForm = (params) => {
+const AdvertUpdateForm = () => {
     const [uploadedFiles, setUploadedFiles] = useState([]);
     const [fileLimit, setFileLimit] = useState(false);
 
@@ -46,12 +45,6 @@ const AdvertUpdateForm = (params) => {
     };
 
     const [alertMessage, setAlertMessage] = useState("");
-    // const [successMessage, setSuccessMessage] = useState("");
-
-    // const [userData, setUserData] = useState({});
-    /* useEffect(() => {
-        retrieveUserData();
-    }, []); */
 
     const submitDataModification = async (values) => {
         const UpdateAdvertData = {
@@ -65,30 +58,21 @@ const AdvertUpdateForm = (params) => {
         };
 
         setAlertMessage("");
-        // setSuccessMessage("");
         await baseRequestWithToken
             .put(
                 "adverts/update/20",
                 UpdateAdvertData
             )
-            .then(Response)
+            .then((response) => {
+                return response.data;
+            })
             .catch(() => {
                 setAlertMessage(
                     "An error occured while modifing data"
                 );
             });
     }
-    /*
-    const retrieveUserData = async () => {
-        await baseRequestWithToken
-            .get("/profile/get-my-info")
-            .then((response) => {
-                return response.data;
-            })
-            .then((data) => {
-                setUserData(data);
-            });
-    }; */
+
     return (
         <>
             <Formik
@@ -104,7 +88,7 @@ const AdvertUpdateForm = (params) => {
                 onSubmit={async (values) => {
                     submitDataModification(values);
                 }}
-                // validationSchema={AdvertCreation}
+                validationSchema={AdvertFormsValidation}
             >
                 {(formik) => {
                     const { isValid, dirty } = formik;
@@ -113,12 +97,12 @@ const AdvertUpdateForm = (params) => {
                             <h1 className="text-center mt-3 mb-3">
                                 Create new advert
                             </h1>
+
                             <div className="mx-auto w-75">
                                 <label htmlFor="helpType" className="mb-5">
                                     Help type
                                 </label>
                                 <br />
-
                                 <Field
                                     as="select"
                                     name="helpType"
@@ -229,7 +213,6 @@ const AdvertUpdateForm = (params) => {
                                     Terms
                                 </label>
                                 <br />
-
                                 <Field
                                     as="select"
                                     name="terms"
@@ -278,6 +261,7 @@ const AdvertUpdateForm = (params) => {
                                     ))}
                                 </div>
                             </div>
+
                             <div className="error-message">{alertMessage}</div>
                             <br />
                             <button

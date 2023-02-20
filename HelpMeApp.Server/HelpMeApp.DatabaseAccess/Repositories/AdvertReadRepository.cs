@@ -82,7 +82,15 @@ namespace HelpMeApp.DatabaseAccess.Repositories
                 .ToListAsync();
         }
 
-        public async Task<int> CountHowMuchUserHelps(string userId)
+        public async Task<int> CountAdvertsUserNeedHelp(string userId)
+        {
+            return await _context.Adverts
+                .Where(a => a.HelpTypeId == (int)UserHelpType.UserNeedHelp)
+                .Where(a => a.CreatorId.ToString() == userId)
+                .CountAsync();
+        }
+
+        public async Task<int> CountAdvertsUserCanHelp(string userId)
         {
             return await _context.Adverts
                 .Where(a => a.HelpTypeId == (int)UserHelpType.UserCanHelp)

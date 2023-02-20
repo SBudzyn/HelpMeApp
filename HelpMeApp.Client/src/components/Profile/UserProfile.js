@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import photo1 from "../../media/defaultAdvertPhoto.jpg";
 import "bootstrap/dist/css/bootstrap.css";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import routingUrl from "../../constants/routingUrl";
 import "./UserProfile.css";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import { baseRequestWithToken } from "../../services/axiosServices";
-
+import { logout } from "../../services/authorizationServices"
 const UserProfile = () => {
     const [show, setShow] = useState(false);
 
@@ -20,14 +20,9 @@ const UserProfile = () => {
     const [alertMessage, setAlertMessage] = useState("");
     const [successMessage, setSuccessMessage] = useState("");
 
-    const navigate = useNavigate();
-    const NavigateToUserProfile = () => {
-        navigate(routingUrl.pathToLoginPage);
-    };
-
     const retrieveUserHelpsCounter = async () => {
         await baseRequestWithToken
-            .get("/profile/count-how-much-user-helps")
+            .get("/profile/adverts-user-can-help-quantity")
             .then((response) => {
                 return response.data;
             })
@@ -52,10 +47,8 @@ const UserProfile = () => {
         setSuccessMessage("");
         baseRequestWithToken.get("profile/delete-user").then((response) => {
             if (response.data.success) {
-                localStorage.token = "";
-                NavigateToUserProfile();
+                logout();
             } else {
-                console.log(response.data.success);
                 setAlertMessage(response.data.message);
                 handleClose();
             }
@@ -66,17 +59,18 @@ const UserProfile = () => {
         retrieveUserData();
         retrieveUserHelpsCounter();
     }, []);
+
     return (
         <div className="container">
             <div className="row mt-3 col-sm-12 ">
                 <div className="col-lg-3">
-                    {" "}
                     <img
                         src={photo1}
                         style={{ width: "18rem" }}
                         className="border border-dark"
                     ></img>
                 </div>
+
                 <div className="col-lg-9">
                     <div className="row">
                         <div className="col-lg-9 col-md-3 text-profile">
@@ -134,6 +128,7 @@ const UserProfile = () => {
                     </div>
                 </div>
             </div>
+
             <div className="success-message-profile">{successMessage}</div>
             <div className="error-message-profile">{alertMessage}</div>
 

@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-
-import UsersAdvertsContainer from "../../components/Profile/UsersAdvertsContainer";
+import UsersAdvertsContainer from "../../components/UsersAdvertsContainer/UsersAdvertsContainer";
 
 const UsersAdvertsPage = () => {
     return (

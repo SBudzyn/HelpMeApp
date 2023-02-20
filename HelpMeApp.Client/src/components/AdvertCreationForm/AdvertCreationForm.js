@@ -1,7 +1,7 @@
 import { React, useEffect, useState } from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import "./AdvertCreationForm.css";
-import AdvertCreation from "../../validation/AdvertCreation.js";
+import AdvertFormsValidation from "../../validation/AdvertFormsValidation.js";
 import { handleUploadFiles } from "../../services/filesUploading";
 import classNames from "classnames";
 import { baseRequest } from "../../services/axiosServices";
@@ -79,7 +79,7 @@ const AdvertCreationForm = () => {
                     categoryId: "",
                     termsId: ""
                 }}
-                validationSchema={AdvertCreation}
+                validationSchema={AdvertFormsValidation}
                 onSubmit={async (values) => submitCreation(values)}
             >
                 {(formik) => {

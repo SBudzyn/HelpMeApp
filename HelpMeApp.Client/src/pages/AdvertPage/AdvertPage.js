@@ -64,9 +64,7 @@ const AdvertPage = () => {
                         </div>
                         <div className="row space-around mb-3">
                             <div className="col-sm-4 col-md-3">
-                                {getFormattedDate(
-                                    new Date(data?.creationDate ?? "1 1 1970")
-                                )}
+                                {getFormattedDate(new Date(data?.creationDate ?? "1 1 1970")) }
                             </div>
                             <div className="col-sm-4 col-md-3">
                                 {checkRetrievedData(data?.location)}

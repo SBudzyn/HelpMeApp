@@ -24,6 +24,7 @@ namespace HelpMeApp.Services.Services
         private IPasswordHasher<AppUser> _passwordHasher;
         private IAdvertService _advertService;
         private IAdvertReadRepository _advertReadRepository;
+
         public ProfileService(UserManager<AppUser> userManager, IMapper mapper, IPasswordHasher<AppUser> passwordHasher, IAdvertService advertService, IAdvertReadRepository advertReadRepository)
         {
             _userManager = userManager;
@@ -92,12 +93,12 @@ namespace HelpMeApp.Services.Services
                 if (updateUserData.Succeeded)
                 {
                     result.Success = true;
-                    result.Message = "Your account has been deleted successfully";
+                    result.Message = "Your account has been deleted successfully";                  
                 }
                 else
                 {
                     result.Success = false;
-                    result.Message = "An error has occurred. Your account has not been deleted";
+                    result.Message = "An error has occurred. Your account has not been deleted";                
                 }
                 return result;
             }
@@ -109,15 +110,20 @@ namespace HelpMeApp.Services.Services
 
         public async Task<IEnumerable<AdvertPreviewResponseData>> GetAdvertsUserNeedHelpByPage(string userId, int page, int pageSize)
         {
-            var userAdverts = await _advertService.GetAdvertsUserNeedHelpByPage(userId, page, pageSize);
+            var userAdverts = await _advertService.GetAllUserAdverts(userId, page, pageSize);
 
             return userAdverts;
         }
 
-        public async Task<int> CountHowMuchUserHelps(string userId)
+        public async Task<int> AdvertsUserNeedHelpQuantity(string userId)
         {
-            var userHelps = await _advertReadRepository.CountHowMuchUserHelps(userId);
-            return userHelps;
+            return await _advertReadRepository.CountAdvertsUserNeedHelp(userId);
+        }
+
+        public async Task<int> AdvertsUserCanHelpQuantity(string userId)
+        {
+             return await _advertReadRepository.CountAdvertsUserCanHelp(userId);
+            
         }
     }
 }
