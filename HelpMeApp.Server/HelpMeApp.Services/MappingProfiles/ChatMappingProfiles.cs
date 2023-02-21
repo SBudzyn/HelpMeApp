@@ -16,7 +16,7 @@ namespace HelpMeApp.Services.MappingProfiles
             CreateMap<Chat, ChatPreviewData>()
                 .ForMember(src => src.LastMessage, opt =>
                 {
-                    opt.MapFrom(src => src.Messages.LastOrDefault());
+                    opt.MapFrom(src => src.Messages.OrderBy(m => m.CreationDate).LastOrDefault());
                 })
                 .ForMember(src => src.AdvertTitle, opt =>
                 {

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, resetForm } from "react";
 import { Container, Row, Col, Button, ListGroup } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import { Field, Form, Formik } from "formik";
@@ -26,8 +26,7 @@ const ChatForm = () => {
     const joinChat = async (chatId) => {
         try {
             connection.stop();
-        } catch (e) {
-            console.error(e);
+        } catch {
         }
         try {
             const connection = new HubConnectionBuilder()
@@ -97,7 +96,6 @@ const ChatForm = () => {
         setSelectedChatId(id);
         await joinChat(id);
         navigate(`${routingUrl.pathToChat}/${id}`);
-        bottomRef.current.scrollIntoView();
     };
 
     const redirectToAdvert = () => {
@@ -154,7 +152,7 @@ const ChatForm = () => {
                                     {chat.lastMessage?.senderId ===
                                     localStorage.userId
                                         ? "You: "
-                                        : " "}
+                                        : `${chat.responderName}: `}
                                     {chat.lastMessage?.text}
                                 </p>
                             </ListGroup.Item>
@@ -212,7 +210,10 @@ const ChatForm = () => {
                                     </blockquote>
                                 </div>
                             ))}
-                        <div ref={bottomRef} className="h-auto pb-0 right"></div>
+                        <div
+                            ref={bottomRef}
+                            className="h-auto pb-0 right"
+                        ></div>
                     </div>
 
                     <Formik
@@ -221,6 +222,7 @@ const ChatForm = () => {
                         }}
                         onSubmit={async (values) => {
                             sendMessage(values.message);
+                            resetForm();
                         }}
                     >
                         <Form>
@@ -232,7 +234,7 @@ const ChatForm = () => {
                                         type="text"
                                         placeholder="Enter message..."
                                         className="p-2 w-100 h-100 border border-1 rounded-bottom-left"
-                                    />{" "}
+                                    />
                                 </Col>
                                 <Col xs={2} className="ps-0">
                                     <Button

@@ -35,7 +35,7 @@ namespace HelpMeApp.DatabaseAccess.Repositories
                 .Include(c => c.Advert)
                 .ThenInclude(a => a.Photos)
                 .Include(c => c.Messages)
-                .OrderByDescending(c => c.Messages.OrderByDescending(c => c.CreationDate).LastOrDefault().CreationDate)
+                .OrderByDescending(c => c.Messages.OrderByDescending(c => c.CreationDate).FirstOrDefault().CreationDate)
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize)
                 .ToListAsync();

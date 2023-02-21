@@ -28,7 +28,6 @@ const RegistrationForm = () => {
     };
 
     const submitRegistration = async (values) => {
-        console.log(photo);
         const fullRegistrationData = {
             email: registrationData.email,
             password: registrationData.password,
@@ -39,7 +38,10 @@ const RegistrationForm = () => {
             photo
         };
         await baseRequest
-            .post("/authentication/register", fullRegistrationData)
+            .post(
+                "/authentication/register",
+                fullRegistrationData
+            )
             .then((response) => {
                 if (response.data.isSuccessful) {
                     handleClose();
@@ -249,11 +251,6 @@ const RegistrationForm = () => {
                                             id="photo"
                                             accept="image/*"
                                             onChange={async (e) => {
-                                                console.log(
-                                                    await convertToBase64(
-                                                        e.target.files[0]
-                                                    )
-                                                );
                                                 setPhoto(
                                                     await convertToBase64(
                                                         e.target.files[0]
