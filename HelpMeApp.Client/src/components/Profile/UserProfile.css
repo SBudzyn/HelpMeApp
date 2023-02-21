@@ -11,7 +11,8 @@
     color: rgba(228, 48, 48, 0.773);
 }
 
-.error-message-profile {
+.error-message-profile,
+.success-message-profile {
     bottom: 3vh;
 }
 
@@ -22,7 +23,6 @@
 }
 
 .success-message-profile {
-    bottom: 3vh;
     color: rgba(81, 228, 48, 0.773);
     margin-left: 70px;
 }

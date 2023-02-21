@@ -3,7 +3,8 @@ import PropTypes from "prop-types";
 import UsersAdvertsContainer from "../../components/UsersAdvertsContainer/UsersAdvertsContainer";
 import { useParams } from "react-router-dom";
 import { baseRequestWithToken } from "../../services/axiosServices";
-import UsersAdvertsPagination from "../../components/Pagination/UsersAdvertsPagination"
+import UsersAdvertsPagination from "../../components/Pagination/UsersAdvertsPagination";
+
 const UsersAdvertsPage = () => {
     const params = useParams();
     const [userAdverts, setUsersAdverts] = useState([]);
