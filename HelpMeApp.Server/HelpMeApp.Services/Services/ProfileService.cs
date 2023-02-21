@@ -106,7 +106,7 @@ namespace HelpMeApp.Services.Services
 
         public async Task<IEnumerable<AdvertPreviewResponseData>> GetAllUserAdverts(string userId)
         {
-            var userAdverts = await _advertService.GetAllUserAdverts(userId);
+            var userAdverts = await _advertService.GetAllUserAdvertsAsync(userId);
 
             return userAdverts;
         }

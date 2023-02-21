@@ -12,12 +12,12 @@ namespace HelpMeApp.Services.Interfaces
 {
     public interface IAdvertService
     {
-        Task<IEnumerable<AdvertPreviewResponseData>> GetAdvertsByPage(AdvertFiltersData filters, int page, int pageSize);
-        Task<AdvertDetailedResponseData> GetAdvertById(int id);
+        Task<IEnumerable<AdvertPreviewResponseData>> GetAdvertsByPageAsync(AdvertFiltersData filters, int page, int pageSize);
+        Task<AdvertDetailedResponseData> GetAdvertByIdAsync(int id);
         Task<AdvertDetailedResponseData> AddAdvertAsync(AdvertPostData advert, Guid userId);
         Task<AdvertDetailedResponseData> UpdateAdvertAsync(AdvertPostData advert, int advertId);
         Task<AdvertDetailedResponseData> DeactivateAdvertAsync(int advertId);
-        Task<IEnumerable<AdvertPreviewResponseData>> GetAllUserAdverts(string userId);
+        Task<IEnumerable<AdvertPreviewResponseData>> GetAllUserAdvertsAsync(string userId);
         Task<GeneralData> GetGeneralDataAsync();
     }
 }
