@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Formik, Field, Form } from "formik";
 import AdvertContainer from "../../components/AdvertContainer/AdvertContainer";
 import "bootstrap/dist/css/bootstrap.css";
-import "./BoardPage.css";
 import { Link, useParams } from "react-router-dom";
 import baseRequest from "../../services/axiosServices";
 import Pagination from "../../components/Pagination/Pagination";
@@ -13,6 +12,27 @@ const BoardPage = (props) => {
     const params = useParams();
 
     const [generalData, setGeneralData] = useState({});
+
+    const [adverts, setAdverts] = useState([]);
+
+    const retrieveAdverts = async () => {
+        await baseRequest
+            .get(`/adverts/page/${params.page}`, {
+                params: {
+                    helpTypeId: props.helpTypeId,
+                    categoryId: localStorage.categoryId,
+                    termsId: localStorage.termsId,
+                    location: localStorage.location,
+                    sortBy: localStorage.sortBy
+                }
+            })
+            .then((response) => {
+                return response.data;
+            })
+            .then((data) => {
+                setAdverts(data);
+            });
+    };
 
     const retrieveGeneralData = async () => {
         await baseRequest
@@ -26,8 +46,8 @@ const BoardPage = (props) => {
     };
 
     const reset = () => {
-        localStorage.categoryId = "";
-        localStorage.termsId = "";
+        localStorage.categoryId = "0";
+        localStorage.termsId = "0";
         localStorage.location = "";
         localStorage.sortBy = "";
         location.href =
@@ -37,11 +57,12 @@ const BoardPage = (props) => {
     };
 
     useEffect(() => {
+        retrieveAdverts();
         retrieveGeneralData();
     }, []);
 
     return (
-        <div className="page">
+        <div>
             <Formik
                 initialValues={{
                     categoryId: localStorage?.categoryId ?? "",
@@ -126,7 +147,7 @@ const BoardPage = (props) => {
                                     type="text"
                                     name="location"
                                     className="form-control mb-3 border border-warning"
-                                    placeholder="choose location"
+                                    placeholder="Choose location"
                                 />
                             </div>
                         </div>
@@ -166,20 +187,15 @@ const BoardPage = (props) => {
             </Formik>
             <hr />
             <AdvertContainer
-                page={params.page}
-                categoryId={~~localStorage.categoryId}
-                termsId={~~localStorage.termsId}
-                location={localStorage.location}
-                sortBy={localStorage.sortBy}
-                helpTypeId={props.helpTypeId}
+                adverts={adverts}
             />
             <hr />
             <div className="container mt-3 mb-3">
                 <div className="row justify-content-center">
                     <div className="col-xs-12 col-md-6 col-lg-3 col-xl-2">
                         <Pagination
-                            adverts={generalData.advertsQuantity}
-                            currentPage={~~params.page}
+                            advertsByCurrentPage={adverts.length}
+                            currentPage={Number(params.page)}
                         />
                     </div>
                 </div>

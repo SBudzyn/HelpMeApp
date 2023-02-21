@@ -1,16 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
+import "bootstrap/dist/css/bootstrap.css";
 
 const Pagination = (props) => {
     const pageSize = 20;
-    const numberOfPages = Math.ceil(props.adverts / pageSize);
     return (
         <nav>
             <ul className="pagination">
                 <li
-                    style={{ width: "50%", textAlign: "center" }}
-                    className={`page-item ${
-                        props.currentPage <= 1 ? "disabled" : ""
+                    className={`w-50 text-center page-item ${
+                        props.currentPage <= 1 && "disabled"
                     }`}
                 >
                     <a
@@ -22,9 +21,8 @@ const Pagination = (props) => {
                 </li>
 
                 <li
-                    style={{ width: "50%", textAlign: "center" }}
-                    className={`page-item ${
-                        props.currentPage >= numberOfPages ? "disabled" : ""
+                    className={`w-50 text-center page-item ${
+                        props.advertsByCurrentPage < pageSize && "disabled"
                     }`}
                 >
                     <a
@@ -40,7 +38,7 @@ const Pagination = (props) => {
 };
 
 Pagination.propTypes = {
-    adverts: PropTypes.number,
+    advertsByCurrentPage: PropTypes.number,
     currentPage: PropTypes.number
 };
 

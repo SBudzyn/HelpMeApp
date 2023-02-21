@@ -38,7 +38,6 @@ const RegistrationForm = () => {
             info: values.info,
             photo
         };
-
         await baseRequest
             .post("/authentication/register", fullRegistrationData)
             .then((response) => {
@@ -187,8 +186,8 @@ const RegistrationForm = () => {
                                     <br />
 
                                     <Field
-                                        id="Surname"
-                                        name="Surname"
+                                        id="surname"
+                                        name="surname"
                                         placeholder="Bobkin"
                                         type="text"
                                         className="form-control"
@@ -196,7 +195,7 @@ const RegistrationForm = () => {
                                     />
                                 </div>
                                 <div className="error-message">
-                                    <ErrorMessage name="Surname" />
+                                    <ErrorMessage name="surname" />
                                 </div>
                                 <div className="mb-3 row modal-group">
                                     <label
