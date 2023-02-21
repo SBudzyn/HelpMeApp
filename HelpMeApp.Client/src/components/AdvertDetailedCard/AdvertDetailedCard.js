@@ -6,7 +6,7 @@ import "./AdvertDetailedCard.css";
 import { Carousel, Modal } from "react-bootstrap";
 import defaultPhoto from "../../media/defaultAdvertPhoto.jpg";
 import baseRequest from "../../services/axiosServices";
-import getFormattedDate from "../../services/getFormattedDate";
+import { getFormattedDate } from "../../services/getFormattedDate";
 import checkRetrievedData from "../../services/checkRetrievedData";
 import { Link, useNavigate } from "react-router-dom";
 import { Formik, Form, Field } from "formik";
