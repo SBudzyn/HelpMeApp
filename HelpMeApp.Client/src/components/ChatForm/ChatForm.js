@@ -11,15 +11,15 @@ import avatar from "../../media/defaultAvatarProfileIcon.jpg";
 import routingUrl from "../../constants/routingUrl";
 import baseRequest from "../../services/axiosServices";
 import "./Chat.css";
+import { getFormattedDateTime } from "../../services/getFormattedDate.js";
 
 const ChatForm = () => {
     const [selectedChatId, setSelectedChatId] = useState(null);
     const [messages, setMessages] = useState([]);
     const [allChats, setAllChats] = useState([]);
-    const params = useParams();
-
     const [connection, setConnection] = useState();
     const navigate = useNavigate();
+    const params = useParams();
 
     const joinChat = async (chatId) => {
         try {
@@ -39,7 +39,6 @@ const ChatForm = () => {
 
             connection.on("ReceiveMessagesHistory", (messagesHistory) => {
                 setMessages(messagesHistory);
-                console.log(messagesHistory.length);
             });
             connection.on("ReceiveMessage", (message) => {
                 setMessages((messages) => [...messages, message]);
@@ -74,11 +73,9 @@ const ChatForm = () => {
                 }
             })
             .then((response) => {
-                console.log(response);
                 return response.data;
             })
             .then((data) => {
-                console.log(data);
                 setAllChats(data);
             });
     };
@@ -97,7 +94,11 @@ const ChatForm = () => {
     };
 
     const redirectToAdvert = () => {
-        // location.href = `${routingUrl.pathToAdvert}/${selectedChat.advertId}`;
+        location.href = `${routingUrl.pathToAdvert}/${selectedChat.advertId}`;
+    };
+
+    const redirectToUserProfile = () => {
+        location.href = `${routingUrl.pathToProfile}/${selectedChat.responderId}`;
     };
 
     const selectedChat =
@@ -106,7 +107,7 @@ const ChatForm = () => {
     return (
         <Container>
             <Row className="mt-2">
-                <Col xs={4} className="chats-list-window">
+                <Col xs={4} className="chats-list-window pe-0">
                     <ListGroup>
                         {allChats.map((chat) => (
                             <ListGroup.Item
@@ -143,7 +144,10 @@ const ChatForm = () => {
                                 !selectedChat ? "d-none" : ""
                             } `}
                         />
-                        <h2 className="flex-grow-1 ms-1">
+                        <h2
+                            className="flex-grow-1 ms-1"
+                            onClick={redirectToUserProfile}
+                        >
                             {selectedChat
                                 ? selectedChat.responderName
                                 : "Select chat"}
@@ -151,7 +155,7 @@ const ChatForm = () => {
                         <Button
                             onClick={redirectToAdvert}
                             type="submit"
-                            className="w-25"
+                            className="w-25 me-3"
                         >
                             Advert
                         </Button>
@@ -171,7 +175,9 @@ const ChatForm = () => {
                                     <blockquote>
                                         <p>{message.text}</p>
                                         <p className="blockquote-footer text-end">
-                                            {message.sentTime}
+                                            {getFormattedDateTime(
+                                                message.sentTime
+                                            )}
                                         </p>
                                     </blockquote>
                                 </div>
@@ -194,7 +200,7 @@ const ChatForm = () => {
                                         name="message"
                                         type="text"
                                         placeholder="Enter message..."
-                                        className="rounded-bottom-left-1"
+                                        className="p-2 w-100 h-100 border border-1 rounded-bottom-left-1"
                                     />{" "}
                                 </Col>
                                 <Col xs={2} className="ps-0">

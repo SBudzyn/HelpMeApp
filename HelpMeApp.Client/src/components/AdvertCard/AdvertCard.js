@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import defaultAdvertPhoto from "../../media/defaultAdvertPhoto.jpg";
 import routingUrl from "../../constants/routingUrl";
 import "./AdvertCard.css";
-import getFormattedDate from "./../../services/getFormattedDate";
+import { getFormattedDate } from "./../../services/getFormattedDate";
 
 const AdvertCard = (props) => {
     const linkToAdvert = `${routingUrl.pathToAdvert}/${props.id}`;

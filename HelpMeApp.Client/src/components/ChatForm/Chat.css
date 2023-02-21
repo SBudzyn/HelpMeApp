@@ -16,10 +16,7 @@
   }
 
   .rounded-bottom-left-1 {
-    border-top-left-radius: 0rem;
     border-bottom-left-radius: 0.375rem;
-    border-top-right-radius: 0rem;
-    border-bottom-right-radius: 0rem;
 }
   
   .image-icon {

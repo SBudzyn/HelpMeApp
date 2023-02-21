@@ -5,7 +5,7 @@ import "./AdvertPage.css";
 import { Carousel } from "react-bootstrap";
 import defaultPhoto from "../../media/defaultAdvertPhoto.jpg";
 import baseRequest from "../../services/axiosServices";
-import getFormattedDate from "../../services/getFormattedDate";
+import { getFormattedDate } from "../../services/getFormattedDate";
 import checkRetrievedData from "../../services/checkRetrievedData";
 import routingUrl from "../../constants/routingUrl";
 
