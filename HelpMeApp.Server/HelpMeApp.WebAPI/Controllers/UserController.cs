@@ -18,9 +18,11 @@ namespace HelpMeApp.WebAPI.Controllers
     {
         private IProfileService _profileService;
         private IAuthorizationService _authorizationService;
+        private UserManager<AppUser> _userManager;
 
-        public UserController(IProfileService profileService, IAuthorizationService authorizationService)
+        public UserController(IProfileService profileService, IAuthorizationService authorizationService, UserManager<AppUser> userManager)
         {
+            _userManager= userManager;
             _authorizationService = authorizationService;
             _profileService = profileService;
         }
@@ -28,31 +30,23 @@ namespace HelpMeApp.WebAPI.Controllers
         private string GetUserFromClaims()
         {
             ClaimsPrincipal claimsPrincipal = HttpContext.User;
+
             var userId = claimsPrincipal.FindFirst(c => c.Type == "UserId").Value;
+
             return userId;
-        }
-
-        private async Task<bool> UserAutorization(string userId)
-        {
-            var authorizationResult = await _authorizationService.AuthorizeAsync(User, userId, "EditPolicy");
-
-            if (authorizationResult.Succeeded)
-            {
-                return true;
-            }
-            return false;
         }
 
         [HttpGet("get-user-by-id/{userId}")]
         public async Task<ActionResult<ProfileResponseData>> GetUserById(string userId)
         {
-            var authorizationResult = UserAutorization(userId);
-            if (authorizationResult.Result == true)
+            var userIdCheck = await _userManager.FindByIdAsync(userId);
+
+            if ( userIdCheck != null)
             {
                 return await _profileService.GetUserByIdAsync(userId);
             }
 
-            return BadRequest();
+            return NotFound("User was not founded ");
         }
 
         [Authorize]
@@ -61,8 +55,9 @@ namespace HelpMeApp.WebAPI.Controllers
         {
             var userId = GetUserFromClaims();
 
-            var authorizationResult = UserAutorization(userId);
-            if (authorizationResult.Result == true)
+            var authorizationResult = await _authorizationService.AuthorizeAsync(User, userId, "EditPolicy");
+
+            if (authorizationResult.Succeeded)
             {
                 var result = await _profileService.GetUserByIdAsync(userId);
                 return result;
@@ -77,12 +72,13 @@ namespace HelpMeApp.WebAPI.Controllers
         {
             var userId = GetUserFromClaims();
 
-            var authorizationResult = UserAutorization(userId);
-            if (authorizationResult.Result == true)
+            var authorizationResult = await _authorizationService.AuthorizeAsync(User, userId, "EditPolicy");
+
+            if (authorizationResult.Succeeded)
             {
                 return await _profileService.UpdateUserAsync(userId, profileResponseData);
             }
-
+            
             return Unauthorized("You don`t have permission to modify the resource");
         }
 
@@ -92,8 +88,9 @@ namespace HelpMeApp.WebAPI.Controllers
         {
             var userId = GetUserFromClaims();
 
-            var authorizationResult = UserAutorization(userId);
-            if (authorizationResult.Result == true)
+            var authorizationResult = await _authorizationService.AuthorizeAsync(User, userId, "EditPolicy");
+
+            if (authorizationResult.Succeeded)
             {
                 return await _profileService.DeleteUserAsync(userId);
             }
@@ -101,25 +98,23 @@ namespace HelpMeApp.WebAPI.Controllers
             return Unauthorized("You don`t have permission to modify the resource");
         }
 
-        [Authorize]
-        [HttpGet("get-adverts-user-need-help-by-page/{pageId}")]
-        public async Task<ActionResult<IEnumerable<AdvertPreviewResponseData>>> GetAdvertsUserNeedHelpByPage(int pageId = 1, int pageSize = 20)
+        [HttpGet("get-adverts-user-need-help-by-page/{pageId}/{userId}")]
+        public async Task<ActionResult<IEnumerable<AdvertPreviewResponseData>>> GetAdvertsUserNeedHelpByPage(string userId, int pageId = 1, int pageSize = 20)
         {
             if (pageId < 1 || pageSize < 1)
             {
                 return BadRequest();
             }
 
-            var userId = GetUserFromClaims();
+            var userIdCheck = await _userManager.FindByIdAsync(userId);
 
-            var authorizationResult = UserAutorization(userId);
-            if (authorizationResult.Result == true)
+            if (userIdCheck != null)
             {
                 var result = await _profileService.GetAdvertsUserNeedHelpByPageAsync(userId, pageId, pageSize);
                 return result.ToList();
             }
 
-            return Unauthorized("You don`t have permission to modify the resource");
+            return BadRequest();
         }
     }
 }

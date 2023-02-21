@@ -28,6 +28,5 @@ namespace HelpMeApp.DatabaseAccess.Entities.AppUserEntity
         public List<Report> Reports { get; set; } = new List<Report>();
         public List<Chat> Chats { get; set; } = new List<Chat>();
 
-        public int AdvertsUserCanHelpQuantity { get; set; }
     }
 }

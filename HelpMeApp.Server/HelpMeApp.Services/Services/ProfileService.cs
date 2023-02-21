@@ -42,7 +42,7 @@ namespace HelpMeApp.Services.Services
 
             var userData = _mapper.Map<ProfileResponseData>(user);
 
-            userData.AdvertsUserCanHelp = _mapper.Map<int>(advertsUserCanHelp);
+            userData.AdvertsUserCanHelp = advertsUserCanHelp;
 
             return userData;
         }
@@ -51,6 +51,7 @@ namespace HelpMeApp.Services.Services
         {
             var result = new ProfileResultMessageModel();
             AppUser user = await _userManager.FindByIdAsync(userId);
+
             PasswordVerificationResult passwordHashVerification;
             if (profileUpdateData.Password != null)
             {
@@ -72,6 +73,7 @@ namespace HelpMeApp.Services.Services
             }
 
             var mappingEditionModelAppUser = _mapper.Map(profileUpdateData, user);
+
             var updateUserData = await _userManager.UpdateAsync(user);
             if (updateUserData.Succeeded)
             {
@@ -90,6 +92,7 @@ namespace HelpMeApp.Services.Services
         {
             var result = new ProfileResultMessageModel();
             AppUser user = await _userManager.FindByIdAsync(userId);
+
             if (user != null && user.IsBlocked == false)
             {
                 user.IsBlocked = true;

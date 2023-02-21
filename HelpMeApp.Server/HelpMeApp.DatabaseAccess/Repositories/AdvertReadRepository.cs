@@ -72,7 +72,7 @@ namespace HelpMeApp.DatabaseAccess.Repositories
             return await _context.Adverts
                 .Where(a => a.IsClosed == false)
                 .Where(a => a.CreatorId.ToString() == userId)
-                .Where(a => a.HelpTypeId == (int)UserHelpType.UserNeedHelp)
+                .Where(a => a.HelpTypeId == (int)UserHelpType.NeedsHelp)
                 .Include(a => a.Photos)
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize)
@@ -82,7 +82,7 @@ namespace HelpMeApp.DatabaseAccess.Repositories
         public async Task<int> CountAdvertsUserCanHelpAsync(string userId)
         {
             return await _context.Adverts
-                .Where(a => a.HelpTypeId == (int)UserHelpType.UserCanHelp)
+                .Where(a => a.HelpTypeId == (int)UserHelpType.CanHelp)
                 .Where(a => a.CreatorId.ToString() == userId)
                 .CountAsync();
         }
