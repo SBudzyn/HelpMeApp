@@ -5,12 +5,13 @@ import "./../../styles/pages.css";
 import "./AdvertDetailedCard.css";
 import { Carousel, Modal } from "react-bootstrap";
 import defaultPhoto from "../../media/defaultAdvertPhoto.jpg";
-import baseRequest from "../../services/axiosServices";
+import { baseRequest } from "../../services/axiosServices";
 import getFormattedDate from "../../services/getFormattedDate";
 import checkRetrievedData from "../../services/checkRetrievedData";
 import { Link, useNavigate } from "react-router-dom";
 import { Formik, Form, Field } from "formik";
 import { checkToken } from "../../services/authorizationServices";
+import routingUrl from "../../constants/routingUrl";
 
 const photos = [defaultPhoto];
 
@@ -44,7 +45,7 @@ const AdvertDetailedCard = (props) => {
     useEffect(() => {
         retrieveAdvertById(props.advertId);
     }, []);
-
+    
     return (
         <div className="container-fluid common-background">
             <div className="container pt-3">
@@ -74,7 +75,7 @@ const AdvertDetailedCard = (props) => {
                     </div>
                     <div className="col-md-12 col-lg-9">
                         <div className="container d-flex flex-column h-100">
-                            <Link to="/" className="text-dec-none">
+                            <Link to={routingUrl.pathToOtherUserProfile + `/${data.creatorId}`} className="text-dec-none">
                                 <div className="col-xs-12 d-flex author-link">
                                     <img
                                         src={photos}

@@ -1,35 +1,34 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { useParams } from "react-router-dom";
 
 const UsersAdvertsPagination = (props) => {
+    const params = useParams();
     const pageSize = 20;
-    const numberOfPages = Math.ceil(props.adverts / pageSize);
     return (
         <nav>
             <ul className="pagination">
                 <li
-                    style={{ width: "50%", textAlign: "center" }}
-                    className={`page-item ${
-                        props.currentPage <= 1 ? "disabled" : ""
+                    className={`w-50 text-center page-item ${
+                        props.currentPage <= 1 && "disabled"
                     }`}
                 >
                     <a
                         className="page-link"
-                        href={"/my-adverts/" + (props.currentPage - 1)}
+                        href={"/user-adverts/" + (props.currentPage - 1) + `/${params.creatorId}`}
                     >
                         Previous
                     </a>
                 </li>
 
                 <li
-                    style={{ width: "50%", textAlign: "center" }}
-                    className={`page-item ${
-                        props.currentPage >= numberOfPages ? "disabled" : ""
+                    className={`w-50 text-center page-item ${
+                        props.advertsByCurrentPage < pageSize && "disabled"
                     }`}
                 >
                     <a
                         className="page-link"
-                        href={"/my-adverts/" + (props.currentPage + 1)}
+                        href={"/user-adverts/" + (props.currentPage + 1) + `/${params.creatorId}`}
                     >
                         Next
                     </a>
@@ -40,7 +39,7 @@ const UsersAdvertsPagination = (props) => {
 };
 
 UsersAdvertsPagination.propTypes = {
-    adverts: PropTypes.number,
+    advertsByCurrentPage: PropTypes.number,
     currentPage: PropTypes.number
 };
 
