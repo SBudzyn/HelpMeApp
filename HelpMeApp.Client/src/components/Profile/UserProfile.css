@@ -1,27 +1,29 @@
-.error-message-profile {
+.error-message-profile,
+.error-message-submit-profile,
+.success-message-profile {
     font-size: 17px;
     position: relative;
-    bottom: 3vh;
-    color: rgba(228, 48, 48, 0.773);
     font-weight: 600;
 }
 
+.error-message-profile,
 .error-message-submit-profile {
-    font-size: 17px;
-    position: relative;
-    bottom: 1vh;
     color: rgba(228, 48, 48, 0.773);
-    font-weight: 600;
+}
+
+.error-message-profile {
+    bottom: 3vh;
+}
+
+.error-message-submit-profile {
+    bottom: 1vh;
     margin-left: 125px;
     margin-top: 35px;
 }
 
 .success-message-profile {
-    font-size: 17px;
-    position: relative;
     bottom: 3vh;
     color: rgba(81, 228, 48, 0.773);
-    font-weight: 600;
     margin-left: 70px;
 }
 
@@ -33,10 +35,7 @@
     padding: 0%;
 }
 
-h4 .user-data-profile {
-    font-weight: 200;
-}
-
+h4 .user-data-profile,
 .link-buttons {
     font-weight: 200;
 }

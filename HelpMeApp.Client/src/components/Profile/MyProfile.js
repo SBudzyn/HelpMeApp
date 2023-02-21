@@ -9,7 +9,7 @@ import Button from "react-bootstrap/Button";
 import { baseRequestWithToken } from "../../services/axiosServices";
 import { logout } from "../../services/authorizationServices";
 
-const UserProfile = () => {
+const MyProfile = () => {
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
@@ -73,17 +73,12 @@ const UserProfile = () => {
                     </div>
                     <div className="row">
                         <h4 className="text-profile">
-                            Username: <span className="user-data-profile">{userData.userName ?? "No data"}</span>{" "}
-                        </h4>
-                    </div>
-                    <div className="row">
-                        <h4 className="text-profile">
                             Helped: <span className="user-data-profile">{userData.advertsUserCanHelp ?? "No data"} times </span>
                         </h4>
                     </div>
                     <div className="row mt-2">
                         <div className="col-lg-4 col-sm-12 my-2 col-md-12">
-                            <Link to={routingUrl.pathToUsersAdverts + "/1"}>
+                            <Link to={routingUrl.pathToUsersAdverts + "/1" + `/${localStorage.userId}`}>
                                 <button className="btn btn-warning btn-block btn-lg w-100 link-buttons ">
                                     View users adverts
                                 </button>
@@ -145,4 +140,4 @@ const UserProfile = () => {
     );
 };
 
-export default UserProfile;
+export default MyProfile;

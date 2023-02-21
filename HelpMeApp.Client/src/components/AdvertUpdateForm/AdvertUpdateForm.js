@@ -5,7 +5,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import classNames from "classnames";
 import PropTypes from "prop-types";
 import { baseRequestWithToken, baseRequest } from "../../services/axiosServices";
-import AdvertFormsValidation from "../../validation/AdvertFormsValidation";
+import AdvertForms from "../../validation/AdvertForms";
 
 const AdvertUpdateForm = () => {
     const [uploadedFiles, setUploadedFiles] = useState([]);
@@ -88,7 +88,7 @@ const AdvertUpdateForm = () => {
                 onSubmit={async (values) => {
                     submitDataModification(values);
                 }}
-                validationSchema={AdvertFormsValidation}
+                validationSchema={AdvertForms}
             >
                 {(formik) => {
                     const { isValid, dirty } = formik;

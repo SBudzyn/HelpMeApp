@@ -10,6 +10,13 @@ import RegistrationForm from "../components/AuthorizationForms/RegistrationForm"
 import HomePage from "../pages/HomePage/HomePage";
 import PageNotFound from "../pages/PageNotFound/PageNotFound";
 import AdvertCreationPage from "../pages/AdvertCreationPage/AdvertCreationPage";
+import ChatPage from "../pages/ChatPage/ChatPage";
+import UserProfilePages from "../pages/UserProfilePages/UserProfilePages";
+import MyProfile from "../components/Profile/MyProfile";
+import UserDataModificationForm from "../components/Profile/UserDataModificationForm";
+import UsersAdvertsPage from "../pages/UserAdvertsPage/UserAdvertsPage";
+import AdvertUpdateForm from "../components/AdvertUpdateForm/AdvertUpdateForm";
+import OtherUserProfile from "../components/Profile/OtherUserProfile";
 
 const AppRoutes = () => {
     return (
@@ -39,7 +46,7 @@ const AppRoutes = () => {
                 path={routingUrl.pathToAdvertById}
                 element={<AdvertPage />}
             />
-           <Route
+            <Route
                 path={routingUrl.pathToChat}
                 element={<RouteGuard element={<h1>Chat</h1>} />}
             />
@@ -50,14 +57,18 @@ const AppRoutes = () => {
             />
             <Route
                 path={routingUrl.pathToProfile}
-                element={<UserProfilePages component={UserProfile}/>}
+                element={<UserProfilePages component={MyProfile}/>}
+            />
+            <Route
+                path={routingUrl.pathToOtherUserProfile + "/:creatorId"}
+                element={<UserProfilePages component={OtherUserProfile}/>}
             />
             <Route
                 path={routingUrl.pathToProfileModification}
                 element={<UserProfilePages component={UserDataModificationForm} />}
             />
             <Route
-                path={routingUrl.pathToUsersAdverts + "/:page"}
+                path={routingUrl.pathToUsersAdverts + "/:page" + "/:creatorId"}
                 element={<RouteGuard element={UsersAdvertsPage} />}
             />
             <Route

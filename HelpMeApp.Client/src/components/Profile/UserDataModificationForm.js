@@ -13,6 +13,7 @@ const UserDataModificationForm = () => {
     const [successMessage, setSuccessMessage] = useState("");
 
     const [userData, setUserData] = useState({});
+
     useEffect(() => {
         retrieveUserData();
     }, []);

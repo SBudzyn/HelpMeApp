@@ -10,7 +10,7 @@ const UsersAdvertsPage = () => {
 
     const retrieveUsersAdverts = async () => {
         await baseRequestWithToken
-            .get(`/profile/get-adverts-user-need-help-by-page/${params.page}`)
+            .get(`/profile/get-adverts-user-need-help-by-page/${params.page}/${params.creatorId}`)
             .then((response) => {
                 return response.data;
             })
@@ -25,16 +25,16 @@ const UsersAdvertsPage = () => {
 
     return (
         <div>
-            <div className="page centered-form">
+            <div className="centered-form mt-4">
                 <UsersAdvertsContainer className="form" userAdverts={userAdverts} />
             </div>
-
+            <hr />
             <div className="container mt-3 mb-3">
                 <div className="row justify-content-center">
                     <div className="col-xs-12 col-md-6 col-lg-3 col-xl-2">
                         <UsersAdvertsPagination
-                            adverts={24}
-                            currentPage={~~params.page}
+                            advertsByCurrentPage={userAdverts.length}
+                            currentPage={Number(params.page)}
                         />
                     </div>
                 </div>
