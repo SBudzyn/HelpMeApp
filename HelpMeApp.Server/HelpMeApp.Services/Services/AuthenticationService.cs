@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using HelpMeApp.DatabaseAccess.Entities.AppUserEntity;
+using HelpMeApp.Services.Helpers;
 using HelpMeApp.Services.Interfaces;
 using HelpMeApp.Services.Models.Login;
 using HelpMeApp.Services.Models.Registration;
@@ -30,6 +31,9 @@ namespace HelpMeApp.Services.Services
         public async Task<RegistrationResponseModel> RegisterAsync(RegistrationRequestModel registrationData)
         {
             var user = _mapper.Map<AppUser>(registrationData);
+            user.Photo = ImageConvertorHelper.ConvertToBase64(registrationData.Photo);
+            user.PhotoPrefix = ImageConvertorHelper.GetImagePrefix(registrationData.Photo);
+
             user.RegistrationDate= DateTime.Now;
 
             var result = await _userManager.CreateAsync(user, registrationData.Password);
