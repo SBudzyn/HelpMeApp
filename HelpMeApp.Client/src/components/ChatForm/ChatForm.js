@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, resetForm } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Container, Row, Col, Button, ListGroup } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import { Field, Form, Formik } from "formik";
@@ -26,8 +26,7 @@ const ChatForm = () => {
     const joinChat = async (chatId) => {
         try {
             connection.stop();
-        } catch {
-        }
+        } catch {}
         try {
             const connection = new HubConnectionBuilder()
                 .configureLogging(LogLevel.Information)
@@ -126,9 +125,8 @@ const ChatForm = () => {
                                     <Col xs={3} className="align-middle">
                                         <img
                                             src={
-                                                chat.advertPicture
-                                                    ? chat.advertPicture
-                                                    : defaultAdvertPicture
+                                                chat.advertPicture ||
+                                                defaultAdvertPicture
                                             }
                                             alt="Advert picture"
                                             className="image-icon mt-0 ms-0"
@@ -162,11 +160,7 @@ const ChatForm = () => {
                 <Col xs={8} className="">
                     <div className="d-flex align-items-center border rounded-top">
                         <img
-                            src={
-                                selectedChat?.responderAvatar
-                                    ? selectedChat?.responderAvatar
-                                    : defaultAvatar
-                            }
+                            src={selectedChat?.responderAvatar || defaultAvatar}
                             alt="Profile"
                             className={`flex-shrink-0 image-icon ${
                                 !selectedChat ? "d-none" : ""
@@ -222,7 +216,7 @@ const ChatForm = () => {
                         }}
                         onSubmit={async (values) => {
                             sendMessage(values.message);
-                            resetForm();
+                            values.message = "";
                         }}
                     >
                         <Form>
@@ -240,7 +234,6 @@ const ChatForm = () => {
                                     <Button
                                         type="submit"
                                         className="w-100 rounded-0 rounded-end"
-                                        // disabled={!message}
                                     >
                                         Send
                                     </Button>
