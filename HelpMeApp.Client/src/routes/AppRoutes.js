@@ -10,6 +10,7 @@ import RegistrationForm from "../components/AuthorizationForms/RegistrationForm"
 import HomePage from "../pages/HomePage/HomePage";
 import PageNotFound from "../pages/PageNotFound/PageNotFound";
 import AdvertCreationPage from "../pages/AdvertCreationPage/AdvertCreationPage";
+import ChatPage from "../pages/ChatPage/ChatPage";
 
 const AppRoutes = () => {
     return (
@@ -43,6 +44,7 @@ const AppRoutes = () => {
                 path={routingUrl.pathToChat}
                 element={<RouteGuard element={<h1>Chat</h1>} />}
             />
+            <Route path={routingUrl.pathToChat} element={<ChatPage />} />
             <Route path={routingUrl.pathToProfile} element={<h1>Profile</h1>} />
             <Route
                 path={routingUrl.pathToAdvertCreation}
