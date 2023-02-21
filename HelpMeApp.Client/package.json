@@ -1,6 +1,7 @@
 {
   "name": "help-me-app",
   "version": "0.1.0",
+  "proxy": "https://localhost:7049",
   "private": true,
   "dependencies": {
     "@microsoft/signalr": "^7.0.3",
