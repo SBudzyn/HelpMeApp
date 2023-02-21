@@ -30,11 +30,11 @@ const AppRoutes = () => {
             />
             <Route
                 path={routingUrl.pathToGetHelpBoard + "/:page"}
-                element={<BoardPage helpTypeId={1} />}
+                element={<BoardPage helpTypeId={2} />}
             />
             <Route
                 path={routingUrl.pathToGiveHelpBoard + "/:page"}
-                element={<BoardPage helpTypeId={2} />}
+                element={<BoardPage helpTypeId={1} />}
             />
             <Route
                 path={routingUrl.pathToAdvertById}

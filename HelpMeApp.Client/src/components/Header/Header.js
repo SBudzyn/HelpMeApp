@@ -34,6 +34,11 @@ const Header = () => {
                             </Nav.Link>
                         </Nav>
                         <Nav className="ms-auto">
+                            {checkToken()
+                                ? <Nav.Link href={routingUrl.pathToChat}>
+                                Chat
+                                </Nav.Link>
+                                : <></>}
                             {checkToken() ? <AuthorizedHeaderBlock /> : <UnauthorizedHeaderBlock />}
                         </Nav>
                     </Offcanvas.Body>
