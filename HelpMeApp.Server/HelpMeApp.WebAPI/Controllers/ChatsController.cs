@@ -45,7 +45,7 @@ namespace HelpMeApp.WebAPI.Controllers
                 return Ok(chat);
             }
 
-            var advert = await _advertService.GetAdvertById(advertId);
+            var advert = await _advertService.GetAdvertByIdAsync(advertId);
 
             if (advert == null)
             {

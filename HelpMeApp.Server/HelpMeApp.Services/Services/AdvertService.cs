@@ -30,7 +30,7 @@ namespace HelpMeApp.Services.Services
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<AdvertPreviewResponseData>> GetAdvertsByPage(AdvertFiltersData filters, int page, int pageSize)
+        public async Task<IEnumerable<AdvertPreviewResponseData>> GetAdvertsByPageAsync(AdvertFiltersData filters, int page, int pageSize)
         {
             var filtersDomain = _mapper.Map<AdvertFilters>(filters);
 
@@ -41,7 +41,7 @@ namespace HelpMeApp.Services.Services
             return advertsData;
         }
 
-        public async Task<AdvertDetailedResponseData> GetAdvertById(int id)
+        public async Task<AdvertDetailedResponseData> GetAdvertByIdAsync(int id)
         {
             var domainAdvert = await _advertReadRepository.GetAdvertByIdAsync(id);
 
@@ -55,12 +55,9 @@ namespace HelpMeApp.Services.Services
         {
             var mappedAdvert = _mapper.Map<Advert>(advert);
             mappedAdvert.CreatorId = userId;
-            mappedAdvert.Photos = advert.Photos.Select(x =>
-                                  new Photo
-                                  {
-                                      Data = ImageConvertorHelper.ConvertToBase64(x),
-                                      Prefix = ImageConvertorHelper.GetImagePrefix(x)
-                                  }).ToList();
+            mappedAdvert.Photos = advert.Photos.Select(x => 
+                                  new Photo { Data = ImageConvertorHelper.ConvertToBase64(x),
+                                              Prefix = ImageConvertorHelper.GetImagePrefix(x) }).ToList();
 
             var domainAdvert = await _advertWriteRepository.AddAdvertAsync(mappedAdvert);
 
@@ -97,7 +94,7 @@ namespace HelpMeApp.Services.Services
 
             var helpTypes = await _advertReadRepository.GetHelpTypesAsync();
 
-            var advertsQuantity = await _advertReadRepository.CountAdverts();
+            var advertsQuantity = await _advertReadRepository.CountAdvertsAsync();
 
             return new GeneralData { Categories = categories, Terms = terms, HelpTypes = helpTypes, AdvertsQuantity = advertsQuantity };
         }

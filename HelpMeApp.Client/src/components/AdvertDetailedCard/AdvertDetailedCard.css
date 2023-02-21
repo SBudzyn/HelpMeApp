@@ -1,0 +1,52 @@
+.space-around {
+    display: flex;
+    justify-content: space-around;
+}
+
+.attributes-text {
+    font-weight: 600;
+    font-size: 19px;
+}
+
+.advert-short-info {
+    padding-top: 10px;
+    padding-bottom: 50px;
+    border: 1px solid rgb(217, 217, 217);
+}
+
+.author-photo {
+    min-width: 60px;
+    max-width: 5%;
+}
+
+.author-link {
+    background-color: white;
+    border-radius: 18px;
+}
+
+.author-text {
+    margin: 0;
+    margin-left: 10px;
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.description-text {
+    width: 90%;
+    margin: auto;
+    font-weight: 400;
+    font-size: 19px;
+}
+
+.actions-block {
+    display: flex;
+    justify-content: space-around;
+    height: 6vh;
+}
+
+.action-button {
+    font-size: 18px;
+    font-weight: 400;
+}

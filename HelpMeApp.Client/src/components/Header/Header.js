@@ -18,7 +18,7 @@ const Header = () => {
                 <Navbar.Toggle />
                 <Navbar.Offcanvas id="basic-navbar-nav" placement="end">
                     <Offcanvas.Header closeButton>
-                        <Offcanvas.Title>Tittle</Offcanvas.Title>
+                        <Offcanvas.Title>Help Me App</Offcanvas.Title>
                     </Offcanvas.Header>
                     <Offcanvas.Body>
                         <Nav>

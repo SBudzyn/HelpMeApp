@@ -33,7 +33,6 @@ const RegistrationForm = () => {
             phoneNumber: values.phoneNumber,
             info: values.info
         };
-
         await baseRequest
             .post(
                 "/authentication/register",
@@ -189,8 +188,8 @@ const RegistrationForm = () => {
                                     <br />
 
                                     <Field
-                                        id="Surname"
-                                        name="Surname"
+                                        id="surname"
+                                        name="surname"
                                         placeholder="Bobkin"
                                         type="text"
                                         className="form-control"
@@ -198,7 +197,7 @@ const RegistrationForm = () => {
                                     />
                                 </div>
                                 <div className="error-message">
-                                    <ErrorMessage name="Surname" />
+                                    <ErrorMessage name="surname" />
                                 </div>
                                 <div className="mb-3 row modal-group">
                                     <label

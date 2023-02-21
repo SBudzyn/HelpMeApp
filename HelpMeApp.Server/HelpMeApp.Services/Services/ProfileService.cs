@@ -34,18 +34,20 @@ namespace HelpMeApp.Services.Services
             _advertReadRepository = advertReadRepository;
         }
 
-        public async Task<ProfileResponseData> GetUserById(string userId)
+        public async Task<ProfileResponseData> GetUserByIdAsync(string userId)
         {
             AppUser user = await _userManager.FindByIdAsync(userId);
 
-            user.AdvertsUserCanHelpQuantity = await _advertReadRepository.CountAdvertsUserCanHelp(userId);
+            var advertsUserCanHelp = await _advertReadRepository.CountAdvertsUserCanHelpAsync(userId);
 
             var userData = _mapper.Map<ProfileResponseData>(user);
+
+            userData.AdvertsUserCanHelp = _mapper.Map<int>(advertsUserCanHelp);
 
             return userData;
         }
 
-        public async Task<ProfileResultMessageModel> UpdateUser(string userId, ProfileUpdateData profileUpdateData)
+        public async Task<ProfileResultMessageModel> UpdateUserAsync(string userId, ProfileUpdateData profileUpdateData)
         {
             var result = new ProfileResultMessageModel();
             AppUser user = await _userManager.FindByIdAsync(userId);
@@ -84,7 +86,7 @@ namespace HelpMeApp.Services.Services
             return result;
         }
 
-        public async Task<ProfileResultMessageModel> DeleteUser(string userId)
+        public async Task<ProfileResultMessageModel> DeleteUserAsync(string userId)
         {
             var result = new ProfileResultMessageModel();
             AppUser user = await _userManager.FindByIdAsync(userId);
@@ -110,7 +112,7 @@ namespace HelpMeApp.Services.Services
             return result;
         }
 
-        public async Task<IEnumerable<AdvertPreviewResponseData>> GetAdvertsUserNeedHelpByPage(string userId, int page, int pageSize)
+        public async Task<IEnumerable<AdvertPreviewResponseData>> GetAdvertsUserNeedHelpByPageAsync(string userId, int page, int pageSize)
         {
             var userAdverts = await _advertReadRepository.GetAdvertsUserNeedHelpByPage(userId, page, pageSize);
 

@@ -43,7 +43,7 @@ namespace HelpMeApp.WebAPI.Controllers
                 return BadRequest();
             }
 
-            return Ok(await _advertService.GetAdvertsByPage(filters, pageId, pageSize));
+            return Ok(await _advertService.GetAdvertsByPageAsync(filters, pageId, pageSize));
         }
 
         [HttpGet("{advertId}")]
@@ -54,7 +54,7 @@ namespace HelpMeApp.WebAPI.Controllers
                 return BadRequest();
             }
 
-            var result = await _advertService.GetAdvertById(advertId);
+            var result = await _advertService.GetAdvertByIdAsync(advertId);
 
             return result != null ? Ok(result) : NotFound();
         }
@@ -102,7 +102,7 @@ namespace HelpMeApp.WebAPI.Controllers
                 return ValidationProblem(modelStateDictionary);
             } 
 
-            if (await _advertService.GetAdvertById(advertId) == null)
+            if (await _advertService.GetAdvertByIdAsync(advertId) == null)
             {
                 return NotFound();
             }
@@ -123,7 +123,7 @@ namespace HelpMeApp.WebAPI.Controllers
         [HttpDelete("delete/{advertId}")]
         public async Task<IActionResult> DeactivateAdvert(int advertId)
         {
-            if (await _advertService.GetAdvertById(advertId) == null)
+            if (await _advertService.GetAdvertByIdAsync(advertId) == null)
             {
                 return NotFound();
             }

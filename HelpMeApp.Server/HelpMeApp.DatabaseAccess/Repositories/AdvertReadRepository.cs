@@ -43,6 +43,7 @@ namespace HelpMeApp.DatabaseAccess.Repositories
                 .Include(a => a.Category)
                 .Include(a => a.Terms)
                 .Include(a => a.Photos)
+                .Include(a => a.Creator)
                 .FirstOrDefaultAsync(a => a.Id == id);
         }
 

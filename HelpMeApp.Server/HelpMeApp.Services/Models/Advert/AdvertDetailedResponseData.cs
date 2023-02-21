@@ -11,6 +11,8 @@ namespace HelpMeApp.Services.Models.Advert
         public int Id { get; set; }
         public string Info { get; set; }
         public Guid CreatorId { get; set; }
+        public string CreatorName { get; set; }
+        public string CreatorPhoto { get; set; }
         public string Category { get; set; }
         public string Terms { get; set; }
         public List<string> Photos { get; set; } = new List<string>();

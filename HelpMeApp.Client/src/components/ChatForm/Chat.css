@@ -1,0 +1,43 @@
+.chat-window {
+    height: 400px;
+    overflow-y: scroll;
+    padding: 10px;
+  }
+
+  .chats-list-window {
+    height: 500px;
+    overflow-y: scroll;
+  }
+  
+  .message {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+  }
+
+  .rounded-bottom-left {
+    border-top-left-radius: 0rem;
+    border-bottom-left-radius: 0.375rem;
+    border-top-right-radius: 0rem;
+    border-bottom-right-radius: 0rem;
+}
+  
+  .image-icon {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    margin: 5px;
+  }
+  
+  .left {
+    background-color: #ffffffec;
+    float: left;
+    clear: both;
+  }
+  
+  .right {
+    background-color: #f5f5f5;
+    float: right;
+    clear: both;
+  }
+  

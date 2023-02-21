@@ -4,7 +4,7 @@ import "./AdvertCreationForm.css";
 import AdvertFormsValidation from "../../validation/AdvertFormsValidation.js";
 import { handleUploadFiles } from "../../services/filesUploading";
 import classNames from "classnames";
-import { baseRequest } from "../../services/axiosServices";
+import baseRequest from "../../services/axiosServices";
 import routingUrl from "../../constants/routingUrl";
 
 const AdvertCreationForm = () => {
