@@ -114,7 +114,7 @@ namespace HelpMeApp.Services.Services
 
         public async Task<IEnumerable<AdvertPreviewResponseData>> GetAdvertsUserNeedHelpByPageAsync(string userId, int page, int pageSize)
         {
-            var userAdverts = await _advertReadRepository.GetAdvertsUserNeedHelpByPage(userId, page, pageSize);
+            var userAdverts = await _advertReadRepository.GetAdvertsUserNeedHelpByPageAsync(userId, page, pageSize);
 
             var advertsData = _mapper.Map<IEnumerable<AdvertPreviewResponseData>>(userAdverts);
 

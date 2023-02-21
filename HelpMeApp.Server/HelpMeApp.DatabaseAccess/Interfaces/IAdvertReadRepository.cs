@@ -15,8 +15,8 @@ namespace HelpMeApp.DatabaseAccess.Interfaces
         Task<Dictionary<int, string>> GetCategoriesAsync();
         Task<Dictionary<int, string>> GetTermsAsync();
         Task<Dictionary<int, string>> GetHelpTypesAsync();
-        Task<int> CountAdverts();
-        Task<IEnumerable<Advert>> GetAdvertsUserNeedHelpByPage(string userId, int page, int pageSize);
-        Task<int> CountAdvertsUserCanHelp(string userId);
+        Task<int> CountAdvertsAsync();
+        Task<IEnumerable<Advert>> GetAdvertsUserNeedHelpByPageAsync(string userId, int page, int pageSize);
+        Task<int> CountAdvertsUserCanHelpAsync(string userId);
     }
 }

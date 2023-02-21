@@ -62,12 +62,12 @@ namespace HelpMeApp.DatabaseAccess.Repositories
             return await _context.HelpTypes.ToDictionaryAsync(h => h.Id, h => h.Name);
         }
 
-        public async Task<int> CountAdverts()
+        public async Task<int> CountAdvertsAsync()
         {
             return await _context.Adverts.CountAsync();
         }
 
-        public async Task<IEnumerable<Advert>> GetAdvertsUserNeedHelpByPage(string userId, int page, int pageSize)
+        public async Task<IEnumerable<Advert>> GetAdvertsUserNeedHelpByPageAsync(string userId, int page, int pageSize)
         {
             return await _context.Adverts
                 .Where(a => a.IsClosed == false)
@@ -79,7 +79,7 @@ namespace HelpMeApp.DatabaseAccess.Repositories
                 .ToListAsync();
         }
 
-        public async Task<int> CountAdvertsUserCanHelp(string userId)
+        public async Task<int> CountAdvertsUserCanHelpAsync(string userId)
         {
             return await _context.Adverts
                 .Where(a => a.HelpTypeId == (int)UserHelpType.UserCanHelp)

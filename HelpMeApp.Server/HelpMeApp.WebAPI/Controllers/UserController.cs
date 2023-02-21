@@ -49,7 +49,7 @@ namespace HelpMeApp.WebAPI.Controllers
             var authorizationResult = UserAutorization(userId);
             if (authorizationResult.Result == true)
             {
-                return await _profileService.GetUserById(userId);
+                return await _profileService.GetUserByIdAsync(userId);
             }
 
             return BadRequest();
@@ -64,7 +64,7 @@ namespace HelpMeApp.WebAPI.Controllers
             var authorizationResult = UserAutorization(userId);
             if (authorizationResult.Result == true)
             {
-                var result = await _profileService.GetUserById(userId);
+                var result = await _profileService.GetUserByIdAsync(userId);
                 return result;
             }
 
@@ -80,7 +80,7 @@ namespace HelpMeApp.WebAPI.Controllers
             var authorizationResult = UserAutorization(userId);
             if (authorizationResult.Result == true)
             {
-                return await _profileService.UpdateUser(userId, profileResponseData);
+                return await _profileService.UpdateUserAsync(userId, profileResponseData);
             }
 
             return Unauthorized("You don`t have permission to modify the resource");
@@ -95,7 +95,7 @@ namespace HelpMeApp.WebAPI.Controllers
             var authorizationResult = UserAutorization(userId);
             if (authorizationResult.Result == true)
             {
-                return await _profileService.DeleteUser(userId);
+                return await _profileService.DeleteUserAsync(userId);
             }
 
             return Unauthorized("You don`t have permission to modify the resource");
@@ -115,7 +115,7 @@ namespace HelpMeApp.WebAPI.Controllers
             var authorizationResult = UserAutorization(userId);
             if (authorizationResult.Result == true)
             {
-                var result = await _profileService.GetAdvertsUserNeedHelpByPage(userId, pageId, pageSize);
+                var result = await _profileService.GetAdvertsUserNeedHelpByPageAsync(userId, pageId, pageSize);
                 return result.ToList();
             }
 
