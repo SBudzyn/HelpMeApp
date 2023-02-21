@@ -29,11 +29,10 @@ const RegistrationForm = () => {
             email: registrationData.email,
             password: registrationData.password,
             name: values.name,
-            surname: values.Surname,
+            surname: values.surname,
             phoneNumber: values.phoneNumber,
             info: values.info
         };
-        alert(JSON.stringify(fullRegistrationData));
         await baseRequest
             .post(
                 "/authentication/register",
@@ -189,8 +188,8 @@ const RegistrationForm = () => {
                                     <br />
 
                                     <Field
-                                        id="Surname"
-                                        name="Surname"
+                                        id="surname"
+                                        name="surname"
                                         placeholder="Bobkin"
                                         type="text"
                                         className="form-control"

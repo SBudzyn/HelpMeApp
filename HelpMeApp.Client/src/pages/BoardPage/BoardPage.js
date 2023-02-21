@@ -20,8 +20,8 @@ const BoardPage = (props) => {
             .get(`/adverts/page/${params.page}`, {
                 params: {
                     helpTypeId: props.helpTypeId,
-                    categoryId: ~~localStorage.categoryId,
-                    termsId: ~~localStorage.termsId,
+                    categoryId: Number(localStorage.categoryId),
+                    termsId: Number(localStorage.termsId),
                     location: localStorage.location,
                     sortBy: localStorage.sortBy
                 }
@@ -195,7 +195,7 @@ const BoardPage = (props) => {
                     <div className="col-xs-12 col-md-6 col-lg-3 col-xl-2">
                         <Pagination
                             advertsByCurrentPage={adverts.length}
-                            currentPage={~~params.page}
+                            currentPage={parseInt(params.page)}
                         />
                     </div>
                 </div>

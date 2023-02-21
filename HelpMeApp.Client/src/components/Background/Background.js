@@ -14,7 +14,7 @@ const Background = () => {
     return (
         <svg
             id="visual"
-            viewBox="0 0 100 100%"
+
             width="100%"
             height="90vh"
             xmlns="http://www.w3.org/2000/svg"
@@ -25,7 +25,7 @@ const Background = () => {
             <g>
                 {randomBg.map((v) => {
                     return (
-                        <g transform={`translate(${v.x} ${v.y})`} key={v}>
+                        <g transform={`translate(${v.x} ${v.y})`} key={v.x}>
                             <path
                                 d="M0 -61L52.8 -30.5L52.8 30.5L0 61L-52.8 30.5L-52.8 -30.5Z"
                                 fill="#005d9f"
