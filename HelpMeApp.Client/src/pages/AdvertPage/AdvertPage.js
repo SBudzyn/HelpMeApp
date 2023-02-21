@@ -1,11 +1,7 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.css";
-import "./AdvertPage.css";
-import { Carousel } from "react-bootstrap";
-import defaultPhoto from "../../media/defaultAdvertPhoto.jpg";
-import baseRequest from "../../services/axiosServices";
-import getFormattedDate from "../../services/getFormattedDate";
-import checkRetrievedData from "../../services/checkRetrievedData";
+import { useParams } from "react-router-dom";
+import AdvertDetailedCard from "../../components/AdvertDetailedCard/AdvertDetailedCard";
 
 const AdvertPage = () => {
     const params = useParams();

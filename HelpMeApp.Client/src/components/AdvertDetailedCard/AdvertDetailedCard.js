@@ -6,11 +6,12 @@ import "./AdvertDetailedCard.css";
 import { Carousel, Modal } from "react-bootstrap";
 import defaultPhoto from "../../media/defaultAdvertPhoto.jpg";
 import baseRequest from "../../services/axiosServices";
-import getFormattedDate from "../../services/getFormattedDate";
+import { getFormattedDate } from "../../services/getFormattedDate";
 import checkRetrievedData from "../../services/checkRetrievedData";
 import { Link, useNavigate } from "react-router-dom";
 import { Formik, Form, Field } from "formik";
 import { checkToken } from "../../services/authorizationServices";
+import routingUrl from "../../constants/routingUrl";
 
 const photos = [defaultPhoto];
 
@@ -38,6 +39,22 @@ const AdvertDetailedCard = (props) => {
             })
             .then((data) => {
                 setData(data);
+            });
+    };
+
+    const redirectToChat = async () => {
+        await baseRequest
+            .get(`/chats/advert/${data.id}`, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + localStorage.token
+                }
+            })
+            .then((response) => {
+                return response.data;
+            })
+            .then((data) => {
+                location.href = `${routingUrl.pathToChat}/${data.id}`;
             });
     };
 
@@ -98,7 +115,13 @@ const AdvertDetailedCard = (props) => {
                                 </p>
                             </div>
                             <div className="row mt-auto actions-block">
-                                <button className="btn btn-primary col-xs-12 col-md-4 action-button">
+                                <button
+                                    className="btn btn-primary col-xs-12 col-md-4 action-button"
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        redirectToChat();
+                                    }}
+                                >
                                     Chat
                                 </button>
                                 <button
