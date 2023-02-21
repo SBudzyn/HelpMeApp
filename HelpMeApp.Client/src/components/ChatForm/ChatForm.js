@@ -119,7 +119,7 @@ const ChatForm = () => {
                             >
                                 <img
                                     src={chat.advertPicture}
-                                    alt="Image"
+                                    alt="Advert picture"
                                     className="image-icon mt-0"
                                 />
                                 <strong>{chat.advertTitle}</strong>
@@ -163,7 +163,7 @@ const ChatForm = () => {
 
                     <div className="chat-window bg-primary bg-opacity-25">
                         {selectedChat &&
-                            messages.map((message, index) => (
+                            selectedChat.messages.map((message, index) => (
                                 <div
                                     key={index}
                                     className={`message h-auto pb-0 ${
@@ -200,7 +200,7 @@ const ChatForm = () => {
                                         name="message"
                                         type="text"
                                         placeholder="Enter message..."
-                                        className="p-2 w-100 h-100 border border-1 rounded-bottom-left-1"
+                                        className="p-2 w-100 h-100 border border-1 rounded-bottom-left"
                                     />{" "}
                                 </Col>
                                 <Col xs={2} className="ps-0">

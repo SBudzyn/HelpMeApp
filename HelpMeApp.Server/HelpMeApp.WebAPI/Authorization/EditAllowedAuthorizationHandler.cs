@@ -20,7 +20,7 @@ namespace HelpMeApp.WebAPI.Authorization
         {
             var userId = Guid.Parse(context.User.Claims.First(c => c.Type == "UserId").Value);
 
-            var advert = await _advertService.GetAdvertById(advertId);
+            var advert = await _advertService.GetAdvertByIdAsync(advertId);
 
             if (advert.CreatorId == userId)
             {
