@@ -4,7 +4,8 @@ import "bootstrap/dist/css/bootstrap.css";
 import "./../../styles/pages.css";
 import "./AdvertDetailedCard.css";
 import { Carousel, Modal } from "react-bootstrap";
-import defaultPhoto from "../../media/defaultAdvertPhoto.jpg";
+import defaultAdvertImage from "../../media/defaultAdvertPhoto.jpg";
+import defaultAvatar from "../../media/defaultAvatarProfileIcon.jpg";
 import baseRequest from "../../services/axiosServices";
 import { getFormattedDate } from "../../services/getFormattedDate";
 import checkRetrievedData from "../../services/checkRetrievedData";
@@ -12,8 +13,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { Formik, Form, Field } from "formik";
 import { checkToken } from "../../services/authorizationServices";
 import routingUrl from "../../constants/routingUrl";
-
-const photos = [defaultPhoto];
 
 const AdvertDetailedCard = (props) => {
     const navigate = useNavigate();
@@ -39,6 +38,9 @@ const AdvertDetailedCard = (props) => {
             })
             .then((data) => {
                 setData(data);
+                if (data.photos.length === 0) {
+                    data.photos.push(defaultAdvertImage);
+                }
             });
     };
 
@@ -68,7 +70,7 @@ const AdvertDetailedCard = (props) => {
                 <div className="row">
                     <div className="col-md-12 col-lg-3 advert-short-info rounded bg-light ">
                         <Carousel>
-                            {photos.map((photo) => {
+                            {data.photos?.map((photo) => {
                                 return (
                                     <Carousel.Item key={photo.name}>
                                         <img
@@ -94,7 +96,7 @@ const AdvertDetailedCard = (props) => {
                             <Link to="/" className="text-dec-none">
                                 <div className="col-xs-12 d-flex author-link">
                                     <img
-                                        src={photos}
+                                        src={data.creatorPhoto ? data.creatorPhoto : defaultAvatar}
                                         className="author-photo rounded-circle"
                                     ></img>
                                     <h6 className="author-text">
