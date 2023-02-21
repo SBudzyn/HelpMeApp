@@ -42,12 +42,29 @@ namespace HelpMeApp.Services.Services
         public async Task<IEnumerable<ChatPreviewData>> GetChatsByUserAsync(Guid userId, int page, int pageSize)
         {
             var domainChats = await _chatReadRepository.GetChatsByUserAsync(userId, page, pageSize);
-            var mappedChats = _mapper.Map<IEnumerable<ChatPreviewData>>(domainChats);
 
-            foreach(var chat in mappedChats)
+            var mappedChats = new List<ChatPreviewData>();
+
+            foreach (var chat in domainChats)
             {
-                chat.AdvertPicture = domainChats.ToList().Where(i => i.AdvertId == chat.AdvertId).Select(c => c.Advert.Photos.Select(p => ImageConvertorHelper.ConvertPhotoToString(p)
-                ).FirstOrDefault()).FirstOrDefault();
+                var chatData = _mapper.Map<ChatPreviewData>(chat);
+
+                if (chat.UserId == userId)
+                {
+                    chatData.ResponderName = chat.Advert.Creator.Name;
+                    chatData.ResponderId = chat.Advert.CreatorId;
+                    chatData.ResponderAvatar = ImageConvertorHelper.ConvertPhotoToString(chat.Advert.Creator.PhotoPrefix, chat.Advert.Creator.Photo);
+                }
+                else
+                {
+                    chatData.ResponderName = chat.User.Name;
+                    chatData.ResponderId = chat.UserId;
+                    chatData.ResponderAvatar = ImageConvertorHelper.ConvertPhotoToString(chat.User.PhotoPrefix, chat.User.Photo);
+                }
+
+                chatData.AdvertPicture = ImageConvertorHelper.ConvertPhotoToString(chat.Advert.Photos.FirstOrDefault());
+
+                mappedChats.Add(chatData);
             }
 
             return mappedChats;

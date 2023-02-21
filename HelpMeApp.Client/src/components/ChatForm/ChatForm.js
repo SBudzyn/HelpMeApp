@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Container, Row, Col, Button, ListGroup } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import { Field, Form, Formik } from "formik";
@@ -7,7 +7,8 @@ import {
     LogLevel,
     HttpTransportType
 } from "@microsoft/signalr";
-import avatar from "../../media/defaultAvatarProfileIcon.jpg";
+import defaultAdvertPicture from "../../media/defaultAdvertPhoto.jpg";
+import defaultAvatar from "../../media/defaultAvatarProfileIcon.jpg";
 import routingUrl from "../../constants/routingUrl";
 import baseRequest from "../../services/axiosServices";
 import "./Chat.css";
@@ -20,6 +21,7 @@ const ChatForm = () => {
     const [connection, setConnection] = useState();
     const navigate = useNavigate();
     const params = useParams();
+    const bottomRef = useRef(null);
 
     const joinChat = async (chatId) => {
         try {
@@ -29,7 +31,7 @@ const ChatForm = () => {
         }
         try {
             const connection = new HubConnectionBuilder()
-                .configureLogging(LogLevel.Debug)
+                .configureLogging(LogLevel.Information)
                 .withUrl("https://localhost:7049/chat-hub", {
                     transport: HttpTransportType.WebSockets,
                     accessTokenFactory: () => localStorage.token,
@@ -87,10 +89,15 @@ const ChatForm = () => {
         }
     }, []);
 
-    const handleChatSelect = (id) => {
+    useEffect(() => {
+        bottomRef.current.scrollIntoView();
+    }, [messages]);
+
+    const handleChatSelect = async (id) => {
         setSelectedChatId(id);
-        joinChat(id);
+        await joinChat(id);
         navigate(`${routingUrl.pathToChat}/${id}`);
+        bottomRef.current.scrollIntoView();
     };
 
     const redirectToAdvert = () => {
@@ -117,14 +124,33 @@ const ChatForm = () => {
                                 onClick={() => handleChatSelect(chat.id)}
                                 className="overflow-hidden lh-sm"
                             >
-                                <img
-                                    src={chat.advertPicture}
-                                    alt="Advert picture"
-                                    className="image-icon mt-0"
-                                />
-                                <strong>{chat.advertTitle}</strong>
-                                <p className="p-0 my-0">{chat.responderName}</p>
-                                <p className="text-truncate lh-base mb-0">
+                                <Row>
+                                    <Col xs={3} className="align-middle">
+                                        <img
+                                            src={
+                                                chat.advertPicture
+                                                    ? chat.advertPicture
+                                                    : defaultAdvertPicture
+                                            }
+                                            alt="Advert picture"
+                                            className="image-icon mt-0 ms-0"
+                                        />
+                                    </Col>
+                                    <Col xs={9}>
+                                        <Row>
+                                            <p className="text-truncate fw-bold ps-0 ms-0 mt-2 mb-1 align-middle">
+                                                {chat.advertTitle}
+                                            </p>
+                                        </Row>
+                                        <Row>
+                                            <p className="fst-italic text-truncate ps-0">
+                                                {chat.responderName}
+                                            </p>
+                                        </Row>
+                                    </Col>
+                                </Row>
+
+                                <p className="text-truncate lh-base mb-0 ms-2">
                                     {chat.lastMessage?.senderId ===
                                     localStorage.userId
                                         ? "You: "
@@ -138,7 +164,11 @@ const ChatForm = () => {
                 <Col xs={8} className="">
                     <div className="d-flex align-items-center border rounded-top">
                         <img
-                            src={avatar}
+                            src={
+                                selectedChat?.responderAvatar
+                                    ? selectedChat?.responderAvatar
+                                    : defaultAvatar
+                            }
                             alt="Profile"
                             className={`flex-shrink-0 image-icon ${
                                 !selectedChat ? "d-none" : ""
@@ -163,7 +193,7 @@ const ChatForm = () => {
 
                     <div className="chat-window bg-primary bg-opacity-25">
                         {selectedChat &&
-                            selectedChat.messages.map((message, index) => (
+                            messages.map((message, index) => (
                                 <div
                                     key={index}
                                     className={`message h-auto pb-0 ${
@@ -182,6 +212,7 @@ const ChatForm = () => {
                                     </blockquote>
                                 </div>
                             ))}
+                        <div ref={bottomRef} className="h-auto pb-0 right"></div>
                     </div>
 
                     <Formik

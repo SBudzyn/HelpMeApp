@@ -14,14 +14,6 @@ namespace HelpMeApp.Services.MappingProfiles
         public ChatMappingProfiles()
         {
             CreateMap<Chat, ChatPreviewData>()
-                .ForMember(src => src.ResponderId, opt =>
-                {
-                    opt.MapFrom(src => src.User.Id);
-                })
-                .ForMember(src => src.ResponderName, opt =>
-                {
-                    opt.MapFrom(src => src.User.Name);
-                })
                 .ForMember(src => src.LastMessage, opt =>
                 {
                     opt.MapFrom(src => src.Messages.LastOrDefault());

@@ -16,6 +16,7 @@ namespace HelpMeApp.Services.Models.Chat
         public string AdvertPicture { get; set; }
         public Guid ResponderId { get; set; }
         public string ResponderName { get; set; }
+        public string ResponderAvatar { get; set; }
         public MessageData LastMessage { get; set; }
     }
 }

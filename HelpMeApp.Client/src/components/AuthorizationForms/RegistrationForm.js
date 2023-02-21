@@ -8,6 +8,7 @@ import Authorization from "../../validation/Authorization";
 import Registration from "../../validation/Registration";
 import "bootstrap/dist/css/bootstrap.css";
 import "./AuthorizationForms.css";
+import { convertToBase64 } from "../../services/convertors.js";
 
 const RegistrationForm = () => {
     const [alertMessage, setAlertMessage] = useState("");
@@ -16,6 +17,8 @@ const RegistrationForm = () => {
         email: "",
         password: ""
     });
+    const [photo, setPhoto] = useState("");
+
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
@@ -25,34 +28,29 @@ const RegistrationForm = () => {
     };
 
     const submitRegistration = async (values) => {
+        console.log(photo);
         const fullRegistrationData = {
             email: registrationData.email,
             password: registrationData.password,
             name: values.name,
             surname: values.surname,
             phoneNumber: values.phoneNumber,
-            info: values.info
+            info: values.info,
+            photo
         };
 
         await baseRequest
-            .post(
-                "/authentication/register",
-                fullRegistrationData
-            )
+            .post("/authentication/register", fullRegistrationData)
             .then((response) => {
                 if (response.data.isSuccessful) {
                     handleClose();
-                    setSuccessMessage(
-                        "Success! Now you can login"
-                    );
+                    setSuccessMessage("Success! Now you can login");
                 } else {
                     setAlertMessage("error");
                 }
             })
             .catch(() => {
-                setAlertMessage(
-                    "Unsuccessful registration"
-                );
+                setAlertMessage("Unsuccessful registration");
             });
     };
 
@@ -251,6 +249,18 @@ const RegistrationForm = () => {
                                             type="file"
                                             id="photo"
                                             accept="image/*"
+                                            onChange={async (e) => {
+                                                console.log(
+                                                    await convertToBase64(
+                                                        e.target.files[0]
+                                                    )
+                                                );
+                                                setPhoto(
+                                                    await convertToBase64(
+                                                        e.target.files[0]
+                                                    )
+                                                );
+                                            }}
                                         ></input>
                                     </div>
                                 </div>
