@@ -96,7 +96,7 @@ namespace HelpMeApp.Tests.Services
         {
             var expected = new AdvertDetailedResponseData();
 
-            SetupAdvertRepositoryAddAdvertAsyncMock(new Advert());
+            SetupAdvertRepositoryAddAdvertAsyncMock();
             SetupAdvertMappingProfileAdvertPostDataToAdvert();
             SetupAdvertMappingProfileAdvertToAdvertDetailedResponseData();
 
@@ -119,10 +119,10 @@ namespace HelpMeApp.Tests.Services
                 .ReturnsAsync(new Advert());
         }
 
-        private void SetupAdvertRepositoryAddAdvertAsyncMock(Advert advert)
+        private void SetupAdvertRepositoryAddAdvertAsyncMock()
         {
             _advertWriteRepositoryMock
-                .Setup(r => r.AddAdvertAsync(advert))
+                .Setup(r => r.AddAdvertAsync(It.IsAny<Advert>()))
                 .ReturnsAsync(new Advert());
         }
 
