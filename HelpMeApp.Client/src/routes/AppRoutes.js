@@ -11,6 +11,7 @@ import HomePage from "../pages/HomePage/HomePage";
 import PageNotFound from "../pages/PageNotFound/PageNotFound";
 import AdvertCreationPage from "../pages/AdvertCreationPage/AdvertCreationPage";
 import ChatPage from "../pages/ChatPage/ChatPage";
+import helpTypes from "../constants/helpTypes";
 
 const AppRoutes = () => {
     return (
@@ -30,11 +31,11 @@ const AppRoutes = () => {
             />
             <Route
                 path={routingUrl.pathToGetHelpBoard + "/:page"}
-                element={<BoardPage helpTypeId={2} />}
+                element={<BoardPage helpTypeId={helpTypes.needHelp} />}
             />
             <Route
                 path={routingUrl.pathToGiveHelpBoard + "/:page"}
-                element={<BoardPage helpTypeId={1} />}
+                element={<BoardPage helpTypeId={helpTypes.canHelp} />}
             />
             <Route
                 path={routingUrl.pathToAdvertById}
