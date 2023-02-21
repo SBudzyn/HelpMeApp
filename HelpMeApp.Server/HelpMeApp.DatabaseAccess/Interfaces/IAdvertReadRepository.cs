@@ -18,6 +18,5 @@ namespace HelpMeApp.DatabaseAccess.Interfaces
         Task<int> CountAdverts();
         Task<IEnumerable<Advert>> GetAdvertsUserNeedHelpByPage(string userId, int page, int pageSize);
         Task<int> CountAdvertsUserCanHelp(string userId);
-        Task<int> CountAdvertsUserNeedHelp(string userId);
     }
 }

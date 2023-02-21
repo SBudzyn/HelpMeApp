@@ -66,7 +66,7 @@ namespace HelpMeApp.DatabaseAccess.Repositories
             return await _context.Adverts.CountAsync();
         }
 
-        public async Task<IEnumerable<Advert>> GetAdvertsUserNeedHelpByPage(string userId, int page, int pageSize) 
+        public async Task<IEnumerable<Advert>> GetAdvertsUserNeedHelpByPage(string userId, int page, int pageSize)
         {
             return await _context.Adverts
                 .Where(a => a.IsClosed == false)
@@ -76,14 +76,6 @@ namespace HelpMeApp.DatabaseAccess.Repositories
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize)
                 .ToListAsync();
-        }
-
-        public async Task<int> CountAdvertsUserNeedHelp(string userId)
-        {
-            return await _context.Adverts
-                .Where(a => a.HelpTypeId == (int)UserHelpType.UserNeedHelp)
-                .Where(a => a.CreatorId.ToString() == userId)
-                .CountAsync();
         }
 
         public async Task<int> CountAdvertsUserCanHelp(string userId)

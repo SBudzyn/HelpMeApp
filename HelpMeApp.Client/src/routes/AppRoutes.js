@@ -61,7 +61,7 @@ const AppRoutes = () => {
                 element={<UserProfilePages component={UserDataModificationForm} />}
             />
             <Route
-                path={routingUrl.pathToUsersAdvertsPage}
+                path={routingUrl.pathToUsersAdverts + "/:page"}
                 element={<RouteGuard element={UsersAdvertsPage} />}
             />
             <Route

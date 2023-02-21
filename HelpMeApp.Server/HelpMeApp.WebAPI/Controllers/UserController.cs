@@ -39,7 +39,7 @@ namespace HelpMeApp.WebAPI.Controllers
             if (authorizationResult.Succeeded)
             {
                 return true;
-            }            
+            }
             return false;
         }
 
@@ -47,7 +47,7 @@ namespace HelpMeApp.WebAPI.Controllers
         public async Task<ActionResult<ProfileResponseData>> GetUserById(string userId)
         {
             var authorizationResult = UserAutorization(userId);
-            if (authorizationResult.Result == true) 
+            if (authorizationResult.Result == true)
             {
                 return await _profileService.GetUserById(userId);
             }
@@ -79,8 +79,8 @@ namespace HelpMeApp.WebAPI.Controllers
 
             var authorizationResult = UserAutorization(userId);
             if (authorizationResult.Result == true)
-            {              
-                 return await _profileService.UpdateUser(userId, profileResponseData);              
+            {
+                return await _profileService.UpdateUser(userId, profileResponseData);
             }
 
             return Unauthorized("You don`t have permission to modify the resource");
@@ -117,38 +117,6 @@ namespace HelpMeApp.WebAPI.Controllers
             {
                 var result = await _profileService.GetAdvertsUserNeedHelpByPage(userId, pageId, pageSize);
                 return result.ToList();
-            }
-
-            return Unauthorized("You don`t have permission to modify the resource");
-        }
-
-        [Authorize]
-        [HttpGet("adverts-user-need-help-quantity")]
-        public async Task<ActionResult<int>> AdvertsUserNeedHelpQuantity()
-        {
-            var userId = GetUserFromClaims();
-
-            var authorizationResult = UserAutorization(userId);
-            if (authorizationResult.Result == true)
-            {
-                var result = await _profileService.AdvertsUserNeedHelpQuantity(userId);
-                return result;
-            }
-
-            return Unauthorized("You don`t have permission to modify the resource");
-        }
-
-        [Authorize]
-        [HttpGet("adverts-user-can-help-quantity")]
-        public async Task<ActionResult<int>> AdvertsUserCanHelpQuantity()
-        {
-            var userId = GetUserFromClaims();
-
-            var authorizationResult = UserAutorization(userId);
-            if (authorizationResult.Result == true)
-            {
-                var result = await _profileService.AdvertsUserCanHelpQuantity(userId);
-                return result;
             }
 
             return Unauthorized("You don`t have permission to modify the resource");

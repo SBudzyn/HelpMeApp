@@ -55,9 +55,12 @@ namespace HelpMeApp.Services.Services
         {
             var mappedAdvert = _mapper.Map<Advert>(advert);
             mappedAdvert.CreatorId = userId;
-            mappedAdvert.Photos = advert.Photos.Select(x => 
-                                  new Photo { Data = ImageConvertorHelper.ConvertToBase64(x),
-                                              Prefix = ImageConvertorHelper.GetImagePrefix(x) }).ToList();
+            mappedAdvert.Photos = advert.Photos.Select(x =>
+                                  new Photo
+                                  {
+                                      Data = ImageConvertorHelper.ConvertToBase64(x),
+                                      Prefix = ImageConvertorHelper.GetImagePrefix(x)
+                                  }).ToList();
 
             var domainAdvert = await _advertWriteRepository.AddAdvertAsync(mappedAdvert);
 
@@ -98,15 +101,5 @@ namespace HelpMeApp.Services.Services
 
             return new GeneralData { Categories = categories, Terms = terms, HelpTypes = helpTypes, AdvertsQuantity = advertsQuantity };
         }
-
-        public async Task<IEnumerable<AdvertPreviewResponseData>> GetAllUserAdverts(string userId, int page, int pageSize)
-        {
-            var usersAdverts = await _advertReadRepository.GetAdvertsUserNeedHelpByPage(userId, page, pageSize);
-
-            var advertsData = _mapper.Map<IEnumerable<AdvertPreviewResponseData>>(usersAdverts);
-
-            return advertsData;
-        }
-
     }
 }

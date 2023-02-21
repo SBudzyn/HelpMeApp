@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const Pagination = (props) => {
-    const pageSize = 2;
+const UsersAdvertsPagination = (props) => {
+    const pageSize = 20;
     const numberOfPages = Math.ceil(props.adverts / pageSize);
     return (
         <nav>
@@ -15,7 +15,7 @@ const Pagination = (props) => {
                 >
                     <a
                         className="page-link"
-                        href={"/provide-help-board/" + (props.currentPage - 1)}
+                        href={"/my-adverts/" + (props.currentPage - 1)}
                     >
                         Previous
                     </a>
@@ -29,7 +29,7 @@ const Pagination = (props) => {
                 >
                     <a
                         className="page-link"
-                        href={"/provide-help-board/" + (props.currentPage + 1)}
+                        href={"/my-adverts/" + (props.currentPage + 1)}
                     >
                         Next
                     </a>
@@ -39,9 +39,9 @@ const Pagination = (props) => {
     );
 };
 
-Pagination.propTypes = {
+UsersAdvertsPagination.propTypes = {
     adverts: PropTypes.number,
     currentPage: PropTypes.number
 };
 
-export default Pagination;
+export default UsersAdvertsPagination;

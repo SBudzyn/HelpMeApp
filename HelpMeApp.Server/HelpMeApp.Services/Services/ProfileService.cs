@@ -38,6 +38,8 @@ namespace HelpMeApp.Services.Services
         {
             AppUser user = await _userManager.FindByIdAsync(userId);
 
+            user.AdvertsUserCanHelpQuantity = await _advertReadRepository.CountAdvertsUserCanHelp(userId);
+
             var userData = _mapper.Map<ProfileResponseData>(user);
 
             return userData;
@@ -93,12 +95,12 @@ namespace HelpMeApp.Services.Services
                 if (updateUserData.Succeeded)
                 {
                     result.Success = true;
-                    result.Message = "Your account has been deleted successfully";                  
+                    result.Message = "Your account has been deleted successfully";
                 }
                 else
                 {
                     result.Success = false;
-                    result.Message = "An error has occurred. Your account has not been deleted";                
+                    result.Message = "An error has occurred. Your account has not been deleted";
                 }
                 return result;
             }
@@ -110,20 +112,11 @@ namespace HelpMeApp.Services.Services
 
         public async Task<IEnumerable<AdvertPreviewResponseData>> GetAdvertsUserNeedHelpByPage(string userId, int page, int pageSize)
         {
-            var userAdverts = await _advertService.GetAllUserAdverts(userId, page, pageSize);
+            var userAdverts = await _advertReadRepository.GetAdvertsUserNeedHelpByPage(userId, page, pageSize);
 
-            return userAdverts;
-        }
+            var advertsData = _mapper.Map<IEnumerable<AdvertPreviewResponseData>>(userAdverts);
 
-        public async Task<int> AdvertsUserNeedHelpQuantity(string userId)
-        {
-            return await _advertReadRepository.CountAdvertsUserNeedHelp(userId);
-        }
-
-        public async Task<int> AdvertsUserCanHelpQuantity(string userId)
-        {
-             return await _advertReadRepository.CountAdvertsUserCanHelp(userId);
-            
+            return advertsData;
         }
     }
 }
