@@ -16,21 +16,9 @@ const UserProfile = () => {
     const handleShow = () => setShow(true);
 
     const [userData, setGeneralData] = useState({});
-    const [userHelpsCounter, setUserHelpsCounter] = useState();
 
     const [alertMessage, setAlertMessage] = useState("");
     const [successMessage, setSuccessMessage] = useState("");
-
-    const retrieveUserHelpsCounter = async () => {
-        await baseRequestWithToken
-            .get("/profile/adverts-user-can-help-quantity")
-            .then((response) => {
-                return response.data;
-            })
-            .then((data) => {
-                setUserHelpsCounter(data);
-            });
-    };
 
     const retrieveUserData = async () => {
         await baseRequestWithToken
@@ -58,7 +46,6 @@ const UserProfile = () => {
 
     useEffect(() => {
         retrieveUserData();
-        retrieveUserHelpsCounter();
     }, []);
 
     return (
@@ -91,7 +78,7 @@ const UserProfile = () => {
                     </div>
                     <div className="row">
                         <h4 className="text-profile">
-                            Helped: <span className="user-data-profile">{userHelpsCounter ?? "No data"} times </span>
+                            Helped: <span className="user-data-profile">{userData.advertsUserCanHelp ?? "No data"} times </span>
                         </h4>
                     </div>
                     <div className="row mt-2">
