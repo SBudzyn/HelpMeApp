@@ -6,7 +6,7 @@ import AdvertDetailedCard from "../../components/AdvertDetailedCard/AdvertDetail
 const AdvertPage = () => {
     const params = useParams();
     return (<div className="mt-1">
-        <AdvertDetailedCard advertId={Number(params.id)}/>
+        <AdvertDetailedCard advertId={params.id}/>
     </div>);
 };
 

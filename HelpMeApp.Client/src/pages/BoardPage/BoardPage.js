@@ -20,8 +20,8 @@ const BoardPage = (props) => {
             .get(`/adverts/page/${params.page}`, {
                 params: {
                     helpTypeId: props.helpTypeId,
-                    categoryId: Number(localStorage.categoryId),
-                    termsId: Number(localStorage.termsId),
+                    categoryId: localStorage.categoryId,
+                    termsId: localStorage.termsId,
                     location: localStorage.location,
                     sortBy: localStorage.sortBy
                 }
@@ -46,8 +46,8 @@ const BoardPage = (props) => {
     };
 
     const reset = () => {
-        localStorage.categoryId = "";
-        localStorage.termsId = "";
+        localStorage.categoryId = "0";
+        localStorage.termsId = "0";
         localStorage.location = "";
         localStorage.sortBy = "";
         location.href =
@@ -195,7 +195,7 @@ const BoardPage = (props) => {
                     <div className="col-xs-12 col-md-6 col-lg-3 col-xl-2">
                         <Pagination
                             advertsByCurrentPage={adverts.length}
-                            currentPage={parseInt(params.page)}
+                            currentPage={Number(params.page)}
                         />
                     </div>
                 </div>

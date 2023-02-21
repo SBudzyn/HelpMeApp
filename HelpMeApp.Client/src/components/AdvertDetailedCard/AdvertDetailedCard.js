@@ -178,7 +178,7 @@ const AdvertDetailedCard = (props) => {
 };
 
 AdvertDetailedCard.propTypes = {
-    advertId: PropTypes.number
+    advertId: PropTypes.string
 };
 
 export default AdvertDetailedCard;
