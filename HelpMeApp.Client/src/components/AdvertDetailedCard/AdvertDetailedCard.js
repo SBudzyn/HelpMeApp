@@ -10,7 +10,6 @@ import getFormattedDate from "../../services/getFormattedDate";
 import checkRetrievedData from "../../services/checkRetrievedData";
 import { Link } from "react-router-dom";
 
-// import { checkToken } from "../../services/authorizationServices";
 import MyAdvertButtons from "./MyAdvertButtons";
 import OtherUserButtons from "./OtherUserButtons";
 

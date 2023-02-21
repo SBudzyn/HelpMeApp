@@ -54,10 +54,17 @@ namespace HelpMeApp.Services.Services
         public async Task<AdvertDetailedResponseData> AddAdvertAsync(AdvertPostData advert, Guid userId)
         {
             var mappedAdvert = _mapper.Map<Advert>(advert);
+
+            mappedAdvert.CreationDate = DateTime.Now;
+
             mappedAdvert.CreatorId = userId;
-            mappedAdvert.Photos = advert.Photos.Select(x => 
-                                  new Photo { Data = ImageConvertorHelper.ConvertToBase64(x),
-                                              Prefix = ImageConvertorHelper.GetImagePrefix(x) }).ToList();
+
+            mappedAdvert.Photos = advert.Photos.Select(x =>
+            new Photo
+            {
+                Data = ImageConvertorHelper.ConvertToBase64(x),
+                Prefix = ImageConvertorHelper.GetImagePrefix(x)
+            }).ToList();
 
             var domainAdvert = await _advertWriteRepository.AddAdvertAsync(mappedAdvert);
 
