@@ -80,9 +80,10 @@
 .error-message {
   font-size: 17px;
   position: relative;
-  bottom: 3vh;
+  top: 0px;
   color: rgba(228, 48, 48, 0.773);
   font-weight: 600;
+  margin-left: 20px;
 }
 
 .success-message {

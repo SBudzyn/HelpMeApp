@@ -9,7 +9,7 @@ const Registration = yupRegistration.object().shape({
         .min(2, "This name is too short")
         .matches(/^[aA-zZ\s]+$/, "Name can contain only letters")
         .required("Please provide your name"),
-    Surname: yupRegistration
+    surname: yupRegistration
         .string("Surname can contain only letters")
         .min(2, "This surname is too short")
         .matches(/^[aA-zZ\s]+$/, "Surname can contain only letters")
