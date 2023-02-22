@@ -138,6 +138,44 @@ namespace HelpMeApp.DatabaseAccess.Seeders
                 "Zhytomyr", "Sumy", "Rivne", "Horlivka", "Ivano-Frankivs'k", "Ternopil'", "Kropyvnytskyi", "Luts'k"
             };
 
+            var personalInfo = new[]
+            {
+                "Hi, I am a mechanic. In my free time, I enjoy hiking and exploring nature.",
+                "I am a teacher. I love to read books and watch movies to relax.",
+                "Hello, I am a software engineer. I am also an avid gamer and love to play video games.",
+                "I am a painter. In my free time, I enjoy playing the piano and composing music.",
+                "I am a musician. I also love to cook and experiment with new recipes.",
+                "Hello, I am a chef. I enjoy practicing yoga and meditation to stay calm and focused.",
+                "I am a student. I love to play basketball and stay active in my free time.",
+                "I am a nurse. I enjoy practicing calligraphy and creating beautiful lettering.",
+                "Hi, I am a soccer player. In my free time, I enjoy reading and writing poetry.",
+                "I am a journalist. I love to travel and explore different cultures and cuisines.",
+                "Hi, I am a carpenter. In my free time, I enjoy woodworking and building furniture for my home.",
+                "I am a graphic designer. I also love to go on hikes and take photographs of the beautiful scenery.",
+                "Hello, I am a baker. I enjoy playing guitar and writing songs in my free time.",
+                "I am a writer. In my free time, I like to paint and express my creativity in a different way.",
+                "I am a doctor. I also love to dance and attend salsa classes in my free time.",
+                "Hello, I am a web developer. I enjoy practicing martial arts and staying active and fit.",
+                "I am a sales representative. I love to play chess and participate in local tournaments.",
+                "I am a therapist. In my free time, I enjoy gardening and growing my own fruits and vegetables.",
+                "Hi, I am a construction worker. I enjoy playing basketball and watching sports with my friends.",
+                "I am an accountant. I love to read and learn about new financial strategies and investments."
+            };
+
+            var phoneNumbers = new[]
+            {
+                "380998664275", "380958465131", "380948664275", "380974862153",
+                "380997861176", "380958468499", "380948664275", "380974845684",
+                "380995921563", "380951354986", "380941354886", "380972135486",
+                "380994153565", "380958475123", "380941231545", "380971654846",
+                "380991651879", "380958451668", "380948745621", "380978468456",
+                "380991654984", "380951535148", "380943211486", "380976185412",
+                "380994135194", "380956954681", "380948895475", "380973514684",
+                "380991894685", "380951651847", "380943218456", "380971864651",
+                "380996894581", "380959564843", "380948745612", "380974684487",
+                "380996468412", "380951548331", "380941848688", "380971564846"
+            };
+
             var reportFaker = new Faker<Report>()
                 .RuleFor(r => r.Text, f => f.Lorem.Sentences(f.Random.Number(1, 5)));
 
@@ -182,12 +220,12 @@ namespace HelpMeApp.DatabaseAccess.Seeders
                .RuleFor(u => u.Name, f => f.Name.FirstName())
                .RuleFor(u => u.Surname, f => f.Name.LastName())
                .RuleFor(u => u.RegistrationDate, f => f.Date.Past())
-               .RuleFor(u => u.Info, f => f.Hacker.Phrase())
+               .RuleFor(u => u.Info, f => f.PickRandom(personalInfo))
                .RuleFor(u => u.IsBlocked, f => f.PickRandom(true, false))
                .RuleFor(u => u.UserName, (f, p) => f.Internet.UserName(p.Name, p.Surname))
                .RuleFor(u => u.Email, (f, p) => f.Internet.Email(p.Name, p.UserName))
                .RuleFor(u => u.PasswordHash, f => hasher.HashPassword(null, "Admin123."))
-               .RuleFor(u => u.PhoneNumber, f => f.Phone.PhoneNumber());
+               .RuleFor(u => u.PhoneNumber, f => f.PickRandom(phoneNumbers));
 
             var users = appUserFaker.Generate(300);
             AppUsers.AddRange(users);
