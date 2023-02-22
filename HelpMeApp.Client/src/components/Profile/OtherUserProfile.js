@@ -50,7 +50,7 @@ const OtherUserProfile = () => {
                     </div>
                     <div className="row">
                         <h4 className="text-profile">
-                            Helped: <span className="user-data-profile">{userData.advertsUserCanHelp ?? "No data"} times </span>
+                            Helped: <span className="user-data-profile">{userData.advertsUserCanHelp ?? "0"} times </span>
                         </h4>
                     </div>
                     <div className="row mt-2">

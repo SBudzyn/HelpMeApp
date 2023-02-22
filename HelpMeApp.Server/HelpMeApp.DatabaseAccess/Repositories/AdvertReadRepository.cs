@@ -67,7 +67,7 @@ namespace HelpMeApp.DatabaseAccess.Repositories
             return await _context.Adverts.CountAsync();
         }
 
-        public async Task<IEnumerable<Advert>> GetAdvertsUserNeedHelpByPageAsync(string userId, int page, int pageSize)
+        public async Task<IEnumerable<Advert>> GetUserNeedsHelpAdvertsByPageAsync(string userId, int page, int pageSize)
         {
             return await _context.Adverts
                 .Where(a => a.IsClosed == false)

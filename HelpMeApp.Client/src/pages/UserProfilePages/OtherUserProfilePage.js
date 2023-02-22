@@ -1,11 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
 import "./UserProfilePages.css";
+import OtherUserProfile from "../../components/Profile/OtherUserProfile";
 
-const UserProfilePages = ({ component: ProfileForms }) => {
+const UserProfilePages = () => {
     return (
         <div className="page centered-form">
-            <ProfileForms />
+            <OtherUserProfile />
         </div>
     );
 };

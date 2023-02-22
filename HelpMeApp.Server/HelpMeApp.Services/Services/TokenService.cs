@@ -53,7 +53,7 @@ namespace HelpMeApp.Services.Services
             issuer: jwtConfig["Issuer"],
             audience: jwtConfig["Audience"],
             claims: claims,
-            expires: DateTime.Now.AddHours(Convert.ToDouble(jwtConfig["expiresIn"])),
+            expires: DateTime.Now.AddMinutes(Convert.ToDouble(jwtConfig["expiresIn"])),
             signingCredentials: signingCredentialss
             );
 

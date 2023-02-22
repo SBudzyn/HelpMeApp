@@ -9,15 +9,16 @@ import LoginForm from "../components/AuthorizationForms/LoginForm";
 import RegistrationForm from "../components/AuthorizationForms/RegistrationForm";
 import HomePage from "../pages/HomePage/HomePage";
 import PageNotFound from "../pages/PageNotFound/PageNotFound";
-import AdvertCreationPage from "../pages/AdvertUpdatingCreationPages/AdvertCreationPage";
+import AdvertCreationPage from "../pages/AdvertCreationPage/AdvertCreationPage";
 import ChatPage from "../pages/ChatPage/ChatPage";
-import UserProfilePages from "../pages/UserProfilePages/UserProfilePages";
+import UserProfilePages from "../pages/UserProfilePages/MyProfilePage";
 import MyProfile from "../components/Profile/MyProfile";
 import UserDataModificationForm from "../components/Profile/UserDataModificationForm";
 import UsersAdvertsPage from "../pages/UserAdvertsPage/UserAdvertsPage";
-import OtherUserProfile from "../components/Profile/OtherUserProfile";
 import helpTypes from "../constants/helpTypes";
-import AdvertUpdatingPage from "../pages/AdvertUpdatingCreationPages/AdvertUpdatingPage";
+import AdvertUpdatingPage from "../pages/AdvertUpdatingPage/AdvertUpdatingPage";
+import OtherUserProfilePage from "../pages/UserProfilePages/OtherUserProfilePage";
+
 const AppRoutes = () => {
     return (
         <Routes>
@@ -64,7 +65,7 @@ const AppRoutes = () => {
             />
             <Route
                 path={routingUrl.pathToOtherUserProfile + "/:creatorId"}
-                element={<UserProfilePages component={OtherUserProfile}/>}
+                element={<OtherUserProfilePage />}
             />
             <Route
                 path={routingUrl.pathToProfileModification}
@@ -72,7 +73,7 @@ const AppRoutes = () => {
             />
             <Route
                 path={routingUrl.pathToUsersAdverts + "/:page" + "/:creatorId"}
-                element={<RouteGuard element={UsersAdvertsPage} />}
+                element={<UsersAdvertsPage/>}
             />
             <Route
                 path={routingUrl.pathToAdvertUpdateForm + "/:advertId"}

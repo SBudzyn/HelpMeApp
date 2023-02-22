@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import "./AdvertUpdatingCreationPages.css";
+import "./AdvertUpdatingPage.css";
 import AdvertUpdateForm from "../../components/AdvertUpdateForm/AdvertUpdateForm";
 
 const AdvertUpdatingPage = () => {

@@ -14,6 +14,7 @@ using HelpMeApp.Services.Models.Advert;
 using HelpMeApp.Services.Services;
 using HelpMeApp.DatabaseAccess.Entities.AdvertEntity;
 using HelpMeApp.DatabaseAccess.Interfaces;
+using HelpMeApp.Services.Helpers;
 
 namespace HelpMeApp.Services.Services
 {
@@ -42,7 +43,9 @@ namespace HelpMeApp.Services.Services
 
             var userData = _mapper.Map<ProfileResponseData>(user);
 
-            userData.AdvertsUserCanHelp = advertsUserCanHelp;
+            userData.UserAdvertsHeCanHelp = advertsUserCanHelp;
+
+            userData.Photo = ImageConvertorHelper.ConvertPhotoToString(user.PhotoPrefix, user.Photo);
 
             return userData;
         }
@@ -115,9 +118,9 @@ namespace HelpMeApp.Services.Services
             return result;
         }
 
-        public async Task<IEnumerable<AdvertPreviewResponseData>> GetAdvertsUserNeedHelpByPageAsync(string userId, int page, int pageSize)
+        public async Task<IEnumerable<AdvertPreviewResponseData>> GetUserNeedsHelpAdvertsByPageAsync(string userId, int page, int pageSize)
         {
-            var userAdverts = await _advertReadRepository.GetAdvertsUserNeedHelpByPageAsync(userId, page, pageSize);
+            var userAdverts = await _advertReadRepository.GetUserNeedsHelpAdvertsByPageAsync(userId, page, pageSize);
 
             var advertsData = _mapper.Map<IEnumerable<AdvertPreviewResponseData>>(userAdverts);
 

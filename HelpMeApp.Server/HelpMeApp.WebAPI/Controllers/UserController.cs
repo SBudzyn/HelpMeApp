@@ -98,8 +98,8 @@ namespace HelpMeApp.WebAPI.Controllers
             return Unauthorized("You don`t have permission to modify the resource");
         }
 
-        [HttpGet("get-adverts-user-need-help-by-page/{pageId}/{userId}")]
-        public async Task<ActionResult<IEnumerable<AdvertPreviewResponseData>>> GetAdvertsUserNeedHelpByPage(string userId, int pageId = 1, int pageSize = 20)
+        [HttpGet("get-user-needs-help-adverts-by-page/{pageId}/{userId}")]
+        public async Task<ActionResult<IEnumerable<AdvertPreviewResponseData>>> GetUserNeedsHelpAdvertsByPage(string userId, int pageId = 1, int pageSize = 20)
         {
             if (pageId < 1 || pageSize < 1)
             {
@@ -110,7 +110,7 @@ namespace HelpMeApp.WebAPI.Controllers
 
             if (userIdCheck != null)
             {
-                var result = await _profileService.GetAdvertsUserNeedHelpByPageAsync(userId, pageId, pageSize);
+                var result = await _profileService.GetUserNeedsHelpAdvertsByPageAsync(userId, pageId, pageSize);
                 return result.ToList();
             }
 
