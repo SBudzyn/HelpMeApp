@@ -56,7 +56,7 @@ namespace HelpMeApp.Services.Services
 
             var advertData = _mapper.Map<AdvertDetailedResponseData>(domainAdvert);
 
-            advertData.CreatorPhoto = ImageConvertorHelper.ConvertPhotoToString(domainAdvert.Creator.PhotoPrefix, domainAdvert.Creator.Photo);
+            advertData.CreatorPhoto = ImageConvertorHelper.ConvertPhotoToString(domainAdvert.Creator?.PhotoPrefix, domainAdvert.Creator?.Photo);
             advertData.Photos = domainAdvert.Photos.Select(x => ImageConvertorHelper.ConvertPhotoToString(x)).ToList();
 
             return advertData;
@@ -81,7 +81,7 @@ namespace HelpMeApp.Services.Services
 
             var response = _mapper.Map<AdvertDetailedResponseData>(domainAdvert);
 
-            response.CreatorPhoto = ImageConvertorHelper.ConvertPhotoToString(domainAdvert.Creator.PhotoPrefix, domainAdvert.Creator.Photo);
+            response.CreatorPhoto = ImageConvertorHelper.ConvertPhotoToString(domainAdvert.Creator?.PhotoPrefix, domainAdvert.Creator?.Photo);
             response.Photos = domainAdvert.Photos.Select(x => ImageConvertorHelper.ConvertPhotoToString(x)).ToList();
 
             return response;
