@@ -104,9 +104,9 @@ const MyProfile = () => {
                     </div>
                     <div className="row mt-4 bg-light col-sm-12 mt-3">
                         <div className="col-xs-12">
-                            <p className="mt-4 info-profile">
+                            <h3 className="mt-4 info-profile">
                                 {userData.info ?? "No data provided"}
-                            </p>
+                            </h3>
                         </div>
                     </div>
                 </div>
