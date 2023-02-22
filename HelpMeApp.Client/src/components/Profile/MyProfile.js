@@ -50,8 +50,8 @@ const MyProfile = () => {
 
     return (
         <div className="container">
-            <div className="row mt-3 col-sm-12 ">
-                <div className="col-lg-3">
+            <div className="row mt-3">
+                <div className="col-lg-4">
                     <img
                         src={ userData.photo === "" ? (defaultAdvertImage) : (userData.photo)}
                         style={{ width: "18rem" }}
@@ -59,7 +59,7 @@ const MyProfile = () => {
                     ></img>
                 </div>
 
-                <div className="col-lg-9">
+                <div className="col-lg-8">
                     <div className="row">
                         <div className="col-lg-9 col-md-3 text-profile">
                             <h1 className="name-surname-profile">{userData.name ?? "No data"} {userData.surname ?? "No data"}</h1>
@@ -77,7 +77,7 @@ const MyProfile = () => {
                         </h4>
                     </div>
                     <div className="row mt-2">
-                        <div className="col-lg-4 col-sm-12 my-2 col-md-12">
+                        <div className="col-lg-4 col-sm-12 mt-2 col-md-12">
                             <Link to={routingUrl.pathToUsersAdverts + "/1" + `/${localStorage.userId}`}>
                                 <button className="btn btn-warning btn-block btn-lg w-100 link-buttons ">
                                     View users adverts
@@ -85,7 +85,7 @@ const MyProfile = () => {
                             </Link>
                         </div>
 
-                        <div className="col-lg-4 col-sm-12 my-2">
+                        <div className="col-lg-4 col-sm-12 mt-2">
                             <Link to={routingUrl.pathToProfileModification}>
                                 <button className="btn btn-warning btn-lg w-100 link-buttons">
                                     Modify profile data
@@ -102,7 +102,7 @@ const MyProfile = () => {
                             </button>
                         </div>
                     </div>
-                    <div className="row mt-4 bg-light col-sm-12 mt-3">
+                    <div className="row mt-4 bg-light mt-3">
                         <div className="col-xs-12">
                             <h3 className="mt-4 info-profile">
                                 {userData.info ?? "No data provided"}

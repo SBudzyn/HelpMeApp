@@ -28,7 +28,7 @@ const OtherUserProfile = () => {
     return (
         <div className="container">
             <div className="row mt-3 col-sm-12 ">
-                <div className="col-lg-3">
+                <div className="col-lg-4">
                     <img
                         src={userData.photo === "" ? (defaultAdvertImage) : (userData.photo)}
                         style={{ width: "18rem" }}
@@ -36,7 +36,7 @@ const OtherUserProfile = () => {
                     ></img>
                 </div>
 
-                <div className="col-lg-9">
+                <div className="col-lg-8">
                     <div className="row">
                         <div className="col-lg-9 col-md-3 text-profile">
                             <h1 className="name-surname-profile">{userData.name ?? "No data"} {userData.surname ?? "No data"}</h1>

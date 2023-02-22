@@ -101,7 +101,7 @@ const ChatForm = () => {
     };
 
     const redirectToUserProfile = () => {
-        location.href = `${routingUrl.pathToProfile}/${selectedChat.responderId}`;
+        location.href = `${routingUrl.pathToOtherUserProfile}/${selectedChat.responderId}`;
     };
 
     const selectedChat =
