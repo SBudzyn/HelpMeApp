@@ -64,8 +64,6 @@ const AdvertCreationForm = () => {
             })
             .then((response) => {
                 location.href = `${routingUrl.pathToAdvert}/${response.data.id}`;
-            })
-            .catch(() => {
             });
     };
 
