@@ -100,7 +100,7 @@ namespace HelpMeApp.WebAPI.Controllers
                 }
 
                 return ValidationProblem(modelStateDictionary);
-            }
+            } 
 
             if (await _advertService.GetAdvertByIdAsync(advertId) == null)
             {
@@ -112,8 +112,8 @@ namespace HelpMeApp.WebAPI.Controllers
             if (!authorizationResult.Succeeded)
             {
                 return Unauthorized("You don`t have permission to modify the resource");
-            }
-
+            } 
+           
             var result = await _advertService.UpdateAdvertAsync(advert, advertId);
 
             return Ok(result);

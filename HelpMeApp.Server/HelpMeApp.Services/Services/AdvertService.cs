@@ -65,17 +65,10 @@ namespace HelpMeApp.Services.Services
         public async Task<AdvertDetailedResponseData> AddAdvertAsync(AdvertPostData advert, Guid userId)
         {
             var mappedAdvert = _mapper.Map<Advert>(advert);
-
-            mappedAdvert.CreationDate = DateTime.Now;
-
             mappedAdvert.CreatorId = userId;
-
-            mappedAdvert.Photos = advert.Photos.Select(x =>
-            new Photo
-            {
-                Data = ImageConvertorHelper.ConvertToBase64(x),
-                Prefix = ImageConvertorHelper.GetImagePrefix(x)
-            }).ToList();
+            mappedAdvert.Photos = advert.Photos.Select(x => 
+                                  new Photo { Data = ImageConvertorHelper.ConvertToBase64(x),
+                                              Prefix = ImageConvertorHelper.GetImagePrefix(x) }).ToList();
 
             var domainAdvert = await _advertWriteRepository.AddAdvertAsync(mappedAdvert);
 
@@ -113,19 +106,9 @@ namespace HelpMeApp.Services.Services
 
             var helpTypes = await _advertReadRepository.GetHelpTypesAsync();
 
-            var advertsQuantity = await _advertReadRepository.CountAdverts();
+            var advertsQuantity = await _advertReadRepository.CountAdvertsAsync();
 
             return new GeneralData { Categories = categories, Terms = terms, HelpTypes = helpTypes, AdvertsQuantity = advertsQuantity };
         }
-
-        public async Task<IEnumerable<AdvertPreviewResponseData>> GetAllUserAdvertsAsync(string userId)
-        {
-            var usersAdverts = await _advertReadRepository.GetAllUserAdverts(userId);
-
-            var advertsData = _mapper.Map<IEnumerable<AdvertPreviewResponseData>>(usersAdverts);
-
-            return advertsData;
-        } 
-
     }
 }

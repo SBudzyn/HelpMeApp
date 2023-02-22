@@ -10,7 +10,7 @@ import {
 import defaultAdvertPicture from "../../media/defaultAdvertPhoto.jpg";
 import defaultAvatar from "../../media/defaultAvatarProfileIcon.jpg";
 import routingUrl from "../../constants/routingUrl";
-import baseRequest from "../../services/axiosServices";
+import { baseRequest } from "../../services/axiosServices";
 import "./Chat.css";
 import { getFormattedDateTime } from "../../services/getFormattedDate.js";
 

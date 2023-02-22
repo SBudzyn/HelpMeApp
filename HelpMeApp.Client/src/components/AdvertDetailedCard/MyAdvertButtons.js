@@ -1,10 +1,11 @@
 import { React, useState } from "react";
 import { Button, Modal } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { checkToken } from "../../services/authorizationServices";
 import "bootstrap/dist/css/bootstrap.css";
 import PropTypes from "prop-types";
-import baseRequest from "../../services/axiosServices";
+import { baseRequest } from "../../services/axiosServices";
+import routingUrl from "../../constants/routingUrl";
 
 const MyAdvertButtons = (props) => {
     const navigate = useNavigate();
@@ -39,9 +40,9 @@ const MyAdvertButtons = (props) => {
 
     return (
         <div className="row mt-auto actions-block">
-            <Button className="btn btn-primary col-xs-12 col-md-4 action-button">
+            <Link to={routingUrl.pathToAdvertUpdateForm + `/${props.advertId}`} className="btn btn-primary col-xs-12 col-md-4 action-button">
                 Edit
-            </Button>
+            </Link>
             <Button
                 className="btn btn-danger col-xs-12 col-md-4 action-button"
                 onClick={handleShow}
