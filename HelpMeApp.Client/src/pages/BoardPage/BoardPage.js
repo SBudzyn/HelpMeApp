@@ -52,8 +52,8 @@ const BoardPage = (props) => {
         localStorage.sortBy = "";
         location.href =
             props.helpTypeId === 1
-                ? routingUrl.pathToGetHelpBoard + "/1"
-                : routingUrl.pathToGiveHelpBoard + "/1";
+                ? routingUrl.pathToGiveHelpBoard + "/1"
+                : routingUrl.pathToGetHelpBoard + "/1";
     };
 
     useEffect(() => {

@@ -26,7 +26,7 @@ namespace HelpMeApp.Services.MappingProfiles
                 })
                 .ForMember(src => src.Terms, opt =>
                 {
-                    opt.MapFrom(src => src.Terms.Days);
+                    opt.MapFrom(src => $"{src.Terms.From}-{src.Terms.Till}");
                 })
                 .ForMember(src => src.CreatorName, opt =>
                 {

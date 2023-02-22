@@ -55,11 +55,11 @@ namespace HelpMeApp.DatabaseAccess.Seeders
 
         public static List<Terms> Terms = new List<Terms>()
         {
-            new Terms(){ Days = "1" },
-            new Terms(){ Days = "2-3" },
-            new Terms(){ Days = "5-7" },
-            new Terms(){ Days = "10-20" },
-            new Terms(){ Days = "21-30" },
+            new Terms(){ From = "1", Till = "2" },
+            new Terms(){ From = "3", Till = "4" },
+            new Terms(){ From = "5", Till = "7" },
+            new Terms(){ From = "10", Till = "20" },
+            new Terms(){ From = "21", Till = "30" },
         };
 
         public static void Init()
