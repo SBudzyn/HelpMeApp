@@ -43,7 +43,7 @@ namespace HelpMeApp.Services.Services
 
             var userData = _mapper.Map<ProfileResponseData>(user);
 
-            userData.UserAdvertsHeCanHelp = advertsUserCanHelp;
+            userData.UserHelpCount = advertsUserCanHelp;
 
             userData.Photo = ImageConvertorHelper.ConvertPhotoToString(user.PhotoPrefix, user.Photo);
 
