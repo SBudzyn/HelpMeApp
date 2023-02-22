@@ -11,7 +11,7 @@ const UsersAdvertsPage = () => {
 
     const retrieveUsersAdverts = async () => {
         await baseRequestWithToken
-            .get(`/profile/get-adverts-user-need-help-by-page/${params.page}/${params.creatorId}`)
+            .get(`/profile/get-user-needs-help-adverts-by-page/${params.page}/${params.creatorId}`)
             .then((response) => {
                 return response.data;
             })
