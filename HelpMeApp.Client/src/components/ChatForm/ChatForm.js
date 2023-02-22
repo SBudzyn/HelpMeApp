@@ -26,7 +26,9 @@ const ChatForm = () => {
     const joinChat = async (chatId) => {
         try {
             connection.stop();
-        } catch {}
+        } catch (e) {
+            alert(e);
+        }
         try {
             const connection = new HubConnectionBuilder()
                 .configureLogging(LogLevel.Information)
