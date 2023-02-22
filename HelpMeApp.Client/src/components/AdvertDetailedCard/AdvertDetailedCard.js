@@ -3,31 +3,17 @@ import PropTypes from "prop-types";
 import "bootstrap/dist/css/bootstrap.css";
 import "./../../styles/pages.css";
 import "./AdvertDetailedCard.css";
-import { Carousel, Modal } from "react-bootstrap";
+import { Carousel } from "react-bootstrap";
 import defaultAdvertImage from "../../media/defaultAdvertPhoto.jpg";
 import defaultAvatar from "../../media/defaultAvatarProfileIcon.jpg";
 import { baseRequest } from "../../services/axiosServices";
 import { getFormattedDate } from "../../services/getFormattedDate";
 import checkRetrievedData from "../../services/checkRetrievedData";
-import { Link, useNavigate } from "react-router-dom";
-import { Formik, Form, Field } from "formik";
-import { checkToken } from "../../services/authorizationServices";
-import routingUrl from "../../constants/routingUrl";
+import { Link } from "react-router-dom";
+import MyAdvertButtons from "./MyAdvertButtons";
+import OtherUserButtons from "./OtherUserButtons";
 
 const AdvertDetailedCard = (props) => {
-    const navigate = useNavigate();
-
-    const [show, setShow] = useState(false);
-    const [alertReportMessage, setAlertResponseMessage] = useState("");
-
-    const handleClose = () => {
-        setShow(false);
-        setAlertResponseMessage("");
-    };
-    const handleShow = () => {
-        checkToken() ? setShow(true) : navigate("/login");
-    };
-
     const [data, setData] = useState({});
 
     const retrieveAdvertById = async (id) => {
@@ -41,22 +27,6 @@ const AdvertDetailedCard = (props) => {
                 if (data.photos.length === 0) {
                     data.photos.push(defaultAdvertImage);
                 }
-            });
-    };
-
-    const redirectToChat = async () => {
-        await baseRequest
-            .get(`/chats/advert/${data.id}`, {
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: "Bearer " + localStorage.token
-                }
-            })
-            .then((response) => {
-                return response.data;
-            })
-            .then((data) => {
-                location.href = `${routingUrl.pathToChat}/${data.id}`;
             });
     };
 
@@ -116,84 +86,14 @@ const AdvertDetailedCard = (props) => {
                                     {checkRetrievedData(data?.info)}
                                 </p>
                             </div>
-                            <div className="row mt-auto actions-block">
-                                <button
-                                    className="btn btn-primary col-xs-12 col-md-4 action-button"
-                                    onClick={(e) => {
-                                        e.preventDefault();
-                                        redirectToChat();
-                                    }}
-                                >
-                                    Chat
-                                </button>
-                                <button
-                                    className="btn btn-danger col-xs-12 col-md-4 action-button"
-                                    onClick={handleShow}
-                                >
-                                    Report
-                                </button>
-                                <Modal show={show} onHide={handleClose}>
-                                    <Modal.Header>
-                                        <Modal.Title>
-                                            Report this advert
-                                        </Modal.Title>
-                                    </Modal.Header>
-                                    <Modal.Body>
-                                        <div>
-                                            <Formik
-                                                initialValues={{
-                                                    text: ""
-                                                }}
-                                                onSubmit={async (values) => {
-                                                    await baseRequest
-                                                        .post(
-                                                            `/adverts/report/${props.advertId}`,
-                                                            values.text,
-                                                            {
-                                                                headers: {
-                                                                    "Content-Type":
-                                                                        "application/json",
-                                                                    Authorization:
-                                                                        "Bearer " +
-                                                                        localStorage.token
-                                                                }
-                                                            }
-                                                        )
-                                                        .then((response) => {
-                                                            handleClose();
-                                                        })
-                                                        .catch(() => {
-                                                            setAlertResponseMessage(
-                                                                "Unsuccessful report"
-                                                            );
-                                                        });
-                                                }}
-                                            >
-                                                <Form>
-                                                    <Field
-                                                        name="text"
-                                                        component="textarea"
-                                                        type="text"
-                                                        rows="7"
-                                                        className="form-control mb-4"
-                                                    />
-                                                    <div className="d-flex justify-content-center">
-                                                        <button
-                                                            type="submit"
-                                                            className="btn btn-danger mb-1 modal-btn"
-                                                        >
-                                                            Report
-                                                        </button>
-                                                    </div>
-                                                    <div className="error-message mt-3 text-center">
-                                                        {alertReportMessage}
-                                                    </div>
-                                                </Form>
-                                            </Formik>
-                                        </div>
-                                    </Modal.Body>
-                                </Modal>
-                            </div>
+
+                            {localStorage.userId === data.creatorId
+                                ? (
+                                    <MyAdvertButtons advertId={props.advertId} />
+                                )
+                                : (
+                                    <OtherUserButtons advertId={props.advertId} />
+                                )}
                         </div>
                     </div>
                 </div>

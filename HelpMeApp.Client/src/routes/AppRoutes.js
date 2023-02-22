@@ -17,6 +17,7 @@ import UserDataModificationForm from "../components/Profile/UserDataModification
 import UsersAdvertsPage from "../pages/UserAdvertsPage/UserAdvertsPage";
 import AdvertUpdateForm from "../components/AdvertUpdateForm/AdvertUpdateForm";
 import OtherUserProfile from "../components/Profile/OtherUserProfile";
+import helpTypes from "../constants/helpTypes";
 
 const AppRoutes = () => {
     return (
@@ -36,11 +37,11 @@ const AppRoutes = () => {
             />
             <Route
                 path={routingUrl.pathToGetHelpBoard + "/:page"}
-                element={<BoardPage helpTypeId={1} />}
+                element={<BoardPage helpTypeId={helpTypes.needHelp} />}
             />
             <Route
                 path={routingUrl.pathToGiveHelpBoard + "/:page"}
-                element={<BoardPage helpTypeId={2} />}
+                element={<BoardPage helpTypeId={helpTypes.canHelp} />}
             />
             <Route
                 path={routingUrl.pathToAdvertById}

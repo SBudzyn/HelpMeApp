@@ -16,7 +16,9 @@ const months = [
 const dayOfWeek = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
 export const getFormattedDate = (date) => {
-    return `${dayOfWeek[date.getDay()]} ${months[date.getMonth()]} ${date.getDate()}`;
+    return `${dayOfWeek[date.getDay() - 1]} ${
+        months[date.getMonth()]
+    } ${date.getDate()}`;
 };
 
 export const getFormattedDateTime = (datetime) => {

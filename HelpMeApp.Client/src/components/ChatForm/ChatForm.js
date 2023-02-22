@@ -24,11 +24,8 @@ const ChatForm = () => {
     const bottomRef = useRef(null);
 
     const joinChat = async (chatId) => {
-        try {
-            connection.stop();
-        } catch (e) {
-            alert(e);
-        }
+        connection?.stop();
+
         try {
             const connection = new HubConnectionBuilder()
                 .configureLogging(LogLevel.Information)
