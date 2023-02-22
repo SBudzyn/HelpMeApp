@@ -91,7 +91,7 @@ const BoardPage = (props) => {
                                     name="categoryId"
                                     className="form-select mb-3 drop-down border border-primary"
                                 >
-                                    <option defaultValue={null}>
+                                    <option value="0">
                                         Choose category
                                     </option>
                                     {Object.keys(
@@ -114,7 +114,7 @@ const BoardPage = (props) => {
                                     name="termsId"
                                     className="form-select mb-3 drop-down border border-warning"
                                 >
-                                    <option defaultValue={null}>
+                                    <option value="0">
                                         Choose terms
                                     </option>
                                     {Object.keys(generalData?.terms ?? []).map(
@@ -139,7 +139,6 @@ const BoardPage = (props) => {
                                 >
                                     <option defaultValue={""}>Sort by</option>
                                     <option value="date">Creation Date</option>
-                                    <option value="rating">Rating</option>
                                 </Field>
                             </div>
                             <div className="col-xs-12 col-lg-3">
