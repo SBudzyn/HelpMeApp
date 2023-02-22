@@ -10,9 +10,9 @@ namespace HelpMeApp.Services.Interfaces
 {
     public interface IProfileService
     {
-        Task<ProfileResponseData> GetUserById(string userId);
-        Task<ProfileResultMessageModel> UpdateUser(string userId, ProfileUpdateData profileUpdateData);
-        Task<ProfileResultMessageModel> DeleteUser(string userId);
-        Task<IEnumerable<AdvertPreviewResponseData>> GetAllUserAdverts(string userId);
+        Task<ProfileResponseData> GetUserByIdAsync(string userId);
+        Task<ProfileResultMessageModel> UpdateUserAsync(string userId, ProfileUpdateData profileUpdateData);
+        Task<ProfileResultMessageModel> DeleteUserAsync(string userId);
+        Task<IEnumerable<AdvertPreviewResponseData>> GetUserNeedsHelpAdvertsByPageAsync(string userId, int page, int pageSize);
     }
 }

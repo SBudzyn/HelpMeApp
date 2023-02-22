@@ -1,0 +1,45 @@
+.error-message-profile,
+.error-message-submit-profile,
+.success-message-profile {
+    font-size: 17px;
+    position: relative;
+    font-weight: 600;
+}
+
+.error-message-profile,
+.error-message-submit-profile {
+    color: rgba(228, 48, 48, 0.773);
+}
+
+.error-message-profile,
+.success-message-profile {
+    bottom: 3vh;
+}
+
+.error-message-submit-profile {
+    bottom: 1vh;
+    margin-left: 125px;
+    margin-top: 35px;
+}
+
+.success-message-profile {
+    color: rgba(81, 228, 48, 0.773);
+    margin-left: 70px;
+}
+
+.text-profile {
+    font-weight: 550;
+}
+
+.surname-profile {
+    padding: 0%;
+}
+
+h4 .user-data-profile,
+.link-buttons {
+    font-weight: 200;
+}
+
+.info-profile {
+    font-size: 20px;
+}

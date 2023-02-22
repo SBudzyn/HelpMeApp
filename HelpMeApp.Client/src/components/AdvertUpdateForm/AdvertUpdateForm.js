@@ -1,15 +1,14 @@
-import { React, useEffect, useState } from "react";
+import { useState, React, useEffect } from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
-import "./AdvertCreationForm.css";
-import AdvertForms from "../../validation/AdvertForms.js";
-import { handleUploadFiles } from "../../services/filesUploading";
-import classNames from "classnames";
-import { baseRequest } from "../../services/axiosServices";
+import "bootstrap/dist/css/bootstrap.css";
+import PropTypes from "prop-types";
+import { baseRequestWithToken, baseRequest } from "../../services/axiosServices";
+import AdvertForms from "../../validation/AdvertForms";
+import { useParams } from "react-router-dom";
 import routingUrl from "../../constants/routingUrl";
 
-const AdvertCreationForm = () => {
-    const [uploadedFiles, setUploadedFiles] = useState([]);
-    const [fileLimit, setFileLimit] = useState(false);
+const AdvertUpdateForm = () => {
+    const params = useParams();
 
     const [generalData, setGeneralData] = useState({});
 
@@ -28,70 +27,64 @@ const AdvertCreationForm = () => {
         retrieveGeneralData();
     }, []);
 
-    const uploadBtnClass = classNames({
-        btn: true,
-        disabled: fileLimit,
-        "btn-primary": true
-    });
+    const [alertMessage, setAlertMessage] = useState("");
 
-    const handleFileEvent = async (e) => {
-        const chosenFiles = e.target.files;
-        handleUploadFiles(
-            chosenFiles,
-            setUploadedFiles,
-            setFileLimit,
-            uploadedFiles
-        );
-    };
-
-    const submitCreation = async (values) => {
-        const fullAdvertCreationData = {
+    const submitDataModification = async (values) => {
+        const UpdateAdvertData = {
             header: values.header,
             info: values.info,
             categoryId: values.category,
             termsId: values.terms,
             helpTypeId: values.helpType,
-            location: values.location,
-            photos: uploadedFiles.map(x => x.base64)
+            location: values.location
         };
 
-        await baseRequest
-            .post("/adverts/new", fullAdvertCreationData, {
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: "Bearer " + localStorage.token
-                }
+        setAlertMessage("");
+        await baseRequestWithToken
+            .put(
+                `adverts/update/${params.advertId}`,
+                UpdateAdvertData
+            )
+            .then(() => {
+                location.href = `${routingUrl.pathToAdvert}/${params.advertId}`;
             })
-            .then((response) => {
-                location.href = `${routingUrl.pathToAdvert}/${response.data.id}`;
+            .catch(() => {
+                setAlertMessage(
+                    "An error occured while modifing data"
+                );
             });
-    };
+    }
 
     return (
         <>
             <Formik
                 initialValues={{
-                    helpTypeId: "",
+                    helpType: "",
+                    header: "",
                     info: "",
-                    categoryId: "",
-                    termsId: ""
+                    location: "",
+                    category: "",
+                    terms: "",
+                    advertId: ""
+                }}
+                onSubmit={async (values) => {
+                    submitDataModification(values);
                 }}
                 validationSchema={AdvertForms}
-                onSubmit={async (values) => submitCreation(values)}
             >
                 {(formik) => {
                     const { isValid, dirty } = formik;
                     return (
                         <Form className="creation-form">
                             <h1 className="text-center mt-3 mb-3">
-                                Create new advert
+                                Update your advert
                             </h1>
+
                             <div className="mx-auto w-75">
                                 <label htmlFor="helpType" className="mb-5">
                                     Help type
                                 </label>
                                 <br />
-
                                 <Field
                                     as="select"
                                     name="helpType"
@@ -202,7 +195,6 @@ const AdvertCreationForm = () => {
                                     Terms
                                 </label>
                                 <br />
-
                                 <Field
                                     as="select"
                                     name="terms"
@@ -229,28 +221,7 @@ const AdvertCreationForm = () => {
                                 </div>
                             </div>
 
-                            <div className="mx-auto w-75">
-                                <input
-                                    id="fileUpload"
-                                    type="file"
-                                    accept=".jpg, .jpeg, .png"
-                                    onChange={(e) => handleFileEvent(e)}
-                                    disabled={fileLimit}
-                                    className="d-none"
-                                />
-
-                                <label htmlFor="fileUpload">
-                                    <a className={uploadBtnClass}>
-                                        Upload Photos
-                                    </a>
-                                </label>
-
-                                <div className="uploaded-files-list">
-                                    {uploadedFiles.map((file) => (
-                                        <div key={file.name}>{file.name}</div>
-                                    ))}
-                                </div>
-                            </div>
+                            <div className="error-message">{alertMessage}</div>
                             <br />
                             <button
                                 className="mx-auto w-75 mt-4 mb-5 submit-button horizontal-center btn btn-primary mb-3"
@@ -267,4 +238,8 @@ const AdvertCreationForm = () => {
     );
 };
 
-export default AdvertCreationForm;
+AdvertUpdateForm.propTypes = {
+    advertId: PropTypes.string
+};
+
+export default AdvertUpdateForm;

@@ -17,5 +17,6 @@ namespace HelpMeApp.Services.Models.Profile
         public string PhoneNumber { get; set; }
         public string Info { get; set; }
         public bool IsBlocked { get; set; }
+        public int UserHelpCount { get; set; }
     }
 }

@@ -1,7 +1,7 @@
 import { serverUrl } from "../constants/server";
 import axios from "axios";
 
-const baseRequest = axios.create({
+export const baseRequest = axios.create({
     baseURL: `${serverUrl}/api`,
     timeout: 3000,
     headers: {
@@ -10,4 +10,12 @@ const baseRequest = axios.create({
     }
 });
 
-export default baseRequest;
+export const baseRequestWithToken = axios.create({
+    baseURL: `${serverUrl}/api`,
+    timeout: 3000,
+    headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token")
+    }
+});

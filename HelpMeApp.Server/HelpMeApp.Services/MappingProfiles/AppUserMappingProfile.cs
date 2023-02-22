@@ -28,13 +28,11 @@ namespace HelpMeApp.Services.MappingProfiles
 
             CreateMap<AppUser, ProfileResponseData>();
 
-            CreateMap<AdvertPreviewResponseData, ProfileGetUserAdverts>();
-
             CreateMap<ProfileUpdateData, AppUser>()
                 .ForMember(src => src.PasswordHash, opt =>
                 {
                     opt.MapFrom(src => src.Password);
-                });            
-        }   
+                });
+        }
     }
 }

@@ -3,7 +3,7 @@ import { Formik, Form, Field } from "formik";
 import { Modal } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { checkToken } from "../../services/authorizationServices";
-import baseRequest from "../../services/axiosServices";
+import { baseRequest } from "../../services/axiosServices";
 import PropTypes from "prop-types";
 import routingUrl from "../../constants/routingUrl";
 import "bootstrap/dist/css/bootstrap.css";

@@ -11,7 +11,13 @@ import HomePage from "../pages/HomePage/HomePage";
 import PageNotFound from "../pages/PageNotFound/PageNotFound";
 import AdvertCreationPage from "../pages/AdvertCreationPage/AdvertCreationPage";
 import ChatPage from "../pages/ChatPage/ChatPage";
+import UserProfilePages from "../pages/UserProfilePages/MyProfilePage";
+import MyProfile from "../components/Profile/MyProfile";
+import UserDataModificationForm from "../components/Profile/UserDataModificationForm";
+import UsersAdvertsPage from "../pages/UserAdvertsPage/UserAdvertsPage";
 import helpTypes from "../constants/helpTypes";
+import AdvertUpdatingPage from "../pages/AdvertUpdatingPage/AdvertUpdatingPage";
+import OtherUserProfilePage from "../pages/UserProfilePages/OtherUserProfilePage";
 
 const AppRoutes = () => {
     return (
@@ -49,10 +55,29 @@ const AppRoutes = () => {
                 path={routingUrl.pathToChatById}
                 element={<RouteGuard element={ChatPage} />}
             />
-            <Route path={routingUrl.pathToProfile} element={<h1>Profile</h1>} />
             <Route
                 path={routingUrl.pathToAdvertCreation}
                 element={<RouteGuard element={AdvertCreationPage} />}
+            />
+            <Route
+                path={routingUrl.pathToProfile}
+                element={<UserProfilePages component={MyProfile}/>}
+            />
+            <Route
+                path={routingUrl.pathToOtherUserProfile + "/:creatorId"}
+                element={<OtherUserProfilePage />}
+            />
+            <Route
+                path={routingUrl.pathToProfileModification}
+                element={<UserProfilePages component={UserDataModificationForm} />}
+            />
+            <Route
+                path={routingUrl.pathToUsersAdverts + "/:page" + "/:creatorId"}
+                element={<UsersAdvertsPage/>}
+            />
+            <Route
+                path={routingUrl.pathToAdvertUpdateForm + "/:advertId"}
+                element={<RouteGuard element={AdvertUpdatingPage}/>}
             />
             <Route path="*" element={<PageNotFound />} />
         </Routes>

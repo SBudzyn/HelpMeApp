@@ -19,7 +19,7 @@ namespace HelpMeApp.WebAPI.Authorization
         protected async override Task HandleRequirementAsync(AuthorizationHandlerContext context, CreatorRequirement requirement, string userProvidedId)
         {
             var userId = context.User.Claims.First(c => c.Type == "UserId").Value;
-            var user = await _profileService.GetUserById(userProvidedId);
+            var user = await _profileService.GetUserByIdAsync(userProvidedId);
 
             if (userId == userProvidedId)
             {
