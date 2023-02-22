@@ -15,10 +15,13 @@ const months = [
 
 const dayOfWeek = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
-const getFormattedDate = (date) => {
+export const getFormattedDate = (date) => {
     return `${dayOfWeek[date.getDay() - 1]} ${
         months[date.getMonth()]
     } ${date.getDate()}`;
 };
 
-export default getFormattedDate;
+export const getFormattedDateTime = (datetime) => {
+    const parsedDate = new Date(datetime);
+    return `${parsedDate.getHours()}:${parsedDate.getMinutes()} ${parsedDate.getDate()} ${months[parsedDate.getMonth()]}`;
+};

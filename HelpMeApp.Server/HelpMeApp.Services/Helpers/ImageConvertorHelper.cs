@@ -30,12 +30,22 @@ namespace HelpMeApp.Services.Helpers
 
         public static string ConvertPhotoToString(Photo photo)
         {
-            if (string.IsNullOrEmpty(photo.Prefix))
+            if (string.IsNullOrEmpty(photo?.Prefix))
             {
                 return string.Empty;
             }
 
             return string.Join(',', photo.Prefix, Convert.ToBase64String(photo.Data));
+        }
+
+        public static string ConvertPhotoToString(string prefix, byte[] data)
+        {
+            if (string.IsNullOrEmpty(prefix))
+            {
+                return string.Empty;
+            }
+
+            return string.Join(',', prefix, Convert.ToBase64String(data));
         }
     }
 }

@@ -17,6 +17,7 @@ const AdvertContainer = (props) => {
                             title={advert.header}
                             location={advert.location}
                             date={new Date(advert.creationDate)}
+                            photo={advert.photo}
                         />
                     </div>
                 ))}
