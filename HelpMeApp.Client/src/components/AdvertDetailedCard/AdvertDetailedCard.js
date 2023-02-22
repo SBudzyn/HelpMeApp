@@ -3,16 +3,13 @@ import PropTypes from "prop-types";
 import "bootstrap/dist/css/bootstrap.css";
 import "./../../styles/pages.css";
 import "./AdvertDetailedCard.css";
-import { Carousel, Modal } from "react-bootstrap";
+import { Carousel } from "react-bootstrap";
 import defaultAdvertImage from "../../media/defaultAdvertPhoto.jpg";
 import defaultAvatar from "../../media/defaultAvatarProfileIcon.jpg";
 import baseRequest from "../../services/axiosServices";
 import { getFormattedDate } from "../../services/getFormattedDate";
 import checkRetrievedData from "../../services/checkRetrievedData";
-import { Link, useNavigate } from "react-router-dom";
-import { Formik, Form, Field } from "formik";
-import { checkToken } from "../../services/authorizationServices";
-import routingUrl from "../../constants/routingUrl";
+import { Link } from "react-router-dom";
 import MyAdvertButtons from "./MyAdvertButtons";
 import OtherUserButtons from "./OtherUserButtons";
 
