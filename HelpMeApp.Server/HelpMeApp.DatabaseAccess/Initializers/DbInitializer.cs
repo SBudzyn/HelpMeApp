@@ -38,12 +38,12 @@ namespace HelpMeApp.DatabaseAccess.Initializers
 
             foreach (var advert in DatabaseSeeder.Adverts)
             {
+                advert.Info = advert.Header.Split(new[] {'.'}, 2)[1];
+                advert.Header = advert.Header.Split(new[] {'.'}, 2)[0];
                 advert.CreatorId = DatabaseSeeder.AppUsers[Random.Shared.Next(0, DatabaseSeeder.AppUsers.Count)].Id;
-                advert.HelpTypeId = DatabaseSeeder.HelpTypes[Random.Shared.Next(0, DatabaseSeeder.HelpTypes.Count)].Id;
                 advert.CategoryId = DatabaseSeeder.Categories[Random.Shared.Next(0, DatabaseSeeder.Categories.Count)].Id;
                 advert.TermsId = DatabaseSeeder.Terms[Random.Shared.Next(0, DatabaseSeeder.Terms.Count)].Id;
-                bool randomBool = new Random().Next(2) == 1;
-                advert.IsClosed = advert.ClosureDate == DateTime.MinValue ? false : randomBool;
+                advert.IsClosed = advert.ClosureDate == DateTime.MinValue ? false : true;
             }
             context.Adverts.AddRange(DatabaseSeeder.Adverts);
 
