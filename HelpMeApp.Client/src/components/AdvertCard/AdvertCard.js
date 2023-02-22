@@ -5,18 +5,18 @@ import { Link } from "react-router-dom";
 import defaultAdvertPhoto from "../../media/defaultAdvertPhoto.jpg";
 import routingUrl from "../../constants/routingUrl";
 import "./AdvertCard.css";
-import getFormattedDate from "./../../services/getFormattedDate";
+import { getFormattedDate } from "./../../services/getFormattedDate";
 
 const AdvertCard = (props) => {
     const linkToAdvert = `${routingUrl.pathToAdvert}/${props.id}`;
-    const photoSrc = props.photo ?? defaultAdvertPhoto;
+    const photoSrc = props.photo || defaultAdvertPhoto;
     return (
         <Card className="card-size">
             <Link to={linkToAdvert}>
                 <Card.Img
                     variant="top"
                     src={photoSrc}
-                    className="image-border-bottom"
+                    className="image-border-bottom image"
                 />
             </Link>
             <Card.Body>

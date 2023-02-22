@@ -1,6 +1,6 @@
 import * as Yup from "yup";
 
-const AdvertCreation = Yup.object().shape({
+const AdvertForms = Yup.object().shape({
     helpType: Yup.string()
         .required("Required!"),
     header: Yup.string()
@@ -21,4 +21,4 @@ const AdvertCreation = Yup.object().shape({
         .required("Required!")
 });
 
-export default AdvertCreation;
+export default AdvertForms;

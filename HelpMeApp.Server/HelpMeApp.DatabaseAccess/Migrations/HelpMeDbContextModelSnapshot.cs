@@ -39,7 +39,7 @@ namespace HelpMeApp.DatabaseAccess.Migrations
                     b.Property<DateTime>("CreationDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 2, 12, 20, 39, 2, 992, DateTimeKind.Local).AddTicks(1953));
+                        .HasDefaultValue(new DateTime(2023, 2, 22, 22, 17, 12, 348, DateTimeKind.Local).AddTicks(4092));
 
                     b.Property<Guid>("CreatorId")
                         .HasColumnType("uniqueidentifier");
@@ -250,7 +250,7 @@ namespace HelpMeApp.DatabaseAccess.Migrations
                     b.Property<DateTime>("CreationDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2023, 2, 12, 20, 39, 2, 993, DateTimeKind.Local).AddTicks(8658));
+                        .HasDefaultValue(new DateTime(2023, 2, 22, 22, 17, 12, 349, DateTimeKind.Local).AddTicks(522));
 
                     b.Property<int>("SenderRoleId")
                         .HasColumnType("int");
@@ -344,8 +344,11 @@ namespace HelpMeApp.DatabaseAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Days")
+                    b.Property<string>("From")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Till")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HelpMeApp.DatabaseAccess.Enums;
 
 namespace HelpMeApp.DatabaseAccess.Repositories
 {
@@ -25,6 +26,8 @@ namespace HelpMeApp.DatabaseAccess.Repositories
         {
             return await _context.Adverts
                 .Where(a => a.IsClosed == false)
+                .Include(a => a.Terms)
+                .Where(a => DateTime.Now < (a.CreationDate.AddDays(Convert.ToDouble(a.Terms.Till))))
                 .FilterByHelpType(filters.HelpTypeId)
                 .FilterByCategory(filters.CategoryId)
                 .FilterByLocation(filters.Location)
@@ -53,7 +56,7 @@ namespace HelpMeApp.DatabaseAccess.Repositories
 
         public async Task<Dictionary<int, string>> GetTermsAsync()
         {
-            return await _context.Terms.ToDictionaryAsync(t => t.Id, t => t.Days);
+            return await _context.Terms.ToDictionaryAsync(t => t.Id, t => $"{t.From}-{t.Till}");
         }
 
         public async Task<Dictionary<int, string>> GetHelpTypesAsync()
@@ -61,16 +64,30 @@ namespace HelpMeApp.DatabaseAccess.Repositories
             return await _context.HelpTypes.ToDictionaryAsync(h => h.Id, h => h.Name);
         }
 
-        public async Task<int> CountAdverts()
+        public async Task<int> CountAdvertsAsync()
         {
             return await _context.Adverts.CountAsync();
         }
 
-        public async Task<IEnumerable<Advert>> GetAllUserAdverts(string userId)
+        public async Task<IEnumerable<Advert>> GetUserNeedsHelpAdvertsByPageAsync(string userId, int page, int pageSize)
         {
             return await _context.Adverts
+                .Where(a => a.IsClosed == false)
                 .Where(a => a.CreatorId.ToString() == userId)
+                .Where(a => a.HelpTypeId == (int)UserHelpType.NeedsHelp)
+                .Include(a => a.Photos)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
                 .ToListAsync();
         }
+
+        public async Task<int> CountAdvertsUserCanHelpAsync(string userId)
+        {
+            return await _context.Adverts
+                .Where(a => a.HelpTypeId == (int)UserHelpType.CanHelp)
+                .Where(a => a.CreatorId.ToString() == userId)
+                .CountAsync();
+        }
+
     }
 }

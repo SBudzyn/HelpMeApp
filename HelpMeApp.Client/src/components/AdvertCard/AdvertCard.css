@@ -10,6 +10,10 @@
     min-width: 16rem;
 }
 
+.image {
+    height: 16rem;
+}
+
 .image-border-bottom {
     border-bottom: 0.3px solid rgba(0, 0, 0, 0.759);
 }

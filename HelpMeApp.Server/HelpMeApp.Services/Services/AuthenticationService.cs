@@ -56,7 +56,7 @@ namespace HelpMeApp.Services.Services
 
             var response = new LoginResponseModel() { IsSuccessful = false };
 
-            if (user == null)
+            if (user == null || user.IsBlocked == true)
             {
                 return response;
             }

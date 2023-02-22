@@ -2,12 +2,13 @@ import { useState, React } from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import { Link } from "react-router-dom";
 import routingUrl from "../../constants/routingUrl";
-import baseRequest from "../../services/axiosServices";
+import { baseRequest } from "../../services/axiosServices";
 import Modal from "react-bootstrap/Modal";
 import Authorization from "../../validation/Authorization";
 import Registration from "../../validation/Registration";
 import "bootstrap/dist/css/bootstrap.css";
 import "./AuthorizationForms.css";
+import { convertToBase64 } from "../../services/convertors.js";
 
 const RegistrationForm = () => {
     const [alertMessage, setAlertMessage] = useState("");
@@ -16,6 +17,8 @@ const RegistrationForm = () => {
         email: "",
         password: ""
     });
+    const [photo, setPhoto] = useState("");
+
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
@@ -31,7 +34,8 @@ const RegistrationForm = () => {
             name: values.name,
             surname: values.surname,
             phoneNumber: values.phoneNumber,
-            info: values.info
+            info: values.info,
+            photo
         };
         await baseRequest
             .post(
@@ -41,17 +45,13 @@ const RegistrationForm = () => {
             .then((response) => {
                 if (response.data.isSuccessful) {
                     handleClose();
-                    setSuccessMessage(
-                        "Success! Now you can login"
-                    );
+                    setSuccessMessage("Success! Now you can login");
                 } else {
                     setAlertMessage("error");
                 }
             })
             .catch(() => {
-                setAlertMessage(
-                    "Unsuccessful registration"
-                );
+                setAlertMessage("Unsuccessful registration");
             });
     };
 
@@ -250,6 +250,13 @@ const RegistrationForm = () => {
                                             type="file"
                                             id="photo"
                                             accept="image/*"
+                                            onChange={async (e) => {
+                                                setPhoto(
+                                                    await convertToBase64(
+                                                        e.target.files[0]
+                                                    )
+                                                );
+                                            }}
                                         ></input>
                                     </div>
                                 </div>

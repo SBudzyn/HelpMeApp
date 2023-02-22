@@ -1,10 +1,10 @@
 import { React, useEffect, useState } from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import "./AdvertCreationForm.css";
-import AdvertCreation from "../../validation/AdvertCreation.js";
+import AdvertForms from "../../validation/AdvertForms.js";
 import { handleUploadFiles } from "../../services/filesUploading";
 import classNames from "classnames";
-import baseRequest from "../../services/axiosServices";
+import { baseRequest } from "../../services/axiosServices";
 import routingUrl from "../../constants/routingUrl";
 
 const AdvertCreationForm = () => {
@@ -64,9 +64,6 @@ const AdvertCreationForm = () => {
             })
             .then((response) => {
                 location.href = `${routingUrl.pathToAdvert}/${response.data.id}`;
-            })
-            .catch((error) => {
-                alert(error);
             });
     };
 
@@ -79,7 +76,7 @@ const AdvertCreationForm = () => {
                     categoryId: "",
                     termsId: ""
                 }}
-                validationSchema={AdvertCreation}
+                validationSchema={AdvertForms}
                 onSubmit={async (values) => submitCreation(values)}
             >
                 {(formik) => {

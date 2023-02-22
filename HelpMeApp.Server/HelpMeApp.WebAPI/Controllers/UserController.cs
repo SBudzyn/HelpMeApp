@@ -2,133 +2,119 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using System;
 using HelpMeApp.Services.Models.Profile;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Authorization;
 using HelpMeApp.Services.Interfaces;
-using HelpMeApp.DatabaseAccess.Entities.AdvertEntity;
-using HelpMeApp.WebAPI.Authorization;
-using System.Security.Principal;
 using System.Security.Claims;
-using Microsoft.IdentityModel.Tokens;
 using System.Linq;
 using HelpMeApp.Services.Models.Advert;
 
 namespace HelpMeApp.WebAPI.Controllers
 {
-
     [Route("api/profile")]
     [ApiController]
     public class UserController : ControllerBase
     {
-        private UserManager<AppUser> _userManager;
         private IProfileService _profileService;
         private IAuthorizationService _authorizationService;
-        public UserController(UserManager<AppUser> userManager, IProfileService profileService, IAuthorizationService authorizationService)
+        private UserManager<AppUser> _userManager;
+
+        public UserController(IProfileService profileService, IAuthorizationService authorizationService, UserManager<AppUser> userManager)
         {
+            _userManager= userManager;
             _authorizationService = authorizationService;
-            _userManager = userManager;
             _profileService = profileService;
         }
 
-        [Authorize]
+        private string GetUserFromClaims()
+        {
+            ClaimsPrincipal claimsPrincipal = HttpContext.User;
+
+            var userId = claimsPrincipal.FindFirst(c => c.Type == "UserId").Value;
+
+            return userId;
+        }
+
         [HttpGet("get-user-by-id/{userId}")]
         public async Task<ActionResult<ProfileResponseData>> GetUserById(string userId)
         {
-            if (await _userManager.FindByIdAsync(userId) != null)
+            var userIdCheck = await _userManager.FindByIdAsync(userId);
+
+            if ( userIdCheck != null)
             {
-                var authorizationResult = await _authorizationService.AuthorizeAsync(User, userId, "EditPolicy");               
-                if (authorizationResult.Succeeded)
-                { 
-                    return await _profileService.GetUserById(userId);
-                }                
+                return await _profileService.GetUserByIdAsync(userId);
             }
 
-            return Unauthorized("You don`t have permission to modify the resource");                    
+            return NotFound("User was not founded ");
         }
-        
+
         [Authorize]
         [HttpGet("get-my-info")]
         public async Task<ActionResult<ProfileResponseData>> GetMyInfo()
         {
-            ClaimsPrincipal claimsPrincipal = HttpContext.User;
-            var userId = claimsPrincipal.FindFirst(c => c.Type == "UserId").Value;  
-            
-            var result = await _profileService.GetUserById(userId);
+            var userId = GetUserFromClaims();
 
-            return Ok(result);        
+            var authorizationResult = await _authorizationService.AuthorizeAsync(User, userId, "EditPolicy");
+
+            if (authorizationResult.Succeeded)
+            {
+                var result = await _profileService.GetUserByIdAsync(userId);
+                return result;
+            }
+
+            return Unauthorized("You don`t have permission to modify the resource");
         }
 
         [Authorize]
         [HttpPut("update-user")]
         public async Task<ActionResult<ProfileResultMessageModel>> Update([FromBody] ProfileUpdateData profileResponseData)
         {
-            ClaimsPrincipal claimsPrincipal = HttpContext.User;
-            var userId = claimsPrincipal.FindFirst(c => c.Type == "UserId").Value;
+            var userId = GetUserFromClaims();
 
-            var result = new ProfileResultMessageModel();
+            var authorizationResult = await _authorizationService.AuthorizeAsync(User, userId, "EditPolicy");
 
-            if (await _userManager.FindByIdAsync(userId) != null)
+            if (authorizationResult.Succeeded)
             {
-                var authorizationResult = await _authorizationService.AuthorizeAsync(User, userId, "EditPolicy");
-
-                if (authorizationResult.Succeeded)
-                {
-                    result = await _profileService.UpdateUser(userId, profileResponseData);
-                }
-                return result;
+                return await _profileService.UpdateUserAsync(userId, profileResponseData);
             }
-
-            return NotFound("User was not found");
+            
+            return Unauthorized("You don`t have permission to modify the resource");
         }
 
         [Authorize]
         [HttpGet("delete-user")]
         public async Task<ActionResult<ProfileResultMessageModel>> DeleteUser()
         {
-            ClaimsPrincipal claimsPrincipal = HttpContext.User;
-            var userId = claimsPrincipal.FindFirst(c => c.Type == "UserId").Value;
+            var userId = GetUserFromClaims();
 
-            var result = new ProfileResultMessageModel();
+            var authorizationResult = await _authorizationService.AuthorizeAsync(User, userId, "EditPolicy");
 
-            if (await _userManager.FindByIdAsync(userId) != null)
+            if (authorizationResult.Succeeded)
             {
-                var authorizationResult = await _authorizationService.AuthorizeAsync(User, userId, "EditPolicy");
-
-                if (authorizationResult.Succeeded)
-                {
-                    result = await _profileService.DeleteUser(userId);
-                    return result;
-                }
-                
+                return await _profileService.DeleteUserAsync(userId);
             }
 
-            return NotFound("User was not found");
+            return Unauthorized("You don`t have permission to modify the resource");
         }
 
-        [Authorize]
-        [HttpGet("get-user-adverts")]
-        public async Task<ActionResult<IEnumerable<AdvertPreviewResponseData>>> GetAllUserAdverts()
+        [HttpGet("get-user-needs-help-adverts-by-page/{pageId}/{userId}")]
+        public async Task<ActionResult<IEnumerable<AdvertPreviewResponseData>>> GetUserNeedsHelpAdvertsByPage(string userId, int pageId = 1, int pageSize = 20)
         {
-            ClaimsPrincipal claimsPrincipal = HttpContext.User;
-            var userId = claimsPrincipal.FindFirst(c => c.Type == "UserId").Value;
-
-            if (await _userManager.FindByIdAsync(userId) != null)
+            if (pageId < 1 || pageSize < 1)
             {
-                var authorizationResult = await _authorizationService.AuthorizeAsync(User, userId, "EditPolicy");
-
-                if (authorizationResult.Succeeded)
-                {
-                    var result = await _profileService.GetAllUserAdverts(userId);
-                    return result.ToList();
-                }
-
+                return BadRequest();
             }
 
-            return NotFound("User was not found");
+            var userIdCheck = await _userManager.FindByIdAsync(userId);
+
+            if (userIdCheck != null)
+            {
+                var result = await _profileService.GetUserNeedsHelpAdvertsByPageAsync(userId, pageId, pageSize);
+                return result.ToList();
+            }
+
+            return BadRequest();
         }
-
-
     }
 }

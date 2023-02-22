@@ -3,7 +3,7 @@ import { Formik, Field, Form } from "formik";
 import AdvertContainer from "../../components/AdvertContainer/AdvertContainer";
 import "bootstrap/dist/css/bootstrap.css";
 import { Link, useParams } from "react-router-dom";
-import baseRequest from "../../services/axiosServices";
+import { baseRequest } from "../../services/axiosServices";
 import Pagination from "../../components/Pagination/Pagination";
 import PropTypes from "react-bootstrap/esm/Image";
 import routingUrl from "../../constants/routingUrl";
@@ -52,8 +52,8 @@ const BoardPage = (props) => {
         localStorage.sortBy = "";
         location.href =
             props.helpTypeId === 1
-                ? routingUrl.pathToGetHelpBoard + "/1"
-                : routingUrl.pathToGiveHelpBoard + "/1";
+                ? routingUrl.pathToGiveHelpBoard + "/1"
+                : routingUrl.pathToGetHelpBoard + "/1";
     };
 
     useEffect(() => {
@@ -91,7 +91,7 @@ const BoardPage = (props) => {
                                     name="categoryId"
                                     className="form-select mb-3 drop-down border border-primary"
                                 >
-                                    <option defaultValue={null}>
+                                    <option value="0">
                                         Choose category
                                     </option>
                                     {Object.keys(
@@ -114,7 +114,7 @@ const BoardPage = (props) => {
                                     name="termsId"
                                     className="form-select mb-3 drop-down border border-warning"
                                 >
-                                    <option defaultValue={null}>
+                                    <option value="0">
                                         Choose terms
                                     </option>
                                     {Object.keys(generalData?.terms ?? []).map(
@@ -139,7 +139,6 @@ const BoardPage = (props) => {
                                 >
                                     <option defaultValue={""}>Sort by</option>
                                     <option value="date">Creation Date</option>
-                                    <option value="rating">Rating</option>
                                 </Field>
                             </div>
                             <div className="col-xs-12 col-lg-3">

@@ -9,7 +9,7 @@ namespace HelpMeApp.Services.Models.Advert
     public class AdvertPreviewResponseData : AdvertDataBase
     {
         public int Id { get; set; }
-        public byte[] Photo { get; set; }
+        public string Photo { get; set; }
         public DateTime CreationDate { get; set; }
     }
 }
