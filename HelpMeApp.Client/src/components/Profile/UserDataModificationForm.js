@@ -1,14 +1,11 @@
 import { useState, React, useEffect } from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import ProfileDataModificationScheme from "../../validation/ProfileDataModification";
-import { handleUploadFiles } from "../../services/filesUploading";
 import { baseRequestWithToken } from "../../services/axiosServices";
 import "bootstrap/dist/css/bootstrap.css";
 import "./UserProfile.css";
 
 const UserDataModificationForm = () => {
-    const [uploadedFiles, setUploadedFiles] = useState([]);
-
     const [alertMessage, setAlertMessage] = useState("");
     const [successMessage, setSuccessMessage] = useState("");
 
@@ -45,11 +42,6 @@ const UserDataModificationForm = () => {
             .catch(() => {
                 setAlertMessage("An error occured while modifing data");
             });
-    };
-
-    const handleFileEvent = async (e) => {
-        const chosenFiles = e.target.files;
-        handleUploadFiles(chosenFiles, setUploadedFiles);
     };
 
     const retrieveUserData = async () => {
@@ -198,27 +190,6 @@ const UserDataModificationForm = () => {
                                 </div>
                             </div>
 
-                            <div className="mx-auto w-75">
-                                <input
-                                    id="fileUpload"
-                                    type="file"
-                                    accept=".jpg, .jpeg, .png"
-                                    onChange={(e) => handleFileEvent(e)}
-                                    className="d-none"
-                                />
-
-                                <label htmlFor="fileUpload">
-                                    <a className="btn btn-primary">
-                                        Upload Photos
-                                    </a>
-                                </label>
-
-                                <div className="uploaded-files-list">
-                                    {uploadedFiles.map((file) => (
-                                        <div key={file.name}>{file.name}</div>
-                                    ))}
-                                </div>
-                            </div>
                             <div className="error-message-submit-profile">
                                 {alertMessage}
                             </div>

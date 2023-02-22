@@ -12,6 +12,7 @@ import checkRetrievedData from "../../services/checkRetrievedData";
 import { Link } from "react-router-dom";
 import MyAdvertButtons from "./MyAdvertButtons";
 import OtherUserButtons from "./OtherUserButtons";
+import routingUrl from "../../constants/routingUrl";
 
 const AdvertDetailedCard = (props) => {
     const [data, setData] = useState({});
@@ -33,7 +34,7 @@ const AdvertDetailedCard = (props) => {
     useEffect(() => {
         retrieveAdvertById(props.advertId);
     }, []);
-    
+
     return (
         <div className="container-fluid common-background">
             <div className="container pt-3">

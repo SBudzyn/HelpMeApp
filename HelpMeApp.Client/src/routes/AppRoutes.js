@@ -9,16 +9,15 @@ import LoginForm from "../components/AuthorizationForms/LoginForm";
 import RegistrationForm from "../components/AuthorizationForms/RegistrationForm";
 import HomePage from "../pages/HomePage/HomePage";
 import PageNotFound from "../pages/PageNotFound/PageNotFound";
-import AdvertCreationPage from "../pages/AdvertCreationPage/AdvertCreationPage";
+import AdvertCreationPage from "../pages/AdvertUpdatingCreationPages/AdvertCreationPage";
 import ChatPage from "../pages/ChatPage/ChatPage";
 import UserProfilePages from "../pages/UserProfilePages/UserProfilePages";
 import MyProfile from "../components/Profile/MyProfile";
 import UserDataModificationForm from "../components/Profile/UserDataModificationForm";
 import UsersAdvertsPage from "../pages/UserAdvertsPage/UserAdvertsPage";
-import AdvertUpdateForm from "../components/AdvertUpdateForm/AdvertUpdateForm";
 import OtherUserProfile from "../components/Profile/OtherUserProfile";
 import helpTypes from "../constants/helpTypes";
-
+import AdvertUpdatingPage from "../pages/AdvertUpdatingCreationPages/AdvertUpdatingPage";
 const AppRoutes = () => {
     return (
         <Routes>
@@ -76,8 +75,8 @@ const AppRoutes = () => {
                 element={<RouteGuard element={UsersAdvertsPage} />}
             />
             <Route
-                path={routingUrl.pathToAdvertUpdateForm}
-                element={<AdvertUpdateForm advertId="20"/>}
+                path={routingUrl.pathToAdvertUpdateForm + "/:advertId"}
+                element={<RouteGuard element={AdvertUpdatingPage}/>}
             />
             <Route path="*" element={<PageNotFound />} />
         </Routes>

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import photo1 from "../../media/defaultAdvertPhoto.jpg";
 import "bootstrap/dist/css/bootstrap.css";
 import { Link } from "react-router-dom";
 import routingUrl from "../../constants/routingUrl";
@@ -8,6 +7,7 @@ import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import { baseRequestWithToken } from "../../services/axiosServices";
 import { logout } from "../../services/authorizationServices";
+import defaultAdvertImage from "../../media/defaultAdvertPhoto.jpg";
 
 const MyProfile = () => {
     const [show, setShow] = useState(false);
@@ -53,7 +53,7 @@ const MyProfile = () => {
             <div className="row mt-3 col-sm-12 ">
                 <div className="col-lg-3">
                     <img
-                        src={photo1}
+                        src={ userData.photo === "" ? (defaultAdvertImage) : (userData.photo)}
                         style={{ width: "18rem" }}
                         className="border border-dark"
                     ></img>

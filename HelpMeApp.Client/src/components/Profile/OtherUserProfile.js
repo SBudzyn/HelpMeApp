@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import photo1 from "../../media/defaultAdvertPhoto.jpg";
 import "bootstrap/dist/css/bootstrap.css";
 import { Link, useParams } from "react-router-dom";
 import routingUrl from "../../constants/routingUrl";
 import "./UserProfile.css";
 import { baseRequestWithToken } from "../../services/axiosServices";
+import defaultAdvertImage from "../../media/defaultAdvertPhoto.jpg";
 
 const OtherUserProfile = () => {
     const params = useParams();
@@ -30,7 +30,7 @@ const OtherUserProfile = () => {
             <div className="row mt-3 col-sm-12 ">
                 <div className="col-lg-3">
                     <img
-                        src={photo1}
+                        src={userData.photo === "" ? (defaultAdvertImage) : (userData.photo)}
                         style={{ width: "18rem" }}
                         className="border border-dark"
                     ></img>
