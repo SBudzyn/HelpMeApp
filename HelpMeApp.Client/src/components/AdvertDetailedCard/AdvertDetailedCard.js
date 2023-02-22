@@ -9,7 +9,6 @@ import baseRequest from "../../services/axiosServices";
 import getFormattedDate from "../../services/getFormattedDate";
 import checkRetrievedData from "../../services/checkRetrievedData";
 import { Link } from "react-router-dom";
-
 import MyAdvertButtons from "./MyAdvertButtons";
 import OtherUserButtons from "./OtherUserButtons";
 
