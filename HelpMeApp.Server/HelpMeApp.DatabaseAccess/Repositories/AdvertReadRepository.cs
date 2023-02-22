@@ -26,6 +26,8 @@ namespace HelpMeApp.DatabaseAccess.Repositories
         {
             return await _context.Adverts
                 .Where(a => a.IsClosed == false)
+                .Include(a => a.Terms)
+                .Where(a => DateTime.Now < (a.CreationDate.AddDays(Convert.ToDouble(a.Terms.Till))))
                 .FilterByHelpType(filters.HelpTypeId)
                 .FilterByCategory(filters.CategoryId)
                 .FilterByLocation(filters.Location)
@@ -54,7 +56,7 @@ namespace HelpMeApp.DatabaseAccess.Repositories
 
         public async Task<Dictionary<int, string>> GetTermsAsync()
         {
-            return await _context.Terms.ToDictionaryAsync(t => t.Id, t => t.Days);
+            return await _context.Terms.ToDictionaryAsync(t => t.Id, t => $"{t.From}-{t.Till}");
         }
 
         public async Task<Dictionary<int, string>> GetHelpTypesAsync()

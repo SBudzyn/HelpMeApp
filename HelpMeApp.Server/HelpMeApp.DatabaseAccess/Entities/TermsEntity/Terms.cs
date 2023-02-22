@@ -8,7 +8,8 @@ namespace HelpMeApp.DatabaseAccess.Entities.TermsEntity
     {
         public int Id { get; set; }
         [Required]
-        public string Days { get; set; }
+        public string From { get; set; }
+        public string Till { get; set; }
 
         public List<Advert> Adverts { get; set; } = new List<Advert>();
     }
