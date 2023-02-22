@@ -7,6 +7,7 @@ using HelpMeApp.Services.Helpers;
 using HelpMeApp.Services.Interfaces;
 using HelpMeApp.Services.Models;
 using HelpMeApp.Services.Models.Advert;
+using HelpMeApp.Services.Models.Chat;
 using HelpMeApp.Services.Models.Filters;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -35,10 +36,18 @@ namespace HelpMeApp.Services.Services
             var filtersDomain = _mapper.Map<AdvertFilters>(filters);
 
             var domainAdverts = await _advertReadRepository.GetAdvertsByPageAsync(filtersDomain, page, pageSize);
+            var mappedAdverts = new List<AdvertPreviewResponseData>();
 
-            var advertsData = _mapper.Map<IEnumerable<AdvertPreviewResponseData>>(domainAdverts);
+            foreach (var advert in domainAdverts)
+            {
+                var advertData = _mapper.Map<AdvertPreviewResponseData>(advert);
 
-            return advertsData;
+                advertData.Photo = ImageConvertorHelper.ConvertPhotoToString(advert.Photos.FirstOrDefault());
+
+                mappedAdverts.Add(advertData);
+            }
+
+            return mappedAdverts;
         }
 
         public async Task<AdvertDetailedResponseData> GetAdvertByIdAsync(int id)
@@ -46,6 +55,8 @@ namespace HelpMeApp.Services.Services
             var domainAdvert = await _advertReadRepository.GetAdvertByIdAsync(id);
 
             var advertData = _mapper.Map<AdvertDetailedResponseData>(domainAdvert);
+
+            advertData.CreatorPhoto = ImageConvertorHelper.ConvertPhotoToString(domainAdvert.Creator.PhotoPrefix, domainAdvert.Creator.Photo);
             advertData.Photos = domainAdvert.Photos.Select(x => ImageConvertorHelper.ConvertPhotoToString(x)).ToList();
 
             return advertData;
@@ -63,6 +74,7 @@ namespace HelpMeApp.Services.Services
 
             var response = _mapper.Map<AdvertDetailedResponseData>(domainAdvert);
 
+            response.CreatorPhoto = ImageConvertorHelper.ConvertPhotoToString(domainAdvert.Creator.PhotoPrefix, domainAdvert.Creator.Photo);
             response.Photos = domainAdvert.Photos.Select(x => ImageConvertorHelper.ConvertPhotoToString(x)).ToList();
 
             return response;

@@ -28,12 +28,14 @@ namespace HelpMeApp.DatabaseAccess.Repositories
         public async Task<IEnumerable<Chat>> GetChatsByUserAsync(Guid userId, int page, int pageSize)
         {
             return await _context.Chats
-                .Where(c => c.UserId == userId)
-                .Where(c => c.Messages.Count() != 0)
+                .Where(c => c.UserId == userId || c.Advert.CreatorId == userId)
                 .Include(c => c.User)
                 .Include(c => c.Advert)
+                .ThenInclude(a => a.Creator)
+                .Include(c => c.Advert)
+                .ThenInclude(a => a.Photos)
                 .Include(c => c.Messages)
-                .OrderByDescending(c => c.Messages.OrderByDescending(c => c.CreationDate).LastOrDefault().CreationDate)
+                .OrderByDescending(c => c.Messages.OrderByDescending(c => c.CreationDate).FirstOrDefault().CreationDate)
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize)
                 .ToListAsync();

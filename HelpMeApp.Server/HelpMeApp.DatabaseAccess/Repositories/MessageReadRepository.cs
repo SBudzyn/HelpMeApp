@@ -29,7 +29,7 @@ namespace HelpMeApp.DatabaseAccess.Repositories
                 .Where(m => m.ChatId == chatId)
                 .Include(m => m.Chat)
                 .ThenInclude(c => c.Advert)
-                .OrderByDescending(c => c.CreationDate)
+                .OrderBy(c => c.CreationDate)
                 .Skip((page - 1) * amount)
                 .Take(amount)
                 .ToListAsync();
