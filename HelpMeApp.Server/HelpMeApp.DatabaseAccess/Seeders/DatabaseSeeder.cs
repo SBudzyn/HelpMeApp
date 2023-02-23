@@ -18,8 +18,6 @@ namespace HelpMeApp.DatabaseAccess.Seeders
     {
         public static List<Advert> Adverts = new List<Advert>();
         public static List<AppUser> AppUsers = new List<AppUser>();
-        public static List<Chat> Chats = new List<Chat>();
-        public static List<Message> Messages = new List<Message>();
         public static List<Report> Reports = new List<Report>();
 
         public static bool IsCalled = false;
@@ -169,19 +167,6 @@ namespace HelpMeApp.DatabaseAccess.Seeders
                 .RuleFor(r => r.Text, f => f.Lorem.Sentences(f.Random.Number(1, 5)));
 
             Reports.AddRange(reportFaker.Generate(25));
-
-            var messageFaker = new Faker<Message>()
-                .RuleFor(m => m.SenderRoleId, f => f.PickRandom(SenderRoles).Id)
-                .RuleFor(m => m.Text, f => f.Lorem.Sentences(f.Random.Number(1, 5)))
-                .RuleFor(m => m.CreationDate, f => f.Date.Recent());
-
-            Messages.AddRange(messageFaker.Generate(100));
-
-            var chatFaker = new Faker<Chat>()
-                .RuleFor(c => c.IsConfirmedByResponder, f => f.PickRandom(true, false))
-                .RuleFor(c => c.IsConfirmedByCreator, f => f.PickRandom(true, false));
-
-            Chats.AddRange(chatFaker.Generate(300));
 
             var advertNeedsHelpFaker = new Faker<Advert>()
                .RuleFor(a => a.Header, f => f.PickRandom(advertHeadersNeedsHelp))
