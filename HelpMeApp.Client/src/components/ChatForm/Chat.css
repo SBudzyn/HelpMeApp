@@ -37,4 +37,12 @@
     float: right;
     clear: both;
   }
+
+  @media only screen and (max-width: 700px) {
+    .hidden-when-width-700 {
+      visibility: hidden;
+      max-width: 0;
+      padding: 1;   
+    }
+  }
   

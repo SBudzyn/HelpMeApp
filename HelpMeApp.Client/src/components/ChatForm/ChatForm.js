@@ -121,7 +121,7 @@ const ChatForm = () => {
                                 className="overflow-hidden lh-sm"
                             >
                                 <Row>
-                                    <Col xs={3} className="align-middle">
+                                    <Col xs={3} className="align-middle hidden-when-width-700">
                                         <img
                                             src={
                                                 chat.advertPicture ||
@@ -220,7 +220,7 @@ const ChatForm = () => {
                     >
                         <Form>
                             <Row>
-                                <Col xs={10} className="pe-0">
+                                <Col xs={9} className="pe-0">
                                     <Field
                                         id="message"
                                         name="message"
@@ -229,7 +229,7 @@ const ChatForm = () => {
                                         className="p-2 w-100 h-100 border border-1 rounded-bottom-left"
                                     />
                                 </Col>
-                                <Col xs={2} className="ps-0">
+                                <Col xs={3} className="ps-0">
                                     <Button
                                         type="submit"
                                         className="w-100 rounded-0 rounded-end"
