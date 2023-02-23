@@ -11,6 +11,18 @@ const AdvertUpdateForm = () => {
     const params = useParams();
 
     const [generalData, setGeneralData] = useState({});
+    const [previousAdvertData, setPreviousAdvertData] = useState({});
+
+    const retrieveAdvertById = async () => {
+        await baseRequest
+            .get(`/adverts/${params.advertId}`)
+            .then((response) => {
+                return response.data;
+            })
+            .then((data) => {
+                setPreviousAdvertData(data);
+            });
+    };
 
     const retrieveGeneralData = async () => {
         await baseRequest
@@ -25,18 +37,19 @@ const AdvertUpdateForm = () => {
 
     useEffect(() => {
         retrieveGeneralData();
+        retrieveAdvertById();
     }, []);
 
     const [alertMessage, setAlertMessage] = useState("");
 
     const submitDataModification = async (values) => {
         const UpdateAdvertData = {
-            header: values.header,
-            info: values.info,
-            categoryId: values.category,
-            termsId: values.terms,
+            header: values.header ?? previousAdvertData.header,
+            info: values.info ?? previousAdvertData.info,
+            categoryId: values.category ?? previousAdvertData.category,
+            termsId: values.terms ?? previousAdvertData.terms,
             helpTypeId: values.helpType,
-            location: values.location
+            location: values.location ?? previousAdvertData.location
         };
 
         setAlertMessage("");
@@ -59,13 +72,7 @@ const AdvertUpdateForm = () => {
         <>
             <Formik
                 initialValues={{
-                    helpType: "",
-                    header: "",
-                    info: "",
-                    location: "",
-                    category: "",
-                    terms: "",
-                    advertId: ""
+                    helpType: ""
                 }}
                 onSubmit={async (values) => {
                     submitDataModification(values);
@@ -118,7 +125,7 @@ const AdvertUpdateForm = () => {
                                 <Field
                                     as="textarea"
                                     name="header"
-                                    placeholder="Short info about your advert"
+                                    placeholder={previousAdvertData.header}
                                     className="up form-control border-primary"
                                 />
                                 <div className="error-message">
@@ -133,7 +140,7 @@ const AdvertUpdateForm = () => {
                                 <Field
                                     as="textarea"
                                     name="info"
-                                    placeholder="Some detailed info about your advert"
+                                    placeholder={previousAdvertData.info}
                                     className="h-100 up form-control border-primary"
                                     rows="4"
                                 />
@@ -149,7 +156,7 @@ const AdvertUpdateForm = () => {
                                 <Field
                                     id="location"
                                     name="location"
-                                    placeholder="Your city"
+                                    placeholder={previousAdvertData.location}
                                     type="text"
                                     className="up form-control border-primary"
                                 />

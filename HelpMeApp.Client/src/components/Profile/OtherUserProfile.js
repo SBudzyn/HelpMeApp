@@ -4,7 +4,7 @@ import { Link, useParams } from "react-router-dom";
 import routingUrl from "../../constants/routingUrl";
 import "./UserProfile.css";
 import { baseRequestWithToken } from "../../services/axiosServices";
-import defaultAdvertImage from "../../media/defaultAdvertPhoto.jpg";
+import defaultAvatarProfileIcon from "../../media/defaultAvatarProfileIcon.jpg";
 
 const OtherUserProfile = () => {
     const params = useParams();
@@ -30,7 +30,7 @@ const OtherUserProfile = () => {
             <div className="row mt-3 col-sm-12 ">
                 <div className="col-lg-4">
                     <img
-                        src={userData.photo === "" ? (defaultAdvertImage) : (userData.photo)}
+                        src={userData.photo === "" ? (defaultAvatarProfileIcon) : (userData.photo)}
                         style={{ width: "18rem" }}
                         className="border border-dark"
                     ></img>

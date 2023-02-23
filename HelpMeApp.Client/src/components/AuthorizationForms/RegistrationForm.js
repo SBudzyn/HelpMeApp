@@ -12,7 +12,6 @@ import { convertToBase64 } from "../../services/convertors.js";
 
 const RegistrationForm = () => {
     const [alertMessage, setAlertMessage] = useState("");
-    const [successMessage, setSuccessMessage] = useState("");
     const [registrationData, setRegistrationData] = useState({
         email: "",
         password: ""
@@ -37,6 +36,7 @@ const RegistrationForm = () => {
             info: values.info,
             photo
         };
+
         await baseRequest
             .post(
                 "/authentication/register",
@@ -45,7 +45,7 @@ const RegistrationForm = () => {
             .then((response) => {
                 if (response.data.isSuccessful) {
                     handleClose();
-                    setSuccessMessage("Success! Now you can login");
+                    location.href = routingUrl.pathToLoginPage;
                 } else {
                     setAlertMessage("error");
                 }
@@ -132,9 +132,7 @@ const RegistrationForm = () => {
                             >
                                 Next
                             </button>
-                            <div className="success-message">
-                                {successMessage}
-                            </div>
+
                         </Form>
                     );
                 }}

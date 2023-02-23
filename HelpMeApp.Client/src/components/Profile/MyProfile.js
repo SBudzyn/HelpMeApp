@@ -7,7 +7,7 @@ import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import { baseRequestWithToken } from "../../services/axiosServices";
 import { logout } from "../../services/authorizationServices";
-import defaultAdvertImage from "../../media/defaultAdvertPhoto.jpg";
+import defaultAvatarProfileIcon from "../../media/defaultAvatarProfileIcon.jpg";
 
 const MyProfile = () => {
     const [show, setShow] = useState(false);
@@ -53,7 +53,7 @@ const MyProfile = () => {
             <div className="row mt-3">
                 <div className="col-lg-4">
                     <img
-                        src={ userData.photo === "" ? (defaultAdvertImage) : (userData.photo)}
+                        src={ userData.photo === "" ? (defaultAvatarProfileIcon) : (userData.photo)}
                         style={{ width: "18rem" }}
                         className="border border-dark"
                     ></img>
