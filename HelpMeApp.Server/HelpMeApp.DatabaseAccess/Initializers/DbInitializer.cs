@@ -57,6 +57,8 @@ namespace HelpMeApp.DatabaseAccess.Initializers
                 report.UserId = possibleUsers[Random.Shared.Next(0, possibleUsers.Count)].Id;
             }
             context.Reports.AddRange(DatabaseSeeder.Reports);
+
+            context.SaveChanges();
         }
     }
 }
