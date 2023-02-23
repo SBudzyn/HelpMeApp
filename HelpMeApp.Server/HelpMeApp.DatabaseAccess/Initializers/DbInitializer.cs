@@ -58,24 +58,6 @@ namespace HelpMeApp.DatabaseAccess.Initializers
             }
             context.Reports.AddRange(DatabaseSeeder.Reports);
 
-            foreach (var chat in DatabaseSeeder.Chats)
-            {
-                var advert = DatabaseSeeder.Adverts[Random.Shared.Next(0, DatabaseSeeder.Adverts.Count)];
-                chat.AdvertId = advert.Id;
-                var possibleUsers = DatabaseSeeder.AppUsers.Where(x => x.Id != advert.CreatorId).ToList();
-                chat.UserId = possibleUsers[Random.Shared.Next(0, possibleUsers.Count)].Id;
-            }
-            context.Chats.AddRange(DatabaseSeeder.Chats);
-
-            context.SaveChanges();
-
-            foreach (var message in DatabaseSeeder.Messages)
-            {
-                message.SenderRoleId = DatabaseSeeder.SenderRoles[Random.Shared.Next(0, DatabaseSeeder.SenderRoles.Count)].Id;
-                message.ChatId = DatabaseSeeder.Chats[Random.Shared.Next(0, DatabaseSeeder.Chats.Count)].Id;
-            }
-            context.Messages.AddRange(DatabaseSeeder.Messages);
-
             context.SaveChanges();
         }
     }
