@@ -4,10 +4,7 @@ using HelpMeApp.DatabaseAccess.Interfaces;
 using HelpMeApp.Services.Interfaces;
 using HelpMeApp.Services.Models.Enums;
 using HelpMeApp.Services.Models.Message;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace HelpMeApp.Services.Services
@@ -40,7 +37,7 @@ namespace HelpMeApp.Services.Services
             
             var chat = await _chatReadRepository.GetChatByIdAsync(messageData.ChatId);  
 
-            if (chat.Advert.CreatorId == messageData.SenderId)
+            if (chat.Advert?.CreatorId == messageData.SenderId)
             {
                 message.SenderRoleId = (int)SenderRoles.Creator;
             }
@@ -53,11 +50,11 @@ namespace HelpMeApp.Services.Services
 
             var messageToReturn = _mapper.Map<MessageData>(domainMessage);
 
-            if (domainMessage.SenderRoleId == (int)SenderRoles.Creator)
+            if (domainMessage?.SenderRoleId == (int)SenderRoles.Creator)
             {
                 messageToReturn.SenderId = domainMessage.Chat.Advert.CreatorId;
             }
-            else if (domainMessage.SenderRoleId == (int)SenderRoles.Responder)
+            else if (domainMessage?.SenderRoleId == (int)SenderRoles.Responder)
             {
                 messageToReturn.SenderId = domainMessage.Chat.UserId;
             }
