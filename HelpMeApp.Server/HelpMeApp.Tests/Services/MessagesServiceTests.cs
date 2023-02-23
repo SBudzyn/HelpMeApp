@@ -19,19 +19,19 @@ namespace HelpMeApp.Tests.Services
         private const string GetMessagesByChatMethodName = nameof(MessageService.GetMessagesByChat);
         private const string AddMessageAsyncMethodName = nameof(MessageService.AddMessageAsync);
 
-        private Mock<IChatReadRepository> _chatReadRepositoryMock;
-        private Mock<IMapper> _mapperMock;
         private Mock<IMessageWriteRepository> _messageWriteRepositoryMock;
         private Mock<IMessageReadRepository> _messageReadRepositoryMock;
+        private Mock<IChatReadRepository> _chatReadRepositoryMock;
+        private Mock<IMapper> _mapperMock;
         private MessageService _messageService;
 
         [SetUp]
         public void TestInitialize()
         {
-            _messageReadRepositoryMock = new Mock<IMessageReadRepository>();
-            _mapperMock = new Mock<IMapper>();
             _messageWriteRepositoryMock = new Mock<IMessageWriteRepository>();
+            _messageReadRepositoryMock = new Mock<IMessageReadRepository>();
             _chatReadRepositoryMock = new Mock<IChatReadRepository>();
+            _mapperMock = new Mock<IMapper>();
 
             _messageService = new MessageService
                 (
@@ -50,6 +50,7 @@ namespace HelpMeApp.Tests.Services
             int chatID = 20;
             int page = 1;
             int amount = 100;
+
             SetupGetMessagesByChatAsyncMock(chatID, page, amount);
             SetupMessageMappingProfileToMessageDataMock();
 
@@ -66,6 +67,7 @@ namespace HelpMeApp.Tests.Services
             int chatId = 20;
             MessageData message = new MessageData();
             message.ChatId = chatId;
+
             SetupMessageMappingProfileToMessageMock();
             SetupChatRepositoryGetChatByIdAsyncMock(chatId);
 
