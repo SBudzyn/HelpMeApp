@@ -2,18 +2,14 @@
 using HelpMeApp.DatabaseAccess.Interfaces;
 using HelpMeApp.Services.Services;
 using Moq;
-using System;
 using System.Threading.Tasks;
-using HelpMeApp.DatabaseAccess.Entities.ReportEntity;
-using HelpMeApp.Services.Models.Report;
 using Microsoft.VisualStudio.TestPlatform.ObjectModel;
 using NUnit.Framework;
 using System.Collections.Generic;
 using HelpMeApp.DatabaseAccess.Entities.MessageEntity;
 using HelpMeApp.DatabaseAccess.Entities.ChatEntity;
 using HelpMeApp.Services.Models.Message;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using HelpMeApp.Services.Models.Advert;
+
 
 namespace HelpMeApp.Tests.Services
 {
